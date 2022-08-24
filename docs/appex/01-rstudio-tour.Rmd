@@ -1,7 +1,7 @@
 ---
-title: "Application exercise 01"
+title: "RStudio and GitHub Tour"
 subtitle: "Tour of RStudio + RMarkdown + GitHub"
-date: "5.13.2021"
+date: "9/14/2022"
 output: 
   html_document: 
     theme: readable
@@ -9,7 +9,7 @@ output:
 
 ## Getting started
 
-- Go to the course GitHub organization: https://github.com/sta199-summer2021. 
+- Go to the course GitHub organization: https://github.com/math118-fall2022. 
 
 - If you see a pending invite at the top of the page, accept the invite to join the course invite. We'll come back to GitHub later.
 
@@ -28,7 +28,7 @@ Let's take a tour of R and RStudio. I'll do a short demo, then give you a few mi
 
 ### Your turn!
 
-- Go to https://vm-manage.oit.duke.edu/containers and log into the Docker container titled "RStudio - statistics application with Rmarkdown and knitr support". This is where you'll use RStudio during the semester. 
+- Go ahead and open up RStudio. 
 
 - Use R as a calculator by typing the following in the **console**. 
 
@@ -58,28 +58,72 @@ x*7
 
 ### Your turn!
 
-- Go to the [course organization](https://github.com/sta199-summer2021) on GitHub  and find the repo with the prefix **appex-01-**. 
+#### Clone a GitHub repo and make a new RStudio project 
 
-- Clone the repo and make a new project in RStudio. 
+- Create a new folder on your Desktop called "Math118"
+
+- Go to the [course organization](https://github.com/math118-fall2022) on GitHub  and find the repo with the prefix **appex-01-**. 
+
+- Clone the repo and make a new project in RStudio by going to `File` in the top left -> `New Project...` -> `Version Control` -> `Git`. Paste in the copied URL in the first blank space "Repsitory URL". Then, under "Create project as a subdirectory of...", hit "Browse" and find your newly created Math118 folder. Then hit "Create Project".
 
 - You should see the files for the Flint Water Crisis analysis in the **Files** pane. 
 
-- Configure git by running the following code in the **console**. Fill in your GitHub username and the email address associated with your GitHub account. 
 
+#### Configure Git
+
+- We will need to allow RStudio to communicate with Github. We will do this by utilizing the `usethis` package. **Packages** are units of reproducible `R` code, and often include reusable `R` functions. Think of packages like phone apps. We only download and open apps that we need. 
+
+  -The equivalent of downloading an app here is *installing* and package. You only need to do this once; installing the same package repeatedly can cause issues. In your **Console**, type:
+
+```{r eval = F}
+install.packages("usethis")
+```
+
+  - You will see some red text flying across the Console. If you eventually see some black text beginning with "The downloaded binary packages are in...", then you are good!
+
+
+- Next, we will "open the app", i.e. *load* the package. This is achieved using the `library()` function. In your Console, run the following code:
 
 ```{r eval  = F}
 library(usethis)
+```
+
+  - The Console might hang for a bit, but if you see a new line with a blue `>`, then the code has run successfully!
+
+- Configure git by running the following code in the Console. Fill in your GitHub username and the email address associated with your GitHub account. **Note**: you must keep the quotation marks!
+
+```{r eval  = F}
 use_git_config(user.name = "GitHub username", user.email="your email")
 ```
 
+
+#### Making a change locally, committing, and pushing
+
 - Open the RMarkdown file **ae01-flint.Rmd**. We will use that for the next part of class. 
 
-- Put your name for the author, then knit the document. 
+- The `R` package that we will rely on most heavily is the `tidyverse` package. Please install it now by typing the following in your Console:
 
-- Select **all** of the updated files in the Git pane, click to commit and write the commit message "Updated author name". 
-- Click to push your changes.
+```{r eval = F}
+install.packages("tidyverse")
+```
+
+- Put your name for the author, then knit the document. *It's important to knit the document, as this saves your progress!*
+
+- Select/check **all** of the updated files in the Git pane, click the "Commit" button, and write the commit message "Updated author name". 
+
+- Click to **push** your changes (you may have to enter your GitHub password).
 
 - If you refresh your repo on GitHub, you will see the updated files with your commit message. 
+
+#### Making a change on GitHub and pulling
+
+- On the corresponding repository in GitHub, find the README.md file at the bottom. Edit this file by clicking on the pencil and typing your name + major + year. 
+
+- Once you're finished editing, hit the green "Commit changes" button.
+
+- Back in RStudio, navigate to the Git tab and **pull** the changes by hitting the down arrow. A small window should pop up with some text.
+
+- Find and open the README.md file in the Files pane. You should see your changes here locally!
 
 ## Flint Water Crisis analysis
 

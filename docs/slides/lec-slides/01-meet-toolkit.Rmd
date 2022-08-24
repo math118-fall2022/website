@@ -1,11 +1,11 @@
 ---
 title: "Meet the Toolkit"
 author: "Becky Tang"
-date: "05.13.21"
+date: "9/14/2022"
 output:
   xaringan::moon_reader:
     mathjax: "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML"
-    css: "sta199-slides.css"
+    css: "math118-slides.css"
     logo: img/sta199-sticker-icon.png
     lib_dir: libs
     nature: 
@@ -275,11 +275,17 @@ Can you answer these questions?
 
 ## Before next class 
 
-- Accept the invite to join `sta199-summer2021` organization on GitHub TODAY!! 
+- Accept the invite to join `math118-fall2022` organization on GitHub TODAY!! 
 
-- If you have not already done so "Getting to know you" survey on Sakai - due Sun, 5/16
+- If you have not already done so "Getting to know you" survey on Canvas - due end of today today!
 
-- Start Reading 01 posted on the course schedule - due Mon, 5/17
+- Start Reading 01 posted on the course schedule - due Mon, 9/19 
+
+---
+
+class: center, middle
+
+## Application Exercise 01 
 
 
     
