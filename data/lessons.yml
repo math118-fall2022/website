@@ -56,7 +56,7 @@ lessons:
  - date: "Week 05"
  - date: "Monday, Oct. 10"
    title: "Data Science Ethics"
-   title: "Final project: introduction"
+ - title: "Final project: introduction"
    #slides:  "lec-slides/09-data-ethics.html"
    #appex: "appex09-dataethics.html"
  - date: "Wednesday, Oct. 12"
