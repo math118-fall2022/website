@@ -1,10 +1,11 @@
 ---
 title: "RStudio and GitHub Tour"
-subtitle: "Tour of RStudio + RMarkdown + GitHub"
+subtitle: Tour of RStudio + RMarkdown + GitHub
 date: "9/14/2022"
-output: 
-  html_document: 
+output:
+  html_document:
     theme: readable
+  pdf_document: default
 ---
 
 ## Getting started
@@ -125,11 +126,12 @@ install.packages("tidyverse")
 
 - Find and open the README.md file in the Files pane. You should see your changes here locally!
 
-## Flint Water Crisis analysis
-
-Follow along with the instructions in **ae01-flint.Rmd**. An html version of the file can be found [here](https://sta199-summer2021.github.io/website/appex/ae01-flint.html).
-
 
 ## Submitting application exercises 
 
-**Once you have completed the activity, push your final changes to your GitHub repo! Make sure your repo is updated on GitHub, and that's all you need to do to submit application exercises for participation.**
+For application exercises, you simply need to push your final changes to your GitHub repo! Make sure your repo is updated on GitHub. That's all you need to do to submit application exercises.
+
+
+## Flint Water Crisis analysis
+
+Follow along with the instructions in **ae01-flint.Rmd**.

@@ -17,6 +17,19 @@ output:
 
 The data set consists homes sampled with three water lead contaminant values at designated time points. The lead content is in parts per billion (ppb). Additionally, some location data is given about each home.
 
+We will rely heavily on the `tidyverse` package. You can check if you have it installed by running the following in your console:
+
+```{r eval = F}
+library(tidyverse)
+```
+
+If RStudio tells you the package cannot be found, then install it by running the following in your console:
+
+```{r eval = F}
+install.packages("tidyverse")
+```
+
+
 To get started, read in the `flint.csv` file using the function `read_csv`.
 
 ```{r load-packages, warning = FALSE, message=FALSE}
