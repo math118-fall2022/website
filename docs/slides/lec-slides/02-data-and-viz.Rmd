@@ -4,7 +4,7 @@ author: "Becky Tang"
 output:
   xaringan::moon_reader:
     mathjax: "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML"
-    css: "sta199-slides.css"
+    css: "math118-slides.css"
     logo: img/sta199-sticker-icon.png
     lib_dir: libs/font-awesome
     nature:
@@ -39,7 +39,8 @@ options(
   warm = 1
   )
 # Set dpi and height for images
-knitr::opts_chunk$set(fig.height = 2.5, fig.width = 5, dpi = 300) 
+knitr::opts_chunk$set(fig.height = 2.5, fig.width = 5, dpi = 300,
+                      fig.align = "center") 
 # ggplot2 color palette with gray
 color_palette <- list(gray = "#999999", 
                       salmon = "#E69F00", 
@@ -136,14 +137,23 @@ knitr::include_graphics("img/02/grammar-of-graphics.png")
 countries_footprint <- read_csv("data/countries_footprint.csv", col_types = cols()) %>%
   mutate(DataQuality = case_when(DataQuality == "6" ~ "High",
                                  DataQuality %in% c("4", "5") ~ "Medium",
-                                 T ~ "Low"))
+                                 T ~ "Low"),
+         GDP = GDP/10000) %>%
+  mutate(Region = case_when(Region == "Asian-Pacific" ~ "Asia",
+                            Region == "Middle East/Central Asia" ~ "Middle East",
+                            Region == "Northern/Eastern Europe" ~ "East Europe",
+                            Region == "European Union" ~ "EU",
+                            T ~ Region)) %>%
+  filter(Region != "North America")
+
 ```
 
 ```{r fig.width = 7, fig.height=2, fig.align='center'}
-ggplot(data = countries_footprint, mapping = aes(x = GDP, y = Total)) +
+ggplot(data = countries_footprint, 
+       mapping = aes(x = GDP, y = Total)) +
   geom_point() + #<<
   labs(title = "GDP vs. Total Ecological Footprint of countries (2016)",
-       x = "GDP ($)", y = "Total footprint (hectare)")
+       x = "GDP ($10k)", y = "Total footprint (hectare)")
 ```
 
 ---
@@ -151,10 +161,11 @@ ggplot(data = countries_footprint, mapping = aes(x = GDP, y = Total)) +
 ## What is the dataset being plotted?
 
 ```{r fig.width = 7, fig.height=2, fig.align='center'}
-ggplot(data = countries_footprint, mapping = aes(x = GDP, y = Total)) + #<<
+ggplot(data = countries_footprint, #<<
+       mapping = aes(x = GDP, y = Total)) + 
   geom_point() + 
   labs(title = "GDP vs. Total Ecological Footprint of countries (2016)",
-       x = "GDP ($)", y = "Total footprint (hectare)")
+       x = "GDP ($10k)", y = "Total footprint (hectare)")
 ```
 
 ---
@@ -163,10 +174,11 @@ ggplot(data = countries_footprint, mapping = aes(x = GDP, y = Total)) + #<<
 
 
 ```{r fig.width = 7, fig.height=2, fig.align='center'}
-ggplot(data = countries_footprint, mapping = aes(x = GDP, y = Total)) + #<<
+ggplot(data = countries_footprint, 
+       mapping = aes(x = GDP, y = Total)) + #<<
   geom_point() + #<<
   labs(title = "GDP vs. Total Ecological Footprint of countries (2016)",
-       x = "GDP ($)", y = "Total footprint (hectare)")
+       x = "GDP ($10k)", y = "Total footprint (hectare)")
 ```
 
 ---
@@ -175,10 +187,11 @@ ggplot(data = countries_footprint, mapping = aes(x = GDP, y = Total)) + #<<
 
 
 ```{r fig.width = 7, fig.height=2, fig.align='center'}
-ggplot(data = countries_footprint, mapping = aes(x = GDP, y = Total)) +
-  geom_point() + #<<
+ggplot(data = countries_footprint, 
+       mapping = aes(x = GDP, y = Total)) +
+  geom_point() +
   labs(title = "GDP vs. Total Ecological Footprint of countries (2016)",
-       x = "GDP ($)", y = "Total footprint (hectare)")
+       x = "GDP ($10k)", y = "Total footprint (hectare)")
 ```
 
 ---
@@ -186,11 +199,12 @@ ggplot(data = countries_footprint, mapping = aes(x = GDP, y = Total)) +
 ## What does `geom_smooth()` do?
 
 ```{r fig.width = 7, fig.height=2, fig.align='center', warning = FALSE, message = FALSE}
-ggplot(data = countries_footprint, mapping = aes(x = GDP, y =Total)) + #<<
+ggplot(data = countries_footprint,
+       mapping = aes(x = GDP, y =Total)) +
   geom_point() +
   geom_smooth() + #<<
   labs(title = "GDP vs. Total Ecological Footprint of countries (2016)",
-       x = "GDP ($)", y = "Total footprint (hectare)")
+       x = "GDP ($10k)", y = "Total footprint (hectare)")
 ```
 
 ---
@@ -247,6 +261,10 @@ countries_footprint
 ]
 
 Each row is an .vocab[observation]. Each column is a .vocab[variable]
+
+
+Data obtained from [https://www.kaggle.com/footprintnetwork/ecological-footprint](https://www.kaggle.com/footprintnetwork/ecological-footprint)
+
 ---
 
 ## What's in the Ecological Footprint data?
@@ -266,7 +284,7 @@ Run the following **<u>in the Console</u>** to view the help file for the starwa
 ?starwars
 ```
 
-```{r echo=FALSE, out.width = "60%"}
+```{r echo=FALSE, fig.align = "left", out.width = "60%"}
 knitr::include_graphics("img/02/starwars-help.png")
 ```
 
@@ -308,7 +326,7 @@ How would you describe this **relationship**?
 ggplot(data = countries_footprint, mapping = aes(x = GDP, y = Total)) +
   geom_point() + 
   labs(title = "GDP vs. Total Ecological Footprint of countries (2016)",
-       x = "GDP ($)", y = "Total footprint (hectare)") 
+       x = "GDP ($10k)", y = "Total footprint (hectare)") 
 ```
 
 ---
@@ -319,11 +337,11 @@ ggplot(data = countries_footprint, mapping = aes(x = GDP, y = Total)) +
 How about here? Which country has low GDP but a large forest footprint, and vice versa?
 ]
 
-```{r fig.width = 7, fig.height=2.5, fig.align='center', warning=FALSE, echo = F}
+```{r fig.width = 8, fig.height=3, fig.align='center', warning=FALSE, echo = F}
 ggplot(data = countries_footprint, mapping = aes(x = GDP, y = Forest)) +
   geom_point() + 
   labs(title = "GDP vs. Forest Footprint of countries (2016)",
-       x = "GDP ($)", y = "Forest footprint (hectare)")
+       x = "GDP ($10k)", y = "Forest footprint (hectare)")
 ```
 
 ---
@@ -331,13 +349,13 @@ ggplot(data = countries_footprint, mapping = aes(x = GDP, y = Forest)) +
 
 ## Which countries?
 
-```{r echo=FALSE, out.width="50%", fig.align='center',  warning=FALSE, message=FALSE}
+```{r echo=FALSE, out.width="70%",warning=FALSE, message=FALSE}
 # jabba <- image_read("img/02/forest.png")
 # fig <- image_graph(width = 2400, height = 1200, res = 300)
 # ggplot(data = countries_footprint, mapping = aes(x = GDP, y = Forest)) +
 #   geom_point() + 
 #   labs(title = "GDP vs. Forest Footprint of countries (2016)",
-#        x = "GDP ($)", y = "Forest footprint (hectare)")
+#        x = "GDP ($10k)", y = "Forest footprint (hectare)")
 # invisible(dev.off())
 # out <- fig %>% image_composite(jabba, offset = "+1000+30")
 # image_write(out, "img/02/jabbaplot.png", format = "png")
@@ -465,7 +483,7 @@ ggplot(data = countries_footprint,mapping = aes(x = GDP, y = Total)) +
   geom_point()+
   labs(title = "GDP vs. Total Footprint of countries (2016)",
        subtitle = "Faceted by region", #<<
-       x = "GDP ($)", y =  "Total footprint (hectare)")+
+       x = "GDP ($10k)", y =  "Total footprint (hectare)")+
   facet_grid(. ~ Region)  #<<
 ```
 
@@ -477,7 +495,7 @@ ggplot(data = countries_footprint,mapping = aes(x = GDP, y = Total)) +
   geom_point()+
   labs(title = "GDP vs. Total Footprint of countries (2016)",
        subtitle = "Faceted by region", #<<
-       x = "GDP ($)", y =  "Total footprint (hectare)")+
+       x = "GDP ($10k)", y =  "Total footprint (hectare)")+
   facet_grid(. ~ Region)  #<<
 ```
 
@@ -500,15 +518,15 @@ should always label your plots!
 ---
 
 ```{r fig.height=2,fig.align='center', warning=FALSE}
-ggplot(data = countries_footprint,mapping = aes(x = GDP, y = Total)) + 
+ggplot(data = countries_footprint, mapping = aes(x = GDP, y = Total)) + 
   geom_point()+
   facet_grid(DataQuality ~ Region)  #<<
 ```
 
 ---
 
-```{r fig.height=2,fig.align='center', warning=FALSE}
-ggplot(data = countries_footprint,mapping = aes(x = GDP, y = Total)) + 
+```{r fig.height=2.5,fig.align='center', warning=FALSE}
+ggplot(data = countries_footprint, mapping = aes(x = GDP, y = Total)) + 
   geom_point()+
   facet_grid(Region ~ .)  #<<
 ```
@@ -517,9 +535,9 @@ ggplot(data = countries_footprint,mapping = aes(x = GDP, y = Total)) +
 
 
 ```{r fig.height=2,fig.align='center', warning=FALSE}
-ggplot(data = countries_footprint,mapping = aes(x = GDP, y = Total)) + 
+ggplot(data = countries_footprint, mapping = aes(x = GDP, y = Total)) + 
   geom_point()+
-  facet_wrap(Region ~.)  #<<
+  facet_wrap(Region ~ .)  #<<
 ```
 
 ---
@@ -552,10 +570,10 @@ You can omit the names of first two arguments when building plots with `ggplot()
 ```{r fig.height=2,fig.align='center', warning=FALSE}
 ggplot(countries_footprint, aes(x = GDP, y = Total)) + #<<
   geom_point()+
-  facet_wrap(Region ~ . , scales = "free_x")  
+  facet_grid(. ~ Region)  
 ```
 
-----
+---
 
 ## Facet and color 
 
@@ -565,7 +583,7 @@ ggplot(countries_footprint, aes(x = GDP, y = Total, col = Region)) +
   facet_grid(Region ~ DataQuality , scales = "free_x") 
 ```
 
-----
+---
 
 ## Facet and color, but no legend
 
@@ -576,7 +594,8 @@ ggplot(countries_footprint, aes(x = GDP, y = Total, col = Region)) +
   guides(color = FALSE) #<<
 ```
 
-----
+---
+
 ## `ggplot2` supplementary resources
 
 1. [ggplot2.tidyverse.org](https://ggplot2.tidyverse.org/)
@@ -585,8 +604,4 @@ ggplot(countries_footprint, aes(x = GDP, y = Total, col = Region)) +
 4. [Top 50 `ggplot2` visualizations](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html)
 5. [How the BBC uses `ggplot2`](https://medium.com/bbc-visual-and-data-journalism/how-the-bbc-visual-and-data-journalism-team-works-with-graphics-in-r-ed0b35693535)
 6. [ggplot2: Elegant Graphics for Data Analysis](https://ggplot2-book.org/)
-## Dive further...
 
--- 
-
-Data obtained from [https://www.kaggle.com/footprintnetwork/ecological-footprint](https://www.kaggle.com/footprintnetwork/ecological-footprint)

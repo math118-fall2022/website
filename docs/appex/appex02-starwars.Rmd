@@ -46,11 +46,11 @@ knitr::include_graphics("img/female-heights.png")
 
 - Click on the green **Code** button, **Use HTTPS**, and click on the clipboard icon to copy the repo URL.
 
-- Go to https://vm-manage.oit.duke.edu/containers and login with your Duke NetID and Password. Click to log into the Docker container **RStudio -  statistics application with Rmarkdown and knitr support**. You should now see the RStudio environment. 
+- Open up RStudio
 
 - Go to *File* $\rightarrow$ *New Project* $\rightarrow$ *Version Control* $\rightarrow$ *Git*. 
 
-- Copy and paste the URL of your assignment repo into the dialog box *Repository URL*. You can leave *Project Directory Name* empty. It will default to the name of the GitHub repo.
+- Copy and paste the URL of your assignment repo into the dialog box *Repository URL*. You can leave *Project Directory Name* empty. It will default to the name of the GitHub repo. In *Create project as a subdirectory of*, hit "Browse" and find your Math118 folder.
 
 - Click *Create Project*, and the files from your GitHub repo will be displayed the *Files* pane in RStudio. 
 
@@ -58,7 +58,7 @@ knitr::include_graphics("img/female-heights.png")
 
 Before we start the exercise, we need to configure your git so that RStudio can communicate with GitHub. This requires two pieces of information: your email address and your name.
 
-Type the following lines of code in the **Console** in RStudio filling in your GitHub username and email address associated with your GitHub account.
+Type the following lines of code in the **Console** in RStudio filling in your GitHub username and email address associated with your GitHub account. Remember to keep the quotation marks!
 
 ```{r eval=FALSE}
 library(usethis)
