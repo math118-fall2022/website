@@ -12,7 +12,23 @@ knitr::opts_chunk$set(echo = F, fig.align = "center")
 
 ## Introduction
 
-This document provides information about how to knit an Rmarkdown (.Rmd) file to PDF and subsequently upload it to Canvas.
+This document provides information about Rstudio, how to knit an Rmarkdown (.Rmd) file to PDF and subsequently upload it to Canvas.
+
+### RStudio & R Markdown
+
+Below are the general components of an RStudio project. 
+
+```{r echo=FALSE, fig.fullwidth = TRUE, out.width = "90%"}
+knitr::include_graphics("img/01-hello-r/rstudio-anatomy.png")
+```
+
+Below are the general components of an RMarkdown file. 
+
+```{r echo=FALSE, fig.fullwidth = TRUE, out.width = "90%"}
+knitr::include_graphics("img/01-hello-r/rmarkdown.jpg")
+```
+
+To get more details about the RStudio project, RMarkdown file, and just R in general, read [Getting Started](https://socviz.co/gettingstarted.html#gettingstarted) in *Data Visualization* by Kieran Healy.
 
 ### Knitting to PDF
 

@@ -13,6 +13,7 @@ lessons:
    title: "Collecting, wrangling, & visualizing data"
  - date: "Friday, Sep. 17"
    title: "Data and visualization"
+   hw: "hw-01-hello-r.html"
    #slides: "lec-slides/02-data-and-viz.html"
    #appex: "appex02-starwars.html"
  - date: "Week 02"

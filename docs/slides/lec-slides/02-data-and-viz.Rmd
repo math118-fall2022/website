@@ -61,6 +61,13 @@ ggplot2::theme_set(ggplot2::theme_bw())
 
 
 
+
+# Announcements
+
+- Homework 1 released today, due Tuesdaym 9/20 11:59pm
+
+---
+
 class: center, middle
 
 # Exploratory data analysis
