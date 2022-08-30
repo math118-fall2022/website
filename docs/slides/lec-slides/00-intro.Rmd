@@ -444,7 +444,7 @@ At this point, R should be successfully installed.
 
 ---
 
-## Installing RStudio Desktop
+## Installing RStudio Desktop (cont.)
 
 - After RStudio finishes downloading, a window like this might pop up:
 
