@@ -273,6 +273,72 @@ Can you answer these questions?
 
 ---
 
+## Installing R
+
+Please be patient! This process may be time-consuming and stressful, but it is necessary for the rest of the course!
+
+1. Go to the [CRAN website](http://lib.stat.cmu.edu/R/CRAN/) and click on the appropriate link under "Download and Install R"
+
+  1.1 If you are Windows, click "Install R for the first time", then "Download R-4.2.1 for Windows"
+  
+  1.1 If you use a Mac, check your Mac OS system (Apple icon -> About this Mac -> Overview -> Version xxx). Then on the website, click the newest release that supports your current OS version. 
+  
+  For example, if I have Version 10.14.6, I will choose the "R-3.6.3.nnpkg" because is it "for OS X 10.11 (El Capitan) and higher, whereas the next version is for macOS 11.
+  
+---
+
+## Installing R (cont.)
+
+<ol start = 2>
+<li> A file will download (most likely to your *Downloads* folder). Run the file by clicking on it. Allow the app to make changes to your device if prompted.
+
+<li> Follow the installation instructions, until you click on "Finish" to exit the installation setup. 
+
+```{r echo = F, out.width="50%", fig.align="center"}
+knitr::include_graphics("img/00/R_wizard.png")
+```
+
+At this point, R should be successfully installed.
+
+---
+
+## Installing RStudio Desktop
+
+1. Go to the [RStudio](https://www.rstudio.com/) website
+
+2. Click on "Download" in the top-right corner
+
+3. Click on "Download" under the RStudio Desktop Open Source License (Free)
+
+4. Download RStudio Desktop recommended for your computer
+
+  4.1 For Mac users: If you have macOS 10.15+, you can click the corresponding download button on this page. Otherwise, if you have at least macOS 10.12, click on "older version of Rstudio", find "2022.02.3" and click "Installers". Click on the link next to "MacOS" 
+  
+5. Run the downloaded RStudio Executable file until you hit the "Finish" button. It may be the case that you don't have to click anything at all.
+
+---
+
+## Installing RStudio Desktop (cont.)
+
+- After RStudio finishes downloading, a window like this might pop up:
+
+```{r echo = F, out.width="50%", fig.align="center"}
+knitr::include_graphics("img/00/RStudio_download.png")
+```
+
+If so, go ahead and drag the RStudio icon into the Applications folder.
+  
+  
+---
+
+## Opening RStudio
+
+- For ease of access, put the RStudio shortcut onto your dock or homescreen (*Applications* folder -> Drag the icon for **RStudio** to your dock or homescreen)
+
+- To use, simply click on the RStudio icon (you do not need to click on the **R** icon)
+
+---
+
 ## Before next class 
 
 - Accept the invite to join `math118-fall2022` organization on GitHub TODAY!! 

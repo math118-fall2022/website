@@ -83,7 +83,7 @@ class: regular
 [Becky Tang](https://beckytang.rbind.io/)
 
 <i class="material-icons">mail_outline</i> &nbsp;[btang@middlebury.edu](mailto:btang@midlebury.edu)<br>
-<i class="material-icons">calendar_today</i>&nbsp; T 3-5pm, F 10:30am-12:00pm (and by appointment)
+<i class="material-icons">calendar_today</i>&nbsp; M 3-5pm, F 10:30am-12:00pm (and by appointment)
 
 --
 
@@ -279,23 +279,31 @@ None are required, but here are some supplemental resources:
 
 ## Activities & Assessments
 
-- <font class="vocab">Homework</font>: Weekly individual homework assignments combining conceptual and computational skills. *Lowest score will be dropped.*
+- <font class="vocab">Homework</font>: Weekly individual homework assignments combining conceptual and computational skills. Usually assigned Wednesdays after class, and due the following Tuesday on Canvas at 11:59pm. *Lowest score will be dropped.*
 
 --
 
-- <font class="vocab">Application Exercises</font>: Exercises usually started in class and when assigned, due by the next class. Graded based on a good-faith effort has been made in attempting all parts. Successful on-time completion of at least 90% will result in full points for that AE; anything lower than that will be assigned points accordingly. *Lowest two scores will be dropped.*
+- <font class="vocab">Application Exercises</font>: Exercises usually started in class and when assigned, due at 11:59pm before the next class. Graded based on a good-faith effort has been made in attempting all parts. Successful on-time completion of at least 90% will result in full points for that AE; anything lower than that will be assigned points accordingly. *Lowest two scores will be dropped.*
 
 --
 
-- <font class="vocab">Data Visualization Examples</font>: Share a visualization that you find interesting. Around two presentations per week.
+- <font class="vocab">Data Visualization Examples</font>: Sign up to briefly present (~2 min) a visualization that you find interesting and meaningful. Around two presentations per week. This will include a small written component as well.
 
---
 
-- <font class="vocab">Exams</font>: One take-home midterm exam, scheduled for **Wednesday, Oct. 12, 2022**.
+---
+
+## Activities & Assessments (cont.)
+
+
+- <font class="vocab">Exams</font>: One take-home midterm exam, scheduled for **Monday, Oct. 17, 2022**.
 
 --
 
 - <font class="vocab">Final Project</font>: Projects presented during the last two days of the semester on **Friday Dec. 9, 2022 and Monday, Dec. 12, 2022**. You must complete the project and present in class to pass the course.
+
+--
+
+- <font class="vocab">Participation</font>: I expect you to attend every class! Additionally, there will be various small assignments to help deepen your learning experience (e.g. reflection exercises, peer feedback)
 
 ---
 
@@ -308,12 +316,12 @@ None are required, but here are some supplemental resources:
 | Homework | 30%|
 | Application Exercises | 15% |
 | Midterm Exam | 20% |
-| Final Project | 30% |
+| Final Project | 25% |
+| Sharing visualization | 5% |
 | Participation | 5% |
 
 --
 
-- If you have a cumulative numerical average of 90 - 100, you are guaranteed at least an A-, 80 - 89 at least a B-, and 70 - 79 at least a C-. The exact ranges for letter grades will be determined after Exam 2.
 
 - You are expected to attend all lectures. Excessive absences can impact your final course grade.
 
@@ -340,7 +348,7 @@ None are required, but here are some supplemental resources:
     - After the assigned deadline, there is a 10% penalty for each day the assignment is late
     - Please communicate with me early if you will need a homework extension!
     
-- Late work will not be accepted for the take-home exams or final project. 
+- Late work will only be accepted for homework assignments. 
 
 - Regrade requests must be submitted within one week of when the assignment is returned 
 
@@ -372,6 +380,14 @@ Any violations will automatically result in a grade of 0 on the assignment and w
 
 - **Office Hours**: A lot of questions are most effectively answered in-person, so office hours are a valuable resource. Please use them! If my scheduled office hours do not work for you, feel free to send me an e-mail!
 
+--
+
+ **Around you**: I encourage you to work with each other on homework! However, unless the assignment is explicitly stated to be a group assignment, your submitted work must be your own.
+
+--
+
+- **Campuswire**: An online forum for asking and answering questions. Great place to post general/clarifying questions about lecture material or assignments.
+
 ---
 
 
@@ -382,6 +398,10 @@ In this course, we will strive to create a learning environment that is welcomin
 
 Additionally, if you are experiencing something outside of class that is affecting your performance in the course, please feel free to talk with me and/or your academic dean. 
 
+--
+
+We will finish class today with a discussion about what we want our classroom community to look like.
+
 ---
 
 class: center, middle
@@ -390,76 +410,14 @@ class: center, middle
 
 ---
 
-## Announcements
+## To-do
 
 - Fill out the **Getting To Know You Survey on Canvas** - due Wednesday, 9/14 at 11:59pm
+
+- Enter your Github username in the [Googleform](https://forms.gle/CzeyScmzudMTbMTQ6) 
 
 - Please make sure you have access to the course Canvas
 
 - Please create a folder on your Desktop called "Math118"
----
 
-## Installing R
-
-Please be patient! This process may be time-consuming and stressful, but it is necessary for the rest of the course!
-
-1. Go to the [CRAN website](http://lib.stat.cmu.edu/R/CRAN/) and click on the appropriate link under "Download and Install R"
-
-  1.1 If you are Windows, click "Install R for the first time", then "Download R-4.2.1 for Windows"
-  
-  1.1 If you use a Mac, check your Mac OS system (Apple icon -> About this Mac -> Overview -> Version xxx). Then on the website, click the newest release that supports your current OS version. 
-  
-  For example, if I have Version 10.14.6, I will choose the "R-3.6.3.nnpkg" because is it "for OS X 10.11 (El Capitan) and higher, whereas the next version is for macOS 11.
-  
----
-
-## Installing R (cont.)
-
-<ol start = 2>
-<li> A file will download (most likely to your *Downloads* folder). Run the file by clicking on it. Allow the app to make changes to your device if prompted.
-
-<li> Follow the installation instructions, until you click on "Finish" to exit the installation setup. 
-
-```{r echo = F, out.width="50%", fig.align="center"}
-knitr::include_graphics("img/00/R_wizard.png")
-```
-
-At this point, R should be successfully installed.
-
----
-
-## Installing RStudio Desktop
-
-1. Go to the [RStudio](https://www.rstudio.com/) website
-
-2. Click on "Download" in the top-right corner
-
-3. Click on "Download" under the RStudio Desktop Open Source License (Free)
-
-4. Download RStudio Desktop recommended for your computer
-
-  4.1 For Mac users: If you have macOS 10.15+, you can click the corresponding download button on this page. Otherwise, if you have at least macOS 10.12, click on "older version of Rstudio", find "2022.02.3" and click "Installers". Click on the link next to "MacOS" 
-  
-5. Run the downloaded RStudio Executable file until you hit the "Finish" button. It may be the case that you don't have to click anything at all.
-
----
-
-## Installing RStudio Desktop (cont.)
-
-- After RStudio finishes downloading, a window like this might pop up:
-
-```{r echo = F, out.width="50%", fig.align="center"}
-knitr::include_graphics("img/00/RStudio_download.png")
-```
-
-If so, go ahead and drag the RStudio icon into the Applications folder.
-  
-  
----
-
-## Opening RStudio
-
-- For ease of access, put the RStudio shortcut onto your dock or homescreen (*Applications* folder -> Drag the icon for **RStudio** to your dock or homescreen)
-
-- To use, simply click on the RStudio icon (you do not need to click on the **R** icon)
 
