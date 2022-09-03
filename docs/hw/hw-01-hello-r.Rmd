@@ -1,6 +1,6 @@
 ---
 title: "HW 01 - Hello R!"
-subtitle: "due 9/20 at 11:59p "
+subtitle: "due Tuesday, 9/20 at 11:59pm"
 output: 
   tufte::tufte_html:
     css: "./math118-hw.css"

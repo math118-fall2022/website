@@ -162,6 +162,15 @@ knitr::include_graphics("img/00/pay_gap.png")
 
 ---
 
+# Serena Williams
+
+```{r, echo=FALSE,out.width = '95%'} 
+knitr::include_graphics("img/00/serena.png")
+```
+
+[Source: NYT](https://www.nytimes.com/interactive/2022/08/28/sports/tennis/serena-age-opponents.html)
+---
+
 ## Abortion maps
 
 ```{r, echo=FALSE,out.width = '80%'} 
