@@ -1,0 +1,153 @@
+---
+title: "AE 05b: Tables + reshaping"
+author: "Your Name"
+date: "9/28/2022"
+output: 
+  html_document:
+    theme: readable
+---
+
+## Clone a repo + start a new project
+
+Go to the `ae-06-[GITHUB USERNAME]` repo, clone it, and start a new project in RStudio. 
+
+## Configure git
+
+Run the following code to configure Git. Fill in your GitHub username and the email address associated with your GitHub account. 
+
+```{r eval=FALSE}
+library(usethis)
+use_git_config(user.name= "your github username", user.email="your email")
+```
+
+
+**Note:** In each of these exercises you will need to set `eval=TRUE` in the code chunk header when you're
+ready to knit and run the code for that exercise.
+
+
+## Practice with pivoting
+
+We will work the dataset `relig_income`, which contains data from a survey by Pew. This dataset contains three variables:
+
+  - `religion`, stored in the rows,
+  - the annual income bracket spread across the column names, and
+  - the count (number of surveyees) if the religion-income pair, stored in the cell values.
+
+After loading the data, go ahead and `View()` it to get a feel for the data.
+
+```{r setup, eval = T, message = F, warning = F}
+library(tidyverse)
+library(gt) # note: you probably have to install this package
+data("relig_income")
+```
+
+
+### Exercise 1.
+
+Suppose our observation unit of interest is `religion`. Explain why this data frame is in the wide format.
+
+### Exercise 2
+
+Pivot the data into the long form shown here:
+
+```{r echo = F}
+relig_income %>%
+  pivot_longer(cols = -1, names_to = "income", values_to = "count")
+```
+
+```{r pivot_longer, eval=FALSE}
+relig_income %>%
+  pivot_longer(cols = ____, # hint: it might be useful to specify which column you don't want!
+               names_to = ____,
+               values_to = ____)
+```
+
+## Practice with tables
+
+### Exercise 3
+
+We will now work with the `pizzaplace` dataframe provided by the package `gt`. 
+I have created a new dataframe called `pizza_sum` which holds some summary information and excludes the pizza of `type` "chicken" because I don't know if I like that kind of pizza.
+
+```{r eval = T}
+# no need to modify anything here!
+data("pizzaplace")
+pizza_sum <- pizzaplace %>%
+  filter(type != "chicken") %>%
+  dplyr::group_by(type, size) %>%
+  dplyr::summarize(
+    sold = n(),
+    income = sum(price),
+    .groups = "drop_last"
+  )
+```
+
+Using the functionality from the `gt` package, create a table like the following where the pizza `type`s are separated, and each row within the `type` is labeled/indexed with the `size`.
+
+```{r echo = F}
+pizza_sum %>%
+  gt(groupname_col =  "type", 
+     rowname_col = "size") 
+```
+
+
+
+```{r pizza, eval =  F}
+pizza_sum %>%
+  gt(groupname_col =  _____, 
+     rowname_col = _____) 
+```
+
+
+### Exercise 4
+
+Working from the table you created in Exercise 3, use the `fmt_currency()` function to add a dollar sign to the values in `income`. This can be done by specifying the currency to be "USD". Your table should look like this:
+
+```{r echo = F}
+pizza_sum %>%
+  gt(groupname_col =  "type", 
+     rowname_col = "size") %>%
+  fmt_currency(columns = income,
+               currency = "USD")
+```
+
+```{r currency, eval=FALSE}
+# copy and paste your code from Exercise 3, and continue from there %>%
+  fmt_currency(columns = ____,
+               currency = ____)
+
+```
+
+### Exercise 5 (optional stretch goal)
+
+Take your table from Exercise 4, create a summary row within each `type` of pizza which holds the TOTAL `income` across all sizes.
+
+```{r echo = F}
+pizza_sum %>%
+  gt(groupname_col =  "type", 
+     rowname_col = "size") %>%
+  fmt_currency(columns = income,
+               currency = "USD") %>%
+  summary_rows(
+    groups = TRUE,
+    columns = income, #Replace with name of variable we want to sum over, no quotation marks
+    fns = list(TOTAL = "sum"),  #Replace with name of new stub we are creating, no quotation marks
+    formatter = fmt_currency,
+    currency = "USD"
+  ) 
+```
+
+```{r total_row, eval = F}
+# copy and paste your code from exercise 4 %>%
+  summary_rows(
+    groups = TRUE,
+    columns = ____, #Replace with name of variable we want to sum over, no quotation marks
+    fns = list(____ = "sum"),  #Replace with name of new stub we are creating, no quotation marks
+    formatter = fmt_currency,
+    currency = "USD"
+  ) 
+```
+
+## Submitting application exercises 
+
+**Once you have completed the activity, push your final changes to your GitHub repo! Make sure your repo is updated on GitHub, and that's all you need to do to submit application exercises for participation.**
