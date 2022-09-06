@@ -4,18 +4,27 @@
     <title>Data and Vizualization</title>
     <meta charset="utf-8" />
     <meta name="author" content="Becky Tang" />
+    <script src="libs/font-awesome/header-attrs/header-attrs.js"></script>
     <link href="libs/font-awesome/font-awesome/css/all.css" rel="stylesheet" />
     <link href="libs/font-awesome/font-awesome/css/v4-shims.css" rel="stylesheet" />
-    <link rel="stylesheet" href="sta199-slides.css" type="text/css" />
+    <link rel="stylesheet" href="math118-slides.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # Data and Vizualization
+]
+.subtitle[
 ## Visualizing different types of data
+]
+.author[
 ### Becky Tang
+]
+.date[
 ### 05.19.2021
+]
 
 ---
 
@@ -100,20 +109,20 @@ diamonds
 ```
 
 ```
-## # A tibble: 53,940 x 11
-##    carat cut   color clarity depth table price     x     y     z price_per_carat
-##    &lt;dbl&gt; &lt;ord&gt; &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;           &lt;dbl&gt;
-##  1  0.23 Ideal E     SI2      61.5    55   326  3.95  3.98  2.43           1417.
-##  2  0.21 Prem… E     SI1      59.8    61   326  3.89  3.84  2.31           1552.
-##  3  0.23 Good  E     VS1      56.9    65   327  4.05  4.07  2.31           1422.
-##  4  0.29 Prem… I     VS2      62.4    58   334  4.2   4.23  2.63           1152.
-##  5  0.31 Good  J     SI2      63.3    58   335  4.34  4.35  2.75           1081.
-##  6  0.24 Very… J     VVS2     62.8    57   336  3.94  3.96  2.48           1400 
-##  7  0.24 Very… I     VVS1     62.3    57   336  3.95  3.98  2.47           1400 
-##  8  0.26 Very… H     SI1      61.9    55   337  4.07  4.11  2.53           1296.
-##  9  0.22 Fair  E     VS2      65.1    61   337  3.87  3.78  2.49           1532.
-## 10  0.23 Very… H     VS1      59.4    61   338  4     4.05  2.39           1470.
-## # … with 53,930 more rows
+## # A tibble: 53,940 × 11
+##    carat cut       color clarity depth table price     x     y     z price_per…¹
+##    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;
+##  1  0.23 Ideal     E     SI2      61.5    55   326  3.95  3.98  2.43       1417.
+##  2  0.21 Premium   E     SI1      59.8    61   326  3.89  3.84  2.31       1552.
+##  3  0.23 Good      E     VS1      56.9    65   327  4.05  4.07  2.31       1422.
+##  4  0.29 Premium   I     VS2      62.4    58   334  4.2   4.23  2.63       1152.
+##  5  0.31 Good      J     SI2      63.3    58   335  4.34  4.35  2.75       1081.
+##  6  0.24 Very Good J     VVS2     62.8    57   336  3.94  3.96  2.48       1400 
+##  7  0.24 Very Good I     VVS1     62.3    57   336  3.95  3.98  2.47       1400 
+##  8  0.26 Very Good H     SI1      61.9    55   337  4.07  4.11  2.53       1296.
+##  9  0.22 Fair      E     VS2      65.1    61   337  3.87  3.78  2.49       1532.
+## 10  0.23 Very Good H     VS1      59.4    61   338  4     4.05  2.39       1470.
+## # … with 53,930 more rows, and abbreviated variable name ¹​price_per_carat
 ```
 
 ---
@@ -332,7 +341,7 @@ Below is an excerpt from the `datasaurus_dozen` dataset:
 
 
 ```
-## # A tibble: 142 x 8
+## # A tibble: 142 × 8
 ##    away_x away_y bullseye_x bullseye_y circle_x circle_y dino_x dino_y
 ##     &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
 ##  1   32.3   61.4       51.2       83.3     56.0     79.3   55.4   97.2
@@ -360,7 +369,7 @@ datasaurus_dozen %&gt;%
 ```
 
 ```
-## # A tibble: 13 x 2
+## # A tibble: 13 × 2
 ##    dataset          r
 ##    &lt;chr&gt;        &lt;dbl&gt;
 ##  1 away       -0.0641
@@ -468,7 +477,7 @@ quartet %&gt;%
 ```
 
 ```
-## # A tibble: 4 x 6
+## # A tibble: 4 × 6
 ##   set   mean_x mean_y  sd_x  sd_y     r
 ##   &lt;fct&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1 I          9   7.50  3.32  2.03 0.816
@@ -535,6 +544,54 @@ class: center, middle
 .footnote[
 Credit: Angela Zoss and Eric Monson, Duke DVS
 ]
+
+---
+
+# Sharing data viz
+
+- At beginning of each class, one to two people will briefly share a data visualization they find interesting
+
+  - I'm expecting no more then 2 minutes per presentation
+  
+- Please spend some time picking a thoughtful visualization 
+
+---
+
+## What you will turn into Canvas:
+
+- A screenshot/image of your selected visualization
+
+- Brief write-up in the comments containing the following information:
+
+  - Source of visualization
+  
+  - Why you chose the particular visualization
+  
+  - Three things you find interesting/compelling/unanswered/unappealing/etc. from the visualization
+  
+--
+
+- You should submit Canvas *at least* 48 hours before the class in which you are presenting
+
+---
+
+&lt;img src="img/03/dubois_spiral.png" width="45%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+## To-do
+
+- Make sure you have signed up for a day to share a viz
+
+- Application Exercise
+
+.footnote[
+Source for Du Bois Spiral: “City and Rural Population. 1890” 1900, via Library of Congress Prints and Photographs Division
+]
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
@@ -584,6 +641,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable

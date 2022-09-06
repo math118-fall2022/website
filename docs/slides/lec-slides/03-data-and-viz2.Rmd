@@ -6,7 +6,7 @@ date: "05.19.2021"
 output:
   xaringan::moon_reader:
     mathjax: "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML"
-    css: "sta199-slides.css"
+    css: "math118-slides.css"
     logo: img/sta199-sticker-icon.png
     lib_dir: libs/font-awesome
     nature:
@@ -473,3 +473,53 @@ knitr::include_graphics("img/03/time-series.story.png")
 .footnote[
 Credit: Angela Zoss and Eric Monson, Duke DVS
 ]
+
+---
+
+# Sharing data viz
+
+- At beginning of each class, one to two people will briefly share a data visualization they find interesting
+
+  - I'm expecting no more then 2 minutes per presentation
+  
+- Please spend some time picking a thoughtful visualization 
+
+---
+
+## What you will turn into Canvas:
+
+- A screenshot/image of your selected visualization
+
+- Brief write-up in the comments containing the following information:
+
+  - Source of visualization
+  
+  - Why you chose the particular visualization
+  
+  - Three things you find interesting/compelling/unanswered/unappealing/etc. from the visualization
+  
+--
+
+- You should submit Canvas *at least* 48 hours before the class in which you are presenting
+
+---
+
+```{r echo = F, fig.align="center", out.width="45%"}
+knitr::include_graphics("img/03/dubois_spiral.png")
+```
+
+
+
+---
+
+## To-do
+
+- Make sure you have signed up for a day to share a viz
+
+- Application Exercise
+
+.footnote[
+Source for Du Bois Spiral: “City and Rural Population. 1890” 1900, via Library of Congress Prints and Photographs Division
+]
+
+
