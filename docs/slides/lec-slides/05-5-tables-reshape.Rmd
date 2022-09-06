@@ -21,6 +21,8 @@ editor_options:
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(magick)
+knitr::opts_chunk$set(warning = F,message = F,
+                      fig.align = "center") 
 data("iris")
 ```
 
@@ -37,7 +39,13 @@ class: center, middle
 
 - Communication happens through a combination of text, data visualization, and tables
 
+--
+
 - There are many packages dedicated to displaying tables, but we will only introduce a few of them
+
+  - `kable`
+  - `DT`
+  - `gt`
 
 ---
 
@@ -48,7 +56,10 @@ class: center, middle
 ```{r}
 iris
 ```
+
 ---
+
+## `kable`
 
 ```{r}
 library(knitr)
@@ -96,15 +107,26 @@ iris %>%
   column_spec(5, strikeout = TRUE) #<<
 ```
 
+- Easy functionality and syntax
+
 ---
 
 # DT
 
 - The `DT` package provides an `R` interfact for a JavaScript library called DataTables
 
-- Provides filtering, pagination, sorting, and other features
+- Provides filtering, pagination, sorting, and other features 
 
-```{r}
+  - Great for sharing raw data in presentation
+
+```{r eval = F}
+library(DT)
+datatable(iris)
+```
+
+---
+
+```{r echo = F}
 library(DT)
 datatable(iris)
 ```
@@ -169,6 +191,10 @@ datatable(
 knitr::include_graphics("img/05_5/gt_fig.png")
 ```
 
+.footnote[
+*Source: https://gt.rstudio.com/
+]
+
 ---
 
 ```{r}
@@ -188,7 +214,7 @@ iris %>%
 
 ---
 
-- Note, there is not an easy way to paginate. We can instead do ths following:
+- Note, there is not an easy way to paginate. We can instead do the following:
 
 ```{r}
 iris %>% 
@@ -228,7 +254,7 @@ exibble %>%
 
 ## Formatting date style
 
-```{r echo = F, out.width = "70%"}
+```{r echo = F, out.width = "50%"}
 knitr::include_graphics("img/05_5/gt_date_style.png")
 ```
 
@@ -265,15 +291,15 @@ exibble %>%
   gt() %>%
   fmt_number(columns = "num", decimals = 2) %>%
   fmt_date(columns = "date", date_style = 6) %>%
-  tab_header(
-    title = "This is the exibble dataset in **gt**",
-    subtitle = "It is one of six datasets in the package"
+  tab_header( #<<
+    title = "This is the exibble dataset in **gt**", #<<
+    subtitle = "It is one of six datasets in the package" #<<
   ) 
 ```
 
 ---
 
-```{r}
+```{r echo = F}
 exibble %>%
   gt() %>%
   fmt_number(columns = "num", decimals = 2) %>%
@@ -300,7 +326,7 @@ exibble %>%
 
 ---
 
-```{r eval = T}
+```{r echo = F}
 exibble %>%
   gt() %>%
   fmt_number(columns = "num", decimals = 2) %>%
@@ -318,7 +344,7 @@ exibble %>%
 
 - If your data has natural grouping, we can separate the data by each group
 
-- The variable `group` in the `exibble` data, 
+- Conveniently, the variable `group` in the `exibble` data
 
 
 ---
@@ -340,7 +366,7 @@ exibble %>%
 
 ---
 
-# Spanning
+## Spanning
 
 - Sometimes, we want to give a label that spans multiples columns
 
@@ -352,7 +378,7 @@ exibble %>%
 
 ---
 
-# Colors
+## Colors
 
 ```{r}
 exibble %>%
@@ -363,7 +389,9 @@ exibble %>%
 
 ---
 
-```{r echo = F}
+## Can also include images 
+
+```{r echo = F, cache = T}
 exibble_new <- exibble %>%
   mutate(url = 
 c("https://upload.wikimedia.org/wikipedia/commons/7/76/Apricot_whole444.jpg",
@@ -406,7 +434,7 @@ exibble_new %>%
 
 class: center, middle
 
-## Reshaping
+# Reshaping
 
 ---
 
@@ -456,22 +484,24 @@ country_long
 country_long %>%
   pivot_wider(names_from = month, values_from = avgtemp) 
 ```
+
+- Each unit of observation (`country`) has exactly one row
+
 ]
 
-- Each row should represent a single `country`
 
 
 ---
 
-# Long to Wide data
+# Long to wide data
 
 - `pivot_wider()` function turns data from long to wide
 
 - Takes two arguments:
 
-  - `names_from`: the name of the variable(s) to get the name of the output column
+  - `names_from`: the name of the variable(s) in the data frame to get the name of the output column
   
-  - `values_from`: the name of the variable(s) to get the cell values from
+  - `values_from`: the name of the variable(s) in the data frame to get the cell values from
 
 ---
 
@@ -484,14 +514,20 @@ country_long
 ]
 
 .pull-right[
+```{r echo = F}
+country_long %>%
+  pivot_wider(names_from = month, values_from = avgtemp) 
+```
+
 ```{r eval = F}
 country_long %>%
   pivot_wider(names_from = ____,
               values_from = _____)
 ```
-]
 
 .question[What should I pass in for `names_from` and `values_from`?]
+]
+
 
 ---
 
@@ -503,7 +539,7 @@ country_long %>%
 
 ---
 
-# Wide to Long data
+# Wide to long data
 
 - Long data structure is often preferred
 
@@ -536,7 +572,7 @@ country_wide %>%
 
 - Takes three arguments:
 
-  - `cols`: specify which columns to pivot into longer format
+  - `cols`: specify which columns in the dataframe to pivot into longer format
   
   - `names_to`: a string (your choice) specifying the name of the new column created from the column names species by `cols`
   
@@ -590,6 +626,5 @@ head(airquality)
 Is this dataframe in wide or long format?
 ]
 
----
 
 

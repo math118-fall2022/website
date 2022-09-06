@@ -51,7 +51,13 @@ class: center, middle
 
 - Communication happens through a combination of text, data visualization, and tables
 
+--
+
 - There are many packages dedicated to displaying tables, but we will only introduce a few of them
+
+  - `kable`
+  - `DT`
+  - `gt`
 
 ---
 
@@ -217,26 +223,15 @@ iris
 ## 149          6.2         3.4          5.4         2.3  virginica
 ## 150          5.9         3.0          5.1         1.8  virginica
 ```
+
 ---
+
+## `kable`
 
 
 ```r
 library(knitr)
 library(kableExtra)
-```
-
-```
-## 
-## Attaching package: 'kableExtra'
-```
-
-```
-## The following object is masked from 'package:dplyr':
-## 
-##     group_rows
-```
-
-```r
 iris %&gt;%
 * kable()
 ```
@@ -3515,13 +3510,17 @@ iris %&gt;%
 &lt;/tbody&gt;
 &lt;/table&gt;
 
+- Easy functionality and syntax
+
 ---
 
 # DT
 
 - The `DT` package provides an `R` interfact for a JavaScript library called DataTables
 
-- Provides filtering, pagination, sorting, and other features
+- Provides filtering, pagination, sorting, and other features 
+
+  - Great for sharing raw data in presentation
 
 
 ```r
@@ -3529,8 +3528,10 @@ library(DT)
 datatable(iris)
 ```
 
-<div id="htmlwidget-f988edf1ba778fee54ad" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f988edf1ba778fee54ad">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140","141","142","143","144","145","146","147","148","149","150"],[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9,5.4,4.8,4.8,4.3,5.8,5.7,5.4,5.1,5.7,5.1,5.4,5.1,4.6,5.1,4.8,5,5,5.2,5.2,4.7,4.8,5.4,5.2,5.5,4.9,5,5.5,4.9,4.4,5.1,5,4.5,4.4,5,5.1,4.8,5.1,4.6,5.3,5,7,6.4,6.9,5.5,6.5,5.7,6.3,4.9,6.6,5.2,5,5.9,6,6.1,5.6,6.7,5.6,5.8,6.2,5.6,5.9,6.1,6.3,6.1,6.4,6.6,6.8,6.7,6,5.7,5.5,5.5,5.8,6,5.4,6,6.7,6.3,5.6,5.5,5.5,6.1,5.8,5,5.6,5.7,5.7,6.2,5.1,5.7,6.3,5.8,7.1,6.3,6.5,7.6,4.9,7.3,6.7,7.2,6.5,6.4,6.8,5.7,5.8,6.4,6.5,7.7,7.7,6,6.9,5.6,7.7,6.3,6.7,7.2,6.2,6.1,6.4,7.2,7.4,7.9,6.4,6.3,6.1,7.7,6.3,6.4,6,6.9,6.7,6.9,5.8,6.8,6.7,6.7,6.3,6.5,6.2,5.9],[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1,3.7,3.4,3,3,4,4.4,3.9,3.5,3.8,3.8,3.4,3.7,3.6,3.3,3.4,3,3.4,3.5,3.4,3.2,3.1,3.4,4.1,4.2,3.1,3.2,3.5,3.6,3,3.4,3.5,2.3,3.2,3.5,3.8,3,3.8,3.2,3.7,3.3,3.2,3.2,3.1,2.3,2.8,2.8,3.3,2.4,2.9,2.7,2,3,2.2,2.9,2.9,3.1,3,2.7,2.2,2.5,3.2,2.8,2.5,2.8,2.9,3,2.8,3,2.9,2.6,2.4,2.4,2.7,2.7,3,3.4,3.1,2.3,3,2.5,2.6,3,2.6,2.3,2.7,3,2.9,2.9,2.5,2.8,3.3,2.7,3,2.9,3,3,2.5,2.9,2.5,3.6,3.2,2.7,3,2.5,2.8,3.2,3,3.8,2.6,2.2,3.2,2.8,2.8,2.7,3.3,3.2,2.8,3,2.8,3,2.8,3.8,2.8,2.8,2.6,3,3.4,3.1,3,3.1,3.1,3.1,2.7,3.2,3.3,3,2.5,3,3.4,3],[1.4,1.4,1.3,1.5,1.4,1.7,1.4,1.5,1.4,1.5,1.5,1.6,1.4,1.1,1.2,1.5,1.3,1.4,1.7,1.5,1.7,1.5,1,1.7,1.9,1.6,1.6,1.5,1.4,1.6,1.6,1.5,1.5,1.4,1.5,1.2,1.3,1.4,1.3,1.5,1.3,1.3,1.3,1.6,1.9,1.4,1.6,1.4,1.5,1.4,4.7,4.5,4.9,4,4.6,4.5,4.7,3.3,4.6,3.9,3.5,4.2,4,4.7,3.6,4.4,4.5,4.1,4.5,3.9,4.8,4,4.9,4.7,4.3,4.4,4.8,5,4.5,3.5,3.8,3.7,3.9,5.1,4.5,4.5,4.7,4.4,4.1,4,4.4,4.6,4,3.3,4.2,4.2,4.2,4.3,3,4.1,6,5.1,5.9,5.6,5.8,6.6,4.5,6.3,5.8,6.1,5.1,5.3,5.5,5,5.1,5.3,5.5,6.7,6.9,5,5.7,4.9,6.7,4.9,5.7,6,4.8,4.9,5.6,5.8,6.1,6.4,5.6,5.1,5.6,6.1,5.6,5.5,4.8,5.4,5.6,5.1,5.1,5.9,5.7,5.2,5,5.2,5.4,5.1],[0.2,0.2,0.2,0.2,0.2,0.4,0.3,0.2,0.2,0.1,0.2,0.2,0.1,0.1,0.2,0.4,0.4,0.3,0.3,0.3,0.2,0.4,0.2,0.5,0.2,0.2,0.4,0.2,0.2,0.2,0.2,0.4,0.1,0.2,0.2,0.2,0.2,0.1,0.2,0.2,0.3,0.3,0.2,0.6,0.4,0.3,0.2,0.2,0.2,0.2,1.4,1.5,1.5,1.3,1.5,1.3,1.6,1,1.3,1.4,1,1.5,1,1.4,1.3,1.4,1.5,1,1.5,1.1,1.8,1.3,1.5,1.2,1.3,1.4,1.4,1.7,1.5,1,1.1,1,1.2,1.6,1.5,1.6,1.5,1.3,1.3,1.3,1.2,1.4,1.2,1,1.3,1.2,1.3,1.3,1.1,1.3,2.5,1.9,2.1,1.8,2.2,2.1,1.7,1.8,1.8,2.5,2,1.9,2.1,2,2.4,2.3,1.8,2.2,2.3,1.5,2.3,2,2,1.8,2.1,1.8,1.8,1.8,2.1,1.6,1.9,2,2.2,1.5,1.4,2.3,2.4,1.8,1.8,2.1,2.4,2.3,1.9,2.3,2.5,2.3,1.9,2,2.3,1.8],["setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Sepal.Length<\/th>\n      <th>Sepal.Width<\/th>\n      <th>Petal.Length<\/th>\n      <th>Petal.Width<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+---
+
+<div id="htmlwidget-38f4bb43403ef9d8bdc6" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-38f4bb43403ef9d8bdc6">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140","141","142","143","144","145","146","147","148","149","150"],[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9,5.4,4.8,4.8,4.3,5.8,5.7,5.4,5.1,5.7,5.1,5.4,5.1,4.6,5.1,4.8,5,5,5.2,5.2,4.7,4.8,5.4,5.2,5.5,4.9,5,5.5,4.9,4.4,5.1,5,4.5,4.4,5,5.1,4.8,5.1,4.6,5.3,5,7,6.4,6.9,5.5,6.5,5.7,6.3,4.9,6.6,5.2,5,5.9,6,6.1,5.6,6.7,5.6,5.8,6.2,5.6,5.9,6.1,6.3,6.1,6.4,6.6,6.8,6.7,6,5.7,5.5,5.5,5.8,6,5.4,6,6.7,6.3,5.6,5.5,5.5,6.1,5.8,5,5.6,5.7,5.7,6.2,5.1,5.7,6.3,5.8,7.1,6.3,6.5,7.6,4.9,7.3,6.7,7.2,6.5,6.4,6.8,5.7,5.8,6.4,6.5,7.7,7.7,6,6.9,5.6,7.7,6.3,6.7,7.2,6.2,6.1,6.4,7.2,7.4,7.9,6.4,6.3,6.1,7.7,6.3,6.4,6,6.9,6.7,6.9,5.8,6.8,6.7,6.7,6.3,6.5,6.2,5.9],[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1,3.7,3.4,3,3,4,4.4,3.9,3.5,3.8,3.8,3.4,3.7,3.6,3.3,3.4,3,3.4,3.5,3.4,3.2,3.1,3.4,4.1,4.2,3.1,3.2,3.5,3.6,3,3.4,3.5,2.3,3.2,3.5,3.8,3,3.8,3.2,3.7,3.3,3.2,3.2,3.1,2.3,2.8,2.8,3.3,2.4,2.9,2.7,2,3,2.2,2.9,2.9,3.1,3,2.7,2.2,2.5,3.2,2.8,2.5,2.8,2.9,3,2.8,3,2.9,2.6,2.4,2.4,2.7,2.7,3,3.4,3.1,2.3,3,2.5,2.6,3,2.6,2.3,2.7,3,2.9,2.9,2.5,2.8,3.3,2.7,3,2.9,3,3,2.5,2.9,2.5,3.6,3.2,2.7,3,2.5,2.8,3.2,3,3.8,2.6,2.2,3.2,2.8,2.8,2.7,3.3,3.2,2.8,3,2.8,3,2.8,3.8,2.8,2.8,2.6,3,3.4,3.1,3,3.1,3.1,3.1,2.7,3.2,3.3,3,2.5,3,3.4,3],[1.4,1.4,1.3,1.5,1.4,1.7,1.4,1.5,1.4,1.5,1.5,1.6,1.4,1.1,1.2,1.5,1.3,1.4,1.7,1.5,1.7,1.5,1,1.7,1.9,1.6,1.6,1.5,1.4,1.6,1.6,1.5,1.5,1.4,1.5,1.2,1.3,1.4,1.3,1.5,1.3,1.3,1.3,1.6,1.9,1.4,1.6,1.4,1.5,1.4,4.7,4.5,4.9,4,4.6,4.5,4.7,3.3,4.6,3.9,3.5,4.2,4,4.7,3.6,4.4,4.5,4.1,4.5,3.9,4.8,4,4.9,4.7,4.3,4.4,4.8,5,4.5,3.5,3.8,3.7,3.9,5.1,4.5,4.5,4.7,4.4,4.1,4,4.4,4.6,4,3.3,4.2,4.2,4.2,4.3,3,4.1,6,5.1,5.9,5.6,5.8,6.6,4.5,6.3,5.8,6.1,5.1,5.3,5.5,5,5.1,5.3,5.5,6.7,6.9,5,5.7,4.9,6.7,4.9,5.7,6,4.8,4.9,5.6,5.8,6.1,6.4,5.6,5.1,5.6,6.1,5.6,5.5,4.8,5.4,5.6,5.1,5.1,5.9,5.7,5.2,5,5.2,5.4,5.1],[0.2,0.2,0.2,0.2,0.2,0.4,0.3,0.2,0.2,0.1,0.2,0.2,0.1,0.1,0.2,0.4,0.4,0.3,0.3,0.3,0.2,0.4,0.2,0.5,0.2,0.2,0.4,0.2,0.2,0.2,0.2,0.4,0.1,0.2,0.2,0.2,0.2,0.1,0.2,0.2,0.3,0.3,0.2,0.6,0.4,0.3,0.2,0.2,0.2,0.2,1.4,1.5,1.5,1.3,1.5,1.3,1.6,1,1.3,1.4,1,1.5,1,1.4,1.3,1.4,1.5,1,1.5,1.1,1.8,1.3,1.5,1.2,1.3,1.4,1.4,1.7,1.5,1,1.1,1,1.2,1.6,1.5,1.6,1.5,1.3,1.3,1.3,1.2,1.4,1.2,1,1.3,1.2,1.3,1.3,1.1,1.3,2.5,1.9,2.1,1.8,2.2,2.1,1.7,1.8,1.8,2.5,2,1.9,2.1,2,2.4,2.3,1.8,2.2,2.3,1.5,2.3,2,2,1.8,2.1,1.8,1.8,1.8,2.1,1.6,1.9,2,2.2,1.5,1.4,2.3,2.4,1.8,1.8,2.1,2.4,2.3,1.9,2.3,2.5,2.3,1.9,2,2.3,1.8],["setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Sepal.Length<\/th>\n      <th>Sepal.Width<\/th>\n      <th>Petal.Length<\/th>\n      <th>Petal.Width<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 
 ---
 
@@ -3540,8 +3541,8 @@ datatable(iris,
 *         options = list(pageLength = 5))
 ```
 
-<div id="htmlwidget-46a293e7a26aa2801b33" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-46a293e7a26aa2801b33">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140","141","142","143","144","145","146","147","148","149","150"],[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9,5.4,4.8,4.8,4.3,5.8,5.7,5.4,5.1,5.7,5.1,5.4,5.1,4.6,5.1,4.8,5,5,5.2,5.2,4.7,4.8,5.4,5.2,5.5,4.9,5,5.5,4.9,4.4,5.1,5,4.5,4.4,5,5.1,4.8,5.1,4.6,5.3,5,7,6.4,6.9,5.5,6.5,5.7,6.3,4.9,6.6,5.2,5,5.9,6,6.1,5.6,6.7,5.6,5.8,6.2,5.6,5.9,6.1,6.3,6.1,6.4,6.6,6.8,6.7,6,5.7,5.5,5.5,5.8,6,5.4,6,6.7,6.3,5.6,5.5,5.5,6.1,5.8,5,5.6,5.7,5.7,6.2,5.1,5.7,6.3,5.8,7.1,6.3,6.5,7.6,4.9,7.3,6.7,7.2,6.5,6.4,6.8,5.7,5.8,6.4,6.5,7.7,7.7,6,6.9,5.6,7.7,6.3,6.7,7.2,6.2,6.1,6.4,7.2,7.4,7.9,6.4,6.3,6.1,7.7,6.3,6.4,6,6.9,6.7,6.9,5.8,6.8,6.7,6.7,6.3,6.5,6.2,5.9],[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1,3.7,3.4,3,3,4,4.4,3.9,3.5,3.8,3.8,3.4,3.7,3.6,3.3,3.4,3,3.4,3.5,3.4,3.2,3.1,3.4,4.1,4.2,3.1,3.2,3.5,3.6,3,3.4,3.5,2.3,3.2,3.5,3.8,3,3.8,3.2,3.7,3.3,3.2,3.2,3.1,2.3,2.8,2.8,3.3,2.4,2.9,2.7,2,3,2.2,2.9,2.9,3.1,3,2.7,2.2,2.5,3.2,2.8,2.5,2.8,2.9,3,2.8,3,2.9,2.6,2.4,2.4,2.7,2.7,3,3.4,3.1,2.3,3,2.5,2.6,3,2.6,2.3,2.7,3,2.9,2.9,2.5,2.8,3.3,2.7,3,2.9,3,3,2.5,2.9,2.5,3.6,3.2,2.7,3,2.5,2.8,3.2,3,3.8,2.6,2.2,3.2,2.8,2.8,2.7,3.3,3.2,2.8,3,2.8,3,2.8,3.8,2.8,2.8,2.6,3,3.4,3.1,3,3.1,3.1,3.1,2.7,3.2,3.3,3,2.5,3,3.4,3],[1.4,1.4,1.3,1.5,1.4,1.7,1.4,1.5,1.4,1.5,1.5,1.6,1.4,1.1,1.2,1.5,1.3,1.4,1.7,1.5,1.7,1.5,1,1.7,1.9,1.6,1.6,1.5,1.4,1.6,1.6,1.5,1.5,1.4,1.5,1.2,1.3,1.4,1.3,1.5,1.3,1.3,1.3,1.6,1.9,1.4,1.6,1.4,1.5,1.4,4.7,4.5,4.9,4,4.6,4.5,4.7,3.3,4.6,3.9,3.5,4.2,4,4.7,3.6,4.4,4.5,4.1,4.5,3.9,4.8,4,4.9,4.7,4.3,4.4,4.8,5,4.5,3.5,3.8,3.7,3.9,5.1,4.5,4.5,4.7,4.4,4.1,4,4.4,4.6,4,3.3,4.2,4.2,4.2,4.3,3,4.1,6,5.1,5.9,5.6,5.8,6.6,4.5,6.3,5.8,6.1,5.1,5.3,5.5,5,5.1,5.3,5.5,6.7,6.9,5,5.7,4.9,6.7,4.9,5.7,6,4.8,4.9,5.6,5.8,6.1,6.4,5.6,5.1,5.6,6.1,5.6,5.5,4.8,5.4,5.6,5.1,5.1,5.9,5.7,5.2,5,5.2,5.4,5.1],[0.2,0.2,0.2,0.2,0.2,0.4,0.3,0.2,0.2,0.1,0.2,0.2,0.1,0.1,0.2,0.4,0.4,0.3,0.3,0.3,0.2,0.4,0.2,0.5,0.2,0.2,0.4,0.2,0.2,0.2,0.2,0.4,0.1,0.2,0.2,0.2,0.2,0.1,0.2,0.2,0.3,0.3,0.2,0.6,0.4,0.3,0.2,0.2,0.2,0.2,1.4,1.5,1.5,1.3,1.5,1.3,1.6,1,1.3,1.4,1,1.5,1,1.4,1.3,1.4,1.5,1,1.5,1.1,1.8,1.3,1.5,1.2,1.3,1.4,1.4,1.7,1.5,1,1.1,1,1.2,1.6,1.5,1.6,1.5,1.3,1.3,1.3,1.2,1.4,1.2,1,1.3,1.2,1.3,1.3,1.1,1.3,2.5,1.9,2.1,1.8,2.2,2.1,1.7,1.8,1.8,2.5,2,1.9,2.1,2,2.4,2.3,1.8,2.2,2.3,1.5,2.3,2,2,1.8,2.1,1.8,1.8,1.8,2.1,1.6,1.9,2,2.2,1.5,1.4,2.3,2.4,1.8,1.8,2.1,2.4,2.3,1.9,2.3,2.5,2.3,1.9,2,2.3,1.8],["setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Sepal.Length<\/th>\n      <th>Sepal.Width<\/th>\n      <th>Petal.Length<\/th>\n      <th>Petal.Width<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-88f409f81daccdc8b7cc" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-88f409f81daccdc8b7cc">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140","141","142","143","144","145","146","147","148","149","150"],[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9,5.4,4.8,4.8,4.3,5.8,5.7,5.4,5.1,5.7,5.1,5.4,5.1,4.6,5.1,4.8,5,5,5.2,5.2,4.7,4.8,5.4,5.2,5.5,4.9,5,5.5,4.9,4.4,5.1,5,4.5,4.4,5,5.1,4.8,5.1,4.6,5.3,5,7,6.4,6.9,5.5,6.5,5.7,6.3,4.9,6.6,5.2,5,5.9,6,6.1,5.6,6.7,5.6,5.8,6.2,5.6,5.9,6.1,6.3,6.1,6.4,6.6,6.8,6.7,6,5.7,5.5,5.5,5.8,6,5.4,6,6.7,6.3,5.6,5.5,5.5,6.1,5.8,5,5.6,5.7,5.7,6.2,5.1,5.7,6.3,5.8,7.1,6.3,6.5,7.6,4.9,7.3,6.7,7.2,6.5,6.4,6.8,5.7,5.8,6.4,6.5,7.7,7.7,6,6.9,5.6,7.7,6.3,6.7,7.2,6.2,6.1,6.4,7.2,7.4,7.9,6.4,6.3,6.1,7.7,6.3,6.4,6,6.9,6.7,6.9,5.8,6.8,6.7,6.7,6.3,6.5,6.2,5.9],[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1,3.7,3.4,3,3,4,4.4,3.9,3.5,3.8,3.8,3.4,3.7,3.6,3.3,3.4,3,3.4,3.5,3.4,3.2,3.1,3.4,4.1,4.2,3.1,3.2,3.5,3.6,3,3.4,3.5,2.3,3.2,3.5,3.8,3,3.8,3.2,3.7,3.3,3.2,3.2,3.1,2.3,2.8,2.8,3.3,2.4,2.9,2.7,2,3,2.2,2.9,2.9,3.1,3,2.7,2.2,2.5,3.2,2.8,2.5,2.8,2.9,3,2.8,3,2.9,2.6,2.4,2.4,2.7,2.7,3,3.4,3.1,2.3,3,2.5,2.6,3,2.6,2.3,2.7,3,2.9,2.9,2.5,2.8,3.3,2.7,3,2.9,3,3,2.5,2.9,2.5,3.6,3.2,2.7,3,2.5,2.8,3.2,3,3.8,2.6,2.2,3.2,2.8,2.8,2.7,3.3,3.2,2.8,3,2.8,3,2.8,3.8,2.8,2.8,2.6,3,3.4,3.1,3,3.1,3.1,3.1,2.7,3.2,3.3,3,2.5,3,3.4,3],[1.4,1.4,1.3,1.5,1.4,1.7,1.4,1.5,1.4,1.5,1.5,1.6,1.4,1.1,1.2,1.5,1.3,1.4,1.7,1.5,1.7,1.5,1,1.7,1.9,1.6,1.6,1.5,1.4,1.6,1.6,1.5,1.5,1.4,1.5,1.2,1.3,1.4,1.3,1.5,1.3,1.3,1.3,1.6,1.9,1.4,1.6,1.4,1.5,1.4,4.7,4.5,4.9,4,4.6,4.5,4.7,3.3,4.6,3.9,3.5,4.2,4,4.7,3.6,4.4,4.5,4.1,4.5,3.9,4.8,4,4.9,4.7,4.3,4.4,4.8,5,4.5,3.5,3.8,3.7,3.9,5.1,4.5,4.5,4.7,4.4,4.1,4,4.4,4.6,4,3.3,4.2,4.2,4.2,4.3,3,4.1,6,5.1,5.9,5.6,5.8,6.6,4.5,6.3,5.8,6.1,5.1,5.3,5.5,5,5.1,5.3,5.5,6.7,6.9,5,5.7,4.9,6.7,4.9,5.7,6,4.8,4.9,5.6,5.8,6.1,6.4,5.6,5.1,5.6,6.1,5.6,5.5,4.8,5.4,5.6,5.1,5.1,5.9,5.7,5.2,5,5.2,5.4,5.1],[0.2,0.2,0.2,0.2,0.2,0.4,0.3,0.2,0.2,0.1,0.2,0.2,0.1,0.1,0.2,0.4,0.4,0.3,0.3,0.3,0.2,0.4,0.2,0.5,0.2,0.2,0.4,0.2,0.2,0.2,0.2,0.4,0.1,0.2,0.2,0.2,0.2,0.1,0.2,0.2,0.3,0.3,0.2,0.6,0.4,0.3,0.2,0.2,0.2,0.2,1.4,1.5,1.5,1.3,1.5,1.3,1.6,1,1.3,1.4,1,1.5,1,1.4,1.3,1.4,1.5,1,1.5,1.1,1.8,1.3,1.5,1.2,1.3,1.4,1.4,1.7,1.5,1,1.1,1,1.2,1.6,1.5,1.6,1.5,1.3,1.3,1.3,1.2,1.4,1.2,1,1.3,1.2,1.3,1.3,1.1,1.3,2.5,1.9,2.1,1.8,2.2,2.1,1.7,1.8,1.8,2.5,2,1.9,2.1,2,2.4,2.3,1.8,2.2,2.3,1.5,2.3,2,2,1.8,2.1,1.8,1.8,1.8,2.1,1.6,1.9,2,2.2,1.5,1.4,2.3,2.4,1.8,1.8,2.1,2.4,2.3,1.9,2.3,2.5,2.3,1.9,2,2.3,1.8],["setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Sepal.Length<\/th>\n      <th>Sepal.Width<\/th>\n      <th>Petal.Length<\/th>\n      <th>Petal.Width<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
 ---
 
@@ -3552,8 +3553,8 @@ datatable(iris,
 *         rownames = F)
 ```
 
-<div id="htmlwidget-b1008134458f540c1793" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b1008134458f540c1793">{"x":{"filter":"none","vertical":false,"data":[[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9,5.4,4.8,4.8,4.3,5.8,5.7,5.4,5.1,5.7,5.1,5.4,5.1,4.6,5.1,4.8,5,5,5.2,5.2,4.7,4.8,5.4,5.2,5.5,4.9,5,5.5,4.9,4.4,5.1,5,4.5,4.4,5,5.1,4.8,5.1,4.6,5.3,5,7,6.4,6.9,5.5,6.5,5.7,6.3,4.9,6.6,5.2,5,5.9,6,6.1,5.6,6.7,5.6,5.8,6.2,5.6,5.9,6.1,6.3,6.1,6.4,6.6,6.8,6.7,6,5.7,5.5,5.5,5.8,6,5.4,6,6.7,6.3,5.6,5.5,5.5,6.1,5.8,5,5.6,5.7,5.7,6.2,5.1,5.7,6.3,5.8,7.1,6.3,6.5,7.6,4.9,7.3,6.7,7.2,6.5,6.4,6.8,5.7,5.8,6.4,6.5,7.7,7.7,6,6.9,5.6,7.7,6.3,6.7,7.2,6.2,6.1,6.4,7.2,7.4,7.9,6.4,6.3,6.1,7.7,6.3,6.4,6,6.9,6.7,6.9,5.8,6.8,6.7,6.7,6.3,6.5,6.2,5.9],[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1,3.7,3.4,3,3,4,4.4,3.9,3.5,3.8,3.8,3.4,3.7,3.6,3.3,3.4,3,3.4,3.5,3.4,3.2,3.1,3.4,4.1,4.2,3.1,3.2,3.5,3.6,3,3.4,3.5,2.3,3.2,3.5,3.8,3,3.8,3.2,3.7,3.3,3.2,3.2,3.1,2.3,2.8,2.8,3.3,2.4,2.9,2.7,2,3,2.2,2.9,2.9,3.1,3,2.7,2.2,2.5,3.2,2.8,2.5,2.8,2.9,3,2.8,3,2.9,2.6,2.4,2.4,2.7,2.7,3,3.4,3.1,2.3,3,2.5,2.6,3,2.6,2.3,2.7,3,2.9,2.9,2.5,2.8,3.3,2.7,3,2.9,3,3,2.5,2.9,2.5,3.6,3.2,2.7,3,2.5,2.8,3.2,3,3.8,2.6,2.2,3.2,2.8,2.8,2.7,3.3,3.2,2.8,3,2.8,3,2.8,3.8,2.8,2.8,2.6,3,3.4,3.1,3,3.1,3.1,3.1,2.7,3.2,3.3,3,2.5,3,3.4,3],[1.4,1.4,1.3,1.5,1.4,1.7,1.4,1.5,1.4,1.5,1.5,1.6,1.4,1.1,1.2,1.5,1.3,1.4,1.7,1.5,1.7,1.5,1,1.7,1.9,1.6,1.6,1.5,1.4,1.6,1.6,1.5,1.5,1.4,1.5,1.2,1.3,1.4,1.3,1.5,1.3,1.3,1.3,1.6,1.9,1.4,1.6,1.4,1.5,1.4,4.7,4.5,4.9,4,4.6,4.5,4.7,3.3,4.6,3.9,3.5,4.2,4,4.7,3.6,4.4,4.5,4.1,4.5,3.9,4.8,4,4.9,4.7,4.3,4.4,4.8,5,4.5,3.5,3.8,3.7,3.9,5.1,4.5,4.5,4.7,4.4,4.1,4,4.4,4.6,4,3.3,4.2,4.2,4.2,4.3,3,4.1,6,5.1,5.9,5.6,5.8,6.6,4.5,6.3,5.8,6.1,5.1,5.3,5.5,5,5.1,5.3,5.5,6.7,6.9,5,5.7,4.9,6.7,4.9,5.7,6,4.8,4.9,5.6,5.8,6.1,6.4,5.6,5.1,5.6,6.1,5.6,5.5,4.8,5.4,5.6,5.1,5.1,5.9,5.7,5.2,5,5.2,5.4,5.1],[0.2,0.2,0.2,0.2,0.2,0.4,0.3,0.2,0.2,0.1,0.2,0.2,0.1,0.1,0.2,0.4,0.4,0.3,0.3,0.3,0.2,0.4,0.2,0.5,0.2,0.2,0.4,0.2,0.2,0.2,0.2,0.4,0.1,0.2,0.2,0.2,0.2,0.1,0.2,0.2,0.3,0.3,0.2,0.6,0.4,0.3,0.2,0.2,0.2,0.2,1.4,1.5,1.5,1.3,1.5,1.3,1.6,1,1.3,1.4,1,1.5,1,1.4,1.3,1.4,1.5,1,1.5,1.1,1.8,1.3,1.5,1.2,1.3,1.4,1.4,1.7,1.5,1,1.1,1,1.2,1.6,1.5,1.6,1.5,1.3,1.3,1.3,1.2,1.4,1.2,1,1.3,1.2,1.3,1.3,1.1,1.3,2.5,1.9,2.1,1.8,2.2,2.1,1.7,1.8,1.8,2.5,2,1.9,2.1,2,2.4,2.3,1.8,2.2,2.3,1.5,2.3,2,2,1.8,2.1,1.8,1.8,1.8,2.1,1.6,1.9,2,2.2,1.5,1.4,2.3,2.4,1.8,1.8,2.1,2.4,2.3,1.9,2.3,2.5,2.3,1.9,2,2.3,1.8],["setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Sepal.Length<\/th>\n      <th>Sepal.Width<\/th>\n      <th>Petal.Length<\/th>\n      <th>Petal.Width<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"columnDefs":[{"className":"dt-right","targets":[0,1,2,3]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-454b6e20e5ad2b546f29" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-454b6e20e5ad2b546f29">{"x":{"filter":"none","vertical":false,"data":[[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9,5.4,4.8,4.8,4.3,5.8,5.7,5.4,5.1,5.7,5.1,5.4,5.1,4.6,5.1,4.8,5,5,5.2,5.2,4.7,4.8,5.4,5.2,5.5,4.9,5,5.5,4.9,4.4,5.1,5,4.5,4.4,5,5.1,4.8,5.1,4.6,5.3,5,7,6.4,6.9,5.5,6.5,5.7,6.3,4.9,6.6,5.2,5,5.9,6,6.1,5.6,6.7,5.6,5.8,6.2,5.6,5.9,6.1,6.3,6.1,6.4,6.6,6.8,6.7,6,5.7,5.5,5.5,5.8,6,5.4,6,6.7,6.3,5.6,5.5,5.5,6.1,5.8,5,5.6,5.7,5.7,6.2,5.1,5.7,6.3,5.8,7.1,6.3,6.5,7.6,4.9,7.3,6.7,7.2,6.5,6.4,6.8,5.7,5.8,6.4,6.5,7.7,7.7,6,6.9,5.6,7.7,6.3,6.7,7.2,6.2,6.1,6.4,7.2,7.4,7.9,6.4,6.3,6.1,7.7,6.3,6.4,6,6.9,6.7,6.9,5.8,6.8,6.7,6.7,6.3,6.5,6.2,5.9],[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1,3.7,3.4,3,3,4,4.4,3.9,3.5,3.8,3.8,3.4,3.7,3.6,3.3,3.4,3,3.4,3.5,3.4,3.2,3.1,3.4,4.1,4.2,3.1,3.2,3.5,3.6,3,3.4,3.5,2.3,3.2,3.5,3.8,3,3.8,3.2,3.7,3.3,3.2,3.2,3.1,2.3,2.8,2.8,3.3,2.4,2.9,2.7,2,3,2.2,2.9,2.9,3.1,3,2.7,2.2,2.5,3.2,2.8,2.5,2.8,2.9,3,2.8,3,2.9,2.6,2.4,2.4,2.7,2.7,3,3.4,3.1,2.3,3,2.5,2.6,3,2.6,2.3,2.7,3,2.9,2.9,2.5,2.8,3.3,2.7,3,2.9,3,3,2.5,2.9,2.5,3.6,3.2,2.7,3,2.5,2.8,3.2,3,3.8,2.6,2.2,3.2,2.8,2.8,2.7,3.3,3.2,2.8,3,2.8,3,2.8,3.8,2.8,2.8,2.6,3,3.4,3.1,3,3.1,3.1,3.1,2.7,3.2,3.3,3,2.5,3,3.4,3],[1.4,1.4,1.3,1.5,1.4,1.7,1.4,1.5,1.4,1.5,1.5,1.6,1.4,1.1,1.2,1.5,1.3,1.4,1.7,1.5,1.7,1.5,1,1.7,1.9,1.6,1.6,1.5,1.4,1.6,1.6,1.5,1.5,1.4,1.5,1.2,1.3,1.4,1.3,1.5,1.3,1.3,1.3,1.6,1.9,1.4,1.6,1.4,1.5,1.4,4.7,4.5,4.9,4,4.6,4.5,4.7,3.3,4.6,3.9,3.5,4.2,4,4.7,3.6,4.4,4.5,4.1,4.5,3.9,4.8,4,4.9,4.7,4.3,4.4,4.8,5,4.5,3.5,3.8,3.7,3.9,5.1,4.5,4.5,4.7,4.4,4.1,4,4.4,4.6,4,3.3,4.2,4.2,4.2,4.3,3,4.1,6,5.1,5.9,5.6,5.8,6.6,4.5,6.3,5.8,6.1,5.1,5.3,5.5,5,5.1,5.3,5.5,6.7,6.9,5,5.7,4.9,6.7,4.9,5.7,6,4.8,4.9,5.6,5.8,6.1,6.4,5.6,5.1,5.6,6.1,5.6,5.5,4.8,5.4,5.6,5.1,5.1,5.9,5.7,5.2,5,5.2,5.4,5.1],[0.2,0.2,0.2,0.2,0.2,0.4,0.3,0.2,0.2,0.1,0.2,0.2,0.1,0.1,0.2,0.4,0.4,0.3,0.3,0.3,0.2,0.4,0.2,0.5,0.2,0.2,0.4,0.2,0.2,0.2,0.2,0.4,0.1,0.2,0.2,0.2,0.2,0.1,0.2,0.2,0.3,0.3,0.2,0.6,0.4,0.3,0.2,0.2,0.2,0.2,1.4,1.5,1.5,1.3,1.5,1.3,1.6,1,1.3,1.4,1,1.5,1,1.4,1.3,1.4,1.5,1,1.5,1.1,1.8,1.3,1.5,1.2,1.3,1.4,1.4,1.7,1.5,1,1.1,1,1.2,1.6,1.5,1.6,1.5,1.3,1.3,1.3,1.2,1.4,1.2,1,1.3,1.2,1.3,1.3,1.1,1.3,2.5,1.9,2.1,1.8,2.2,2.1,1.7,1.8,1.8,2.5,2,1.9,2.1,2,2.4,2.3,1.8,2.2,2.3,1.5,2.3,2,2,1.8,2.1,1.8,1.8,1.8,2.1,1.6,1.9,2,2.2,1.5,1.4,2.3,2.4,1.8,1.8,2.1,2.4,2.3,1.9,2.3,2.5,2.3,1.9,2,2.3,1.8],["setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Sepal.Length<\/th>\n      <th>Sepal.Width<\/th>\n      <th>Petal.Length<\/th>\n      <th>Petal.Width<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"columnDefs":[{"className":"dt-right","targets":[0,1,2,3]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
 ---
 
@@ -3564,8 +3565,8 @@ datatable(iris,
 *         class = 'cell-border stripe')
 ```
 
-<div id="htmlwidget-c2eafe5e5caf1e3ba45c" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c2eafe5e5caf1e3ba45c">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140","141","142","143","144","145","146","147","148","149","150"],[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9,5.4,4.8,4.8,4.3,5.8,5.7,5.4,5.1,5.7,5.1,5.4,5.1,4.6,5.1,4.8,5,5,5.2,5.2,4.7,4.8,5.4,5.2,5.5,4.9,5,5.5,4.9,4.4,5.1,5,4.5,4.4,5,5.1,4.8,5.1,4.6,5.3,5,7,6.4,6.9,5.5,6.5,5.7,6.3,4.9,6.6,5.2,5,5.9,6,6.1,5.6,6.7,5.6,5.8,6.2,5.6,5.9,6.1,6.3,6.1,6.4,6.6,6.8,6.7,6,5.7,5.5,5.5,5.8,6,5.4,6,6.7,6.3,5.6,5.5,5.5,6.1,5.8,5,5.6,5.7,5.7,6.2,5.1,5.7,6.3,5.8,7.1,6.3,6.5,7.6,4.9,7.3,6.7,7.2,6.5,6.4,6.8,5.7,5.8,6.4,6.5,7.7,7.7,6,6.9,5.6,7.7,6.3,6.7,7.2,6.2,6.1,6.4,7.2,7.4,7.9,6.4,6.3,6.1,7.7,6.3,6.4,6,6.9,6.7,6.9,5.8,6.8,6.7,6.7,6.3,6.5,6.2,5.9],[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1,3.7,3.4,3,3,4,4.4,3.9,3.5,3.8,3.8,3.4,3.7,3.6,3.3,3.4,3,3.4,3.5,3.4,3.2,3.1,3.4,4.1,4.2,3.1,3.2,3.5,3.6,3,3.4,3.5,2.3,3.2,3.5,3.8,3,3.8,3.2,3.7,3.3,3.2,3.2,3.1,2.3,2.8,2.8,3.3,2.4,2.9,2.7,2,3,2.2,2.9,2.9,3.1,3,2.7,2.2,2.5,3.2,2.8,2.5,2.8,2.9,3,2.8,3,2.9,2.6,2.4,2.4,2.7,2.7,3,3.4,3.1,2.3,3,2.5,2.6,3,2.6,2.3,2.7,3,2.9,2.9,2.5,2.8,3.3,2.7,3,2.9,3,3,2.5,2.9,2.5,3.6,3.2,2.7,3,2.5,2.8,3.2,3,3.8,2.6,2.2,3.2,2.8,2.8,2.7,3.3,3.2,2.8,3,2.8,3,2.8,3.8,2.8,2.8,2.6,3,3.4,3.1,3,3.1,3.1,3.1,2.7,3.2,3.3,3,2.5,3,3.4,3],[1.4,1.4,1.3,1.5,1.4,1.7,1.4,1.5,1.4,1.5,1.5,1.6,1.4,1.1,1.2,1.5,1.3,1.4,1.7,1.5,1.7,1.5,1,1.7,1.9,1.6,1.6,1.5,1.4,1.6,1.6,1.5,1.5,1.4,1.5,1.2,1.3,1.4,1.3,1.5,1.3,1.3,1.3,1.6,1.9,1.4,1.6,1.4,1.5,1.4,4.7,4.5,4.9,4,4.6,4.5,4.7,3.3,4.6,3.9,3.5,4.2,4,4.7,3.6,4.4,4.5,4.1,4.5,3.9,4.8,4,4.9,4.7,4.3,4.4,4.8,5,4.5,3.5,3.8,3.7,3.9,5.1,4.5,4.5,4.7,4.4,4.1,4,4.4,4.6,4,3.3,4.2,4.2,4.2,4.3,3,4.1,6,5.1,5.9,5.6,5.8,6.6,4.5,6.3,5.8,6.1,5.1,5.3,5.5,5,5.1,5.3,5.5,6.7,6.9,5,5.7,4.9,6.7,4.9,5.7,6,4.8,4.9,5.6,5.8,6.1,6.4,5.6,5.1,5.6,6.1,5.6,5.5,4.8,5.4,5.6,5.1,5.1,5.9,5.7,5.2,5,5.2,5.4,5.1],[0.2,0.2,0.2,0.2,0.2,0.4,0.3,0.2,0.2,0.1,0.2,0.2,0.1,0.1,0.2,0.4,0.4,0.3,0.3,0.3,0.2,0.4,0.2,0.5,0.2,0.2,0.4,0.2,0.2,0.2,0.2,0.4,0.1,0.2,0.2,0.2,0.2,0.1,0.2,0.2,0.3,0.3,0.2,0.6,0.4,0.3,0.2,0.2,0.2,0.2,1.4,1.5,1.5,1.3,1.5,1.3,1.6,1,1.3,1.4,1,1.5,1,1.4,1.3,1.4,1.5,1,1.5,1.1,1.8,1.3,1.5,1.2,1.3,1.4,1.4,1.7,1.5,1,1.1,1,1.2,1.6,1.5,1.6,1.5,1.3,1.3,1.3,1.2,1.4,1.2,1,1.3,1.2,1.3,1.3,1.1,1.3,2.5,1.9,2.1,1.8,2.2,2.1,1.7,1.8,1.8,2.5,2,1.9,2.1,2,2.4,2.3,1.8,2.2,2.3,1.5,2.3,2,2,1.8,2.1,1.8,1.8,1.8,2.1,1.6,1.9,2,2.2,1.5,1.4,2.3,2.4,1.8,1.8,2.1,2.4,2.3,1.9,2.3,2.5,2.3,1.9,2,2.3,1.8],["setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica"]],"container":"<table class=\"cell-border stripe\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Sepal.Length<\/th>\n      <th>Sepal.Width<\/th>\n      <th>Petal.Length<\/th>\n      <th>Petal.Width<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-98a60035e7b4d9b12830" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-98a60035e7b4d9b12830">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140","141","142","143","144","145","146","147","148","149","150"],[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9,5.4,4.8,4.8,4.3,5.8,5.7,5.4,5.1,5.7,5.1,5.4,5.1,4.6,5.1,4.8,5,5,5.2,5.2,4.7,4.8,5.4,5.2,5.5,4.9,5,5.5,4.9,4.4,5.1,5,4.5,4.4,5,5.1,4.8,5.1,4.6,5.3,5,7,6.4,6.9,5.5,6.5,5.7,6.3,4.9,6.6,5.2,5,5.9,6,6.1,5.6,6.7,5.6,5.8,6.2,5.6,5.9,6.1,6.3,6.1,6.4,6.6,6.8,6.7,6,5.7,5.5,5.5,5.8,6,5.4,6,6.7,6.3,5.6,5.5,5.5,6.1,5.8,5,5.6,5.7,5.7,6.2,5.1,5.7,6.3,5.8,7.1,6.3,6.5,7.6,4.9,7.3,6.7,7.2,6.5,6.4,6.8,5.7,5.8,6.4,6.5,7.7,7.7,6,6.9,5.6,7.7,6.3,6.7,7.2,6.2,6.1,6.4,7.2,7.4,7.9,6.4,6.3,6.1,7.7,6.3,6.4,6,6.9,6.7,6.9,5.8,6.8,6.7,6.7,6.3,6.5,6.2,5.9],[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1,3.7,3.4,3,3,4,4.4,3.9,3.5,3.8,3.8,3.4,3.7,3.6,3.3,3.4,3,3.4,3.5,3.4,3.2,3.1,3.4,4.1,4.2,3.1,3.2,3.5,3.6,3,3.4,3.5,2.3,3.2,3.5,3.8,3,3.8,3.2,3.7,3.3,3.2,3.2,3.1,2.3,2.8,2.8,3.3,2.4,2.9,2.7,2,3,2.2,2.9,2.9,3.1,3,2.7,2.2,2.5,3.2,2.8,2.5,2.8,2.9,3,2.8,3,2.9,2.6,2.4,2.4,2.7,2.7,3,3.4,3.1,2.3,3,2.5,2.6,3,2.6,2.3,2.7,3,2.9,2.9,2.5,2.8,3.3,2.7,3,2.9,3,3,2.5,2.9,2.5,3.6,3.2,2.7,3,2.5,2.8,3.2,3,3.8,2.6,2.2,3.2,2.8,2.8,2.7,3.3,3.2,2.8,3,2.8,3,2.8,3.8,2.8,2.8,2.6,3,3.4,3.1,3,3.1,3.1,3.1,2.7,3.2,3.3,3,2.5,3,3.4,3],[1.4,1.4,1.3,1.5,1.4,1.7,1.4,1.5,1.4,1.5,1.5,1.6,1.4,1.1,1.2,1.5,1.3,1.4,1.7,1.5,1.7,1.5,1,1.7,1.9,1.6,1.6,1.5,1.4,1.6,1.6,1.5,1.5,1.4,1.5,1.2,1.3,1.4,1.3,1.5,1.3,1.3,1.3,1.6,1.9,1.4,1.6,1.4,1.5,1.4,4.7,4.5,4.9,4,4.6,4.5,4.7,3.3,4.6,3.9,3.5,4.2,4,4.7,3.6,4.4,4.5,4.1,4.5,3.9,4.8,4,4.9,4.7,4.3,4.4,4.8,5,4.5,3.5,3.8,3.7,3.9,5.1,4.5,4.5,4.7,4.4,4.1,4,4.4,4.6,4,3.3,4.2,4.2,4.2,4.3,3,4.1,6,5.1,5.9,5.6,5.8,6.6,4.5,6.3,5.8,6.1,5.1,5.3,5.5,5,5.1,5.3,5.5,6.7,6.9,5,5.7,4.9,6.7,4.9,5.7,6,4.8,4.9,5.6,5.8,6.1,6.4,5.6,5.1,5.6,6.1,5.6,5.5,4.8,5.4,5.6,5.1,5.1,5.9,5.7,5.2,5,5.2,5.4,5.1],[0.2,0.2,0.2,0.2,0.2,0.4,0.3,0.2,0.2,0.1,0.2,0.2,0.1,0.1,0.2,0.4,0.4,0.3,0.3,0.3,0.2,0.4,0.2,0.5,0.2,0.2,0.4,0.2,0.2,0.2,0.2,0.4,0.1,0.2,0.2,0.2,0.2,0.1,0.2,0.2,0.3,0.3,0.2,0.6,0.4,0.3,0.2,0.2,0.2,0.2,1.4,1.5,1.5,1.3,1.5,1.3,1.6,1,1.3,1.4,1,1.5,1,1.4,1.3,1.4,1.5,1,1.5,1.1,1.8,1.3,1.5,1.2,1.3,1.4,1.4,1.7,1.5,1,1.1,1,1.2,1.6,1.5,1.6,1.5,1.3,1.3,1.3,1.2,1.4,1.2,1,1.3,1.2,1.3,1.3,1.1,1.3,2.5,1.9,2.1,1.8,2.2,2.1,1.7,1.8,1.8,2.5,2,1.9,2.1,2,2.4,2.3,1.8,2.2,2.3,1.5,2.3,2,2,1.8,2.1,1.8,1.8,1.8,2.1,1.6,1.9,2,2.2,1.5,1.4,2.3,2.4,1.8,1.8,2.1,2.4,2.3,1.9,2.3,2.5,2.3,1.9,2,2.3,1.8],["setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica"]],"container":"<table class=\"cell-border stripe\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Sepal.Length<\/th>\n      <th>Sepal.Width<\/th>\n      <th>Petal.Length<\/th>\n      <th>Petal.Width<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
 ---
 
@@ -3576,8 +3577,8 @@ datatable(iris,
 *         colnames = c("sepal_length" = 1))
 ```
 
-<div id="htmlwidget-8aeb5fc3ffd0dc5bb24f" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-8aeb5fc3ffd0dc5bb24f">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140","141","142","143","144","145","146","147","148","149","150"],[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9,5.4,4.8,4.8,4.3,5.8,5.7,5.4,5.1,5.7,5.1,5.4,5.1,4.6,5.1,4.8,5,5,5.2,5.2,4.7,4.8,5.4,5.2,5.5,4.9,5,5.5,4.9,4.4,5.1,5,4.5,4.4,5,5.1,4.8,5.1,4.6,5.3,5,7,6.4,6.9,5.5,6.5,5.7,6.3,4.9,6.6,5.2,5,5.9,6,6.1,5.6,6.7,5.6,5.8,6.2,5.6,5.9,6.1,6.3,6.1,6.4,6.6,6.8,6.7,6,5.7,5.5,5.5,5.8,6,5.4,6,6.7,6.3,5.6,5.5,5.5,6.1,5.8,5,5.6,5.7,5.7,6.2,5.1,5.7,6.3,5.8,7.1,6.3,6.5,7.6,4.9,7.3,6.7,7.2,6.5,6.4,6.8,5.7,5.8,6.4,6.5,7.7,7.7,6,6.9,5.6,7.7,6.3,6.7,7.2,6.2,6.1,6.4,7.2,7.4,7.9,6.4,6.3,6.1,7.7,6.3,6.4,6,6.9,6.7,6.9,5.8,6.8,6.7,6.7,6.3,6.5,6.2,5.9],[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1,3.7,3.4,3,3,4,4.4,3.9,3.5,3.8,3.8,3.4,3.7,3.6,3.3,3.4,3,3.4,3.5,3.4,3.2,3.1,3.4,4.1,4.2,3.1,3.2,3.5,3.6,3,3.4,3.5,2.3,3.2,3.5,3.8,3,3.8,3.2,3.7,3.3,3.2,3.2,3.1,2.3,2.8,2.8,3.3,2.4,2.9,2.7,2,3,2.2,2.9,2.9,3.1,3,2.7,2.2,2.5,3.2,2.8,2.5,2.8,2.9,3,2.8,3,2.9,2.6,2.4,2.4,2.7,2.7,3,3.4,3.1,2.3,3,2.5,2.6,3,2.6,2.3,2.7,3,2.9,2.9,2.5,2.8,3.3,2.7,3,2.9,3,3,2.5,2.9,2.5,3.6,3.2,2.7,3,2.5,2.8,3.2,3,3.8,2.6,2.2,3.2,2.8,2.8,2.7,3.3,3.2,2.8,3,2.8,3,2.8,3.8,2.8,2.8,2.6,3,3.4,3.1,3,3.1,3.1,3.1,2.7,3.2,3.3,3,2.5,3,3.4,3],[1.4,1.4,1.3,1.5,1.4,1.7,1.4,1.5,1.4,1.5,1.5,1.6,1.4,1.1,1.2,1.5,1.3,1.4,1.7,1.5,1.7,1.5,1,1.7,1.9,1.6,1.6,1.5,1.4,1.6,1.6,1.5,1.5,1.4,1.5,1.2,1.3,1.4,1.3,1.5,1.3,1.3,1.3,1.6,1.9,1.4,1.6,1.4,1.5,1.4,4.7,4.5,4.9,4,4.6,4.5,4.7,3.3,4.6,3.9,3.5,4.2,4,4.7,3.6,4.4,4.5,4.1,4.5,3.9,4.8,4,4.9,4.7,4.3,4.4,4.8,5,4.5,3.5,3.8,3.7,3.9,5.1,4.5,4.5,4.7,4.4,4.1,4,4.4,4.6,4,3.3,4.2,4.2,4.2,4.3,3,4.1,6,5.1,5.9,5.6,5.8,6.6,4.5,6.3,5.8,6.1,5.1,5.3,5.5,5,5.1,5.3,5.5,6.7,6.9,5,5.7,4.9,6.7,4.9,5.7,6,4.8,4.9,5.6,5.8,6.1,6.4,5.6,5.1,5.6,6.1,5.6,5.5,4.8,5.4,5.6,5.1,5.1,5.9,5.7,5.2,5,5.2,5.4,5.1],[0.2,0.2,0.2,0.2,0.2,0.4,0.3,0.2,0.2,0.1,0.2,0.2,0.1,0.1,0.2,0.4,0.4,0.3,0.3,0.3,0.2,0.4,0.2,0.5,0.2,0.2,0.4,0.2,0.2,0.2,0.2,0.4,0.1,0.2,0.2,0.2,0.2,0.1,0.2,0.2,0.3,0.3,0.2,0.6,0.4,0.3,0.2,0.2,0.2,0.2,1.4,1.5,1.5,1.3,1.5,1.3,1.6,1,1.3,1.4,1,1.5,1,1.4,1.3,1.4,1.5,1,1.5,1.1,1.8,1.3,1.5,1.2,1.3,1.4,1.4,1.7,1.5,1,1.1,1,1.2,1.6,1.5,1.6,1.5,1.3,1.3,1.3,1.2,1.4,1.2,1,1.3,1.2,1.3,1.3,1.1,1.3,2.5,1.9,2.1,1.8,2.2,2.1,1.7,1.8,1.8,2.5,2,1.9,2.1,2,2.4,2.3,1.8,2.2,2.3,1.5,2.3,2,2,1.8,2.1,1.8,1.8,1.8,2.1,1.6,1.9,2,2.2,1.5,1.4,2.3,2.4,1.8,1.8,2.1,2.4,2.3,1.9,2.3,2.5,2.3,1.9,2,2.3,1.8],["setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>sepal_length<\/th>\n      <th>Sepal.Length<\/th>\n      <th>Sepal.Width<\/th>\n      <th>Petal.Length<\/th>\n      <th>Petal.Width<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-40df8816bcaf9842d755" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-40df8816bcaf9842d755">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140","141","142","143","144","145","146","147","148","149","150"],[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9,5.4,4.8,4.8,4.3,5.8,5.7,5.4,5.1,5.7,5.1,5.4,5.1,4.6,5.1,4.8,5,5,5.2,5.2,4.7,4.8,5.4,5.2,5.5,4.9,5,5.5,4.9,4.4,5.1,5,4.5,4.4,5,5.1,4.8,5.1,4.6,5.3,5,7,6.4,6.9,5.5,6.5,5.7,6.3,4.9,6.6,5.2,5,5.9,6,6.1,5.6,6.7,5.6,5.8,6.2,5.6,5.9,6.1,6.3,6.1,6.4,6.6,6.8,6.7,6,5.7,5.5,5.5,5.8,6,5.4,6,6.7,6.3,5.6,5.5,5.5,6.1,5.8,5,5.6,5.7,5.7,6.2,5.1,5.7,6.3,5.8,7.1,6.3,6.5,7.6,4.9,7.3,6.7,7.2,6.5,6.4,6.8,5.7,5.8,6.4,6.5,7.7,7.7,6,6.9,5.6,7.7,6.3,6.7,7.2,6.2,6.1,6.4,7.2,7.4,7.9,6.4,6.3,6.1,7.7,6.3,6.4,6,6.9,6.7,6.9,5.8,6.8,6.7,6.7,6.3,6.5,6.2,5.9],[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1,3.7,3.4,3,3,4,4.4,3.9,3.5,3.8,3.8,3.4,3.7,3.6,3.3,3.4,3,3.4,3.5,3.4,3.2,3.1,3.4,4.1,4.2,3.1,3.2,3.5,3.6,3,3.4,3.5,2.3,3.2,3.5,3.8,3,3.8,3.2,3.7,3.3,3.2,3.2,3.1,2.3,2.8,2.8,3.3,2.4,2.9,2.7,2,3,2.2,2.9,2.9,3.1,3,2.7,2.2,2.5,3.2,2.8,2.5,2.8,2.9,3,2.8,3,2.9,2.6,2.4,2.4,2.7,2.7,3,3.4,3.1,2.3,3,2.5,2.6,3,2.6,2.3,2.7,3,2.9,2.9,2.5,2.8,3.3,2.7,3,2.9,3,3,2.5,2.9,2.5,3.6,3.2,2.7,3,2.5,2.8,3.2,3,3.8,2.6,2.2,3.2,2.8,2.8,2.7,3.3,3.2,2.8,3,2.8,3,2.8,3.8,2.8,2.8,2.6,3,3.4,3.1,3,3.1,3.1,3.1,2.7,3.2,3.3,3,2.5,3,3.4,3],[1.4,1.4,1.3,1.5,1.4,1.7,1.4,1.5,1.4,1.5,1.5,1.6,1.4,1.1,1.2,1.5,1.3,1.4,1.7,1.5,1.7,1.5,1,1.7,1.9,1.6,1.6,1.5,1.4,1.6,1.6,1.5,1.5,1.4,1.5,1.2,1.3,1.4,1.3,1.5,1.3,1.3,1.3,1.6,1.9,1.4,1.6,1.4,1.5,1.4,4.7,4.5,4.9,4,4.6,4.5,4.7,3.3,4.6,3.9,3.5,4.2,4,4.7,3.6,4.4,4.5,4.1,4.5,3.9,4.8,4,4.9,4.7,4.3,4.4,4.8,5,4.5,3.5,3.8,3.7,3.9,5.1,4.5,4.5,4.7,4.4,4.1,4,4.4,4.6,4,3.3,4.2,4.2,4.2,4.3,3,4.1,6,5.1,5.9,5.6,5.8,6.6,4.5,6.3,5.8,6.1,5.1,5.3,5.5,5,5.1,5.3,5.5,6.7,6.9,5,5.7,4.9,6.7,4.9,5.7,6,4.8,4.9,5.6,5.8,6.1,6.4,5.6,5.1,5.6,6.1,5.6,5.5,4.8,5.4,5.6,5.1,5.1,5.9,5.7,5.2,5,5.2,5.4,5.1],[0.2,0.2,0.2,0.2,0.2,0.4,0.3,0.2,0.2,0.1,0.2,0.2,0.1,0.1,0.2,0.4,0.4,0.3,0.3,0.3,0.2,0.4,0.2,0.5,0.2,0.2,0.4,0.2,0.2,0.2,0.2,0.4,0.1,0.2,0.2,0.2,0.2,0.1,0.2,0.2,0.3,0.3,0.2,0.6,0.4,0.3,0.2,0.2,0.2,0.2,1.4,1.5,1.5,1.3,1.5,1.3,1.6,1,1.3,1.4,1,1.5,1,1.4,1.3,1.4,1.5,1,1.5,1.1,1.8,1.3,1.5,1.2,1.3,1.4,1.4,1.7,1.5,1,1.1,1,1.2,1.6,1.5,1.6,1.5,1.3,1.3,1.3,1.2,1.4,1.2,1,1.3,1.2,1.3,1.3,1.1,1.3,2.5,1.9,2.1,1.8,2.2,2.1,1.7,1.8,1.8,2.5,2,1.9,2.1,2,2.4,2.3,1.8,2.2,2.3,1.5,2.3,2,2,1.8,2.1,1.8,1.8,1.8,2.1,1.6,1.9,2,2.2,1.5,1.4,2.3,2.4,1.8,1.8,2.1,2.4,2.3,1.9,2.3,2.5,2.3,1.9,2,2.3,1.8],["setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>sepal_length<\/th>\n      <th>Sepal.Length<\/th>\n      <th>Sepal.Width<\/th>\n      <th>Petal.Length<\/th>\n      <th>Petal.Width<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 ---
 
 
@@ -3587,8 +3588,8 @@ datatable(iris,
 *         colnames = c("sepal_length" = "Sepal.Length"))
 ```
 
-<div id="htmlwidget-e51b9d87c0fc5fbdfabd" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e51b9d87c0fc5fbdfabd">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140","141","142","143","144","145","146","147","148","149","150"],[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9,5.4,4.8,4.8,4.3,5.8,5.7,5.4,5.1,5.7,5.1,5.4,5.1,4.6,5.1,4.8,5,5,5.2,5.2,4.7,4.8,5.4,5.2,5.5,4.9,5,5.5,4.9,4.4,5.1,5,4.5,4.4,5,5.1,4.8,5.1,4.6,5.3,5,7,6.4,6.9,5.5,6.5,5.7,6.3,4.9,6.6,5.2,5,5.9,6,6.1,5.6,6.7,5.6,5.8,6.2,5.6,5.9,6.1,6.3,6.1,6.4,6.6,6.8,6.7,6,5.7,5.5,5.5,5.8,6,5.4,6,6.7,6.3,5.6,5.5,5.5,6.1,5.8,5,5.6,5.7,5.7,6.2,5.1,5.7,6.3,5.8,7.1,6.3,6.5,7.6,4.9,7.3,6.7,7.2,6.5,6.4,6.8,5.7,5.8,6.4,6.5,7.7,7.7,6,6.9,5.6,7.7,6.3,6.7,7.2,6.2,6.1,6.4,7.2,7.4,7.9,6.4,6.3,6.1,7.7,6.3,6.4,6,6.9,6.7,6.9,5.8,6.8,6.7,6.7,6.3,6.5,6.2,5.9],[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1,3.7,3.4,3,3,4,4.4,3.9,3.5,3.8,3.8,3.4,3.7,3.6,3.3,3.4,3,3.4,3.5,3.4,3.2,3.1,3.4,4.1,4.2,3.1,3.2,3.5,3.6,3,3.4,3.5,2.3,3.2,3.5,3.8,3,3.8,3.2,3.7,3.3,3.2,3.2,3.1,2.3,2.8,2.8,3.3,2.4,2.9,2.7,2,3,2.2,2.9,2.9,3.1,3,2.7,2.2,2.5,3.2,2.8,2.5,2.8,2.9,3,2.8,3,2.9,2.6,2.4,2.4,2.7,2.7,3,3.4,3.1,2.3,3,2.5,2.6,3,2.6,2.3,2.7,3,2.9,2.9,2.5,2.8,3.3,2.7,3,2.9,3,3,2.5,2.9,2.5,3.6,3.2,2.7,3,2.5,2.8,3.2,3,3.8,2.6,2.2,3.2,2.8,2.8,2.7,3.3,3.2,2.8,3,2.8,3,2.8,3.8,2.8,2.8,2.6,3,3.4,3.1,3,3.1,3.1,3.1,2.7,3.2,3.3,3,2.5,3,3.4,3],[1.4,1.4,1.3,1.5,1.4,1.7,1.4,1.5,1.4,1.5,1.5,1.6,1.4,1.1,1.2,1.5,1.3,1.4,1.7,1.5,1.7,1.5,1,1.7,1.9,1.6,1.6,1.5,1.4,1.6,1.6,1.5,1.5,1.4,1.5,1.2,1.3,1.4,1.3,1.5,1.3,1.3,1.3,1.6,1.9,1.4,1.6,1.4,1.5,1.4,4.7,4.5,4.9,4,4.6,4.5,4.7,3.3,4.6,3.9,3.5,4.2,4,4.7,3.6,4.4,4.5,4.1,4.5,3.9,4.8,4,4.9,4.7,4.3,4.4,4.8,5,4.5,3.5,3.8,3.7,3.9,5.1,4.5,4.5,4.7,4.4,4.1,4,4.4,4.6,4,3.3,4.2,4.2,4.2,4.3,3,4.1,6,5.1,5.9,5.6,5.8,6.6,4.5,6.3,5.8,6.1,5.1,5.3,5.5,5,5.1,5.3,5.5,6.7,6.9,5,5.7,4.9,6.7,4.9,5.7,6,4.8,4.9,5.6,5.8,6.1,6.4,5.6,5.1,5.6,6.1,5.6,5.5,4.8,5.4,5.6,5.1,5.1,5.9,5.7,5.2,5,5.2,5.4,5.1],[0.2,0.2,0.2,0.2,0.2,0.4,0.3,0.2,0.2,0.1,0.2,0.2,0.1,0.1,0.2,0.4,0.4,0.3,0.3,0.3,0.2,0.4,0.2,0.5,0.2,0.2,0.4,0.2,0.2,0.2,0.2,0.4,0.1,0.2,0.2,0.2,0.2,0.1,0.2,0.2,0.3,0.3,0.2,0.6,0.4,0.3,0.2,0.2,0.2,0.2,1.4,1.5,1.5,1.3,1.5,1.3,1.6,1,1.3,1.4,1,1.5,1,1.4,1.3,1.4,1.5,1,1.5,1.1,1.8,1.3,1.5,1.2,1.3,1.4,1.4,1.7,1.5,1,1.1,1,1.2,1.6,1.5,1.6,1.5,1.3,1.3,1.3,1.2,1.4,1.2,1,1.3,1.2,1.3,1.3,1.1,1.3,2.5,1.9,2.1,1.8,2.2,2.1,1.7,1.8,1.8,2.5,2,1.9,2.1,2,2.4,2.3,1.8,2.2,2.3,1.5,2.3,2,2,1.8,2.1,1.8,1.8,1.8,2.1,1.6,1.9,2,2.2,1.5,1.4,2.3,2.4,1.8,1.8,2.1,2.4,2.3,1.9,2.3,2.5,2.3,1.9,2,2.3,1.8],["setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>sepal_length<\/th>\n      <th>Sepal.Width<\/th>\n      <th>Petal.Length<\/th>\n      <th>Petal.Width<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-73fe61de92e2876b99ab" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-73fe61de92e2876b99ab">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140","141","142","143","144","145","146","147","148","149","150"],[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9,5.4,4.8,4.8,4.3,5.8,5.7,5.4,5.1,5.7,5.1,5.4,5.1,4.6,5.1,4.8,5,5,5.2,5.2,4.7,4.8,5.4,5.2,5.5,4.9,5,5.5,4.9,4.4,5.1,5,4.5,4.4,5,5.1,4.8,5.1,4.6,5.3,5,7,6.4,6.9,5.5,6.5,5.7,6.3,4.9,6.6,5.2,5,5.9,6,6.1,5.6,6.7,5.6,5.8,6.2,5.6,5.9,6.1,6.3,6.1,6.4,6.6,6.8,6.7,6,5.7,5.5,5.5,5.8,6,5.4,6,6.7,6.3,5.6,5.5,5.5,6.1,5.8,5,5.6,5.7,5.7,6.2,5.1,5.7,6.3,5.8,7.1,6.3,6.5,7.6,4.9,7.3,6.7,7.2,6.5,6.4,6.8,5.7,5.8,6.4,6.5,7.7,7.7,6,6.9,5.6,7.7,6.3,6.7,7.2,6.2,6.1,6.4,7.2,7.4,7.9,6.4,6.3,6.1,7.7,6.3,6.4,6,6.9,6.7,6.9,5.8,6.8,6.7,6.7,6.3,6.5,6.2,5.9],[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1,3.7,3.4,3,3,4,4.4,3.9,3.5,3.8,3.8,3.4,3.7,3.6,3.3,3.4,3,3.4,3.5,3.4,3.2,3.1,3.4,4.1,4.2,3.1,3.2,3.5,3.6,3,3.4,3.5,2.3,3.2,3.5,3.8,3,3.8,3.2,3.7,3.3,3.2,3.2,3.1,2.3,2.8,2.8,3.3,2.4,2.9,2.7,2,3,2.2,2.9,2.9,3.1,3,2.7,2.2,2.5,3.2,2.8,2.5,2.8,2.9,3,2.8,3,2.9,2.6,2.4,2.4,2.7,2.7,3,3.4,3.1,2.3,3,2.5,2.6,3,2.6,2.3,2.7,3,2.9,2.9,2.5,2.8,3.3,2.7,3,2.9,3,3,2.5,2.9,2.5,3.6,3.2,2.7,3,2.5,2.8,3.2,3,3.8,2.6,2.2,3.2,2.8,2.8,2.7,3.3,3.2,2.8,3,2.8,3,2.8,3.8,2.8,2.8,2.6,3,3.4,3.1,3,3.1,3.1,3.1,2.7,3.2,3.3,3,2.5,3,3.4,3],[1.4,1.4,1.3,1.5,1.4,1.7,1.4,1.5,1.4,1.5,1.5,1.6,1.4,1.1,1.2,1.5,1.3,1.4,1.7,1.5,1.7,1.5,1,1.7,1.9,1.6,1.6,1.5,1.4,1.6,1.6,1.5,1.5,1.4,1.5,1.2,1.3,1.4,1.3,1.5,1.3,1.3,1.3,1.6,1.9,1.4,1.6,1.4,1.5,1.4,4.7,4.5,4.9,4,4.6,4.5,4.7,3.3,4.6,3.9,3.5,4.2,4,4.7,3.6,4.4,4.5,4.1,4.5,3.9,4.8,4,4.9,4.7,4.3,4.4,4.8,5,4.5,3.5,3.8,3.7,3.9,5.1,4.5,4.5,4.7,4.4,4.1,4,4.4,4.6,4,3.3,4.2,4.2,4.2,4.3,3,4.1,6,5.1,5.9,5.6,5.8,6.6,4.5,6.3,5.8,6.1,5.1,5.3,5.5,5,5.1,5.3,5.5,6.7,6.9,5,5.7,4.9,6.7,4.9,5.7,6,4.8,4.9,5.6,5.8,6.1,6.4,5.6,5.1,5.6,6.1,5.6,5.5,4.8,5.4,5.6,5.1,5.1,5.9,5.7,5.2,5,5.2,5.4,5.1],[0.2,0.2,0.2,0.2,0.2,0.4,0.3,0.2,0.2,0.1,0.2,0.2,0.1,0.1,0.2,0.4,0.4,0.3,0.3,0.3,0.2,0.4,0.2,0.5,0.2,0.2,0.4,0.2,0.2,0.2,0.2,0.4,0.1,0.2,0.2,0.2,0.2,0.1,0.2,0.2,0.3,0.3,0.2,0.6,0.4,0.3,0.2,0.2,0.2,0.2,1.4,1.5,1.5,1.3,1.5,1.3,1.6,1,1.3,1.4,1,1.5,1,1.4,1.3,1.4,1.5,1,1.5,1.1,1.8,1.3,1.5,1.2,1.3,1.4,1.4,1.7,1.5,1,1.1,1,1.2,1.6,1.5,1.6,1.5,1.3,1.3,1.3,1.2,1.4,1.2,1,1.3,1.2,1.3,1.3,1.1,1.3,2.5,1.9,2.1,1.8,2.2,2.1,1.7,1.8,1.8,2.5,2,1.9,2.1,2,2.4,2.3,1.8,2.2,2.3,1.5,2.3,2,2,1.8,2.1,1.8,1.8,1.8,2.1,1.6,1.9,2,2.2,1.5,1.4,2.3,2.4,1.8,1.8,2.1,2.4,2.3,1.9,2.3,2.5,2.3,1.9,2,2.3,1.8],["setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>sepal_length<\/th>\n      <th>Sepal.Width<\/th>\n      <th>Petal.Length<\/th>\n      <th>Petal.Width<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
 ---
 
@@ -3600,8 +3601,8 @@ datatable(
 )
 ```
 
-<div id="htmlwidget-02e636a289cbd951027d" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-02e636a289cbd951027d">{"x":{"filter":"none","vertical":false,"caption":"<caption>Table 1: This is a simple caption for the table.<\/caption>","data":[["1","2","3","4","5","6"],[5.1,4.9,4.7,4.6,5,5.4],[3.5,3,3.2,3.1,3.6,3.9],[1.4,1.4,1.3,1.5,1.4,1.7],[0.2,0.2,0.2,0.2,0.2,0.4],["setosa","setosa","setosa","setosa","setosa","setosa"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Sepal.Length<\/th>\n      <th>Sepal.Width<\/th>\n      <th>Petal.Length<\/th>\n      <th>Petal.Width<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-5afa60a0f8ed8ae0cf03" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5afa60a0f8ed8ae0cf03">{"x":{"filter":"none","vertical":false,"caption":"<caption>Table 1: This is a simple caption for the table.<\/caption>","data":[["1","2","3","4","5","6"],[5.1,4.9,4.7,4.6,5,5.4],[3.5,3,3.2,3.1,3.6,3.9],[1.4,1.4,1.3,1.5,1.4,1.7],[0.2,0.2,0.2,0.2,0.2,0.4],["setosa","setosa","setosa","setosa","setosa","setosa"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Sepal.Length<\/th>\n      <th>Sepal.Width<\/th>\n      <th>Petal.Length<\/th>\n      <th>Petal.Width<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 
 ---
 
@@ -3612,7 +3613,11 @@ datatable(
 - Can modify locations of each component, format text and background shading, add titles, captions, etc.
 
 
-&lt;img src="img/05_5/gt_fig.png" width="50%" /&gt;
+&lt;img src="img/05_5/gt_fig.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+.footnote[
+*Source: https://gt.rstudio.com/
+]
 
 ---
 
@@ -3623,12 +3628,12 @@ iris %&gt;%
   gt()
 ```
 
-<div id="zinrxpoung" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="yudazygiuj" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#zinrxpoung .gt_table {
+#yudazygiuj .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -3653,7 +3658,7 @@ iris %&gt;%
   border-left-color: #D3D3D3;
 }
 
-#zinrxpoung .gt_heading {
+#yudazygiuj .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -3665,7 +3670,7 @@ iris %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#zinrxpoung .gt_title {
+#yudazygiuj .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -3677,7 +3682,7 @@ iris %&gt;%
   border-bottom-width: 0;
 }
 
-#zinrxpoung .gt_subtitle {
+#yudazygiuj .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -3689,13 +3694,13 @@ iris %&gt;%
   border-top-width: 0;
 }
 
-#zinrxpoung .gt_bottom_border {
+#yudazygiuj .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#zinrxpoung .gt_col_headings {
+#yudazygiuj .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3710,7 +3715,7 @@ iris %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#zinrxpoung .gt_col_heading {
+#yudazygiuj .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3730,7 +3735,7 @@ iris %&gt;%
   overflow-x: hidden;
 }
 
-#zinrxpoung .gt_column_spanner_outer {
+#yudazygiuj .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3742,15 +3747,15 @@ iris %&gt;%
   padding-right: 4px;
 }
 
-#zinrxpoung .gt_column_spanner_outer:first-child {
+#yudazygiuj .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#zinrxpoung .gt_column_spanner_outer:last-child {
+#yudazygiuj .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#zinrxpoung .gt_column_spanner {
+#yudazygiuj .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -3762,7 +3767,7 @@ iris %&gt;%
   width: 100%;
 }
 
-#zinrxpoung .gt_group_heading {
+#yudazygiuj .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3787,7 +3792,7 @@ iris %&gt;%
   vertical-align: middle;
 }
 
-#zinrxpoung .gt_empty_group_heading {
+#yudazygiuj .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3802,15 +3807,15 @@ iris %&gt;%
   vertical-align: middle;
 }
 
-#zinrxpoung .gt_from_md > :first-child {
+#yudazygiuj .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#zinrxpoung .gt_from_md > :last-child {
+#yudazygiuj .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#zinrxpoung .gt_row {
+#yudazygiuj .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3829,7 +3834,7 @@ iris %&gt;%
   overflow-x: hidden;
 }
 
-#zinrxpoung .gt_stub {
+#yudazygiuj .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3842,7 +3847,7 @@ iris %&gt;%
   padding-right: 5px;
 }
 
-#zinrxpoung .gt_stub_row_group {
+#yudazygiuj .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3856,11 +3861,11 @@ iris %&gt;%
   vertical-align: top;
 }
 
-#zinrxpoung .gt_row_group_first td {
+#yudazygiuj .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#zinrxpoung .gt_summary_row {
+#yudazygiuj .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3870,16 +3875,16 @@ iris %&gt;%
   padding-right: 5px;
 }
 
-#zinrxpoung .gt_first_summary_row {
+#yudazygiuj .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#zinrxpoung .gt_first_summary_row.thick {
+#yudazygiuj .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#zinrxpoung .gt_last_summary_row {
+#yudazygiuj .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3889,7 +3894,7 @@ iris %&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#zinrxpoung .gt_grand_summary_row {
+#yudazygiuj .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3899,7 +3904,7 @@ iris %&gt;%
   padding-right: 5px;
 }
 
-#zinrxpoung .gt_first_grand_summary_row {
+#yudazygiuj .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3909,11 +3914,11 @@ iris %&gt;%
   border-top-color: #D3D3D3;
 }
 
-#zinrxpoung .gt_striped {
+#yudazygiuj .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#zinrxpoung .gt_table_body {
+#yudazygiuj .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3922,7 +3927,7 @@ iris %&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#zinrxpoung .gt_footnotes {
+#yudazygiuj .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3936,7 +3941,7 @@ iris %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#zinrxpoung .gt_footnote {
+#yudazygiuj .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -3945,7 +3950,7 @@ iris %&gt;%
   padding-right: 5px;
 }
 
-#zinrxpoung .gt_sourcenotes {
+#yudazygiuj .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3959,7 +3964,7 @@ iris %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#zinrxpoung .gt_sourcenote {
+#yudazygiuj .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -3967,64 +3972,64 @@ iris %&gt;%
   padding-right: 5px;
 }
 
-#zinrxpoung .gt_left {
+#yudazygiuj .gt_left {
   text-align: left;
 }
 
-#zinrxpoung .gt_center {
+#yudazygiuj .gt_center {
   text-align: center;
 }
 
-#zinrxpoung .gt_right {
+#yudazygiuj .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#zinrxpoung .gt_font_normal {
+#yudazygiuj .gt_font_normal {
   font-weight: normal;
 }
 
-#zinrxpoung .gt_font_bold {
+#yudazygiuj .gt_font_bold {
   font-weight: bold;
 }
 
-#zinrxpoung .gt_font_italic {
+#yudazygiuj .gt_font_italic {
   font-style: italic;
 }
 
-#zinrxpoung .gt_super {
+#yudazygiuj .gt_super {
   font-size: 65%;
 }
 
-#zinrxpoung .gt_footnote_marks {
+#yudazygiuj .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#zinrxpoung .gt_asterisk {
+#yudazygiuj .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#zinrxpoung .gt_indent_1 {
+#yudazygiuj .gt_indent_1 {
   text-indent: 5px;
 }
 
-#zinrxpoung .gt_indent_2 {
+#yudazygiuj .gt_indent_2 {
   text-indent: 10px;
 }
 
-#zinrxpoung .gt_indent_3 {
+#yudazygiuj .gt_indent_3 {
   text-indent: 15px;
 }
 
-#zinrxpoung .gt_indent_4 {
+#yudazygiuj .gt_indent_4 {
   text-indent: 20px;
 }
 
-#zinrxpoung .gt_indent_5 {
+#yudazygiuj .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -4805,12 +4810,12 @@ iris %&gt;%
 * tab_header(title = "Iris data")
 ```
 
-<div id="cthckcatra" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="ymnixmfloa" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#cthckcatra .gt_table {
+#ymnixmfloa .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -4835,7 +4840,7 @@ iris %&gt;%
   border-left-color: #D3D3D3;
 }
 
-#cthckcatra .gt_heading {
+#ymnixmfloa .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -4847,7 +4852,7 @@ iris %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#cthckcatra .gt_title {
+#ymnixmfloa .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -4859,7 +4864,7 @@ iris %&gt;%
   border-bottom-width: 0;
 }
 
-#cthckcatra .gt_subtitle {
+#ymnixmfloa .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -4871,13 +4876,13 @@ iris %&gt;%
   border-top-width: 0;
 }
 
-#cthckcatra .gt_bottom_border {
+#ymnixmfloa .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#cthckcatra .gt_col_headings {
+#ymnixmfloa .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4892,7 +4897,7 @@ iris %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#cthckcatra .gt_col_heading {
+#ymnixmfloa .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4912,7 +4917,7 @@ iris %&gt;%
   overflow-x: hidden;
 }
 
-#cthckcatra .gt_column_spanner_outer {
+#ymnixmfloa .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4924,15 +4929,15 @@ iris %&gt;%
   padding-right: 4px;
 }
 
-#cthckcatra .gt_column_spanner_outer:first-child {
+#ymnixmfloa .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#cthckcatra .gt_column_spanner_outer:last-child {
+#ymnixmfloa .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#cthckcatra .gt_column_spanner {
+#ymnixmfloa .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -4944,7 +4949,7 @@ iris %&gt;%
   width: 100%;
 }
 
-#cthckcatra .gt_group_heading {
+#ymnixmfloa .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4969,7 +4974,7 @@ iris %&gt;%
   vertical-align: middle;
 }
 
-#cthckcatra .gt_empty_group_heading {
+#ymnixmfloa .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -4984,15 +4989,15 @@ iris %&gt;%
   vertical-align: middle;
 }
 
-#cthckcatra .gt_from_md > :first-child {
+#ymnixmfloa .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#cthckcatra .gt_from_md > :last-child {
+#ymnixmfloa .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#cthckcatra .gt_row {
+#ymnixmfloa .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5011,7 +5016,7 @@ iris %&gt;%
   overflow-x: hidden;
 }
 
-#cthckcatra .gt_stub {
+#ymnixmfloa .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5024,7 +5029,7 @@ iris %&gt;%
   padding-right: 5px;
 }
 
-#cthckcatra .gt_stub_row_group {
+#ymnixmfloa .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5038,11 +5043,11 @@ iris %&gt;%
   vertical-align: top;
 }
 
-#cthckcatra .gt_row_group_first td {
+#ymnixmfloa .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#cthckcatra .gt_summary_row {
+#ymnixmfloa .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -5052,16 +5057,16 @@ iris %&gt;%
   padding-right: 5px;
 }
 
-#cthckcatra .gt_first_summary_row {
+#ymnixmfloa .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#cthckcatra .gt_first_summary_row.thick {
+#ymnixmfloa .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#cthckcatra .gt_last_summary_row {
+#ymnixmfloa .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5071,7 +5076,7 @@ iris %&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#cthckcatra .gt_grand_summary_row {
+#ymnixmfloa .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -5081,7 +5086,7 @@ iris %&gt;%
   padding-right: 5px;
 }
 
-#cthckcatra .gt_first_grand_summary_row {
+#ymnixmfloa .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5091,11 +5096,11 @@ iris %&gt;%
   border-top-color: #D3D3D3;
 }
 
-#cthckcatra .gt_striped {
+#ymnixmfloa .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#cthckcatra .gt_table_body {
+#ymnixmfloa .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -5104,7 +5109,7 @@ iris %&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#cthckcatra .gt_footnotes {
+#ymnixmfloa .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -5118,7 +5123,7 @@ iris %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#cthckcatra .gt_footnote {
+#ymnixmfloa .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -5127,7 +5132,7 @@ iris %&gt;%
   padding-right: 5px;
 }
 
-#cthckcatra .gt_sourcenotes {
+#ymnixmfloa .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -5141,7 +5146,7 @@ iris %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#cthckcatra .gt_sourcenote {
+#ymnixmfloa .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -5149,64 +5154,64 @@ iris %&gt;%
   padding-right: 5px;
 }
 
-#cthckcatra .gt_left {
+#ymnixmfloa .gt_left {
   text-align: left;
 }
 
-#cthckcatra .gt_center {
+#ymnixmfloa .gt_center {
   text-align: center;
 }
 
-#cthckcatra .gt_right {
+#ymnixmfloa .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#cthckcatra .gt_font_normal {
+#ymnixmfloa .gt_font_normal {
   font-weight: normal;
 }
 
-#cthckcatra .gt_font_bold {
+#ymnixmfloa .gt_font_bold {
   font-weight: bold;
 }
 
-#cthckcatra .gt_font_italic {
+#ymnixmfloa .gt_font_italic {
   font-style: italic;
 }
 
-#cthckcatra .gt_super {
+#ymnixmfloa .gt_super {
   font-size: 65%;
 }
 
-#cthckcatra .gt_footnote_marks {
+#ymnixmfloa .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#cthckcatra .gt_asterisk {
+#ymnixmfloa .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#cthckcatra .gt_indent_1 {
+#ymnixmfloa .gt_indent_1 {
   text-indent: 5px;
 }
 
-#cthckcatra .gt_indent_2 {
+#ymnixmfloa .gt_indent_2 {
   text-indent: 10px;
 }
 
-#cthckcatra .gt_indent_3 {
+#ymnixmfloa .gt_indent_3 {
   text-indent: 15px;
 }
 
-#cthckcatra .gt_indent_4 {
+#ymnixmfloa .gt_indent_4 {
   text-indent: 20px;
 }
 
-#cthckcatra .gt_indent_5 {
+#ymnixmfloa .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -5986,7 +5991,7 @@ iris %&gt;%
 
 ---
 
-- Note, there is not an easy way to paginate. We can instead do ths following:
+- Note, there is not an easy way to paginate. We can instead do the following:
 
 
 ```r
@@ -5994,12 +5999,12 @@ iris %&gt;%
 * gt_preview(top_n = 4, bottom_n = 2)
 ```
 
-<div id="bufpumxtck" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="fnlupjygav" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#bufpumxtck .gt_table {
+#fnlupjygav .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -6024,7 +6029,7 @@ iris %&gt;%
   border-left-color: #D3D3D3;
 }
 
-#bufpumxtck .gt_heading {
+#fnlupjygav .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -6036,7 +6041,7 @@ iris %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#bufpumxtck .gt_title {
+#fnlupjygav .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -6048,7 +6053,7 @@ iris %&gt;%
   border-bottom-width: 0;
 }
 
-#bufpumxtck .gt_subtitle {
+#fnlupjygav .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -6060,13 +6065,13 @@ iris %&gt;%
   border-top-width: 0;
 }
 
-#bufpumxtck .gt_bottom_border {
+#fnlupjygav .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#bufpumxtck .gt_col_headings {
+#fnlupjygav .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -6081,7 +6086,7 @@ iris %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#bufpumxtck .gt_col_heading {
+#fnlupjygav .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -6101,7 +6106,7 @@ iris %&gt;%
   overflow-x: hidden;
 }
 
-#bufpumxtck .gt_column_spanner_outer {
+#fnlupjygav .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -6113,15 +6118,15 @@ iris %&gt;%
   padding-right: 4px;
 }
 
-#bufpumxtck .gt_column_spanner_outer:first-child {
+#fnlupjygav .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#bufpumxtck .gt_column_spanner_outer:last-child {
+#fnlupjygav .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#bufpumxtck .gt_column_spanner {
+#fnlupjygav .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -6133,7 +6138,7 @@ iris %&gt;%
   width: 100%;
 }
 
-#bufpumxtck .gt_group_heading {
+#fnlupjygav .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -6158,7 +6163,7 @@ iris %&gt;%
   vertical-align: middle;
 }
 
-#bufpumxtck .gt_empty_group_heading {
+#fnlupjygav .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -6173,15 +6178,15 @@ iris %&gt;%
   vertical-align: middle;
 }
 
-#bufpumxtck .gt_from_md > :first-child {
+#fnlupjygav .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#bufpumxtck .gt_from_md > :last-child {
+#fnlupjygav .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#bufpumxtck .gt_row {
+#fnlupjygav .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -6200,7 +6205,7 @@ iris %&gt;%
   overflow-x: hidden;
 }
 
-#bufpumxtck .gt_stub {
+#fnlupjygav .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -6213,7 +6218,7 @@ iris %&gt;%
   padding-right: 5px;
 }
 
-#bufpumxtck .gt_stub_row_group {
+#fnlupjygav .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -6227,11 +6232,11 @@ iris %&gt;%
   vertical-align: top;
 }
 
-#bufpumxtck .gt_row_group_first td {
+#fnlupjygav .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#bufpumxtck .gt_summary_row {
+#fnlupjygav .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -6241,16 +6246,16 @@ iris %&gt;%
   padding-right: 5px;
 }
 
-#bufpumxtck .gt_first_summary_row {
+#fnlupjygav .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#bufpumxtck .gt_first_summary_row.thick {
+#fnlupjygav .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#bufpumxtck .gt_last_summary_row {
+#fnlupjygav .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -6260,7 +6265,7 @@ iris %&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#bufpumxtck .gt_grand_summary_row {
+#fnlupjygav .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -6270,7 +6275,7 @@ iris %&gt;%
   padding-right: 5px;
 }
 
-#bufpumxtck .gt_first_grand_summary_row {
+#fnlupjygav .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -6280,11 +6285,11 @@ iris %&gt;%
   border-top-color: #D3D3D3;
 }
 
-#bufpumxtck .gt_striped {
+#fnlupjygav .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#bufpumxtck .gt_table_body {
+#fnlupjygav .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -6293,7 +6298,7 @@ iris %&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#bufpumxtck .gt_footnotes {
+#fnlupjygav .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -6307,7 +6312,7 @@ iris %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#bufpumxtck .gt_footnote {
+#fnlupjygav .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -6316,7 +6321,7 @@ iris %&gt;%
   padding-right: 5px;
 }
 
-#bufpumxtck .gt_sourcenotes {
+#fnlupjygav .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -6330,7 +6335,7 @@ iris %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#bufpumxtck .gt_sourcenote {
+#fnlupjygav .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -6338,64 +6343,64 @@ iris %&gt;%
   padding-right: 5px;
 }
 
-#bufpumxtck .gt_left {
+#fnlupjygav .gt_left {
   text-align: left;
 }
 
-#bufpumxtck .gt_center {
+#fnlupjygav .gt_center {
   text-align: center;
 }
 
-#bufpumxtck .gt_right {
+#fnlupjygav .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#bufpumxtck .gt_font_normal {
+#fnlupjygav .gt_font_normal {
   font-weight: normal;
 }
 
-#bufpumxtck .gt_font_bold {
+#fnlupjygav .gt_font_bold {
   font-weight: bold;
 }
 
-#bufpumxtck .gt_font_italic {
+#fnlupjygav .gt_font_italic {
   font-style: italic;
 }
 
-#bufpumxtck .gt_super {
+#fnlupjygav .gt_super {
   font-size: 65%;
 }
 
-#bufpumxtck .gt_footnote_marks {
+#fnlupjygav .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#bufpumxtck .gt_asterisk {
+#fnlupjygav .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#bufpumxtck .gt_indent_1 {
+#fnlupjygav .gt_indent_1 {
   text-indent: 5px;
 }
 
-#bufpumxtck .gt_indent_2 {
+#fnlupjygav .gt_indent_2 {
   text-indent: 10px;
 }
 
-#bufpumxtck .gt_indent_3 {
+#fnlupjygav .gt_indent_3 {
   text-indent: 15px;
 }
 
-#bufpumxtck .gt_indent_4 {
+#fnlupjygav .gt_indent_4 {
   text-indent: 20px;
 }
 
-#bufpumxtck .gt_indent_5 {
+#fnlupjygav .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -6473,12 +6478,12 @@ exibble %&gt;%
   gt()
 ```
 
-<div id="pekldqspfh" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="huzriqaiwp" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#pekldqspfh .gt_table {
+#huzriqaiwp .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -6503,7 +6508,7 @@ exibble %&gt;%
   border-left-color: #D3D3D3;
 }
 
-#pekldqspfh .gt_heading {
+#huzriqaiwp .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -6515,7 +6520,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#pekldqspfh .gt_title {
+#huzriqaiwp .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -6527,7 +6532,7 @@ exibble %&gt;%
   border-bottom-width: 0;
 }
 
-#pekldqspfh .gt_subtitle {
+#huzriqaiwp .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -6539,13 +6544,13 @@ exibble %&gt;%
   border-top-width: 0;
 }
 
-#pekldqspfh .gt_bottom_border {
+#huzriqaiwp .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#pekldqspfh .gt_col_headings {
+#huzriqaiwp .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -6560,7 +6565,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#pekldqspfh .gt_col_heading {
+#huzriqaiwp .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -6580,7 +6585,7 @@ exibble %&gt;%
   overflow-x: hidden;
 }
 
-#pekldqspfh .gt_column_spanner_outer {
+#huzriqaiwp .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -6592,15 +6597,15 @@ exibble %&gt;%
   padding-right: 4px;
 }
 
-#pekldqspfh .gt_column_spanner_outer:first-child {
+#huzriqaiwp .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#pekldqspfh .gt_column_spanner_outer:last-child {
+#huzriqaiwp .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#pekldqspfh .gt_column_spanner {
+#huzriqaiwp .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -6612,7 +6617,7 @@ exibble %&gt;%
   width: 100%;
 }
 
-#pekldqspfh .gt_group_heading {
+#huzriqaiwp .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -6637,7 +6642,7 @@ exibble %&gt;%
   vertical-align: middle;
 }
 
-#pekldqspfh .gt_empty_group_heading {
+#huzriqaiwp .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -6652,15 +6657,15 @@ exibble %&gt;%
   vertical-align: middle;
 }
 
-#pekldqspfh .gt_from_md > :first-child {
+#huzriqaiwp .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#pekldqspfh .gt_from_md > :last-child {
+#huzriqaiwp .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#pekldqspfh .gt_row {
+#huzriqaiwp .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -6679,7 +6684,7 @@ exibble %&gt;%
   overflow-x: hidden;
 }
 
-#pekldqspfh .gt_stub {
+#huzriqaiwp .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -6692,7 +6697,7 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#pekldqspfh .gt_stub_row_group {
+#huzriqaiwp .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -6706,11 +6711,11 @@ exibble %&gt;%
   vertical-align: top;
 }
 
-#pekldqspfh .gt_row_group_first td {
+#huzriqaiwp .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#pekldqspfh .gt_summary_row {
+#huzriqaiwp .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -6720,16 +6725,16 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#pekldqspfh .gt_first_summary_row {
+#huzriqaiwp .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#pekldqspfh .gt_first_summary_row.thick {
+#huzriqaiwp .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#pekldqspfh .gt_last_summary_row {
+#huzriqaiwp .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -6739,7 +6744,7 @@ exibble %&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#pekldqspfh .gt_grand_summary_row {
+#huzriqaiwp .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -6749,7 +6754,7 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#pekldqspfh .gt_first_grand_summary_row {
+#huzriqaiwp .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -6759,11 +6764,11 @@ exibble %&gt;%
   border-top-color: #D3D3D3;
 }
 
-#pekldqspfh .gt_striped {
+#huzriqaiwp .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#pekldqspfh .gt_table_body {
+#huzriqaiwp .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -6772,7 +6777,7 @@ exibble %&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#pekldqspfh .gt_footnotes {
+#huzriqaiwp .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -6786,7 +6791,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#pekldqspfh .gt_footnote {
+#huzriqaiwp .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -6795,7 +6800,7 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#pekldqspfh .gt_sourcenotes {
+#huzriqaiwp .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -6809,7 +6814,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#pekldqspfh .gt_sourcenote {
+#huzriqaiwp .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -6817,64 +6822,64 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#pekldqspfh .gt_left {
+#huzriqaiwp .gt_left {
   text-align: left;
 }
 
-#pekldqspfh .gt_center {
+#huzriqaiwp .gt_center {
   text-align: center;
 }
 
-#pekldqspfh .gt_right {
+#huzriqaiwp .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#pekldqspfh .gt_font_normal {
+#huzriqaiwp .gt_font_normal {
   font-weight: normal;
 }
 
-#pekldqspfh .gt_font_bold {
+#huzriqaiwp .gt_font_bold {
   font-weight: bold;
 }
 
-#pekldqspfh .gt_font_italic {
+#huzriqaiwp .gt_font_italic {
   font-style: italic;
 }
 
-#pekldqspfh .gt_super {
+#huzriqaiwp .gt_super {
   font-size: 65%;
 }
 
-#pekldqspfh .gt_footnote_marks {
+#huzriqaiwp .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#pekldqspfh .gt_asterisk {
+#huzriqaiwp .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#pekldqspfh .gt_indent_1 {
+#huzriqaiwp .gt_indent_1 {
   text-indent: 5px;
 }
 
-#pekldqspfh .gt_indent_2 {
+#huzriqaiwp .gt_indent_2 {
   text-indent: 10px;
 }
 
-#pekldqspfh .gt_indent_3 {
+#huzriqaiwp .gt_indent_3 {
   text-indent: 15px;
 }
 
-#pekldqspfh .gt_indent_4 {
+#huzriqaiwp .gt_indent_4 {
   text-indent: 20px;
 }
 
-#pekldqspfh .gt_indent_5 {
+#huzriqaiwp .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -6981,12 +6986,12 @@ exibble %&gt;%
   gt()
 ```
 
-<div id="acgwcjlzrc" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="ycxvtbschl" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#acgwcjlzrc .gt_table {
+#ycxvtbschl .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -7011,7 +7016,7 @@ exibble %&gt;%
   border-left-color: #D3D3D3;
 }
 
-#acgwcjlzrc .gt_heading {
+#ycxvtbschl .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -7023,7 +7028,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#acgwcjlzrc .gt_title {
+#ycxvtbschl .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -7035,7 +7040,7 @@ exibble %&gt;%
   border-bottom-width: 0;
 }
 
-#acgwcjlzrc .gt_subtitle {
+#ycxvtbschl .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -7047,13 +7052,13 @@ exibble %&gt;%
   border-top-width: 0;
 }
 
-#acgwcjlzrc .gt_bottom_border {
+#ycxvtbschl .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#acgwcjlzrc .gt_col_headings {
+#ycxvtbschl .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -7068,7 +7073,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#acgwcjlzrc .gt_col_heading {
+#ycxvtbschl .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -7088,7 +7093,7 @@ exibble %&gt;%
   overflow-x: hidden;
 }
 
-#acgwcjlzrc .gt_column_spanner_outer {
+#ycxvtbschl .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -7100,15 +7105,15 @@ exibble %&gt;%
   padding-right: 4px;
 }
 
-#acgwcjlzrc .gt_column_spanner_outer:first-child {
+#ycxvtbschl .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#acgwcjlzrc .gt_column_spanner_outer:last-child {
+#ycxvtbschl .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#acgwcjlzrc .gt_column_spanner {
+#ycxvtbschl .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -7120,7 +7125,7 @@ exibble %&gt;%
   width: 100%;
 }
 
-#acgwcjlzrc .gt_group_heading {
+#ycxvtbschl .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -7145,7 +7150,7 @@ exibble %&gt;%
   vertical-align: middle;
 }
 
-#acgwcjlzrc .gt_empty_group_heading {
+#ycxvtbschl .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -7160,15 +7165,15 @@ exibble %&gt;%
   vertical-align: middle;
 }
 
-#acgwcjlzrc .gt_from_md > :first-child {
+#ycxvtbschl .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#acgwcjlzrc .gt_from_md > :last-child {
+#ycxvtbschl .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#acgwcjlzrc .gt_row {
+#ycxvtbschl .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -7187,7 +7192,7 @@ exibble %&gt;%
   overflow-x: hidden;
 }
 
-#acgwcjlzrc .gt_stub {
+#ycxvtbschl .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -7200,7 +7205,7 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#acgwcjlzrc .gt_stub_row_group {
+#ycxvtbschl .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -7214,11 +7219,11 @@ exibble %&gt;%
   vertical-align: top;
 }
 
-#acgwcjlzrc .gt_row_group_first td {
+#ycxvtbschl .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#acgwcjlzrc .gt_summary_row {
+#ycxvtbschl .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -7228,16 +7233,16 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#acgwcjlzrc .gt_first_summary_row {
+#ycxvtbschl .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#acgwcjlzrc .gt_first_summary_row.thick {
+#ycxvtbschl .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#acgwcjlzrc .gt_last_summary_row {
+#ycxvtbschl .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -7247,7 +7252,7 @@ exibble %&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#acgwcjlzrc .gt_grand_summary_row {
+#ycxvtbschl .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -7257,7 +7262,7 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#acgwcjlzrc .gt_first_grand_summary_row {
+#ycxvtbschl .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -7267,11 +7272,11 @@ exibble %&gt;%
   border-top-color: #D3D3D3;
 }
 
-#acgwcjlzrc .gt_striped {
+#ycxvtbschl .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#acgwcjlzrc .gt_table_body {
+#ycxvtbschl .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -7280,7 +7285,7 @@ exibble %&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#acgwcjlzrc .gt_footnotes {
+#ycxvtbschl .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -7294,7 +7299,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#acgwcjlzrc .gt_footnote {
+#ycxvtbschl .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -7303,7 +7308,7 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#acgwcjlzrc .gt_sourcenotes {
+#ycxvtbschl .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -7317,7 +7322,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#acgwcjlzrc .gt_sourcenote {
+#ycxvtbschl .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -7325,64 +7330,64 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#acgwcjlzrc .gt_left {
+#ycxvtbschl .gt_left {
   text-align: left;
 }
 
-#acgwcjlzrc .gt_center {
+#ycxvtbschl .gt_center {
   text-align: center;
 }
 
-#acgwcjlzrc .gt_right {
+#ycxvtbschl .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#acgwcjlzrc .gt_font_normal {
+#ycxvtbschl .gt_font_normal {
   font-weight: normal;
 }
 
-#acgwcjlzrc .gt_font_bold {
+#ycxvtbschl .gt_font_bold {
   font-weight: bold;
 }
 
-#acgwcjlzrc .gt_font_italic {
+#ycxvtbschl .gt_font_italic {
   font-style: italic;
 }
 
-#acgwcjlzrc .gt_super {
+#ycxvtbschl .gt_super {
   font-size: 65%;
 }
 
-#acgwcjlzrc .gt_footnote_marks {
+#ycxvtbschl .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#acgwcjlzrc .gt_asterisk {
+#ycxvtbschl .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#acgwcjlzrc .gt_indent_1 {
+#ycxvtbschl .gt_indent_1 {
   text-indent: 5px;
 }
 
-#acgwcjlzrc .gt_indent_2 {
+#ycxvtbschl .gt_indent_2 {
   text-indent: 10px;
 }
 
-#acgwcjlzrc .gt_indent_3 {
+#ycxvtbschl .gt_indent_3 {
   text-indent: 15px;
 }
 
-#acgwcjlzrc .gt_indent_4 {
+#ycxvtbschl .gt_indent_4 {
   text-indent: 20px;
 }
 
-#acgwcjlzrc .gt_indent_5 {
+#ycxvtbschl .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -7490,12 +7495,12 @@ exibble %&gt;%
 * fmt_number(columns = c("num"), decimals = 2)
 ```
 
-<div id="vgznclmjag" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="zlaaynkapd" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#vgznclmjag .gt_table {
+#zlaaynkapd .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -7520,7 +7525,7 @@ exibble %&gt;%
   border-left-color: #D3D3D3;
 }
 
-#vgznclmjag .gt_heading {
+#zlaaynkapd .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -7532,7 +7537,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#vgznclmjag .gt_title {
+#zlaaynkapd .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -7544,7 +7549,7 @@ exibble %&gt;%
   border-bottom-width: 0;
 }
 
-#vgznclmjag .gt_subtitle {
+#zlaaynkapd .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -7556,13 +7561,13 @@ exibble %&gt;%
   border-top-width: 0;
 }
 
-#vgznclmjag .gt_bottom_border {
+#zlaaynkapd .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#vgznclmjag .gt_col_headings {
+#zlaaynkapd .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -7577,7 +7582,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#vgznclmjag .gt_col_heading {
+#zlaaynkapd .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -7597,7 +7602,7 @@ exibble %&gt;%
   overflow-x: hidden;
 }
 
-#vgznclmjag .gt_column_spanner_outer {
+#zlaaynkapd .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -7609,15 +7614,15 @@ exibble %&gt;%
   padding-right: 4px;
 }
 
-#vgznclmjag .gt_column_spanner_outer:first-child {
+#zlaaynkapd .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#vgznclmjag .gt_column_spanner_outer:last-child {
+#zlaaynkapd .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#vgznclmjag .gt_column_spanner {
+#zlaaynkapd .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -7629,7 +7634,7 @@ exibble %&gt;%
   width: 100%;
 }
 
-#vgznclmjag .gt_group_heading {
+#zlaaynkapd .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -7654,7 +7659,7 @@ exibble %&gt;%
   vertical-align: middle;
 }
 
-#vgznclmjag .gt_empty_group_heading {
+#zlaaynkapd .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -7669,15 +7674,15 @@ exibble %&gt;%
   vertical-align: middle;
 }
 
-#vgznclmjag .gt_from_md > :first-child {
+#zlaaynkapd .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#vgznclmjag .gt_from_md > :last-child {
+#zlaaynkapd .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#vgznclmjag .gt_row {
+#zlaaynkapd .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -7696,7 +7701,7 @@ exibble %&gt;%
   overflow-x: hidden;
 }
 
-#vgznclmjag .gt_stub {
+#zlaaynkapd .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -7709,7 +7714,7 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#vgznclmjag .gt_stub_row_group {
+#zlaaynkapd .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -7723,11 +7728,11 @@ exibble %&gt;%
   vertical-align: top;
 }
 
-#vgznclmjag .gt_row_group_first td {
+#zlaaynkapd .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#vgznclmjag .gt_summary_row {
+#zlaaynkapd .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -7737,16 +7742,16 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#vgznclmjag .gt_first_summary_row {
+#zlaaynkapd .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#vgznclmjag .gt_first_summary_row.thick {
+#zlaaynkapd .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#vgznclmjag .gt_last_summary_row {
+#zlaaynkapd .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -7756,7 +7761,7 @@ exibble %&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#vgznclmjag .gt_grand_summary_row {
+#zlaaynkapd .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -7766,7 +7771,7 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#vgznclmjag .gt_first_grand_summary_row {
+#zlaaynkapd .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -7776,11 +7781,11 @@ exibble %&gt;%
   border-top-color: #D3D3D3;
 }
 
-#vgznclmjag .gt_striped {
+#zlaaynkapd .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#vgznclmjag .gt_table_body {
+#zlaaynkapd .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -7789,7 +7794,7 @@ exibble %&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#vgznclmjag .gt_footnotes {
+#zlaaynkapd .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -7803,7 +7808,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#vgznclmjag .gt_footnote {
+#zlaaynkapd .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -7812,7 +7817,7 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#vgznclmjag .gt_sourcenotes {
+#zlaaynkapd .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -7826,7 +7831,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#vgznclmjag .gt_sourcenote {
+#zlaaynkapd .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -7834,64 +7839,64 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#vgznclmjag .gt_left {
+#zlaaynkapd .gt_left {
   text-align: left;
 }
 
-#vgznclmjag .gt_center {
+#zlaaynkapd .gt_center {
   text-align: center;
 }
 
-#vgznclmjag .gt_right {
+#zlaaynkapd .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#vgznclmjag .gt_font_normal {
+#zlaaynkapd .gt_font_normal {
   font-weight: normal;
 }
 
-#vgznclmjag .gt_font_bold {
+#zlaaynkapd .gt_font_bold {
   font-weight: bold;
 }
 
-#vgznclmjag .gt_font_italic {
+#zlaaynkapd .gt_font_italic {
   font-style: italic;
 }
 
-#vgznclmjag .gt_super {
+#zlaaynkapd .gt_super {
   font-size: 65%;
 }
 
-#vgznclmjag .gt_footnote_marks {
+#zlaaynkapd .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#vgznclmjag .gt_asterisk {
+#zlaaynkapd .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#vgznclmjag .gt_indent_1 {
+#zlaaynkapd .gt_indent_1 {
   text-indent: 5px;
 }
 
-#vgznclmjag .gt_indent_2 {
+#zlaaynkapd .gt_indent_2 {
   text-indent: 10px;
 }
 
-#vgznclmjag .gt_indent_3 {
+#zlaaynkapd .gt_indent_3 {
   text-indent: 15px;
 }
 
-#vgznclmjag .gt_indent_4 {
+#zlaaynkapd .gt_indent_4 {
   text-indent: 20px;
 }
 
-#vgznclmjag .gt_indent_5 {
+#zlaaynkapd .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -7993,7 +7998,7 @@ exibble %&gt;%
 
 ## Formatting date style
 
-&lt;img src="img/05_5/gt_date_style.png" width="70%" /&gt;
+&lt;img src="img/05_5/gt_date_style.png" width="50%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -8005,12 +8010,12 @@ exibble %&gt;%
 * fmt_date(columns = "date", date_style = 6)
 ```
 
-<div id="rwxpddwdqq" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="yshupprahb" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#rwxpddwdqq .gt_table {
+#yshupprahb .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -8035,7 +8040,7 @@ exibble %&gt;%
   border-left-color: #D3D3D3;
 }
 
-#rwxpddwdqq .gt_heading {
+#yshupprahb .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -8047,7 +8052,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#rwxpddwdqq .gt_title {
+#yshupprahb .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -8059,7 +8064,7 @@ exibble %&gt;%
   border-bottom-width: 0;
 }
 
-#rwxpddwdqq .gt_subtitle {
+#yshupprahb .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -8071,13 +8076,13 @@ exibble %&gt;%
   border-top-width: 0;
 }
 
-#rwxpddwdqq .gt_bottom_border {
+#yshupprahb .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#rwxpddwdqq .gt_col_headings {
+#yshupprahb .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -8092,7 +8097,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#rwxpddwdqq .gt_col_heading {
+#yshupprahb .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -8112,7 +8117,7 @@ exibble %&gt;%
   overflow-x: hidden;
 }
 
-#rwxpddwdqq .gt_column_spanner_outer {
+#yshupprahb .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -8124,15 +8129,15 @@ exibble %&gt;%
   padding-right: 4px;
 }
 
-#rwxpddwdqq .gt_column_spanner_outer:first-child {
+#yshupprahb .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#rwxpddwdqq .gt_column_spanner_outer:last-child {
+#yshupprahb .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#rwxpddwdqq .gt_column_spanner {
+#yshupprahb .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -8144,7 +8149,7 @@ exibble %&gt;%
   width: 100%;
 }
 
-#rwxpddwdqq .gt_group_heading {
+#yshupprahb .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -8169,7 +8174,7 @@ exibble %&gt;%
   vertical-align: middle;
 }
 
-#rwxpddwdqq .gt_empty_group_heading {
+#yshupprahb .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -8184,15 +8189,15 @@ exibble %&gt;%
   vertical-align: middle;
 }
 
-#rwxpddwdqq .gt_from_md > :first-child {
+#yshupprahb .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#rwxpddwdqq .gt_from_md > :last-child {
+#yshupprahb .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#rwxpddwdqq .gt_row {
+#yshupprahb .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -8211,7 +8216,7 @@ exibble %&gt;%
   overflow-x: hidden;
 }
 
-#rwxpddwdqq .gt_stub {
+#yshupprahb .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -8224,7 +8229,7 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#rwxpddwdqq .gt_stub_row_group {
+#yshupprahb .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -8238,11 +8243,11 @@ exibble %&gt;%
   vertical-align: top;
 }
 
-#rwxpddwdqq .gt_row_group_first td {
+#yshupprahb .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#rwxpddwdqq .gt_summary_row {
+#yshupprahb .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -8252,16 +8257,16 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#rwxpddwdqq .gt_first_summary_row {
+#yshupprahb .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#rwxpddwdqq .gt_first_summary_row.thick {
+#yshupprahb .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#rwxpddwdqq .gt_last_summary_row {
+#yshupprahb .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -8271,7 +8276,7 @@ exibble %&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#rwxpddwdqq .gt_grand_summary_row {
+#yshupprahb .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -8281,7 +8286,7 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#rwxpddwdqq .gt_first_grand_summary_row {
+#yshupprahb .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -8291,11 +8296,11 @@ exibble %&gt;%
   border-top-color: #D3D3D3;
 }
 
-#rwxpddwdqq .gt_striped {
+#yshupprahb .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#rwxpddwdqq .gt_table_body {
+#yshupprahb .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -8304,7 +8309,7 @@ exibble %&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#rwxpddwdqq .gt_footnotes {
+#yshupprahb .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -8318,7 +8323,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#rwxpddwdqq .gt_footnote {
+#yshupprahb .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -8327,7 +8332,7 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#rwxpddwdqq .gt_sourcenotes {
+#yshupprahb .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -8341,7 +8346,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#rwxpddwdqq .gt_sourcenote {
+#yshupprahb .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -8349,64 +8354,64 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#rwxpddwdqq .gt_left {
+#yshupprahb .gt_left {
   text-align: left;
 }
 
-#rwxpddwdqq .gt_center {
+#yshupprahb .gt_center {
   text-align: center;
 }
 
-#rwxpddwdqq .gt_right {
+#yshupprahb .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#rwxpddwdqq .gt_font_normal {
+#yshupprahb .gt_font_normal {
   font-weight: normal;
 }
 
-#rwxpddwdqq .gt_font_bold {
+#yshupprahb .gt_font_bold {
   font-weight: bold;
 }
 
-#rwxpddwdqq .gt_font_italic {
+#yshupprahb .gt_font_italic {
   font-style: italic;
 }
 
-#rwxpddwdqq .gt_super {
+#yshupprahb .gt_super {
   font-size: 65%;
 }
 
-#rwxpddwdqq .gt_footnote_marks {
+#yshupprahb .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#rwxpddwdqq .gt_asterisk {
+#yshupprahb .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#rwxpddwdqq .gt_indent_1 {
+#yshupprahb .gt_indent_1 {
   text-indent: 5px;
 }
 
-#rwxpddwdqq .gt_indent_2 {
+#yshupprahb .gt_indent_2 {
   text-indent: 10px;
 }
 
-#rwxpddwdqq .gt_indent_3 {
+#yshupprahb .gt_indent_3 {
   text-indent: 15px;
 }
 
-#rwxpddwdqq .gt_indent_4 {
+#yshupprahb .gt_indent_4 {
   text-indent: 20px;
 }
 
-#rwxpddwdqq .gt_indent_5 {
+#yshupprahb .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -8529,32 +8534,20 @@ exibble %&gt;%
   gt() %&gt;%
   fmt_number(columns = "num", decimals = 2) %&gt;%
   fmt_date(columns = "date", date_style = 6) %&gt;%
-  tab_header(
-    title = "This is the exibble dataset in **gt**",
-    subtitle = "It is one of six datasets in the package"
+* tab_header(
+*   title = "This is the exibble dataset in **gt**",
+*   subtitle = "It is one of six datasets in the package"
   ) 
 ```
 
 ---
 
-
-```r
-exibble %&gt;%
-  gt() %&gt;%
-  fmt_number(columns = "num", decimals = 2) %&gt;%
-  fmt_date(columns = "date", date_style = 6) %&gt;%
-  tab_header(
-    title = ("This is the exibble dataset in **gt**"),
-    subtitle = "It is one of six datasets in the package"
-  ) 
-```
-
-<div id="gcedkvqihe" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="amommsfiis" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#gcedkvqihe .gt_table {
+#amommsfiis .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -8579,7 +8572,7 @@ exibble %&gt;%
   border-left-color: #D3D3D3;
 }
 
-#gcedkvqihe .gt_heading {
+#amommsfiis .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -8591,7 +8584,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#gcedkvqihe .gt_title {
+#amommsfiis .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -8603,7 +8596,7 @@ exibble %&gt;%
   border-bottom-width: 0;
 }
 
-#gcedkvqihe .gt_subtitle {
+#amommsfiis .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -8615,13 +8608,13 @@ exibble %&gt;%
   border-top-width: 0;
 }
 
-#gcedkvqihe .gt_bottom_border {
+#amommsfiis .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#gcedkvqihe .gt_col_headings {
+#amommsfiis .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -8636,7 +8629,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#gcedkvqihe .gt_col_heading {
+#amommsfiis .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -8656,7 +8649,7 @@ exibble %&gt;%
   overflow-x: hidden;
 }
 
-#gcedkvqihe .gt_column_spanner_outer {
+#amommsfiis .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -8668,15 +8661,15 @@ exibble %&gt;%
   padding-right: 4px;
 }
 
-#gcedkvqihe .gt_column_spanner_outer:first-child {
+#amommsfiis .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#gcedkvqihe .gt_column_spanner_outer:last-child {
+#amommsfiis .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#gcedkvqihe .gt_column_spanner {
+#amommsfiis .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -8688,7 +8681,7 @@ exibble %&gt;%
   width: 100%;
 }
 
-#gcedkvqihe .gt_group_heading {
+#amommsfiis .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -8713,7 +8706,7 @@ exibble %&gt;%
   vertical-align: middle;
 }
 
-#gcedkvqihe .gt_empty_group_heading {
+#amommsfiis .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -8728,15 +8721,15 @@ exibble %&gt;%
   vertical-align: middle;
 }
 
-#gcedkvqihe .gt_from_md > :first-child {
+#amommsfiis .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#gcedkvqihe .gt_from_md > :last-child {
+#amommsfiis .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#gcedkvqihe .gt_row {
+#amommsfiis .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -8755,7 +8748,7 @@ exibble %&gt;%
   overflow-x: hidden;
 }
 
-#gcedkvqihe .gt_stub {
+#amommsfiis .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -8768,7 +8761,7 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#gcedkvqihe .gt_stub_row_group {
+#amommsfiis .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -8782,11 +8775,11 @@ exibble %&gt;%
   vertical-align: top;
 }
 
-#gcedkvqihe .gt_row_group_first td {
+#amommsfiis .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#gcedkvqihe .gt_summary_row {
+#amommsfiis .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -8796,16 +8789,16 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#gcedkvqihe .gt_first_summary_row {
+#amommsfiis .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#gcedkvqihe .gt_first_summary_row.thick {
+#amommsfiis .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#gcedkvqihe .gt_last_summary_row {
+#amommsfiis .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -8815,7 +8808,7 @@ exibble %&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#gcedkvqihe .gt_grand_summary_row {
+#amommsfiis .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -8825,7 +8818,7 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#gcedkvqihe .gt_first_grand_summary_row {
+#amommsfiis .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -8835,11 +8828,11 @@ exibble %&gt;%
   border-top-color: #D3D3D3;
 }
 
-#gcedkvqihe .gt_striped {
+#amommsfiis .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#gcedkvqihe .gt_table_body {
+#amommsfiis .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -8848,7 +8841,7 @@ exibble %&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#gcedkvqihe .gt_footnotes {
+#amommsfiis .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -8862,7 +8855,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#gcedkvqihe .gt_footnote {
+#amommsfiis .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -8871,7 +8864,7 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#gcedkvqihe .gt_sourcenotes {
+#amommsfiis .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -8885,7 +8878,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#gcedkvqihe .gt_sourcenote {
+#amommsfiis .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -8893,64 +8886,64 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#gcedkvqihe .gt_left {
+#amommsfiis .gt_left {
   text-align: left;
 }
 
-#gcedkvqihe .gt_center {
+#amommsfiis .gt_center {
   text-align: center;
 }
 
-#gcedkvqihe .gt_right {
+#amommsfiis .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#gcedkvqihe .gt_font_normal {
+#amommsfiis .gt_font_normal {
   font-weight: normal;
 }
 
-#gcedkvqihe .gt_font_bold {
+#amommsfiis .gt_font_bold {
   font-weight: bold;
 }
 
-#gcedkvqihe .gt_font_italic {
+#amommsfiis .gt_font_italic {
   font-style: italic;
 }
 
-#gcedkvqihe .gt_super {
+#amommsfiis .gt_super {
   font-size: 65%;
 }
 
-#gcedkvqihe .gt_footnote_marks {
+#amommsfiis .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#gcedkvqihe .gt_asterisk {
+#amommsfiis .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#gcedkvqihe .gt_indent_1 {
+#amommsfiis .gt_indent_1 {
   text-indent: 5px;
 }
 
-#gcedkvqihe .gt_indent_2 {
+#amommsfiis .gt_indent_2 {
   text-indent: 10px;
 }
 
-#gcedkvqihe .gt_indent_3 {
+#amommsfiis .gt_indent_3 {
   text-indent: 15px;
 }
 
-#gcedkvqihe .gt_indent_4 {
+#amommsfiis .gt_indent_4 {
   text-indent: 20px;
 }
 
-#gcedkvqihe .gt_indent_5 {
+#amommsfiis .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -9072,25 +9065,12 @@ exibble %&gt;%
 
 ---
 
-
-```r
-exibble %&gt;%
-  gt() %&gt;%
-  fmt_number(columns = "num", decimals = 2) %&gt;%
-  fmt_date(columns = "date", date_style = 6) %&gt;%
-  tab_header(
-*   title = md("This is the exibble dataset in **gt**"),
-    subtitle = "It is one of six datasets in the package"
-  ) %&gt;%
-  tab_source_note(md("More information is available at `?exibble`."))
-```
-
-<div id="ormaojndbi" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="lorzvldxjg" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#ormaojndbi .gt_table {
+#lorzvldxjg .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -9115,7 +9095,7 @@ exibble %&gt;%
   border-left-color: #D3D3D3;
 }
 
-#ormaojndbi .gt_heading {
+#lorzvldxjg .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -9127,7 +9107,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#ormaojndbi .gt_title {
+#lorzvldxjg .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -9139,7 +9119,7 @@ exibble %&gt;%
   border-bottom-width: 0;
 }
 
-#ormaojndbi .gt_subtitle {
+#lorzvldxjg .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -9151,13 +9131,13 @@ exibble %&gt;%
   border-top-width: 0;
 }
 
-#ormaojndbi .gt_bottom_border {
+#lorzvldxjg .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ormaojndbi .gt_col_headings {
+#lorzvldxjg .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -9172,7 +9152,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#ormaojndbi .gt_col_heading {
+#lorzvldxjg .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -9192,7 +9172,7 @@ exibble %&gt;%
   overflow-x: hidden;
 }
 
-#ormaojndbi .gt_column_spanner_outer {
+#lorzvldxjg .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -9204,15 +9184,15 @@ exibble %&gt;%
   padding-right: 4px;
 }
 
-#ormaojndbi .gt_column_spanner_outer:first-child {
+#lorzvldxjg .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ormaojndbi .gt_column_spanner_outer:last-child {
+#lorzvldxjg .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ormaojndbi .gt_column_spanner {
+#lorzvldxjg .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -9224,7 +9204,7 @@ exibble %&gt;%
   width: 100%;
 }
 
-#ormaojndbi .gt_group_heading {
+#lorzvldxjg .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -9249,7 +9229,7 @@ exibble %&gt;%
   vertical-align: middle;
 }
 
-#ormaojndbi .gt_empty_group_heading {
+#lorzvldxjg .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -9264,15 +9244,15 @@ exibble %&gt;%
   vertical-align: middle;
 }
 
-#ormaojndbi .gt_from_md > :first-child {
+#lorzvldxjg .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ormaojndbi .gt_from_md > :last-child {
+#lorzvldxjg .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ormaojndbi .gt_row {
+#lorzvldxjg .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -9291,7 +9271,7 @@ exibble %&gt;%
   overflow-x: hidden;
 }
 
-#ormaojndbi .gt_stub {
+#lorzvldxjg .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -9304,7 +9284,7 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#ormaojndbi .gt_stub_row_group {
+#lorzvldxjg .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -9318,11 +9298,11 @@ exibble %&gt;%
   vertical-align: top;
 }
 
-#ormaojndbi .gt_row_group_first td {
+#lorzvldxjg .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ormaojndbi .gt_summary_row {
+#lorzvldxjg .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -9332,16 +9312,16 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#ormaojndbi .gt_first_summary_row {
+#lorzvldxjg .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ormaojndbi .gt_first_summary_row.thick {
+#lorzvldxjg .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ormaojndbi .gt_last_summary_row {
+#lorzvldxjg .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -9351,7 +9331,7 @@ exibble %&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#ormaojndbi .gt_grand_summary_row {
+#lorzvldxjg .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -9361,7 +9341,7 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#ormaojndbi .gt_first_grand_summary_row {
+#lorzvldxjg .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -9371,11 +9351,11 @@ exibble %&gt;%
   border-top-color: #D3D3D3;
 }
 
-#ormaojndbi .gt_striped {
+#lorzvldxjg .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ormaojndbi .gt_table_body {
+#lorzvldxjg .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -9384,7 +9364,7 @@ exibble %&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#ormaojndbi .gt_footnotes {
+#lorzvldxjg .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -9398,7 +9378,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#ormaojndbi .gt_footnote {
+#lorzvldxjg .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -9407,7 +9387,7 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#ormaojndbi .gt_sourcenotes {
+#lorzvldxjg .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -9421,7 +9401,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#ormaojndbi .gt_sourcenote {
+#lorzvldxjg .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -9429,64 +9409,64 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#ormaojndbi .gt_left {
+#lorzvldxjg .gt_left {
   text-align: left;
 }
 
-#ormaojndbi .gt_center {
+#lorzvldxjg .gt_center {
   text-align: center;
 }
 
-#ormaojndbi .gt_right {
+#lorzvldxjg .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ormaojndbi .gt_font_normal {
+#lorzvldxjg .gt_font_normal {
   font-weight: normal;
 }
 
-#ormaojndbi .gt_font_bold {
+#lorzvldxjg .gt_font_bold {
   font-weight: bold;
 }
 
-#ormaojndbi .gt_font_italic {
+#lorzvldxjg .gt_font_italic {
   font-style: italic;
 }
 
-#ormaojndbi .gt_super {
+#lorzvldxjg .gt_super {
   font-size: 65%;
 }
 
-#ormaojndbi .gt_footnote_marks {
+#lorzvldxjg .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#ormaojndbi .gt_asterisk {
+#lorzvldxjg .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ormaojndbi .gt_indent_1 {
+#lorzvldxjg .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ormaojndbi .gt_indent_2 {
+#lorzvldxjg .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ormaojndbi .gt_indent_3 {
+#lorzvldxjg .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ormaojndbi .gt_indent_4 {
+#lorzvldxjg .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ormaojndbi .gt_indent_5 {
+#lorzvldxjg .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -9601,7 +9581,7 @@ exibble %&gt;%
 
 - If your data has natural grouping, we can separate the data by each group
 
-- The variable `group` in the `exibble` data, 
+- Conveniently, the variable `group` in the `exibble` data
 
 
 ---
@@ -9612,12 +9592,12 @@ exibble %&gt;%
 * gt(groupname_col = "group")
 ```
 
-<div id="lyksnhvzoh" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="rvaevkvoyn" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#lyksnhvzoh .gt_table {
+#rvaevkvoyn .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -9642,7 +9622,7 @@ exibble %&gt;%
   border-left-color: #D3D3D3;
 }
 
-#lyksnhvzoh .gt_heading {
+#rvaevkvoyn .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -9654,7 +9634,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#lyksnhvzoh .gt_title {
+#rvaevkvoyn .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -9666,7 +9646,7 @@ exibble %&gt;%
   border-bottom-width: 0;
 }
 
-#lyksnhvzoh .gt_subtitle {
+#rvaevkvoyn .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -9678,13 +9658,13 @@ exibble %&gt;%
   border-top-width: 0;
 }
 
-#lyksnhvzoh .gt_bottom_border {
+#rvaevkvoyn .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#lyksnhvzoh .gt_col_headings {
+#rvaevkvoyn .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -9699,7 +9679,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#lyksnhvzoh .gt_col_heading {
+#rvaevkvoyn .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -9719,7 +9699,7 @@ exibble %&gt;%
   overflow-x: hidden;
 }
 
-#lyksnhvzoh .gt_column_spanner_outer {
+#rvaevkvoyn .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -9731,15 +9711,15 @@ exibble %&gt;%
   padding-right: 4px;
 }
 
-#lyksnhvzoh .gt_column_spanner_outer:first-child {
+#rvaevkvoyn .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#lyksnhvzoh .gt_column_spanner_outer:last-child {
+#rvaevkvoyn .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#lyksnhvzoh .gt_column_spanner {
+#rvaevkvoyn .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -9751,7 +9731,7 @@ exibble %&gt;%
   width: 100%;
 }
 
-#lyksnhvzoh .gt_group_heading {
+#rvaevkvoyn .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -9776,7 +9756,7 @@ exibble %&gt;%
   vertical-align: middle;
 }
 
-#lyksnhvzoh .gt_empty_group_heading {
+#rvaevkvoyn .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -9791,15 +9771,15 @@ exibble %&gt;%
   vertical-align: middle;
 }
 
-#lyksnhvzoh .gt_from_md > :first-child {
+#rvaevkvoyn .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#lyksnhvzoh .gt_from_md > :last-child {
+#rvaevkvoyn .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#lyksnhvzoh .gt_row {
+#rvaevkvoyn .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -9818,7 +9798,7 @@ exibble %&gt;%
   overflow-x: hidden;
 }
 
-#lyksnhvzoh .gt_stub {
+#rvaevkvoyn .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -9831,7 +9811,7 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#lyksnhvzoh .gt_stub_row_group {
+#rvaevkvoyn .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -9845,11 +9825,11 @@ exibble %&gt;%
   vertical-align: top;
 }
 
-#lyksnhvzoh .gt_row_group_first td {
+#rvaevkvoyn .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#lyksnhvzoh .gt_summary_row {
+#rvaevkvoyn .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -9859,16 +9839,16 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#lyksnhvzoh .gt_first_summary_row {
+#rvaevkvoyn .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#lyksnhvzoh .gt_first_summary_row.thick {
+#rvaevkvoyn .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#lyksnhvzoh .gt_last_summary_row {
+#rvaevkvoyn .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -9878,7 +9858,7 @@ exibble %&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#lyksnhvzoh .gt_grand_summary_row {
+#rvaevkvoyn .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -9888,7 +9868,7 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#lyksnhvzoh .gt_first_grand_summary_row {
+#rvaevkvoyn .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -9898,11 +9878,11 @@ exibble %&gt;%
   border-top-color: #D3D3D3;
 }
 
-#lyksnhvzoh .gt_striped {
+#rvaevkvoyn .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#lyksnhvzoh .gt_table_body {
+#rvaevkvoyn .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -9911,7 +9891,7 @@ exibble %&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#lyksnhvzoh .gt_footnotes {
+#rvaevkvoyn .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -9925,7 +9905,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#lyksnhvzoh .gt_footnote {
+#rvaevkvoyn .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -9934,7 +9914,7 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#lyksnhvzoh .gt_sourcenotes {
+#rvaevkvoyn .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -9948,7 +9928,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#lyksnhvzoh .gt_sourcenote {
+#rvaevkvoyn .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -9956,64 +9936,64 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#lyksnhvzoh .gt_left {
+#rvaevkvoyn .gt_left {
   text-align: left;
 }
 
-#lyksnhvzoh .gt_center {
+#rvaevkvoyn .gt_center {
   text-align: center;
 }
 
-#lyksnhvzoh .gt_right {
+#rvaevkvoyn .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#lyksnhvzoh .gt_font_normal {
+#rvaevkvoyn .gt_font_normal {
   font-weight: normal;
 }
 
-#lyksnhvzoh .gt_font_bold {
+#rvaevkvoyn .gt_font_bold {
   font-weight: bold;
 }
 
-#lyksnhvzoh .gt_font_italic {
+#rvaevkvoyn .gt_font_italic {
   font-style: italic;
 }
 
-#lyksnhvzoh .gt_super {
+#rvaevkvoyn .gt_super {
   font-size: 65%;
 }
 
-#lyksnhvzoh .gt_footnote_marks {
+#rvaevkvoyn .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#lyksnhvzoh .gt_asterisk {
+#rvaevkvoyn .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#lyksnhvzoh .gt_indent_1 {
+#rvaevkvoyn .gt_indent_1 {
   text-indent: 5px;
 }
 
-#lyksnhvzoh .gt_indent_2 {
+#rvaevkvoyn .gt_indent_2 {
   text-indent: 10px;
 }
 
-#lyksnhvzoh .gt_indent_3 {
+#rvaevkvoyn .gt_indent_3 {
   text-indent: 15px;
 }
 
-#lyksnhvzoh .gt_indent_4 {
+#rvaevkvoyn .gt_indent_4 {
   text-indent: 20px;
 }
 
-#lyksnhvzoh .gt_indent_5 {
+#rvaevkvoyn .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -10119,12 +10099,12 @@ exibble %&gt;%
 *    rowname_col = "row")
 ```
 
-<div id="akemkhigcz" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="rpqjyyqxgt" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#akemkhigcz .gt_table {
+#rpqjyyqxgt .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -10149,7 +10129,7 @@ exibble %&gt;%
   border-left-color: #D3D3D3;
 }
 
-#akemkhigcz .gt_heading {
+#rpqjyyqxgt .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -10161,7 +10141,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#akemkhigcz .gt_title {
+#rpqjyyqxgt .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -10173,7 +10153,7 @@ exibble %&gt;%
   border-bottom-width: 0;
 }
 
-#akemkhigcz .gt_subtitle {
+#rpqjyyqxgt .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -10185,13 +10165,13 @@ exibble %&gt;%
   border-top-width: 0;
 }
 
-#akemkhigcz .gt_bottom_border {
+#rpqjyyqxgt .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#akemkhigcz .gt_col_headings {
+#rpqjyyqxgt .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -10206,7 +10186,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#akemkhigcz .gt_col_heading {
+#rpqjyyqxgt .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -10226,7 +10206,7 @@ exibble %&gt;%
   overflow-x: hidden;
 }
 
-#akemkhigcz .gt_column_spanner_outer {
+#rpqjyyqxgt .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -10238,15 +10218,15 @@ exibble %&gt;%
   padding-right: 4px;
 }
 
-#akemkhigcz .gt_column_spanner_outer:first-child {
+#rpqjyyqxgt .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#akemkhigcz .gt_column_spanner_outer:last-child {
+#rpqjyyqxgt .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#akemkhigcz .gt_column_spanner {
+#rpqjyyqxgt .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -10258,7 +10238,7 @@ exibble %&gt;%
   width: 100%;
 }
 
-#akemkhigcz .gt_group_heading {
+#rpqjyyqxgt .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -10283,7 +10263,7 @@ exibble %&gt;%
   vertical-align: middle;
 }
 
-#akemkhigcz .gt_empty_group_heading {
+#rpqjyyqxgt .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -10298,15 +10278,15 @@ exibble %&gt;%
   vertical-align: middle;
 }
 
-#akemkhigcz .gt_from_md > :first-child {
+#rpqjyyqxgt .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#akemkhigcz .gt_from_md > :last-child {
+#rpqjyyqxgt .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#akemkhigcz .gt_row {
+#rpqjyyqxgt .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -10325,7 +10305,7 @@ exibble %&gt;%
   overflow-x: hidden;
 }
 
-#akemkhigcz .gt_stub {
+#rpqjyyqxgt .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -10338,7 +10318,7 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#akemkhigcz .gt_stub_row_group {
+#rpqjyyqxgt .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -10352,11 +10332,11 @@ exibble %&gt;%
   vertical-align: top;
 }
 
-#akemkhigcz .gt_row_group_first td {
+#rpqjyyqxgt .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#akemkhigcz .gt_summary_row {
+#rpqjyyqxgt .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -10366,16 +10346,16 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#akemkhigcz .gt_first_summary_row {
+#rpqjyyqxgt .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#akemkhigcz .gt_first_summary_row.thick {
+#rpqjyyqxgt .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#akemkhigcz .gt_last_summary_row {
+#rpqjyyqxgt .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -10385,7 +10365,7 @@ exibble %&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#akemkhigcz .gt_grand_summary_row {
+#rpqjyyqxgt .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -10395,7 +10375,7 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#akemkhigcz .gt_first_grand_summary_row {
+#rpqjyyqxgt .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -10405,11 +10385,11 @@ exibble %&gt;%
   border-top-color: #D3D3D3;
 }
 
-#akemkhigcz .gt_striped {
+#rpqjyyqxgt .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#akemkhigcz .gt_table_body {
+#rpqjyyqxgt .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -10418,7 +10398,7 @@ exibble %&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#akemkhigcz .gt_footnotes {
+#rpqjyyqxgt .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -10432,7 +10412,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#akemkhigcz .gt_footnote {
+#rpqjyyqxgt .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -10441,7 +10421,7 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#akemkhigcz .gt_sourcenotes {
+#rpqjyyqxgt .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -10455,7 +10435,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#akemkhigcz .gt_sourcenote {
+#rpqjyyqxgt .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -10463,64 +10443,64 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#akemkhigcz .gt_left {
+#rpqjyyqxgt .gt_left {
   text-align: left;
 }
 
-#akemkhigcz .gt_center {
+#rpqjyyqxgt .gt_center {
   text-align: center;
 }
 
-#akemkhigcz .gt_right {
+#rpqjyyqxgt .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#akemkhigcz .gt_font_normal {
+#rpqjyyqxgt .gt_font_normal {
   font-weight: normal;
 }
 
-#akemkhigcz .gt_font_bold {
+#rpqjyyqxgt .gt_font_bold {
   font-weight: bold;
 }
 
-#akemkhigcz .gt_font_italic {
+#rpqjyyqxgt .gt_font_italic {
   font-style: italic;
 }
 
-#akemkhigcz .gt_super {
+#rpqjyyqxgt .gt_super {
   font-size: 65%;
 }
 
-#akemkhigcz .gt_footnote_marks {
+#rpqjyyqxgt .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#akemkhigcz .gt_asterisk {
+#rpqjyyqxgt .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#akemkhigcz .gt_indent_1 {
+#rpqjyyqxgt .gt_indent_1 {
   text-indent: 5px;
 }
 
-#akemkhigcz .gt_indent_2 {
+#rpqjyyqxgt .gt_indent_2 {
   text-indent: 10px;
 }
 
-#akemkhigcz .gt_indent_3 {
+#rpqjyyqxgt .gt_indent_3 {
   text-indent: 15px;
 }
 
-#akemkhigcz .gt_indent_4 {
+#rpqjyyqxgt .gt_indent_4 {
   text-indent: 20px;
 }
 
-#akemkhigcz .gt_indent_5 {
+#rpqjyyqxgt .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -10617,7 +10597,7 @@ exibble %&gt;%
 
 ---
 
-# Spanning
+## Spanning
 
 - Sometimes, we want to give a label that spans multiples columns
 
@@ -10628,12 +10608,12 @@ exibble %&gt;%
 * tab_spanner(label = "Dates and Times", columns = c("date", "time", "datetime"))
 ```
 
-<div id="wfgnfkewif" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="hehmwuwnao" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#wfgnfkewif .gt_table {
+#hehmwuwnao .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -10658,7 +10638,7 @@ exibble %&gt;%
   border-left-color: #D3D3D3;
 }
 
-#wfgnfkewif .gt_heading {
+#hehmwuwnao .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -10670,7 +10650,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#wfgnfkewif .gt_title {
+#hehmwuwnao .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -10682,7 +10662,7 @@ exibble %&gt;%
   border-bottom-width: 0;
 }
 
-#wfgnfkewif .gt_subtitle {
+#hehmwuwnao .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -10694,13 +10674,13 @@ exibble %&gt;%
   border-top-width: 0;
 }
 
-#wfgnfkewif .gt_bottom_border {
+#hehmwuwnao .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#wfgnfkewif .gt_col_headings {
+#hehmwuwnao .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -10715,7 +10695,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#wfgnfkewif .gt_col_heading {
+#hehmwuwnao .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -10735,7 +10715,7 @@ exibble %&gt;%
   overflow-x: hidden;
 }
 
-#wfgnfkewif .gt_column_spanner_outer {
+#hehmwuwnao .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -10747,15 +10727,15 @@ exibble %&gt;%
   padding-right: 4px;
 }
 
-#wfgnfkewif .gt_column_spanner_outer:first-child {
+#hehmwuwnao .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#wfgnfkewif .gt_column_spanner_outer:last-child {
+#hehmwuwnao .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#wfgnfkewif .gt_column_spanner {
+#hehmwuwnao .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -10767,7 +10747,7 @@ exibble %&gt;%
   width: 100%;
 }
 
-#wfgnfkewif .gt_group_heading {
+#hehmwuwnao .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -10792,7 +10772,7 @@ exibble %&gt;%
   vertical-align: middle;
 }
 
-#wfgnfkewif .gt_empty_group_heading {
+#hehmwuwnao .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -10807,15 +10787,15 @@ exibble %&gt;%
   vertical-align: middle;
 }
 
-#wfgnfkewif .gt_from_md > :first-child {
+#hehmwuwnao .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#wfgnfkewif .gt_from_md > :last-child {
+#hehmwuwnao .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#wfgnfkewif .gt_row {
+#hehmwuwnao .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -10834,7 +10814,7 @@ exibble %&gt;%
   overflow-x: hidden;
 }
 
-#wfgnfkewif .gt_stub {
+#hehmwuwnao .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -10847,7 +10827,7 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#wfgnfkewif .gt_stub_row_group {
+#hehmwuwnao .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -10861,11 +10841,11 @@ exibble %&gt;%
   vertical-align: top;
 }
 
-#wfgnfkewif .gt_row_group_first td {
+#hehmwuwnao .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#wfgnfkewif .gt_summary_row {
+#hehmwuwnao .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -10875,16 +10855,16 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#wfgnfkewif .gt_first_summary_row {
+#hehmwuwnao .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#wfgnfkewif .gt_first_summary_row.thick {
+#hehmwuwnao .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#wfgnfkewif .gt_last_summary_row {
+#hehmwuwnao .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -10894,7 +10874,7 @@ exibble %&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#wfgnfkewif .gt_grand_summary_row {
+#hehmwuwnao .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -10904,7 +10884,7 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#wfgnfkewif .gt_first_grand_summary_row {
+#hehmwuwnao .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -10914,11 +10894,11 @@ exibble %&gt;%
   border-top-color: #D3D3D3;
 }
 
-#wfgnfkewif .gt_striped {
+#hehmwuwnao .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#wfgnfkewif .gt_table_body {
+#hehmwuwnao .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -10927,7 +10907,7 @@ exibble %&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#wfgnfkewif .gt_footnotes {
+#hehmwuwnao .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -10941,7 +10921,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#wfgnfkewif .gt_footnote {
+#hehmwuwnao .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -10950,7 +10930,7 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#wfgnfkewif .gt_sourcenotes {
+#hehmwuwnao .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -10964,7 +10944,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#wfgnfkewif .gt_sourcenote {
+#hehmwuwnao .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -10972,64 +10952,64 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#wfgnfkewif .gt_left {
+#hehmwuwnao .gt_left {
   text-align: left;
 }
 
-#wfgnfkewif .gt_center {
+#hehmwuwnao .gt_center {
   text-align: center;
 }
 
-#wfgnfkewif .gt_right {
+#hehmwuwnao .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#wfgnfkewif .gt_font_normal {
+#hehmwuwnao .gt_font_normal {
   font-weight: normal;
 }
 
-#wfgnfkewif .gt_font_bold {
+#hehmwuwnao .gt_font_bold {
   font-weight: bold;
 }
 
-#wfgnfkewif .gt_font_italic {
+#hehmwuwnao .gt_font_italic {
   font-style: italic;
 }
 
-#wfgnfkewif .gt_super {
+#hehmwuwnao .gt_super {
   font-size: 65%;
 }
 
-#wfgnfkewif .gt_footnote_marks {
+#hehmwuwnao .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#wfgnfkewif .gt_asterisk {
+#hehmwuwnao .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#wfgnfkewif .gt_indent_1 {
+#hehmwuwnao .gt_indent_1 {
   text-indent: 5px;
 }
 
-#wfgnfkewif .gt_indent_2 {
+#hehmwuwnao .gt_indent_2 {
   text-indent: 10px;
 }
 
-#wfgnfkewif .gt_indent_3 {
+#hehmwuwnao .gt_indent_3 {
   text-indent: 15px;
 }
 
-#wfgnfkewif .gt_indent_4 {
+#hehmwuwnao .gt_indent_4 {
   text-indent: 20px;
 }
 
-#wfgnfkewif .gt_indent_5 {
+#hehmwuwnao .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -11131,7 +11111,7 @@ exibble %&gt;%
 
 ---
 
-# Colors
+## Colors
 
 
 ```r
@@ -11141,12 +11121,12 @@ exibble %&gt;%
 * data_color(columns = "currency", colors = "darkgreen")
 ```
 
-<div id="gmtjmhkkan" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="ypcapumqda" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#gmtjmhkkan .gt_table {
+#ypcapumqda .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -11171,7 +11151,7 @@ exibble %&gt;%
   border-left-color: #D3D3D3;
 }
 
-#gmtjmhkkan .gt_heading {
+#ypcapumqda .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -11183,7 +11163,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#gmtjmhkkan .gt_title {
+#ypcapumqda .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -11195,7 +11175,7 @@ exibble %&gt;%
   border-bottom-width: 0;
 }
 
-#gmtjmhkkan .gt_subtitle {
+#ypcapumqda .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -11207,13 +11187,13 @@ exibble %&gt;%
   border-top-width: 0;
 }
 
-#gmtjmhkkan .gt_bottom_border {
+#ypcapumqda .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#gmtjmhkkan .gt_col_headings {
+#ypcapumqda .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -11228,7 +11208,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#gmtjmhkkan .gt_col_heading {
+#ypcapumqda .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -11248,7 +11228,7 @@ exibble %&gt;%
   overflow-x: hidden;
 }
 
-#gmtjmhkkan .gt_column_spanner_outer {
+#ypcapumqda .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -11260,15 +11240,15 @@ exibble %&gt;%
   padding-right: 4px;
 }
 
-#gmtjmhkkan .gt_column_spanner_outer:first-child {
+#ypcapumqda .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#gmtjmhkkan .gt_column_spanner_outer:last-child {
+#ypcapumqda .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#gmtjmhkkan .gt_column_spanner {
+#ypcapumqda .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -11280,7 +11260,7 @@ exibble %&gt;%
   width: 100%;
 }
 
-#gmtjmhkkan .gt_group_heading {
+#ypcapumqda .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -11305,7 +11285,7 @@ exibble %&gt;%
   vertical-align: middle;
 }
 
-#gmtjmhkkan .gt_empty_group_heading {
+#ypcapumqda .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -11320,15 +11300,15 @@ exibble %&gt;%
   vertical-align: middle;
 }
 
-#gmtjmhkkan .gt_from_md > :first-child {
+#ypcapumqda .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#gmtjmhkkan .gt_from_md > :last-child {
+#ypcapumqda .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#gmtjmhkkan .gt_row {
+#ypcapumqda .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -11347,7 +11327,7 @@ exibble %&gt;%
   overflow-x: hidden;
 }
 
-#gmtjmhkkan .gt_stub {
+#ypcapumqda .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -11360,7 +11340,7 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#gmtjmhkkan .gt_stub_row_group {
+#ypcapumqda .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -11374,11 +11354,11 @@ exibble %&gt;%
   vertical-align: top;
 }
 
-#gmtjmhkkan .gt_row_group_first td {
+#ypcapumqda .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#gmtjmhkkan .gt_summary_row {
+#ypcapumqda .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -11388,16 +11368,16 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#gmtjmhkkan .gt_first_summary_row {
+#ypcapumqda .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#gmtjmhkkan .gt_first_summary_row.thick {
+#ypcapumqda .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#gmtjmhkkan .gt_last_summary_row {
+#ypcapumqda .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -11407,7 +11387,7 @@ exibble %&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#gmtjmhkkan .gt_grand_summary_row {
+#ypcapumqda .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -11417,7 +11397,7 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#gmtjmhkkan .gt_first_grand_summary_row {
+#ypcapumqda .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -11427,11 +11407,11 @@ exibble %&gt;%
   border-top-color: #D3D3D3;
 }
 
-#gmtjmhkkan .gt_striped {
+#ypcapumqda .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#gmtjmhkkan .gt_table_body {
+#ypcapumqda .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -11440,7 +11420,7 @@ exibble %&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#gmtjmhkkan .gt_footnotes {
+#ypcapumqda .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -11454,7 +11434,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#gmtjmhkkan .gt_footnote {
+#ypcapumqda .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -11463,7 +11443,7 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#gmtjmhkkan .gt_sourcenotes {
+#ypcapumqda .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -11477,7 +11457,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#gmtjmhkkan .gt_sourcenote {
+#ypcapumqda .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -11485,64 +11465,64 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#gmtjmhkkan .gt_left {
+#ypcapumqda .gt_left {
   text-align: left;
 }
 
-#gmtjmhkkan .gt_center {
+#ypcapumqda .gt_center {
   text-align: center;
 }
 
-#gmtjmhkkan .gt_right {
+#ypcapumqda .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#gmtjmhkkan .gt_font_normal {
+#ypcapumqda .gt_font_normal {
   font-weight: normal;
 }
 
-#gmtjmhkkan .gt_font_bold {
+#ypcapumqda .gt_font_bold {
   font-weight: bold;
 }
 
-#gmtjmhkkan .gt_font_italic {
+#ypcapumqda .gt_font_italic {
   font-style: italic;
 }
 
-#gmtjmhkkan .gt_super {
+#ypcapumqda .gt_super {
   font-size: 65%;
 }
 
-#gmtjmhkkan .gt_footnote_marks {
+#ypcapumqda .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#gmtjmhkkan .gt_asterisk {
+#ypcapumqda .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#gmtjmhkkan .gt_indent_1 {
+#ypcapumqda .gt_indent_1 {
   text-indent: 5px;
 }
 
-#gmtjmhkkan .gt_indent_2 {
+#ypcapumqda .gt_indent_2 {
   text-indent: 10px;
 }
 
-#gmtjmhkkan .gt_indent_3 {
+#ypcapumqda .gt_indent_3 {
   text-indent: 15px;
 }
 
-#gmtjmhkkan .gt_indent_4 {
+#ypcapumqda .gt_indent_4 {
   text-indent: 20px;
 }
 
-#gmtjmhkkan .gt_indent_5 {
+#ypcapumqda .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -11639,12 +11619,14 @@ exibble %&gt;%
 
 ---
 
-<div id="udgswxlnqr" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+## Can also include images 
+
+<div id="yuetzaosir" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#udgswxlnqr .gt_table {
+#yuetzaosir .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -11669,7 +11651,7 @@ exibble %&gt;%
   border-left-color: #D3D3D3;
 }
 
-#udgswxlnqr .gt_heading {
+#yuetzaosir .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -11681,7 +11663,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#udgswxlnqr .gt_title {
+#yuetzaosir .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -11693,7 +11675,7 @@ exibble %&gt;%
   border-bottom-width: 0;
 }
 
-#udgswxlnqr .gt_subtitle {
+#yuetzaosir .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -11705,13 +11687,13 @@ exibble %&gt;%
   border-top-width: 0;
 }
 
-#udgswxlnqr .gt_bottom_border {
+#yuetzaosir .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#udgswxlnqr .gt_col_headings {
+#yuetzaosir .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -11726,7 +11708,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#udgswxlnqr .gt_col_heading {
+#yuetzaosir .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -11746,7 +11728,7 @@ exibble %&gt;%
   overflow-x: hidden;
 }
 
-#udgswxlnqr .gt_column_spanner_outer {
+#yuetzaosir .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -11758,15 +11740,15 @@ exibble %&gt;%
   padding-right: 4px;
 }
 
-#udgswxlnqr .gt_column_spanner_outer:first-child {
+#yuetzaosir .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#udgswxlnqr .gt_column_spanner_outer:last-child {
+#yuetzaosir .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#udgswxlnqr .gt_column_spanner {
+#yuetzaosir .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -11778,7 +11760,7 @@ exibble %&gt;%
   width: 100%;
 }
 
-#udgswxlnqr .gt_group_heading {
+#yuetzaosir .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -11803,7 +11785,7 @@ exibble %&gt;%
   vertical-align: middle;
 }
 
-#udgswxlnqr .gt_empty_group_heading {
+#yuetzaosir .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -11818,15 +11800,15 @@ exibble %&gt;%
   vertical-align: middle;
 }
 
-#udgswxlnqr .gt_from_md > :first-child {
+#yuetzaosir .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#udgswxlnqr .gt_from_md > :last-child {
+#yuetzaosir .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#udgswxlnqr .gt_row {
+#yuetzaosir .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -11845,7 +11827,7 @@ exibble %&gt;%
   overflow-x: hidden;
 }
 
-#udgswxlnqr .gt_stub {
+#yuetzaosir .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -11858,7 +11840,7 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#udgswxlnqr .gt_stub_row_group {
+#yuetzaosir .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -11872,11 +11854,11 @@ exibble %&gt;%
   vertical-align: top;
 }
 
-#udgswxlnqr .gt_row_group_first td {
+#yuetzaosir .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#udgswxlnqr .gt_summary_row {
+#yuetzaosir .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -11886,16 +11868,16 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#udgswxlnqr .gt_first_summary_row {
+#yuetzaosir .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#udgswxlnqr .gt_first_summary_row.thick {
+#yuetzaosir .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#udgswxlnqr .gt_last_summary_row {
+#yuetzaosir .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -11905,7 +11887,7 @@ exibble %&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#udgswxlnqr .gt_grand_summary_row {
+#yuetzaosir .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -11915,7 +11897,7 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#udgswxlnqr .gt_first_grand_summary_row {
+#yuetzaosir .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -11925,11 +11907,11 @@ exibble %&gt;%
   border-top-color: #D3D3D3;
 }
 
-#udgswxlnqr .gt_striped {
+#yuetzaosir .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#udgswxlnqr .gt_table_body {
+#yuetzaosir .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -11938,7 +11920,7 @@ exibble %&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#udgswxlnqr .gt_footnotes {
+#yuetzaosir .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -11952,7 +11934,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#udgswxlnqr .gt_footnote {
+#yuetzaosir .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -11961,7 +11943,7 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#udgswxlnqr .gt_sourcenotes {
+#yuetzaosir .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -11975,7 +11957,7 @@ exibble %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#udgswxlnqr .gt_sourcenote {
+#yuetzaosir .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -11983,64 +11965,64 @@ exibble %&gt;%
   padding-right: 5px;
 }
 
-#udgswxlnqr .gt_left {
+#yuetzaosir .gt_left {
   text-align: left;
 }
 
-#udgswxlnqr .gt_center {
+#yuetzaosir .gt_center {
   text-align: center;
 }
 
-#udgswxlnqr .gt_right {
+#yuetzaosir .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#udgswxlnqr .gt_font_normal {
+#yuetzaosir .gt_font_normal {
   font-weight: normal;
 }
 
-#udgswxlnqr .gt_font_bold {
+#yuetzaosir .gt_font_bold {
   font-weight: bold;
 }
 
-#udgswxlnqr .gt_font_italic {
+#yuetzaosir .gt_font_italic {
   font-style: italic;
 }
 
-#udgswxlnqr .gt_super {
+#yuetzaosir .gt_super {
   font-size: 65%;
 }
 
-#udgswxlnqr .gt_footnote_marks {
+#yuetzaosir .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#udgswxlnqr .gt_asterisk {
+#yuetzaosir .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#udgswxlnqr .gt_indent_1 {
+#yuetzaosir .gt_indent_1 {
   text-indent: 5px;
 }
 
-#udgswxlnqr .gt_indent_2 {
+#yuetzaosir .gt_indent_2 {
   text-indent: 10px;
 }
 
-#udgswxlnqr .gt_indent_3 {
+#yuetzaosir .gt_indent_3 {
   text-indent: 15px;
 }
 
-#udgswxlnqr .gt_indent_4 {
+#yuetzaosir .gt_indent_4 {
   text-indent: 20px;
 }
 
-#udgswxlnqr .gt_indent_5 {
+#yuetzaosir .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -12160,7 +12142,7 @@ exibble %&gt;%
 
 class: center, middle
 
-## Reshaping
+# Reshaping
 
 ---
 
@@ -12219,22 +12201,24 @@ class: center, middle
 ## 2 Denmark     6     5     9
 ## 3 Norway      8    11     9
 ```
+
+- Each unit of observation (`country`) has exactly one row
+
 ]
 
-- Each row should represent a single `country`
 
 
 ---
 
-# Long to Wide data
+# Long to wide data
 
 - `pivot_wider()` function turns data from long to wide
 
 - Takes two arguments:
 
-  - `names_from`: the name of the variable(s) to get the name of the output column
+  - `names_from`: the name of the variable(s) in the data frame to get the name of the output column
   
-  - `values_from`: the name of the variable(s) to get the cell values from
+  - `values_from`: the name of the variable(s) in the data frame to get the cell values from
 
 ---
 
@@ -12258,14 +12242,25 @@ class: center, middle
 
 .pull-right[
 
+```
+## # A tibble: 3 × 4
+##   country   jan   feb march
+##   &lt;fct&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 Sweden      5    11    12
+## 2 Denmark     6     5     9
+## 3 Norway      8    11     9
+```
+
+
 ```r
 country_long %&gt;%
   pivot_wider(names_from = ____,
               values_from = _____)
 ```
-]
 
 .question[What should I pass in for `names_from` and `values_from`?]
+]
+
 
 ---
 
@@ -12287,7 +12282,7 @@ country_long %&gt;%
 
 ---
 
-# Wide to Long data
+# Wide to long data
 
 - Long data structure is often preferred
 
@@ -12335,7 +12330,7 @@ country_wide %&gt;%
 
 - Takes three arguments:
 
-  - `cols`: specify which columns to pivot into longer format
+  - `cols`: specify which columns in the dataframe to pivot into longer format
   
   - `names_to`: a string (your choice) specifying the name of the new column created from the column names species by `cols`
   
@@ -12435,7 +12430,6 @@ country_wide %&gt;%
 Is this dataframe in wide or long format?
 ]
 
----
 
 
     </textarea>
