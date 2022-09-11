@@ -9,7 +9,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-### Due Monday, 5/17 for discussion
+### Due Friday, 9/16 for discussion
 
 ### Recommended: 
 
@@ -20,4 +20,4 @@ knitr::opts_chunk$set(echo = TRUE)
 <br>
 <br>
 
-[All STA 199 Readings](./readings.html)
+[All Math 118 Readings](./readings.html)

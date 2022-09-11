@@ -6,7 +6,7 @@ lessons:
    appex: "00-unvotes.html"
  - date: "Wednesday, Sep. 14"
    title: "Meet the Toolkit + Installation"
-   #reading: "reading-01.html"
+   reading: "reading-01.html"
    #slides: "lec-slides/01-meet-toolkit.html"
    #appex: "01-rstudio-tour.html"
  - date: "UNIT 1"
