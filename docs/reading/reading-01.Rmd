@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 - Required: [How to read an R help page](https://socviz.co/appendix.html#a-little-more-about-r)
 - Required: [Flint water story](flint_water_story.pdf)
-- Optional: [1500 scientists lift the lid on reproducibility](https://www.nature.com/articles/533452a)
+- Optional: [1500 scientists lift the lid on reproducibility](reproducibility_crisis.pdf)
 
 <br>
 <br>
