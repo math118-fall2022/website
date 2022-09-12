@@ -59,43 +59,67 @@ x*7
 
 ### Your turn!
 
-#### Clone a GitHub repo and make a new RStudio project 
+#### Creating personal access token 
+
+
+- Go to the course GitHub organization: https://github.com/math218-fall2022. 
+
+- On the top-right corner with, click on the drop down arrow next to the graphic and then click on "Settings"
+
+  - On the left-hand side, find and click on "< > Developer settings" (should be on bottom)
+  
+  - Click "Personal access tokens"
+  
+  - Click "Generate new token". Under "Expiration", choose Custom and then select date 12/31/2023. Then scroll down and click "Generate token"
+  
+  - You will see a green bar with text that starts as "ghp_pA....". *Copy* this token and paste it somewhere safe.
+
+
+#### For first time only: Clone a GitHub repo  
 
 - Create a new folder on your Desktop called "Math118"
 
+- Go to the [course organization](https://github.com/math118-fall2022) on GitHub  and find the repo with the prefix **getting-started-**. 
+
+- Click on the green **Clone or download** button, select **Use HTTPS** (this might already be selected by default, and if it is, you'll see the text **Clone with HTTPS** as in the image below). Click on the clipboard icon to copy the repo URL.
+
+
+```{r clone-repo-link, echo = FALSE, fig.width = 5}
+knitr::include_graphics("img/00-git/clone_repo.png")
+```
+
+- Go to the "Terminal" tab in Rstudio
+
+- Type the following: git clone *copied URL*  (e.g. `git clone https://github.com/...`)
+
+  - When prompted to enter your username: type in your GitHub username
+  
+  - When prompted to enter you password: **paste in your personal access token**
+
+- Your new project should now be created! Note, we only go through this workflow once to tell GitHub that it should communicate with RStudio
+
+#### For future projects: Clone a GitHub repo and make a new RStudio project 
+
+
 - Go to the [course organization](https://github.com/math118-fall2022) on GitHub  and find the repo with the prefix **appex-01-**. 
 
-- Clone the repo and make a new project in RStudio by going to `File` in the top left -> `New Project...` -> `Version Control` -> `Git`. Paste in the copied URL in the first blank space "Repsitory URL". Then, under "Create project as a subdirectory of...", hit "Browse" and find your newly created Math118 folder. Then hit "Create Project".
+- Click on the green **Clone or download** button, select **Use HTTPS** (this might already be selected by default, and if it is, you'll see the text **Clone with HTTPS** as in the image below). Click on the clipboard icon to copy the repo URL.
 
-- You should see the files for the Flint Water Crisis analysis in the **Files** pane. 
-
-
-#### Configure Git
-
-- We will need to allow RStudio to communicate with Github. We will do this by utilizing the `usethis` package. **Packages** are units of reproducible `R` code, and often include reusable `R` functions. Think of packages like phone apps. We only download and open apps that we need. 
-
-  -The equivalent of downloading an app here is *installing* and package. You only need to do this once; installing the same package repeatedly can cause issues. In your **Console**, type:
-
-```{r eval = F}
-install.packages("usethis")
+```{r clone-repo-link2, echo = FALSE, fig.width = 5}
+knitr::include_graphics("img/00-git/clone_repo.png")
 ```
 
-  - You will see some red text flying across the Console. If you eventually see some black text beginning with "The downloaded binary packages are in...", then you are good!
+- Open up RStudio
 
+- Go to *File* $\rightarrow$ *New Project* $\rightarrow$ *Version Control* $\rightarrow$ *Git*. 
 
-- Next, we will "open the app", i.e. *load* the package. This is achieved using the `library()` function. In your Console, run the following code:
-
-```{r eval  = F}
-library(usethis)
+```{r paste-gh-repo-url, echo = FALSE,  out.width = "80%"}
+knitr::include_graphics("img/00-git/clone_git.png")
 ```
 
-  - The Console might hang for a bit, but if you see a new line with a blue `>`, then the code has run successfully!
+- Copy and paste the URL of your assignment repo into the dialog box *Repository URL*. You can leave *Project Directory Name* empty. It will default to the name of the GitHub repo. In *Create project as a subdirectory of*, hit "Browse" and find your Math218 folder.
 
-- Configure git by running the following code in the Console. Fill in your GitHub username and the email address associated with your GitHub account. **Note**: you must keep the quotation marks!
-
-```{r eval  = F}
-use_git_config(user.name = "GitHub username", user.email="your email")
-```
+- Click *Create Project*, and the files from your GitHub repo will be displayed the *Files* pane in RStudio. You should see the files for the Flint Water Crisis analysis in the **Files** pane. 
 
 
 #### Making a change locally, committing, and pushing
