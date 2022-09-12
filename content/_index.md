@@ -28,8 +28,8 @@ All books are freely available online. Hardcopies are also available for purchas
  <span></span>     | <span></span> | <span></span> 
 -----------|---------------------------------|----------------------------------
 [R for Data Science](http://r4ds.had.co.nz/) | Grolemund, Wickham | O'Reilly, 1st edition, 2016
-[OpenIntro Statistics](https://www.openintro.org/stat/textbook.php) | Diez, Barr, Çetinkaya-Rundel | CreateSpace, 4th Edition, 2019
-[Introductory Statistics with Randomization and Simulation](https://www.openintro.org/stat/textbook.php?stat_book=isrs) | Diez, Barr, Çetinkaya-Rundel | CreateSpace, 1st Edition, 2014
+[OpenIntro Statistics](https://www.openintro.org/book/os/) | Diez, Barr, Çetinkaya-Rundel | CreateSpace, 4th Edition, 2019
+[Introductory Statistics with Randomization and Simulation](https://www.openintro.org/book/isrs/) | Diez, Barr, Çetinkaya-Rundel | CreateSpace, 1st Edition, 2014
 
 ### Materials
 
