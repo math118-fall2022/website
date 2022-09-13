@@ -1,6 +1,7 @@
 ---
 title: "Data and visualization"
 author: "Becky Tang"
+date: "9/16/22"
 output:
   xaringan::moon_reader:
     mathjax: "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML"
@@ -13,6 +14,8 @@ output:
       countIncrementalSlides: false
       slideNumberFormat: "%current%" 
       ratio: "16:9"
+editor_options: 
+  chunk_output_type: console
 ---
 
 layout: true
@@ -64,7 +67,13 @@ ggplot2::theme_set(ggplot2::theme_bw())
 
 # Announcements
 
-- Homework 1 released today, due Tuesdaym 9/20 11:59pm
+- Homework 1 released today, due Tuesday 9/20 11:59pm
+
+  - Abbreviated assignment
+    
+  - This is the only homework where you won't have a week to complete it
+  
+
 
 ---
 
@@ -183,25 +192,13 @@ ggplot(data = countries_footprint, #<<
 ```{r fig.width = 7, fig.height=2, fig.align='center'}
 ggplot(data = countries_footprint, 
        mapping = aes(x = GDP, y = Total)) + #<<
-  geom_point() + #<<
+  geom_point() + 
   labs(title = "GDP vs. Total Ecological Footprint of countries (2016)",
        x = "GDP ($10k)", y = "Total footprint (hectare)")
 ```
 
 ---
 
-## What does the warning mean?
-
-
-```{r fig.width = 7, fig.height=2, fig.align='center'}
-ggplot(data = countries_footprint, 
-       mapping = aes(x = GDP, y = Total)) +
-  geom_point() +
-  labs(title = "GDP vs. Total Ecological Footprint of countries (2016)",
-       x = "GDP ($10k)", y = "Total footprint (hectare)")
-```
-
----
 
 ## What does `geom_smooth()` do?
 
@@ -420,7 +417,8 @@ Let's map `shape` and `color` to `DataQuality`
 
 ```{r fig.width = 7, fig.height = 2, fig.align='center', warning=FALSE}
 ggplot(data = countries_footprint, 
-       mapping = aes(x = GDP, y = Total, color = DataQuality,
+       mapping = aes(x = GDP, y = Total, 
+                     color = DataQuality,  #<<
                      shape = DataQuality)) + #<<
   geom_point() 
 ```
@@ -549,11 +547,24 @@ ggplot(data = countries_footprint, mapping = aes(x = GDP, y = Total)) +
 
 ---
 
+
+```{r fig.height=2,fig.align='center', warning=FALSE}
+ggplot(data = countries_footprint, mapping = aes(x = GDP, y = Total)) + 
+  geom_point()+
+  facet_wrap(Region ~ . , nrow = 1)  #<<
+```
+
+---
+
+
 ```{r fig.height=2,fig.align='center', warning=FALSE}
 ggplot(data = countries_footprint, mapping = aes(x = GDP, y = Total)) + 
   geom_point()+
   facet_wrap(Region ~ . , scales = "free_x")  #<<
 ```
+
+
+
 
 ---
 
@@ -561,17 +572,23 @@ ggplot(data = countries_footprint, mapping = aes(x = GDP, y = Total)) +
 
 - `facet_grid()`: 
     - 2d grid
-    - `rows ~ cols`
+    - `row variable ~ column variable`
     - use `.` for no split
 
 --
 
 - `facet_wrap()`: 1d ribbon wrapped into 2d
-    - set scales using `scales = ` ("free_x", "free_y", "free")
+  - `variable ~ . `
+  - specify number of rows and columns using `ncol` or `nrow` argument
+--
+
+- set scales using `scales = ` ("free_x", "free_y", "free")
+
 
 ---
 
 ## Modifications
+
 You can omit the names of first two arguments when building plots with `ggplot()`.
 
 ```{r fig.height=2,fig.align='center', warning=FALSE}
@@ -580,35 +597,42 @@ ggplot(countries_footprint, aes(x = GDP, y = Total)) + #<<
   facet_grid(. ~ Region)  
 ```
 
----
-
-## Facet and color 
-
-```{r fig.height=2,fig.align='center', warning=FALSE}
-ggplot(countries_footprint, aes(x = GDP, y = Total, col = Region)) +
-  geom_point()+
-  facet_grid(Region ~ DataQuality , scales = "free_x") 
-```
 
 ---
 
-## Facet and color, but no legend
+## Removing legend
 
-```{r fig.height=2,fig.align='center', warning=FALSE}
-ggplot(countries_footprint, aes(x = GDP, y = Total, col = Region)) +
-  geom_point()+
-  facet_grid(Region ~ DataQuality , scales = "free_x") +
-  guides(color = FALSE) #<<
+.pull-left[
+```{r fig.height=1.75, fig.width=1.75, fig.align='center', eval = F}
+ggplot(countries_footprint, 
+       aes(x = GDP, y = Total, col = DataQuality)) + 
+  geom_point()
 ```
+```{r fig.height=1.5, fig.width=2, fig.align='center', echo = F, warning=FALSE}
+ggplot(countries_footprint, 
+       aes(x = GDP, y = Total, col = DataQuality)) + 
+  geom_point()+
+  theme(text = element_text(size = 8))
+```
+
+]
+.pull-right[
+```{r fig.height=1.5, fig.width=1.75, fig.align='center', warning=FALSE}
+ggplot(countries_footprint, 
+       aes(x = GDP, y = Total, col = DataQuality)) + 
+  geom_point()+
+  guides(col = "none") #<<
+```
+]
+
 
 ---
 
 ## `ggplot2` supplementary resources
 
 1. [ggplot2.tidyverse.org](https://ggplot2.tidyverse.org/)
-2. `ggplot2` [cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf)
-3. STA 523 `ggplot2` [slides](https://shawnsanto.com/files/sta523/slides/lec-3b-ggplot2.html#1)
-4. [Top 50 `ggplot2` visualizations](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html)
-5. [How the BBC uses `ggplot2`](https://medium.com/bbc-visual-and-data-journalism/how-the-bbc-visual-and-data-journalism-team-works-with-graphics-in-r-ed0b35693535)
-6. [ggplot2: Elegant Graphics for Data Analysis](https://ggplot2-book.org/)
+2. `ggplot2` [cheat sheet](files/data-visualization.pdf)
+3. [Top 50 `ggplot2` visualizations](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html)
+4. [How the BBC uses `ggplot2`](https://medium.com/bbc-visual-and-data-journalism/how-the-bbc-visual-and-data-journalism-team-works-with-graphics-in-r-ed0b35693535)
+5. [ggplot2: Elegant Graphics for Data Analysis](https://ggplot2-book.org/)
 

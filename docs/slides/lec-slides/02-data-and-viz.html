@@ -19,6 +19,9 @@ class: center, middle, inverse, title-slide
 .author[
 ### Becky Tang
 ]
+.date[
+### 9/16/22
+]
 
 ---
 
@@ -43,7 +46,13 @@ layout: true
 
 # Announcements
 
-- Homework 1 released today, due Tuesdaym 9/20 11:59pm
+- Homework 1 released today, due Tuesday 9/20 11:59pm
+
+  - Abbreviated assignment
+    
+  - This is the only homework where you won't have a week to complete it
+  
+
 
 ---
 
@@ -160,7 +169,7 @@ ggplot(data = countries_footprint,
 ```r
 ggplot(data = countries_footprint, 
 *      mapping = aes(x = GDP, y = Total)) +
-* geom_point() +
+  geom_point() + 
   labs(title = "GDP vs. Total Ecological Footprint of countries (2016)",
        x = "GDP ($10k)", y = "Total footprint (hectare)")
 ```
@@ -173,25 +182,6 @@ ggplot(data = countries_footprint,
 
 ---
 
-## What does the warning mean?
-
-
-
-```r
-ggplot(data = countries_footprint, 
-       mapping = aes(x = GDP, y = Total)) +
-  geom_point() +
-  labs(title = "GDP vs. Total Ecological Footprint of countries (2016)",
-       x = "GDP ($10k)", y = "Total footprint (hectare)")
-```
-
-```
-## Warning: Removed 15 rows containing missing values (geom_point).
-```
-
-&lt;img src="02-data-and-viz_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
-
----
 
 ## What does `geom_smooth()` do?
 
@@ -205,7 +195,7 @@ ggplot(data = countries_footprint,
        x = "GDP ($10k)", y = "Total footprint (hectare)")
 ```
 
-&lt;img src="02-data-and-viz_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="02-data-and-viz_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -344,7 +334,7 @@ ggplot(data = countries_footprint, mapping = aes(x = GDP, y = Total)) +
 ## Warning: Removed 15 rows containing missing values (geom_point).
 ```
 
-&lt;img src="02-data-and-viz_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="02-data-and-viz_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -371,7 +361,7 @@ ggplot(data = countries_footprint, mapping = aes(x = GDP, y = Total)) +
 How would you describe this **relationship**? 
 ]
 
-&lt;img src="02-data-and-viz_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="02-data-and-viz_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -381,7 +371,7 @@ How would you describe this **relationship**?
 How about here? Which country has low GDP but a large forest footprint, and vice versa?
 ]
 
-&lt;img src="02-data-and-viz_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="02-data-and-viz_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -434,7 +424,7 @@ ggplot(data = countries_footprint,
   geom_point() 
 ```
 
-&lt;img src="02-data-and-viz_files/figure-html/unnamed-chunk-20-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="02-data-and-viz_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -445,12 +435,13 @@ Let's map `shape` and `color` to `DataQuality`
 
 ```r
 ggplot(data = countries_footprint, 
-       mapping = aes(x = GDP, y = Total, color = DataQuality,
+       mapping = aes(x = GDP, y = Total, 
+*                    color = DataQuality,
 *                    shape = DataQuality)) +
   geom_point() 
 ```
 
-&lt;img src="02-data-and-viz_files/figure-html/unnamed-chunk-21-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="02-data-and-viz_files/figure-html/unnamed-chunk-20-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -479,7 +470,7 @@ ggplot(data = countries_footprint,
 * geom_point(size = 3)
 ```
 
-&lt;img src="02-data-and-viz_files/figure-html/unnamed-chunk-22-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="02-data-and-viz_files/figure-html/unnamed-chunk-21-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -540,7 +531,7 @@ ggplot(data = countries_footprint,mapping = aes(x = GDP, y = Total)) +
 * facet_grid(. ~ Region)
 ```
 
-&lt;img src="02-data-and-viz_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="02-data-and-viz_files/figure-html/unnamed-chunk-23-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -567,7 +558,7 @@ ggplot(data = countries_footprint, mapping = aes(x = GDP, y = Total)) +
 * facet_grid(DataQuality ~ Region)
 ```
 
-&lt;img src="02-data-and-viz_files/figure-html/unnamed-chunk-25-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="02-data-and-viz_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -578,7 +569,7 @@ ggplot(data = countries_footprint, mapping = aes(x = GDP, y = Total)) +
 * facet_grid(Region ~ .)
 ```
 
-&lt;img src="02-data-and-viz_files/figure-html/unnamed-chunk-26-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="02-data-and-viz_files/figure-html/unnamed-chunk-25-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -590,9 +581,22 @@ ggplot(data = countries_footprint, mapping = aes(x = GDP, y = Total)) +
 * facet_wrap(Region ~ .)
 ```
 
+&lt;img src="02-data-and-viz_files/figure-html/unnamed-chunk-26-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+
+
+```r
+ggplot(data = countries_footprint, mapping = aes(x = GDP, y = Total)) + 
+  geom_point()+
+* facet_wrap(Region ~ . , nrow = 1)
+```
+
 &lt;img src="02-data-and-viz_files/figure-html/unnamed-chunk-27-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
+
 
 
 ```r
@@ -603,23 +607,32 @@ ggplot(data = countries_footprint, mapping = aes(x = GDP, y = Total)) +
 
 &lt;img src="02-data-and-viz_files/figure-html/unnamed-chunk-28-1.png" style="display: block; margin: auto;" /&gt;
 
+
+
+
 ---
 
 ## Facet summary
 
 - `facet_grid()`: 
     - 2d grid
-    - `rows ~ cols`
+    - `row variable ~ column variable`
     - use `.` for no split
 
 --
 
 - `facet_wrap()`: 1d ribbon wrapped into 2d
-    - set scales using `scales = ` ("free_x", "free_y", "free")
+  - `variable ~ . `
+  - specify number of rows and columns using `ncol` or `nrow` argument
+--
+
+- set scales using `scales = ` ("free_x", "free_y", "free")
+
 
 ---
 
 ## Modifications
+
 You can omit the names of first two arguments when building plots with `ggplot()`.
 
 
@@ -631,43 +644,43 @@ You can omit the names of first two arguments when building plots with `ggplot()
 
 &lt;img src="02-data-and-viz_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /&gt;
 
----
-
-## Facet and color 
-
-
-```r
-ggplot(countries_footprint, aes(x = GDP, y = Total, col = Region)) +
-  geom_point()+
-  facet_grid(Region ~ DataQuality , scales = "free_x") 
-```
-
-&lt;img src="02-data-and-viz_files/figure-html/unnamed-chunk-30-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
-## Facet and color, but no legend
+## Removing legend
 
+.pull-left[
 
 ```r
-ggplot(countries_footprint, aes(x = GDP, y = Total, col = Region)) +
-  geom_point()+
-  facet_grid(Region ~ DataQuality , scales = "free_x") +
-* guides(color = FALSE)
+ggplot(countries_footprint, 
+       aes(x = GDP, y = Total, col = DataQuality)) + 
+  geom_point()
 ```
-
 &lt;img src="02-data-and-viz_files/figure-html/unnamed-chunk-31-1.png" style="display: block; margin: auto;" /&gt;
+
+]
+.pull-right[
+
+```r
+ggplot(countries_footprint, 
+       aes(x = GDP, y = Total, col = DataQuality)) + 
+  geom_point()+
+* guides(col = "none")
+```
+
+&lt;img src="02-data-and-viz_files/figure-html/unnamed-chunk-32-1.png" style="display: block; margin: auto;" /&gt;
+]
+
 
 ---
 
 ## `ggplot2` supplementary resources
 
 1. [ggplot2.tidyverse.org](https://ggplot2.tidyverse.org/)
-2. `ggplot2` [cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf)
-3. STA 523 `ggplot2` [slides](https://shawnsanto.com/files/sta523/slides/lec-3b-ggplot2.html#1)
-4. [Top 50 `ggplot2` visualizations](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html)
-5. [How the BBC uses `ggplot2`](https://medium.com/bbc-visual-and-data-journalism/how-the-bbc-visual-and-data-journalism-team-works-with-graphics-in-r-ed0b35693535)
-6. [ggplot2: Elegant Graphics for Data Analysis](https://ggplot2-book.org/)
+2. `ggplot2` [cheat sheet](files/data-visualization.pdf)
+3. [Top 50 `ggplot2` visualizations](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html)
+4. [How the BBC uses `ggplot2`](https://medium.com/bbc-visual-and-data-journalism/how-the-bbc-visual-and-data-journalism-team-works-with-graphics-in-r-ed0b35693535)
+5. [ggplot2: Elegant Graphics for Data Analysis](https://ggplot2-book.org/)
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

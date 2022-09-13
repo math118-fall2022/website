@@ -42,7 +42,7 @@ knitr::include_graphics("img/female-heights.png")
 
 - Click on the link provided in the slides to create your own private repo for this exercise.
 
-- Go to the `ae-02-[GITHUB USERNAME]` repo on GitHub that you created
+- Go to the `appex-02-[GITHUB USERNAME]` repo on GitHub that you created
 
 - Click on the green **Code** button, **Use HTTPS**, and click on the clipboard icon to copy the repo URL.
 
@@ -54,18 +54,6 @@ knitr::include_graphics("img/female-heights.png")
 
 - Click *Create Project*, and the files from your GitHub repo will be displayed the *Files* pane in RStudio. 
 
-### Configure git
-
-Before we start the exercise, we need to configure your git so that RStudio can communicate with GitHub. This requires two pieces of information: your email address and your name.
-
-Type the following lines of code in the **Console** in RStudio filling in your GitHub username and email address associated with your GitHub account. Remember to keep the quotation marks!
-
-```{r eval=FALSE}
-library(usethis)
-use_git_config(user.name= "github username", user.email="your email")
-```
-
-**RStudio and GitHub can now communicate with each other and you are ready to do the exercise!**
 
 ## Practice with ggplot
 
@@ -102,7 +90,7 @@ ggplot(data = starwars,
 
 1. Modify the histogram by adding `color = "blue"` inside of the `geom_XX` function. (Feel free to use a different color besides blue!) Knit to see the updated histogram. 
 
-2. Now modify the histogram by adding `fill = "pink"` inside of the geom_XX function. (Feel free to use a different color besides pink!) Knit to see the updated histogram. 
+2. Now modify the histogram by adding `fill = "orange"` inside of the geom_XX function. (Feel free to use a different color besides orange!) Knit to see the updated histogram. 
 
 3. What is the difference between `color` and `fill`? 
 

@@ -77,7 +77,7 @@ x*7
 
 #### For first time only: Clone a GitHub repo  
 
-- Create a new folder on your Desktop called "Math118"
+- Create a new folder on your Desktop called "Math118" if you haven't already
 
 - Go to the [course organization](https://github.com/math118-fall2022) on GitHub  and find the repo with the prefix **getting-started-**. 
 
@@ -124,9 +124,9 @@ knitr::include_graphics("img/00-git/clone_git.png")
 
 #### Making a change locally, committing, and pushing
 
-- Open the RMarkdown file **ae01-flint.Rmd**. We will use that for the next part of class. 
+- Open the RMarkdown file **appex01-flint.Rmd**. We will use that for the next part of class. 
 
-- The `R` package that we will rely on most heavily is the `tidyverse` package. Please install it now by typing the following in your Console:
+- The `R` package that we will rely on most heavily is the `tidyverse` package. Please install it now by typing the following in your **Console**:
 
 ```{r eval = F}
 install.packages("tidyverse")
@@ -158,4 +158,4 @@ For application exercises, you simply need to push your final changes to your Gi
 
 ## Flint Water Crisis analysis
 
-Follow along with the instructions in **ae01-flint.Rmd**.
+Follow along with the instructions in **appex01-flint.Rmd**.
