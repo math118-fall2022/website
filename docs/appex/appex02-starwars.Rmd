@@ -11,11 +11,6 @@ output:
 library(tidyverse)
 ```
 
-## Data analysis life cycle 
-
-```{r echo = F, fig.cap = "Data science life cycle from [*R for Data Science*](https://r4ds.had.co.nz/) with modifications from *The Art of Statistics: How to Learn from Data*", out.width = "70%", fig.align = "center"}
-knitr::include_graphics("img/data-analysis-life-cycle.png")
-```
 
 ## Examining data visualizations 
 
@@ -59,7 +54,12 @@ knitr::include_graphics("img/female-heights.png")
 
 ### Step 1
 
-Modify the following plot to change the color of all points to `"pink"`. Knit the document to observe the changes.
+Modify the following plot to change the color of all points to `"pink"`. **Knit** the document to observe the changes by hitting the "Knit" button at the top of your markdown editor:
+
+```{r echo = F, out.width="250", fig.align="center"}
+knitr::include_graphics("img/knit.png")
+
+```
 
 ```{r starwars-plot}
 ggplot(data = starwars, 

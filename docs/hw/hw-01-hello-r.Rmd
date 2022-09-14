@@ -31,52 +31,22 @@ As the labs progress, you are encouraged to explore beyond what the labs dictate
 
 - Go to the Math 118 organization on GitHub (http://www.github.com/math118-fall2022). Click on the repo with the prefix **hw-01-hello-r-**. It contains the starter documents you need to complete the lab.
 
+- Click on the green **Code** button, select the second option "Open with GitHub Desktop"
 
-- Click on the green **Clone or download** button, select **Use HTTPS** (this might already be selected by default, and if it is, you'll see the text **Clone with HTTPS** as in the image below). Click on the clipboard icon to copy the repo URL.
-
-```{r clone-repo-link, echo = FALSE, fig.width = 5}
-knitr::include_graphics("img/01-hello-r/clone_repo.png")
+```{r echo = F, fig.align="center", out.width="70%"}
+knitr::include_graphics("img/01-hello-r/clone.png")
 ```
 
-- Open up RStudio
+- The GitHub Desktop application will open up, with a white window that says "Clone a Repository". **Important**: in the second line that says "Local Path", there is a button that says `Choose...`. Click on it, and find and select the folder we created for this course. Then hit the blue `Clone` button.
 
-- Go to *File* $\rightarrow$ *New Project* $\rightarrow$ *Version Control* $\rightarrow$ *Git*. 
-
-```{r paste-gh-repo-url, echo = FALSE,  out.width = "80%"}
-knitr::include_graphics("img/01-hello-r/clone_git.png")
+```{r echo = F, fig.align="center", out.width="70%"}
+knitr::include_graphics("img/01-hello-r/find_folder.png")
 ```
 
-- Copy and paste the URL of your assignment repo into the dialog box *Repository URL*. You can leave *Project Directory Name* empty. It will default to the name of the GitHub repo. In *Create project as a subdirectory of*, hit "Browse" and find your Math118 folder.
+- After successfully cloning, the window will disappear and you will see the that Current Repository is the one you just cloned. Success!
 
-- Click *Create Project*, and the files from your GitHub repo will be displayed the *Files* pane in RStudio. 
+- **Note**: if you want to commit and push changes  for a different project (e.g. an application exercise), you can switch to the other project by hitting the first top=left button `Current Repository`. You should see all of your cloned projects here. Simply pick the one you would like to commit changes for!
 
-
-## Configure git 
-
-There is one more piece of housekeeping we need to take care of before we get started. Specifically,  we need to configure your git so that RStudio can communicate with GitHub. This requires two pieces of information: your name and email address.
-
-To do so, you will use the `use_git_config` function from the `usethis` package. 
-
-Type the following lines of code in the **console** in RStudio filling in your name and email address.
-
-```{marginfigure}
-The email address is the one tied to your GitHub account. 
-```
-
-```{r eval=FALSE}
-library(usethis)
-use_git_config(user.name = "username", user.email="your email")
-```
-
-For example, mine would be 
-
-```{r eval=FALSE}
-library(usethis)
-use_git_config(user.name="beckytang", user.email="btang@middlebury.edu")
-```
-
-
-Once you run the configuration code, your values for `user.name` and `user.email` will display in the console. If your `user.name` and `user.email` are correct, you're good to go! Otherwise, run the code again with the necessary changes.
 
 # Packages
 
@@ -253,22 +223,11 @@ Once your work is finalized in your GitHub repo, you will submit it to Canvas.
 
 # Refresher on comitting and pushing to GitHub:
 
-Before we introduce the data, let's warm up with some simple exercises. We're going to go through our first **commit** and **push**.
-
-## YAML: 
-
-The top portion of your R Markdown file (between the three dashed lines) is called YAML. It stands for "YAML Ain't Markup Language". It is a human friendly data serialization standard for all programming languages. All you need to know is that this area is called the YAML (we will refer to it as such) and that it contains meta information about your document.
-
-Open the R Markdown (Rmd) file in your project, change the author name to your name, and knit the document. 
-
 ## Commiting changes:
 
-Now, go to the Git pane in your RStudio instance. This will be in the top right hand corner in a separate tab.
+Open up the GitHub Desktop application. If you have made changes to your .Rmd file or created new files, you should see it listed here.
 
-If you have made changes to your .Rmd file, you should see it listed here. Click on it to select it in this list and then click on **Diff**. This shows you the <u>diff</u>erence between the last committed state of the document and its current state that includes your changes. You should see deletions in red and additions in green. As well, you can see exactly which lines were changed. 
-
-If you're happy with these changes, we'll prepare the changes to be pushed to your remote repository. First, **stage** your changes by checking the appropriate box on the files you want to prepare. Next, write a meaningful commit message (for instance, "Updated author name") in the **Commit message** box. Finally, click **Commit**. Note that every commit needs to have a commit message associated with it.
-
+Next, write a meaningful commit message (for instance, "Updated author name") in the text box next to your GitHub profile image. Click the **Commit to main** blue button.
 
 Of course, you don't have to commit after every change, as this would get quite cumbersome. You should consider committing states that are *meaningful to you* for inspection, comparison, or restoration. In the first few assignments we will tell you exactly when to commit and in some cases, what commit message to use. As the semester progresses we will let you make these decisions.
 
@@ -276,4 +235,4 @@ Of course, you don't have to commit after every change, as this would get quite 
 
 Now that you have made an update and committed this change, it's time to push these changes to the web! Or more specifically, to your repo on GitHub so that others can see your changes. By others, we mean the course teaching team (your repos) in this course are private to you and us, only). 
 
-In order to push your changes to GitHub, you must have **staged** your **commit** to be pushed. click on **Push**. This will prompt a dialogue box where you first need to enter your user name, and then your password. Don't worry, we will soon teach you how to save your password so you don't have to enter it every time, but for now assignment you'll have to manually enter each time you push in order to gain some experience with the process.
+In order to push your changes to GitHub, you must have committed your changes in the previous step. At the top of the application, the third tab should have changed to say `Push origin` with some arrows displayed. Go ahead and **push**!
