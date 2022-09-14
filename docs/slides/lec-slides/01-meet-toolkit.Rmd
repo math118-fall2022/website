@@ -178,7 +178,7 @@ class: center, middle
 
 - The amount of scaffolding in the template will decrease over the course of the class
 
---- 
+---
 
 ## R Markdown tips
 
