@@ -213,7 +213,7 @@ datasaurus_dozen %>%
   summarize(r = cor(x, y)) 
 ```
 
-5. Include the faceted plot and the summary of the correlation coefficients in your lab write-up by including relevant code in R chunks (give them appropriate names). In the narrative below the code chunks, *briefly* comment on what you notice about the plots and the correlations between `x` and `y` values within each of them (one or two sentences is fine!).
+5. Include the faceted plot and the summary of the correlation coefficients in your homework write-up by including relevant code in R chunks (give them appropriate names). In the narrative below the code chunks, *briefly* comment on what you notice about the plots and the correlations between `x` and `y` values within each of them (one or two sentences is fine!).
 
 You're done with the data analysis exercises, but we'd like to do one more thing to customize the look of the report. 
 
