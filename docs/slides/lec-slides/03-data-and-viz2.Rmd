@@ -1,8 +1,7 @@
 ---
 title: "Data and Vizualization"
 subtitle: "Visualizing different types of data"
-author: "Becky Tang"
-date: "05.19.2021"
+date: "9/19/22"
 output:
   xaringan::moon_reader:
     mathjax: "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML"
@@ -59,6 +58,7 @@ library(tidyverse)
 library(datasauRus)
 library(DT)
 library(Tmisc)
+library(magick)
 library(patchwork)
 ```
 
@@ -142,13 +142,13 @@ glimpse(diamonds)
 
 ## Diamonds help file
 .pull-left[
-```{r echo = F, out.width = "80%", fig.align = "center"}
+```{r echo = F, out.width = "100%", fig.align = "center"}
 knitr::include_graphics("img/03/diamonds_help1.png")
 ```
 ]
 
 .pull-right[
-```{r echo = F, out.width = "80%", fig.align = "center"}
+```{r echo = F, out.width = "100%", fig.align = "center"}
 knitr::include_graphics("img/03/diamonds_help2.png")
 ```
 ]
@@ -176,7 +176,7 @@ knitr::include_graphics("img/03/diamond_colors.png")
 .small[
 ```{r out.width = "80%", fig.align='center'}
 ggplot(data = diamonds, mapping = aes(x = price)) +
-  geom_histogram()
+  geom_histogram() #<<
 ```
 ]
 
@@ -185,16 +185,18 @@ ggplot(data = diamonds, mapping = aes(x = price)) +
 ## Histograms
 
 .pull-left[
-```{r out.width = "80%", fig.align='center'}
+```{r fig.width=3, fig.height=2, fig.align='center'}
 ggplot(data = diamonds, mapping = aes(x = price)) +
-  geom_histogram(binwidth = 1000)
+  geom_histogram(binwidth = 1000) #<<
 ```
 ]
 
+--
+
 .pull-right[
-```{r out.width = "80%", fig.align='center'}
+```{r fig.width=3, fig.height=2,  fig.align='center'}
 ggplot(data = diamonds, mapping = aes(x = price)) +
-  geom_histogram(bins = 12)
+  geom_histogram(bins = 12) #<<
 ```
 ]
 
@@ -205,7 +207,7 @@ ggplot(data = diamonds, mapping = aes(x = price)) +
 .small[
 ```{r out.width = "80%", fig.align='center'}
 ggplot(data = diamonds, mapping = aes(x = price)) +
-  geom_density()
+  geom_density() #<<
 ```
 ]
 
@@ -216,7 +218,7 @@ ggplot(data = diamonds, mapping = aes(x = price)) +
 .small[
 ```{r out.width = "80%", fig.align='center'}
 ggplot(data = diamonds, mapping = aes(y = price, x = cut)) +
-  geom_boxplot()
+  geom_boxplot() #<<
 ```
 ]
 
@@ -233,7 +235,7 @@ class: center, middle
 .small[
 ```{r out.width = "80%", fig.align='center'}
 ggplot(data = diamonds, mapping = aes(x = clarity)) + 
-  geom_bar()
+  geom_bar() #<<
 ```
 ]
 
@@ -243,7 +245,7 @@ ggplot(data = diamonds, mapping = aes(x = clarity)) +
 
 .small[
 ```{r out.width = "70%", fig.align='center'}
-ggplot(data = diamonds, mapping = aes(x = clarity, fill = cut)) + 
+ggplot(data = diamonds, mapping = aes(x = clarity, fill = cut)) +  #<<
   geom_bar() 
 ```
 ]
@@ -417,10 +419,13 @@ class: center, middle
 
 ## Keep it simple
 
+.pull-left[
 ```{r pie-3d, echo=FALSE, out.width=300, fig.align="center"}
 knitr::include_graphics("img/03/pie-3d.jpg")
 ```
+]
 
+.pull-right[
 ```{r pie-to-bar, echo=FALSE, out.width=600, fig.align="center"}
 d <- tribble(
   ~category,                     ~value,
@@ -434,14 +439,16 @@ ggplot(d, aes(x = fct_reorder(category, value), y = value)) +
   geom_col() +
   theme_minimal() +
   coord_flip() +
-  labs(x = "", y = "")
+  labs(x = "", y = "")+
+  theme(text= element_text(size = 15))
 ```
+]
 
 ---
 
 ## Use	color	to	draw	attention
 
-
+.pull-left[
 ```{r echo=FALSE, out.width=500, fig.align="center"}
 d %>%
   mutate(category = str_replace(category, " ", "\n")) %>%
@@ -449,9 +456,11 @@ d %>%
     geom_col() +
     theme_minimal() +
     labs(x = "", y = "") +
-    theme(legend.position = "none")
+    theme(legend.position = "none", text= element_text(size = 15))
 ```
+]
 
+.pull-right[
 ```{r echo=FALSE, out.width=600, fig.align="center"}
 ggplot(d, aes(x = fct_reorder(category, value), y = value, fill = category)) +
   geom_col() +
@@ -459,8 +468,9 @@ ggplot(d, aes(x = fct_reorder(category, value), y = value, fill = category)) +
   coord_flip() +
   labs(x = "", y = "") +
   scale_fill_manual(values = c("red", rep("gray", 4))) +
-  theme(legend.position = "none")
+  theme(legend.position = "none", text= element_text(size = 15))
 ```
+]
 
 ---
 

@@ -3,7 +3,6 @@
   <head>
     <title>Data and Vizualization</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Becky Tang" />
     <script src="libs/font-awesome/header-attrs/header-attrs.js"></script>
     <link href="libs/font-awesome/font-awesome/css/all.css" rel="stylesheet" />
     <link href="libs/font-awesome/font-awesome/css/v4-shims.css" rel="stylesheet" />
@@ -19,11 +18,8 @@ class: center, middle, inverse, title-slide
 .subtitle[
 ## Visualizing different types of data
 ]
-.author[
-### Becky Tang
-]
 .date[
-### 05.19.2021
+### 9/19/22
 ]
 
 ---
@@ -154,11 +150,11 @@ glimpse(diamonds)
 
 ## Diamonds help file
 .pull-left[
-&lt;img src="img/03/diamonds_help1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="img/03/diamonds_help1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
-&lt;img src="img/03/diamonds_help2.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="img/03/diamonds_help2.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -181,7 +177,7 @@ glimpse(diamonds)
 
 ```r
 ggplot(data = diamonds, mapping = aes(x = price)) +
-  geom_histogram()
+* geom_histogram()
 ```
 
 &lt;img src="03-data-and-viz2_files/figure-html/unnamed-chunk-8-1.png" width="80%" style="display: block; margin: auto;" /&gt;
@@ -195,20 +191,22 @@ ggplot(data = diamonds, mapping = aes(x = price)) +
 
 ```r
 ggplot(data = diamonds, mapping = aes(x = price)) +
-  geom_histogram(binwidth = 1000)
+* geom_histogram(binwidth = 1000)
 ```
 
-&lt;img src="03-data-and-viz2_files/figure-html/unnamed-chunk-9-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-data-and-viz2_files/figure-html/unnamed-chunk-9-1.png" style="display: block; margin: auto;" /&gt;
 ]
+
+--
 
 .pull-right[
 
 ```r
 ggplot(data = diamonds, mapping = aes(x = price)) +
-  geom_histogram(bins = 12)
+* geom_histogram(bins = 12)
 ```
 
-&lt;img src="03-data-and-viz2_files/figure-html/unnamed-chunk-10-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-data-and-viz2_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -219,7 +217,7 @@ ggplot(data = diamonds, mapping = aes(x = price)) +
 
 ```r
 ggplot(data = diamonds, mapping = aes(x = price)) +
-  geom_density()
+* geom_density()
 ```
 
 &lt;img src="03-data-and-viz2_files/figure-html/unnamed-chunk-11-1.png" width="80%" style="display: block; margin: auto;" /&gt;
@@ -233,7 +231,7 @@ ggplot(data = diamonds, mapping = aes(x = price)) +
 
 ```r
 ggplot(data = diamonds, mapping = aes(y = price, x = cut)) +
-  geom_boxplot()
+* geom_boxplot()
 ```
 
 &lt;img src="03-data-and-viz2_files/figure-html/unnamed-chunk-12-1.png" width="80%" style="display: block; margin: auto;" /&gt;
@@ -253,7 +251,7 @@ class: center, middle
 
 ```r
 ggplot(data = diamonds, mapping = aes(x = clarity)) + 
-  geom_bar()
+* geom_bar()
 ```
 
 &lt;img src="03-data-and-viz2_files/figure-html/unnamed-chunk-13-1.png" width="80%" style="display: block; margin: auto;" /&gt;
@@ -266,7 +264,7 @@ ggplot(data = diamonds, mapping = aes(x = clarity)) +
 .small[
 
 ```r
-ggplot(data = diamonds, mapping = aes(x = clarity, fill = cut)) + 
+*ggplot(data = diamonds, mapping = aes(x = clarity, fill = cut)) +
   geom_bar() 
 ```
 
@@ -522,18 +520,25 @@ class: center, middle
 
 ## Keep it simple
 
+.pull-left[
 &lt;img src="img/03/pie-3d.jpg" width="300" style="display: block; margin: auto;" /&gt;
+]
 
+.pull-right[
 &lt;img src="03-data-and-viz2_files/figure-html/pie-to-bar-1.png" width="600" style="display: block; margin: auto;" /&gt;
+]
 
 ---
 
 ## Use	color	to	draw	attention
 
-
+.pull-left[
 &lt;img src="03-data-and-viz2_files/figure-html/unnamed-chunk-20-1.png" width="500" style="display: block; margin: auto;" /&gt;
+]
 
+.pull-right[
 &lt;img src="03-data-and-viz2_files/figure-html/unnamed-chunk-21-1.png" width="600" style="display: block; margin: auto;" /&gt;
+]
 
 ---
 
