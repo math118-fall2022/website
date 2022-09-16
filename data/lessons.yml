@@ -15,7 +15,7 @@ lessons:
  - date: "Friday, Sep. 16"
    title: "Data and visualization + HW 01 assigned"
    #hw: "hw-01-hello-r.html"
-   #slides: "lec-slides/02-data-and-viz.html"
+   slides: "lec-slides/02-data-and-viz.html"
    appex: "appex02-starwars.html"
  - title: "GitHub Desktop"
    appex: "01-github-desktop.html"
