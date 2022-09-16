@@ -117,35 +117,8 @@ class: center, middle
 
 ---
 
-## ggplot2 in tidyverse
-
-.pull-left[
-```{r echo = F, out.width = "70%"}
-knitr::include_graphics("img/02/ggplot2-part-of-tidyverse.png")
-```
-]
-.pull-right[
-- **ggplot2** is tidyverse's data visualization package
-- The `gg` in "ggplot2" stands for Grammar of Graphics
-- It is inspired by the book **Grammar of Graphics** by Leland Wilkinson*
-![](img/02/grammar-of-graphics.png)
-]
-
-.footnote[ 
-Source: [BloggoType](http://bloggotype.blogspot.com/2016/08/holiday-notes2-grammar-of-graphics.html)
-]
----
-
-## What is a Grammar of Graphics?
-
-A tool that allows for concisely describing the components of a graphic:
-
-```{r fig.align="center",out.width="70%",echo=FALSE}
-knitr::include_graphics("img/02/grammar-of-graphics.png")
-```
 
 
----
 
 ## What function is doing the plotting?
 
@@ -333,38 +306,38 @@ ggplot(data = countries_footprint, mapping = aes(x = GDP, y = Total)) +
        x = "GDP ($10k)", y = "Total footprint (hectare)") 
 ```
 
----
+<!-- --- -->
 
-## GDP vs. Forest Footprint
+<!-- ## GDP vs. Forest Footprint -->
 
-.question[
-How about here? Which country has low GDP but a large forest footprint, and vice versa?
-]
+<!-- .question[ -->
+<!-- How about here? Which country has low GDP but a large forest footprint, and vice versa? -->
+<!-- ] -->
 
-```{r fig.width = 8, fig.height=3, fig.align='center', warning=FALSE, echo = F}
-ggplot(data = countries_footprint, mapping = aes(x = GDP, y = Forest)) +
-  geom_point() + 
-  labs(title = "GDP vs. Forest Footprint of countries (2016)",
-       x = "GDP ($10k)", y = "Forest footprint (hectare)")
-```
+<!-- ```{r fig.width = 8, fig.height=3, fig.align='center', warning=FALSE, echo = F} -->
+<!-- ggplot(data = countries_footprint, mapping = aes(x = GDP, y = Forest)) + -->
+<!--   geom_point() +  -->
+<!--   labs(title = "GDP vs. Forest Footprint of countries (2016)", -->
+<!--        x = "GDP ($10k)", y = "Forest footprint (hectare)") -->
+<!-- ``` -->
 
----
+<!-- --- -->
 
 
-## Which countries?
+<!-- ## Which countries? -->
 
-```{r echo=FALSE, out.width="70%",warning=FALSE, message=FALSE}
-# jabba <- image_read("img/02/forest.png")
-# fig <- image_graph(width = 2400, height = 1200, res = 300)
-# ggplot(data = countries_footprint, mapping = aes(x = GDP, y = Forest)) +
-#   geom_point() + 
-#   labs(title = "GDP vs. Forest Footprint of countries (2016)",
-#        x = "GDP ($10k)", y = "Forest footprint (hectare)")
-# invisible(dev.off())
-# out <- fig %>% image_composite(jabba, offset = "+1000+30")
-# image_write(out, "img/02/jabbaplot.png", format = "png")
-knitr::include_graphics("img/02/forest.png")
-```
+<!-- ```{r echo=FALSE, out.width="70%",warning=FALSE, message=FALSE} -->
+<!-- # jabba <- image_read("img/02/forest.png") -->
+<!-- # fig <- image_graph(width = 2400, height = 1200, res = 300) -->
+<!-- # ggplot(data = countries_footprint, mapping = aes(x = GDP, y = Forest)) + -->
+<!-- #   geom_point() +  -->
+<!-- #   labs(title = "GDP vs. Forest Footprint of countries (2016)", -->
+<!-- #        x = "GDP ($10k)", y = "Forest footprint (hectare)") -->
+<!-- # invisible(dev.off()) -->
+<!-- # out <- fig %>% image_composite(jabba, offset = "+1000+30") -->
+<!-- # image_write(out, "img/02/jabbaplot.png", format = "png") -->
+<!-- knitr::include_graphics("img/02/forest.png") -->
+<!-- ``` -->
 
 ---
 
