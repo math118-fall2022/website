@@ -340,39 +340,6 @@ How would you describe this **relationship**?
 
 &lt;img src="02-data-and-viz_files/figure-html/unnamed-chunk-14-1.png" style="display: block; margin: auto;" /&gt;
 
-&lt;!-- --- --&gt;
-
-&lt;!-- ## GDP vs. Forest Footprint --&gt;
-
-&lt;!-- .question[ --&gt;
-&lt;!-- How about here? Which country has low GDP but a large forest footprint, and vice versa? --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- ```{r fig.width = 8, fig.height=3, fig.align='center', warning=FALSE, echo = F} --&gt;
-&lt;!-- ggplot(data = countries_footprint, mapping = aes(x = GDP, y = Forest)) + --&gt;
-&lt;!--   geom_point() +  --&gt;
-&lt;!--   labs(title = "GDP vs. Forest Footprint of countries (2016)", --&gt;
-&lt;!--        x = "GDP ($10k)", y = "Forest footprint (hectare)") --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- --- --&gt;
-
-
-&lt;!-- ## Which countries? --&gt;
-
-&lt;!-- ```{r echo=FALSE, out.width="70%",warning=FALSE, message=FALSE} --&gt;
-&lt;!-- # jabba &lt;- image_read("img/02/forest.png") --&gt;
-&lt;!-- # fig &lt;- image_graph(width = 2400, height = 1200, res = 300) --&gt;
-&lt;!-- # ggplot(data = countries_footprint, mapping = aes(x = GDP, y = Forest)) + --&gt;
-&lt;!-- #   geom_point() +  --&gt;
-&lt;!-- #   labs(title = "GDP vs. Forest Footprint of countries (2016)", --&gt;
-&lt;!-- #        x = "GDP ($10k)", y = "Forest footprint (hectare)") --&gt;
-&lt;!-- # invisible(dev.off()) --&gt;
-&lt;!-- # out &lt;- fig %&gt;% image_composite(jabba, offset = "+1000+30") --&gt;
-&lt;!-- # image_write(out, "img/02/jabbaplot.png", format = "png") --&gt;
-&lt;!-- knitr::include_graphics("img/02/forest.png") --&gt;
-&lt;!-- ``` --&gt;
-
 ---
 
 ## Additional variables
