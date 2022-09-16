@@ -57,12 +57,14 @@ library(tidyverse)
 library(datasauRus)
 ```
 
-You may need to install the `datasauRus` package by running the following in your **console** (watch out for capitalization):
+
+If you get an error, that reads $\color{red}{\text{there is no packaged called 'datasauRus'}}$ you probably need to install the `datasauRus` package. Run the following in your **console** (watch out for capitalization). Remember that the console is the section at the bottom of RStudio:
 
 ```{r eval = F}
 install.packages("datasauRus")
 ```
 
+Once you have installed the package, try running the above code again!
 
 # Data
 
@@ -211,7 +213,7 @@ Now, save and knit to PDF. Once you've created this .pdf file, you're done!
 # Submission
 
 
-In this class, we'll be submitting .pdf documents to Canvas. Once you are fully satisfied with your homework, **Knit to .pdf** to create a .pdf document. You may notice that the formatting/theme of the report has changed -- this is expected. *Refer to the file in the 9/20 HW section of the schedule on the course website for help on how to knit to PDF!*
+In this class, we'll be submitting .pdf documents to Canvas. Once you are fully satisfied with your homework, **Knit** to create a .pdf document. The pdf document you turn in should be found in the folder associated with this assignment. You may notice that the formatting/theme of the report has changed -- this is expected. *Refer to the file in the 9/20 HW section of the schedule on the course website for help on how to knit to PDF!*
 
 **Before you wrap up the assignment, make sure all documents are updated on your GitHub repo. I will be checking these to make sure you have been practicing how to commit and push changes.**
 

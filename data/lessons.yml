@@ -14,7 +14,7 @@ lessons:
    title: "Collecting, wrangling, & visualizing data"
  - date: "Friday, Sep. 16"
    title: "Data and visualization + HW 01 assigned"
-   #hw: "hw-01-hello-r.html"
+   hw: "hw-01-hello-r.html"
    slides: "lec-slides/02-data-and-viz.html"
    appex: "appex02-starwars.html"
  - title: "GitHub Desktop"
