@@ -9,6 +9,8 @@ output:
     toc: true
     toc_depth: 1
 link-citations: yes
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r include=FALSE}
@@ -24,11 +26,11 @@ answer. Doing this is easy! Just place any relevant R code in a code chunk,
 and hit Knit.
 ```
 
-Plastic pollution is a major and growing problem, negatively affecting oceans and wildlife health. [Our World in Data](https://ourworldindata.org/plastic-pollution) has a lot of great data at various levels including globally, per country, and over time. For this lab we focus on data from 2010.
+Plastic pollution is a major and growing problem, negatively affecting oceans and wildlife health. [Our World in Data](https://ourworldindata.org/plastic-pollution) has a lot of great data at various levels including globally, per country, and over time. For this homework we focus on data from 2010.
 
 Additionally, National Geographic recently ran a data visualization communication contest on plastic waste as seen [here](https://www.nationalgeographic.org/funding-opportunities/innovation-challenges/plastic/dataviz/).
 
-Learning goals for this lab are
+Learning goals for this homework are
 
 - Visualizing numerical and categorical data.
 - Recreating  visualizations.
@@ -36,27 +38,16 @@ Learning goals for this lab are
 
 # Getting started
 
-```{marginfigure}
-**IMPORTANT:** If there is no GitHub repo created for you for this assignment, it means I didn't have your GitHub username as of when I assigned the homework. Please let me know your GitHub username asap, and I can create your repo.
-```
+- Go to the course GitHub organization and locate your HW 02 repo, which should be named `hw-02-plastic-waste-[GITHUB USERNAME]`.
 
-Go to the course GitHub organization and locate your HW 02 repo, which should be named `hw-02-plastic-waste-[GITHUB USERNAME]`. Grab the URL of the repo, and clone it in RStudio. Refer to HW 01 for step-by-step for cloning a repo and creating a new RStudio project.
+- Click on the green **Code** button, select the second option "Open with GitHub Desktop"
 
+- The GitHub Desktop application will open up, with a white window that says "Clone a Repository". **Important**: in the second line that says "Local Path", there is a button that says `Choose...`. Click on it, and find and select the folder we created for this course. Then hit the blue `Clone` button.
 
-## Configure git
+- After successfully cloning, the window will disappear and you will see the that Current Repository is the one you just cloned. Success!
 
-```{marginfigure}
-The name should be your github username and your email address is the one tied to your GitHub account.
-```
+- Navigate to the project folder you just created within the Math118 folder, and open the `hw-02-plastic-waste.Rmd` file to begin.
 
-Before we can get started we need to do one more thing.  Specifically,  we need to configure your git so that RStudio can communicate with GitHub. This requires two pieces of information: your email address and your GitHub username.
-
-To do so, run the following:
-
-```{r eval=FALSE}
-library(usethis)
-use_git_config(user.name = "github username", user.email = "your email")
-```
 
 ## Update the name and date
 
@@ -73,7 +64,7 @@ library(tidyverse)
 
 # The data
 
-The dataset for this assignment can be found as a csv file in the `data` folder of your repository. You can read it in using the following line of code.
+The dataset for this assignment can be found as a csv file in the `data` folder of your repository. You can read it in using the following line of code. Make sure the file path is pointing to this project folder! If you are not sure: hit "Session" -> "Set Working Directory" -> "To Source File Location".
 
 ```{r load-data, message=FALSE, eval=TRUE}
 plastic_waste <- read_csv("data/plastic-waste.csv")
@@ -113,7 +104,7 @@ Did you expect this result? You might consider doing some research on Trinidad a
 1. Plot, using histograms, the distribution of plastic waste per capita faceted by continent. What can you say about how the continents compare to each other in terms of their plastic waste per capita?
 
 ```{marginfigure}
-From this point onwards the plots / output of the code won't be printed in the lab, but you can run the code and view the results yourself.
+From this point onwards the plots / output of the code won't be printed in the homework, but you can run the code and view the results yourself.
 ```
 
 Another way of visualizing numerical data is using density plots.
@@ -125,7 +116,7 @@ ggplot(data = plastic_waste, aes(x = plastic_waste_per_cap)) +
 
 And compare distributions across continents by coloring density curves by continent.
 
-```{r plastic_waste_per_cap-dens-color, eval = TRUE}
+```{r plastic_waste_per_cap-dens-color, eval = F}
 ggplot(data = plastic_waste, 
        mapping = aes(x = plastic_waste_per_cap, 
                      color = continent)) +
@@ -134,7 +125,7 @@ ggplot(data = plastic_waste,
 
 The resulting plot may be a little difficult to read, so let's also fill the curves in with colors as well.
 
-```{r plastic_waste_per_cap-dens-color-fill, eval = TRUE}
+```{r plastic_waste_per_cap-dens-color-fill, eval = F}
 ggplot(data = plastic_waste, 
        mapping = aes(x = plastic_waste_per_cap, 
                      color = continent, 
@@ -144,7 +135,7 @@ ggplot(data = plastic_waste,
 
 The overlapping colors make it difficult to tell what's happening with the distributions in continents plotted first, and hence covered by continents plotted over them. We can change the transparency level of the fill color to help with this. The `alpha` argument takes values between 0 and 1: 0 is completely transparent and 1 is completely opaque. There is no way to tell what value will work best, so it's best to try a few. 
 
-```{r plastic_waste_per_cap-dens-color-fill-alpha, eval = TRUE}
+```{r plastic_waste_per_cap-dens-color-fill-alpha, eval = F}
 ggplot(data = plastic_waste, 
        mapping = aes(x = plastic_waste_per_cap, 
                      color = continent, 
@@ -159,12 +150,12 @@ This still doesn't look great...
 1. Describe why we defined the `color` and `fill` of the curves by mapping aesthetics of the plot but we defined the `alpha` level as a characteristic of the plotting `geom`.
 
 <div class = "commit">
-Now is a good time to knit, commit and push your changes to GitHub with a short, informative commit message. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards.
+Now is a good time to knit, commit and push your changes to GitHub with a short, informative commit message. Make sure to commit and push all changed files.
 </div>
 
 There is yet another way to visualize this relationship is using side-by-side box plots.
 
-```{r plastic_waste_per_cap-box, eval = TRUE}
+```{r plastic_waste_per_cap-box, eval = F}
 ggplot(data = plastic_waste, 
        mapping = aes(x = continent, 
                      y = plastic_waste_per_cap)) +
@@ -215,7 +206,7 @@ Knit, commit and push your changes to GitHub with an appropriate commit message 
 
 **Before you wrap up the assignment, make sure all documents are updated on your GitHub repo. we will be checking these to make sure you have been practicing how to commit and push changes.**
 
-Once your work is finalized in your GitHub repo, you will submit it to Canvas.
+Once your work is finalized in your GitHub repo, submit the final PDF it to Canvas.
 
 
 <hr> 

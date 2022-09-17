@@ -1,25 +1,26 @@
 ---
 title: "AE 04: Data Wrangling"
 author: "Your Name"
-date: "05.20.2021"
+date: "`r Sys.Date()`"
 output: 
   html_document:
     theme: readable
+editor_options: 
+  chunk_output_type: console
 ---
 
 
 ## Clone a repo + start a new project
 
-Go to the `ae-04-[GITHUB USERNAME]` repo, clone it, and start a new project in RStudio. 
+- Go to the `appex-04-[GITHUB USERNAME]` repo, clone it, and start a new project in RStudio. 
 
-## Configure git
+- Click on the green **Code** button, select the second option "Open with GitHub Desktop"
 
-Run the following code to configure Git. Fill in your GitHub username and the email address associated with your GitHub account. 
+- The GitHub Desktop application will open up, with a white window that says "Clone a Repository". **Important**: in the second line that says "Local Path", there is a button that says `Choose...`. Click on it, and find and select the folder we created for this course. Then hit the blue `Clone` button.
 
-```{r eval=FALSE}
-library(usethis)
-use_git_config(user.name= "your github username", user.email="your email")
-```
+- After successfully cloning, the window will disappear and you will see the that Current Repository is the one you just cloned. Success!
+
+- Navigate to the project folder you just created within the Math118 folder, and open the `appex04-ncbike.Rmd` file to begin.
 
 ## Practice with data wrangling
 

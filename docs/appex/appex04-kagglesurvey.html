@@ -9,11 +9,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Becky Tang" />
+<meta name="author" content="Group Name" />
 
 <meta name="date" content="2022-09-17" />
 
-<title>Hotel bookings - data wrangling</title>
+<title>AE 04: Data Wrangling</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -1510,73 +1510,87 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Hotel bookings - data wrangling</h1>
-<h4 class="author">Becky Tang</h4>
+<h1 class="title toc-ignore">AE 04: Data Wrangling</h1>
+<h4 class="author">Group Name</h4>
 <h4 class="date">2022-09-17</h4>
 
 </div>
 
 
+<div id="clone-a-repo-start-a-new-project" class="section level2">
+<h2>Clone a repo + start a new project</h2>
+<ul>
+<li><p>Go to the <code>appex-04-[GITHUB USERNAME]</code> repo, clone it,
+and start a new project in RStudio.</p></li>
+<li><p>Click on the green <strong>Code</strong> button, select the
+second option “Open with GitHub Desktop”</p></li>
+<li><p>The GitHub Desktop application will open up, with a white window
+that says “Clone a Repository”. <strong>Important</strong>: in the
+second line that says “Local Path”, there is a button that says
+<code>Choose...</code>. Click on it, and find and select the folder we
+created for this course. Then hit the blue <code>Clone</code>
+button.</p></li>
+<li><p>After successfully cloning, the window will disappear and you
+will see the that Current Repository is the one you just cloned.
+Success!</p></li>
+<li><p>Navigate to the project folder you just created within the
+Math118 folder, and open the <code>appex04-kagglesurvey.Rmd</code> file
+to begin.</p></li>
+</ul>
+</div>
+<div id="practice-with-data-wrangling" class="section level2">
+<h2>Practice with data wrangling</h2>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre class="r"><code># From TidyTuesday: https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-02-11/readme.md
-# hotels &lt;- read_csv(&quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-11/hotels.csv&quot;)
-hotels &lt;- read_csv(&quot;data/hotels.csv&quot;)</code></pre>
-<div id="exercises" class="section level2">
-<h2>Exercises</h2>
-<div id="exercise-1" class="section level3">
-<h3>Exercise 1</h3>
-<p>Are people traveling on a whim? Let’s see…</p>
-<p>Fill in the blanks for filtering for hotel bookings where the guest
-is <strong>not</strong> from the US (<code>country</code> code
-<code>&quot;USA&quot;</code>) and the <code>lead_time</code> is less than 1
-day.</p>
+<p>The data provided here are a subset of the survey results provided by
+Kaggle, retaining observations with full responses for selected
+variables.</p>
+<pre class="r"><code># From Kaggle: https://www.kaggle.com/datasets/kaggle/kaggle-survey-2017/
+datascience &lt;- read_csv(&quot;data/kaggle_survey_subset.csv&quot;, show_col_types = F) </code></pre>
+<div id="warm-up-exercise" class="section level3">
+<h3>Warm-up exercise</h3>
+<p>Among the respondents, what was the most popular <code>Major</code>
+studied?</p>
+<pre class="r"><code># code here</code></pre>
 </div>
-<div id="exercise-2" class="section level3">
-<h3>Exercise 2</h3>
-<p>How many bookings involve at least 1 child <strong>or</strong>
-baby?</p>
 </div>
-<div id="exercise-3" class="section level3">
-<h3>Exercise 3</h3>
-<p>Do you think it’s more likely to find bookings with children or
-babies in city hotels or resort hotels? Test your intuition. Using
-<code>filter()</code> determine the number of bookings in resort hotels
-that have more than 1 child <strong>or</strong> baby in the room? Then,
-do the same for city hotels, and compare the numbers of rows in the
-resulting filtered data frames.</p>
+<div id="group-analysis" class="section level2">
+<h2>Group analysis</h2>
+<p>Today, your group is going to dive deeper into the
+<code>datascience</code> survey data. I want you to generate your own
+investigation. Using your data-wrangling skills, try to find some
+interesting conclusions. At the end of class, your group will share your
+process and results with the rest of the class!</p>
+<p>Your final results must include:</p>
+<ul>
+<li><p>The use of a new variable via <code>mutate()</code></p></li>
+<li><p>Summary statistics or frequency table</p></li>
+<li><p>Visualization</p></li>
+</ul>
+<p>You can create more than one visualization and/or more than one
+table. Whatever speaks to you! The individual components
+(i.e. table/summary stats vs plot) do not need to use the same set of
+variables. The following code chunks are provided as guidance, but you
+are welcome to go in whatever order you’d like and also to create more
+code chunks!</p>
+<div id="mutatingsubsetting" class="section level3">
+<h3>Mutating/subsetting</h3>
 </div>
-<div id="exercise-5." class="section level3">
-<h3>Exercise 5.</h3>
-<p>Create a frequency table of the number of <code>adults</code> in a
-booking. Display the results in descending order so the most common
-observation is on top. What is the most common number of adults in
-bookings in this dataset? Are there any surprising results?</p>
+<div id="summary-statisticstables" class="section level3">
+<h3>Summary statistics/tables</h3>
 </div>
-<div id="exercise-6." class="section level3">
-<h3>Exercise 6.</h3>
-<p>Repeat Exercise 5, once for canceled bookings
-(<code>is_canceled</code> coded as 1) and once for not canceled bookings
-(<code>is_canceled</code> coded as 0). What does this reveal about the
-surprising results you spotted in the previous exercise?</p>
-</div>
-<div id="exercise-7." class="section level3">
-<h3>Exercise 7.</h3>
-<p>Calculate minimum, mean, median, and maximum average daily rate
-(<code>adr</code>) grouped by <code>hotel</code> type so that you can
-get these statistics separately for resort and city hotels. Which type
-of hotel is higher, on average?</p>
+<div id="visualizations" class="section level3">
+<h3>Visualizations</h3>
 </div>
 </div>
 <div id="data-dictionary" class="section level2">
 <h2>Data dictionary</h2>
-<p>Below is the full data dictionary. Note that it is long (there are
-lots of variables in the data), but we will be using a limited set of
-the variables for our analysis.</p>
+<p>Below is the data dictionary for the subset of the Kaggle data
+data.</p>
 <table>
 <colgroup>
-<col width="58%" />
-<col width="18%" />
+<col width="50%" />
 <col width="22%" />
+<col width="27%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1587,207 +1601,80 @@ the variables for our analysis.</p>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">hotel</td>
+<td align="left">Country</td>
 <td align="left">character</td>
-<td align="left">Hotel (H1 = Resort Hotel or H2 = City Hotel)</td>
+<td align="left">Home country of employee</td>
 </tr>
 <tr class="even">
-<td align="left">is_canceled</td>
-<td align="left">double</td>
-<td align="left">Value indicating if the booking was canceled (1) or not
-(0)</td>
-</tr>
-<tr class="odd">
-<td align="left">lead_time</td>
-<td align="left">double</td>
-<td align="left">Number of days that elapsed between the entering date
-of the booking into the PMS and the arrival date</td>
-</tr>
-<tr class="even">
-<td align="left">arrival_date_year</td>
-<td align="left">double</td>
-<td align="left">Year of arrival date</td>
-</tr>
-<tr class="odd">
-<td align="left">arrival_date_month</td>
+<td align="left">Gender</td>
 <td align="left">character</td>
-<td align="left">Month of arrival date</td>
-</tr>
-<tr class="even">
-<td align="left">arrival_date_week_number</td>
-<td align="left">double</td>
-<td align="left">Week number of year for arrival date</td>
+<td align="left">Selected gender, one of “A different identity”,
+“Female”, “Male”, “Non-binary, genderqueer, or gender
+non-conforming”</td>
 </tr>
 <tr class="odd">
-<td align="left">arrival_date_day_of_month</td>
+<td align="left">Age</td>
 <td align="left">double</td>
-<td align="left">Day of arrival date</td>
+<td align="left">Age at time of survey</td>
 </tr>
 <tr class="even">
-<td align="left">stays_in_weekend_nights</td>
-<td align="left">double</td>
-<td align="left">Number of weekend nights (Saturday or Sunday) the guest
-stayed or booked to stay at the hotel</td>
-</tr>
-<tr class="odd">
-<td align="left">stays_in_week_nights</td>
-<td align="left">double</td>
-<td align="left">Number of week nights (Monday to Friday) the guest
-stayed or booked to stay at the hotel</td>
-</tr>
-<tr class="even">
-<td align="left">adults</td>
-<td align="left">double</td>
-<td align="left">Number of adults</td>
-</tr>
-<tr class="odd">
-<td align="left">children</td>
-<td align="left">double</td>
-<td align="left">Number of children</td>
-</tr>
-<tr class="even">
-<td align="left">babies</td>
-<td align="left">double</td>
-<td align="left">Number of babies</td>
-</tr>
-<tr class="odd">
-<td align="left">meal</td>
+<td align="left">EmploymentStatus</td>
 <td align="left">character</td>
-<td align="left">Type of meal booked. Categories are presented in
-standard hospitality meal packages: <br> Undefined/SC – no meal
-package;<br>BB – Bed &amp; Breakfast; <br> HB – Half board (breakfast
-and one other meal – usually dinner); <br> FB – Full board (breakfast,
-lunch and dinner)</td>
-</tr>
-<tr class="even">
-<td align="left">country</td>
-<td align="left">character</td>
-<td align="left">Country of origin. Categories are represented in the
-ISO 3155–3:2013 format</td>
+<td align="left">One of “Employed full-time”, “Employed part-time”, or
+“Independent contractor, freelancer, or self-employed</td>
 </tr>
 <tr class="odd">
-<td align="left">market_segment</td>
+<td align="left">EmployerIndustry</td>
 <td align="left">character</td>
-<td align="left">Market segment designation. In categories, the term
-“TA” means “Travel Agents” and “TO” means “Tour Operators”</td>
+<td align="left">Industry of current employer</td>
 </tr>
 <tr class="even">
-<td align="left">distribution_channel</td>
+<td align="left">FormalEducation</td>
 <td align="left">character</td>
-<td align="left">Booking distribution channel. The term “TA” means
-“Travel Agents” and “TO” means “Tour Operators”</td>
+<td align="left">Highest level of education</td>
 </tr>
 <tr class="odd">
-<td align="left">is_repeated_guest</td>
-<td align="left">double</td>
-<td align="left">Value indicating if the booking name was from a
-repeated guest (1) or not (0)</td>
+<td align="left">Major</td>
+<td align="left">character</td>
+<td align="left">College major</td>
 </tr>
 <tr class="even">
-<td align="left">previous_cancellations</td>
+<td align="left">CompensationAmount</td>
 <td align="left">double</td>
-<td align="left">Number of previous bookings that were cancelled by the
-customer prior to the current booking</td>
+<td align="left">Total compensation</td>
 </tr>
 <tr class="odd">
-<td align="left">previous_bookings_not_canceled</td>
-<td align="left">double</td>
-<td align="left">Number of previous bookings not cancelled by the
-customer prior to the current booking</td>
+<td align="left">CompensationCurrency</td>
+<td align="left">character</td>
+<td align="left">3-letter currency code for day-to-day currency</td>
 </tr>
 <tr class="even">
-<td align="left">reserved_room_type</td>
+<td align="left">CurrentJobTitle</td>
 <td align="left">character</td>
-<td align="left">Code of room type reserved. Code is presented instead
-of designation for anonymity reasons</td>
+<td align="left">Job title</td>
 </tr>
 <tr class="odd">
-<td align="left">assigned_room_type</td>
+<td align="left">TitleFit</td>
 <td align="left">character</td>
-<td align="left">Code for the type of room assigned to the booking.
-Sometimes the assigned room type differs from the reserved room type due
-to hotel operation reasons (e.g. overbooking) or by customer request.
-Code is presented instead of designation for anonymity reasons</td>
+<td align="left">Assessment of how well title fits actual duties. One of
+“Fine”, “Perfectly”, “Poorly”</td>
 </tr>
 <tr class="even">
-<td align="left">booking_changes</td>
-<td align="left">double</td>
-<td align="left">Number of changes/amendments made to the booking from
-the moment the booking was entered on the PMS until the moment of
-check-in or cancellation</td>
+<td align="left">LanguageRecommendation</td>
+<td align="left">character</td>
+<td align="left">Recommended programming language</td>
 </tr>
 <tr class="odd">
-<td align="left">deposit_type</td>
+<td align="left">WorkDataVisualizations</td>
 <td align="left">character</td>
-<td align="left">Indication on if the customer made a deposit to
-guarantee the booking. This variable can assume three categories:<br>No
-Deposit – no deposit was made;<br>Non Refund – a deposit was made in the
-value of the total stay cost;<br>Refundable – a deposit was made with a
-value under the total cost of stay.</td>
+<td align="left">Proportion of job dedicated to creating data
+visualizations, broken into pre-determined categories</td>
 </tr>
 <tr class="even">
-<td align="left">agent</td>
+<td align="left">JobSatisfaction</td>
 <td align="left">character</td>
-<td align="left">ID of the travel agency that made the booking</td>
-</tr>
-<tr class="odd">
-<td align="left">company</td>
-<td align="left">character</td>
-<td align="left">ID of the company/entity that made the booking or
-responsible for paying the booking. ID is presented instead of
-designation for anonymity reasons</td>
-</tr>
-<tr class="even">
-<td align="left">days_in_waiting_list</td>
-<td align="left">double</td>
-<td align="left">Number of days the booking was in the waiting list
-before it was confirmed to the customer</td>
-</tr>
-<tr class="odd">
-<td align="left">customer_type</td>
-<td align="left">character</td>
-<td align="left">Type of booking, assuming one of four
-categories:<br>Contract - when the booking has an allotment or other
-type of contract associated to it;<br>Group – when the booking is
-associated to a group;<br>Transient – when the booking is not part of a
-group or contract, and is not associated to other transient
-booking;<br>Transient-party – when the booking is transient, but is
-associated to at least other transient booking</td>
-</tr>
-<tr class="even">
-<td align="left">adr</td>
-<td align="left">double</td>
-<td align="left">Average Daily Rate as defined by dividing the sum of
-all lodging transactions by the total number of staying nights</td>
-</tr>
-<tr class="odd">
-<td align="left">required_car_parking_spaces</td>
-<td align="left">double</td>
-<td align="left">Number of car parking spaces required by the
-customer</td>
-</tr>
-<tr class="even">
-<td align="left">total_of_special_requests</td>
-<td align="left">double</td>
-<td align="left">Number of special requests made by the customer
-(e.g. twin bed or high floor)</td>
-</tr>
-<tr class="odd">
-<td align="left">reservation_status</td>
-<td align="left">character</td>
-<td align="left">Reservation last status, assuming one of three
-categories:<br>Canceled – booking was canceled by the
-customer;<br>Check-Out – customer has checked in but already
-departed;<br>No-Show – customer did not check-in and did inform the
-hotel of the reason why</td>
-</tr>
-<tr class="even">
-<td align="left">reservation_status_date</td>
-<td align="left">double</td>
-<td align="left">Date at which the last status was set. This variable
-can be used in conjunction with the ReservationStatus to understand when
-was the booking canceled or when did the customer checked-out of the
-hotel</td>
+<td align="left">Rating of job satisfcation one scale of 1-10, where 1
+is not satisfied and 10 is highly satisfied</td>
 </tr>
 </tbody>
 </table>

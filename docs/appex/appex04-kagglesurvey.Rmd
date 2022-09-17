@@ -1,0 +1,99 @@
+---
+title: "AE 04: Data Wrangling"
+author: "Group Name"
+date: "`r Sys.Date()`"
+output: 
+  html_document: 
+    toc: yes
+    toc_float: yes
+editor_options: 
+  chunk_output_type: console
+---
+## Clone a repo + start a new project
+
+- Go to the `appex-04-[GITHUB USERNAME]` repo, clone it, and start a new project in RStudio. 
+
+- Click on the green **Code** button, select the second option "Open with GitHub Desktop"
+
+- The GitHub Desktop application will open up, with a white window that says "Clone a Repository". **Important**: in the second line that says "Local Path", there is a button that says `Choose...`. Click on it, and find and select the folder we created for this course. Then hit the blue `Clone` button.
+
+- After successfully cloning, the window will disappear and you will see the that Current Repository is the one you just cloned. Success!
+
+- Navigate to the project folder you just created within the Math118 folder, and open the `appex04-kagglesurvey.Rmd` file to begin.
+
+## Practice with data wrangling
+
+```{r load-packages, warning = FALSE, message = FALSE}
+library(tidyverse)
+```
+
+The data provided here are a subset of the survey results provided by Kaggle, retaining observations with full responses for selected variables.
+
+```{r load-data, message = FALSE}
+# From Kaggle: https://www.kaggle.com/datasets/kaggle/kaggle-survey-2017/
+datascience <- read_csv("data/kaggle_survey_subset.csv", show_col_types = F) 
+```
+
+### Warm-up exercise
+
+Among the respondents, what was the most popular `Major` studied?
+
+```{r major}
+# code here
+```
+
+
+## Group analysis
+
+Today, your group is going to dive deeper into the `datascience` survey data. I want you to generate your own investigation. Using your data-wrangling skills, try to find some interesting conclusions. At the end of class, your group will share your process and results with the rest of the class!
+
+Your final results must include: 
+
+  - The use of a new variable  via `mutate()` 
+  
+  - Summary statistics or frequency table
+  
+  - Visualization
+  
+You can create more than one visualization and/or more than one table. Whatever speaks to you! The individual components (i.e. table/summary stats vs plot) do not need to use the same set of variables. The following code chunks are provided as guidance, but you are welcome to go in whatever order you'd like and also to create more code chunks!
+
+
+### Mutating/subsetting
+
+```{r mutate}
+
+```
+
+### Summary statistics/tables
+
+```{r tables-summaries}
+
+```
+
+### Visualizations
+
+```{r data-viz}
+
+
+```
+
+## Data dictionary
+
+Below is the data dictionary for the subset of the Kaggle data data.
+
+|variable              |class     |description |
+|:---------------------|:---------|:-----------|
+|Country               |character | Home country of employee |
+|Gender                |character | Selected gender, one of "A different identity", "Female", "Male", "Non-binary, genderqueer, or gender non-conforming"|
+|Age                   |double    | Age at time of survey|
+|EmploymentStatus      |character | One of "Employed full-time", "Employed part-time", or "Independent contractor, freelancer, or self-employed |
+|EmployerIndustry      |character | Industry of current employer|
+|FormalEducation       |character | Highest level of education|
+|Major                 |character | College major|
+|CompensationAmount    |double    | Total compensation|
+|CompensationCurrency  |character | 3-letter currency code for day-to-day currency|
+|CurrentJobTitle       |character | Job title|
+|TitleFit              |character | Assessment of how well title fits actual duties. One of "Fine", "Perfectly", "Poorly"|
+|LanguageRecommendation|character | Recommended programming language|
+|WorkDataVisualizations|character | Proportion of job dedicated to creating data visualizations, broken into pre-determined categories|
+|JobSatisfaction       |character |  Rating of job satisfcation one scale of 1-10, where 1 is not satisfied and 10 is highly satisfied|

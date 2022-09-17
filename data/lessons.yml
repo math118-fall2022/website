@@ -33,7 +33,8 @@ lessons:
    #slides: "lec-slides/04-tidy-data-wrangle.html"
  - date: "Friday, Sep. 23"
    title: "Tidy data and data wrangling cont."
-   #appex: "appex04-ncbike.html"
+   # have them code?
+   #appex: "appex04-kagglesurvey.html"
  - date: "Week 03"
  - date: "Monday, Sep. 26"
    title: "Joining data from multiple sources"

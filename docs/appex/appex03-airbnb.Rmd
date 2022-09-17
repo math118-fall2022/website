@@ -5,6 +5,8 @@ date: "`r Sys.Date()`"
 output: 
   html_document:
     theme: readable
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r load-packages, warning = FALSE, message = FALSE}
@@ -29,30 +31,33 @@ knitr::include_graphics("img/barplots.jpg")
 
 - Click on the link provided in the slides to create your own private repo for this exercise.
 
-- Go to the `ae-03-[GITHUB USERNAME]` repo on GitHub that you created
+- Go to the `appex-03-[GITHUB USERNAME]` repo on GitHub that you created
 
-- Click on the green **Code** button, **Use HTTPS**, and click on the clipboard icon to copy the repo URL.
-
-- Go to https://vm-manage.oit.duke.edu/containers and login with your Duke NetID and Password. Click to log into the Docker container **RStudio -  statistics application with Rmarkdown and knitr support**. You should now see the RStudio environment. 
-
-- Go to *File* ->  *New Project* -> *Version Control* -> *Git*. 
-
-- Copy and paste the URL of your assignment repo into the dialog box *Repository URL*. You can leave *Project Directory Name* empty. It will default to the name of the GitHub repo.
-
-- Click *Create Project*, and the files from your GitHub repo will be displayed the *Files* pane in RStudio. 
-
-### Configure git
-
-Before we start the exercise, we need to configure your git so that RStudio can communicate with GitHub. This requires two pieces of information: your email address and your name.
-
-Type the following lines of code in the **Console** in RStudio filling in your GitHub username and email address associated with your GitHub account.
-
-```{r eval=FALSE}
-library(usethis)
-use_git_config(user.name= "github username", user.email="your email")
+```{r echo = F, fig.align="center", out.width="70%"}
+knitr::include_graphics("img/00-git/clone.png")
 ```
 
-**RStudio and GitHub can now communicate with each other and you are ready to do the exercise!**
+- Click on the green **Code** button and choose **open in GitHub Desktop**. GitHub Desktop should automatically open.
+
+```{r echo = F, fig.align="center", out.width="70%"}
+knitr::include_graphics("img/00-git/find_folder.png")
+```
+
+- The GitHub Desktop application will open up, with a white window that says "Clone a Repository". **Important**: in the second line that says "Local Path", there is a button that says `Choose...`. Click on it, and find and select the Math118 folder we created for this course. Then hit the blue `Clone` button.
+
+- After successfully cloning, the window will disappear and you will see the that Current Repository is the one you just cloned. Success!
+
+- Navigate to the project folder you just created within the Math118 folder, and open the `appex03-airbnb.Rmd` file to begin.
+
+## Warm-up
+
+- Update your name in the YAML header at the top of the document. Then knit to save and compile your changes.
+
+- Open GitHub Desktop. You should see your changed files listed here. Add a brief description such as "Added name". **Commit** your changes by hitting the blue button. Then **Push** your changes by hitting the third button at the top of the application.
+
+```{r echo = F, fig.align="center", out.width="70%"}
+knitr::include_graphics("img/00-git/commit_push.png")
+```
 
 ## Practice with ggplot
 
@@ -126,9 +131,9 @@ How would you describe the distribution of price in general? How do neighborhood
 
 1. If you made any changes since the last knit, knit again to get the final version of the AE. 
 
-2. Check the box next to each document in the Git tab (this is called "staging" the changes).  Commit the changes you made using an simple and informative message.
+2. Go to the GitHub Desktop application. You should see all the changed and new files listed.
 
-2. Use the **green arrow** to push your changes to your repo on GitHub.
+2. Add a brief message, then **commit** your changes, and **push** them to your repo on GitHub.
 
 3. Check your repo on GitHub and see the updated files.
 
