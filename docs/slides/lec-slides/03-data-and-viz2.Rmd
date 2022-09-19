@@ -514,10 +514,22 @@ Credit: Angela Zoss and Eric Monson, Duke DVS
 
 ---
 
-```{r echo = F, fig.align="center", out.width="45%"}
+.pull-left[
+```{r echo = F, fig.align="center", out.width="100%"}
 knitr::include_graphics("img/03/dubois_spiral.png")
 ```
+]
 
+.pull-right[
+- Green: "78,139 NEGROES IN CITIES OF OVER 10,000 INHABITANTS"
+- Blue: "8,025 NEGROS IN CITIES FROM 5,000 TO 10,000"
+- Yellow: "37,699 NEGROS IN CITIES FROM 2,500 TO 5,000"
+- Red: "734,952 NEGROES LIVING IN THE COUNTRY AND VILLAGES"
+
+.footnote[
+Source: “City and Rural Population. 1890” 1900, via Library of Congress Prints and Photographs Division
+]
+]
 
 
 ---
@@ -528,8 +540,6 @@ knitr::include_graphics("img/03/dubois_spiral.png")
 
 - Application Exercise
 
-.footnote[
-Source for Du Bois Spiral: “City and Rural Population. 1890” 1900, via Library of Congress Prints and Photographs Division
-]
+
 
 
