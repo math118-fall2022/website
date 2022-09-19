@@ -83,7 +83,7 @@ To find out more about the dataset, type the following in your **console**.
 A question mark before the name of an object will always bring up its help file. This command must be run in the **console**; alternatively, you can use 
 
 ```{r eval=FALSE}
-help(datasaurus_dozen)
+help("datasaurus_dozen")
 ```
 
 1. Based on the help file, how many rows and how many columns does the `datasaurus_dozen` file have? What are the variables included in the data frame? Add your responses to your homework assignment. 

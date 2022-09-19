@@ -1,0 +1,101 @@
+---
+title: "Data Science Survey - data wrangling"
+author: "Becky Tang"
+date: "`r Sys.Date()`"
+output: 
+  html_document: 
+    toc: yes
+    toc_float: yes
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r load-pkg, message = FALSE, warnings = FALSE}
+library(tidyverse)
+```
+
+In 2017, Kaggle conducted an industry-wide survey to establish a comprehensive view of the state of data science and machine learning. The survey received over 16,000 responses and we learned a ton about who is working with data, what’s happening at the cutting edge of machine learning across industries, and how new data scientists can best break into the field.
+
+"Most of our respondents were found primarily through Kaggle channels, like their email list, discussion forums and social media channels. The survey was live from August 7th to August 25th. The median response time for those who participated in the survey was 16.4 minutes. We allowed respondents to complete the survey at any time during that window.
+We received salary data by first asking respondents for their day-to-day currency, and then asking them to write in either their total compensation."
+
+The data provided here are a subset of the survey results provided by Kaggle, retaining observations with full responses for selected variables.
+
+```{r load-data, message = FALSE}
+# From Kaggle: https://www.kaggle.com/datasets/kaggle/kaggle-survey-2017/
+datascience <- read_csv("data/kaggle_survey_subset.csv", show_col_types = F) 
+```
+
+
+## Exercises
+
+### Exercise 1
+
+How many of the survey respondents are from the US (`Country` equal to `"United States"`) and have a full-time `EmploymentStatus`?
+
+```{r us-fulltime, eval = F}
+datascience %>%
+  filter(Country == _____, 
+         EmploymentStatus == ______)
+
+```
+
+### Exercise 2
+
+How many people think their title fits them perfectly or fine?
+
+```{r title-perfect-fine}
+# multiple ways
+```
+
+### Exercise 3
+
+For respondents  from `"United States"`, create a frequency table of the number of people within each category of `FormalEducation` in a booking. Display the 
+results in descending order so the most common observation is on top. What is 
+the most common formal education level in this data? Are there any 
+surprising results?
+
+
+```{r freq-education}
+
+```
+
+### Exercise 4
+
+Repeat Exercise 3 examining how much of an employee's time is spent on creating data visualizations.
+
+```{r freq-data-viz}
+
+```
+
+### Exercise 5
+
+Among respondents who are `"Employed full-time"` and use the `"USD"`, calculate the mean, median, and maximum compensation (`CompensationAmount`) grouped
+by `Gender`. What do you notice? Is anything surprising to you?
+
+```{r compensation-stats}
+
+```
+
+
+
+## Data dictionary
+
+Below is the data dictionary for the subset of the Kaggle data data.
+
+|variable              |class     |description |
+|:---------------------|:---------|:-----------|
+|Country               |character | Home country of employee |
+|Gender                |character | Selected gender, one of "A different identity", "Female", "Male", "Non-binary, genderqueer, or gender non-conforming"|
+|Age                   |double    | Age at time of survey|
+|EmploymentStatus      |character | One of "Employed full-time", "Employed part-time", or "Independent contractor, freelancer, or self-employed |
+|EmployerIndustry      |character | Industry of current employer|
+|FormalEducation       |character | Highest level of education|
+|Major                 |character | College major|
+|CompensationAmount    |double    | Total compensation|
+|CompensationCurrency  |character | 3-letter currency code for day-to-day currency|
+|CurrentJobTitle       |character | Job title|
+|TitleFit              |character | Assessment of how well title fits actual duties. One of "Fine", "Perfectly", "Poorly"|
+|LanguageRecommendation|character | Recommended programming language|
+|WorkDataVisualizations|character | Proportion of job dedicated to creating data visualizations, broken into pre-determined categories|
+|JobSatisfaction       |character |  Rating of job satisfcation one scale of 1-10, where 1 is not satisfied and 10 is highly satisfied|
