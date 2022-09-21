@@ -9,9 +9,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Becky Tang" />
 
-<meta name="date" content="2022-09-19" />
+<meta name="date" content="2022-09-21" />
 
 <title>Data Science Survey - data wrangling</title>
 
@@ -1511,8 +1510,8 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Data Science Survey - data wrangling</h1>
-<h4 class="author">Becky Tang</h4>
-<h4 class="date">2022-09-19</h4>
+<h4 class="author"></h4>
+<h4 class="date">2022-09-21</h4>
 
 </div>
 
@@ -1541,12 +1540,9 @@ datascience &lt;- read_csv(&quot;data/kaggle_survey_subset.csv&quot;, show_col_t
 <h2>Exercises</h2>
 <div id="exercise-1" class="section level3">
 <h3>Exercise 1</h3>
-<p>How many of the survey respondents are from the US
-(<code>Country</code> equal to <code>&quot;United States&quot;</code>) and have a
-full-time <code>EmploymentStatus</code>?</p>
+<p>How many of the survey respondents are from the US?</p>
 <pre class="r"><code>datascience %&gt;%
-  filter(Country == _____, 
-         EmploymentStatus == ______)</code></pre>
+  filter(Country == _____)</code></pre>
 </div>
 <div id="exercise-2" class="section level3">
 <h3>Exercise 2</h3>
@@ -1555,20 +1551,32 @@ full-time <code>EmploymentStatus</code>?</p>
 </div>
 <div id="exercise-3" class="section level3">
 <h3>Exercise 3</h3>
-<p>For respondents from <code>&quot;United States&quot;</code>, create a frequency
-table of the number of people within each category of
-<code>FormalEducation</code> in a booking. Display the results in
-descending order so the most common observation is on top. What is the
-most common formal education level in this data? Are there any
-surprising results?</p>
+<p>Display just the <code>Gender</code>, <code>Age</code>, and
+<code>JobSatisfcation</code> columns, and display them in descending
+order of <code>Age</code> (i.e. oldest to youngest).</p>
 </div>
 <div id="exercise-4" class="section level3">
 <h3>Exercise 4</h3>
-<p>Repeat Exercise 3 examining how much of an employee’s time is spent
-on creating data visualizations.</p>
+<p>For respondents from <code>&quot;United States&quot;</code>, create a frequency
+table of the number of people within each category of
+<code>FormalEducation</code>. Display the results in descending order so
+the most common observation is on top. What is the most common formal
+education level in this data? Are there any surprising results?</p>
 </div>
 <div id="exercise-5" class="section level3">
 <h3>Exercise 5</h3>
+<p>For respondents from <code>&quot;United States&quot;</code>, create a frequency
+table of the number of people within each combination of
+<code>FormalEducation</code> and
+<code>WorkDataVisualizations</code>.</p>
+</div>
+<div id="exercise-6" class="section level3">
+<h3>Exercise 6</h3>
+<p>What proportion of respondents fall into each category of
+<code>FormalEducation</code>?</p>
+</div>
+<div id="exercise-7" class="section level3">
+<h3>Exercise 7</h3>
 <p>Among respondents who are <code>&quot;Employed full-time&quot;</code> and use
 the <code>&quot;USD&quot;</code>, calculate the mean, median, and maximum
 compensation (<code>CompensationAmount</code>) grouped by
