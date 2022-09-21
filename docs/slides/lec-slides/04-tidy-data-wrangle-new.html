@@ -198,7 +198,7 @@ class: center, middle
 
 ---
 
-## Data: Hotel bookings
+## Data: Data Science Survey
 
 - Data from Kaggle: In 2017, Kaggle conducted an industry-wide survey to establish a comprehensive view of the state of data science and machine learning.
 
@@ -922,7 +922,7 @@ datascience %&gt;%
 datascience %&gt;%
   filter( 
 *   Major == "Computer Science" | Major == "Other",   # | means or
-*   Age == 30,
+*   Age == 30
     ) %&gt;% 
   select(Major, Age)
 ```
@@ -1327,7 +1327,7 @@ datascience %&gt;%
 
 
 ```r
-# mean average daily rate for all bookings
+# mean age of all respondents
 datascience %&gt;%
 * summarise(mean_age = mean(Age))
 ```

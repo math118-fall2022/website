@@ -32,6 +32,7 @@ lessons:
    title: "Tidy data and data wrangling + HW 02 assigned"
    slides: "lec-slides/04-tidy-data-wrangle-new.html"
    appex: "wrangle_demo.html"
+   hw: "hw-02-plastic-waste.html"
  - date: "Friday, Sep. 23"
    title: "Tidy data and data wrangling cont."
    # have them code?
