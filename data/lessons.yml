@@ -30,8 +30,8 @@ lessons:
    #reading: "reading-02.html"
  - date: "Wednesday, Sep. 21"
    title: "Tidy data and data wrangling + HW 02 assigned"
-   #slides: "lec-slides/04-tidy-data-wrangle.html"
-   #appex: "wrangle_demo.html"
+   slides: "lec-slides/04-tidy-data-wrangle-new.html"
+   appex: "wrangle_demo.html"
  - date: "Friday, Sep. 23"
    title: "Tidy data and data wrangling cont."
    # have them code?

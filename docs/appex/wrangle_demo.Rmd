@@ -1,6 +1,6 @@
 ---
 title: "Data Science Survey - data wrangling"
-author: "Becky Tang"
+author: " "
 date: "`r Sys.Date()`"
 output: 
   html_document: 
@@ -31,12 +31,11 @@ datascience <- read_csv("data/kaggle_survey_subset.csv", show_col_types = F)
 
 ### Exercise 1
 
-How many of the survey respondents are from the US (`Country` equal to `"United States"`) and have a full-time `EmploymentStatus`?
+How many of the survey respondents are from the US?
 
-```{r us-fulltime, eval = F}
+```{r us, eval = F}
 datascience %>%
-  filter(Country == _____, 
-         EmploymentStatus == ______)
+  filter(Country == _____)
 
 ```
 
@@ -50,7 +49,16 @@ How many people think their title fits them perfectly or fine?
 
 ### Exercise 3
 
-For respondents  from `"United States"`, create a frequency table of the number of people within each category of `FormalEducation` in a booking. Display the 
+
+Display just the `Gender`, `Age`, and `JobSatisfcation` columns, and display them in descending order of `Age` (i.e. oldest to youngest).
+
+```{r}
+
+```
+
+### Exercise 4
+
+For respondents  from `"United States"`, create a frequency table of the number of people within each category of `FormalEducation`. Display the 
 results in descending order so the most common observation is on top. What is 
 the most common formal education level in this data? Are there any 
 surprising results?
@@ -60,15 +68,23 @@ surprising results?
 
 ```
 
-### Exercise 4
+### Exercise 5
 
-Repeat Exercise 3 examining how much of an employee's time is spent on creating data visualizations.
+For respondents  from `"United States"`, create a frequency table of the number of people within each combination of `FormalEducation` and `WorkDataVisualizations`.
 
-```{r freq-data-viz}
+```{r freq-education-data-viz}
 
 ```
 
-### Exercise 5
+### Exercise 6
+
+What proportion of respondents fall into each category of `FormalEducation`?
+
+```{r prop_education}
+
+```
+
+### Exercise 7
 
 Among respondents who are `"Employed full-time"` and use the `"USD"`, calculate the mean, median, and maximum compensation (`CompensationAmount`) grouped
 by `Gender`. What do you notice? Is anything surprising to you?

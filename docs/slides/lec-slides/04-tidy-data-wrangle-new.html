@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Tidy data and data wrangling</title>
+    <meta charset="utf-8" />
+    <script src="libs/font-awesome/header-attrs/header-attrs.js"></script>
+    <link href="libs/font-awesome/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <link rel="stylesheet" href="math118-slides.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Tidy data and data wrangling
+]
+.date[
+### 9/21/2022
+]
+
+---
+
+
+layout: true
+
+&lt;div class="my-footer"&gt;
+&lt;span&gt;
+&lt;a href="http://datasciencebox.org" target="_blank"&gt;datasciencebox.org&lt;/a&gt;
+&lt;/span&gt;
+&lt;/div&gt; 
+
+---
+
+
+
+
+
+
+
+class: center, middle
+
+# Tidy data
+
+---
+
+## Tidy data
+
+&gt;Happy families are all alike; every unhappy family is unhappy in its own way. 
+&gt;
+&gt;Leo Tolstoy
+--
+
+.pull-left[
+**Characteristics of tidy data:**
+
+- Each variable forms a column.
+- Each observation forms a row.
+- Each type of observational unit forms a table.
+]
+--
+.pull-right[
+**Characteristics of untidy data:**
+
+!@#$%^&amp;*()
+]
+
+---
+
+## 
+
+.question[
+What makes this data not tidy?
+]
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/04/untidy-data/hyperwar-airplanes-on-hand.png" alt="WW2 Army Air Force combat aircraft from [Army Air Forces Statistical Digest, WW II](https://www.ibiblio.org/hyperwar/AAF/StatDigest/aafsd-3.html)" width="80%" /&gt;
+&lt;p class="caption"&gt;WW2 Army Air Force combat aircraft from [Army Air Forces Statistical Digest, WW II](https://www.ibiblio.org/hyperwar/AAF/StatDigest/aafsd-3.html)&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+.question[
+What makes this data not tidy?
+]
+
+&lt;br&gt;
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/04/untidy-data/us-general-economic-characteristic-acs-2017.png" alt="[US Census Fact Finder, General Economic Characteristics, ACS 2017](https://factfinder.census.gov/faces/tableservices/jsf/pages/productview.xhtml?pid=ACS_17_5YR_DP03&amp;amp;src=pt)" width="90%" /&gt;
+&lt;p class="caption"&gt;[US Census Fact Finder, General Economic Characteristics, ACS 2017](https://factfinder.census.gov/faces/tableservices/jsf/pages/productview.xhtml?pid=ACS_17_5YR_DP03&amp;src=pt)&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+## Summary tables 
+
+.question[
+Is each of the following a dataset or a summary table?
+]
+
+.midi[
+.pull-left[
+
+```
+## # A tibble: 87 × 3
+##    name               height  mass
+##    &lt;chr&gt;               &lt;int&gt; &lt;dbl&gt;
+##  1 Luke Skywalker        172    77
+##  2 C-3PO                 167    75
+##  3 R2-D2                  96    32
+##  4 Darth Vader           202   136
+##  5 Leia Organa           150    49
+##  6 Owen Lars             178   120
+##  7 Beru Whitesun lars    165    75
+##  8 R5-D4                  97    32
+##  9 Biggs Darklighter     183    84
+## 10 Obi-Wan Kenobi        182    77
+## # … with 77 more rows
+```
+]
+.pull-right[
+
+```
+## # A tibble: 3 × 2
+##   gender    avg_height
+##   &lt;chr&gt;          &lt;dbl&gt;
+## 1 feminine        165.
+## 2 masculine       177.
+## 3 &lt;NA&gt;            181.
+```
+]
+]
+
+---
+
+## Displaying data
+
+
+```r
+starwars %&gt;%
+  select(name, height, mass)
+```
+
+--
+
+&lt;br&gt; 
+
+## Summarizing data
+
+
+```r
+starwars %&gt;%
+  group_by(gender) %&gt;%
+  summarize(
+    avg_height = mean(height, na.rm = TRUE) %&gt;% round(2)
+  )
+```
+
+---
+
+class: center, middle
+
+# Grammar of data wrangling
+
+---
+
+## A grammar of data wrangling...
+
+... based on the concepts of functions as verbs that manipulate data frames
+
+.pull-left[
+&lt;img src="img/04/dplyr-part-of-tidyverse.png" width="70%" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+.small[
+- `select`: pick columns by name
+- `arrange`: reorder rows
+- `slice`: pick rows using index(es)
+- `filter`: pick rows matching criteria
+- `distinct`: filter for unique rows
+- `mutate`: add new variables
+- `summarise`: reduce variables to values
+- `group_by`: for grouped operations
+- ... (many more)
+]
+]
+
+---
+
+## Rules of **dplyr** functions
+
+- First argument is *always* a data frame
+
+- Subsequent arguments say what to do with that data frame
+
+- Always return a data frame
+
+---
+
+## Data: Hotel bookings
+
+- Data from Kaggle: In 2017, Kaggle conducted an industry-wide survey to establish a comprehensive view of the state of data science and machine learning.
+
+  - https://www.kaggle.com/datasets/kaggle/kaggle-survey-2017/
+  
+- Observations: Each row represents a different survey respondent
+
+
+```r
+datascience &lt;- read_csv("data/kaggle_survey_subset.csv", show_col_types = F) 
+```
+
+---
+
+## First look: Variables
+
+
+```r
+names(datascience)
+```
+
+```
+##  [1] "...1"                   "Country"                "Gender"                
+##  [4] "Age"                    "EmploymentStatus"       "EmployerIndustry"      
+##  [7] "FormalEducation"        "Major"                  "CompensationAmount"    
+## [10] "CompensationCurrency"   "CurrentJobTitle"        "TitleFit"              
+## [13] "LanguageRecommendation" "DataScienceIdentity"    "WorkDataVisualizations"
+## [16] "JobSatisfaction"        "JobSatisfaction2"
+```
+
+---
+
+## Second look: Overview
+
+
+```r
+glimpse(datascience)
+```
+
+```
+## Rows: 2,618
+## Columns: 17
+## $ ...1                   &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, …
+## $ Country                &lt;chr&gt; "United States", "Russia", "Taiwan", "United St…
+## $ Gender                 &lt;chr&gt; "Male", "Male", "Male", "Male", "Male", "Male",…
+## $ Age                    &lt;dbl&gt; 56, 33, 26, 25, 33, 21, 22, 29, 35, 37, 31, 40,…
+## $ EmploymentStatus       &lt;chr&gt; "Independent contractor, freelancer, or self-em…
+## $ EmployerIndustry       &lt;chr&gt; "Mix of fields", "Internet-based", "Financial",…
+## $ FormalEducation        &lt;chr&gt; "Master's degree", "Bachelor's degree", "Master…
+## $ Major                  &lt;chr&gt; "Mathematics or statistics", "Other", "Computer…
+## $ CompensationAmount     &lt;dbl&gt; 250000, 1200000, 1100000, 20000, 100000, 20000,…
+## $ CompensationCurrency   &lt;chr&gt; "USD", "RUB", "TWD", "USD", "USD", "CZK", "RUB"…
+## $ CurrentJobTitle        &lt;chr&gt; "Operations Research Practitioner", "Software D…
+## $ TitleFit               &lt;chr&gt; "Poorly", "Fine", "Fine", "Fine", "Perfectly", …
+## $ LanguageRecommendation &lt;chr&gt; "Python", "Python", "Python", "Python", "Matlab…
+## $ DataScienceIdentity    &lt;chr&gt; "Yes", "Sort of (Explain more)", "No", "Yes", "…
+## $ WorkDataVisualizations &lt;chr&gt; "100% of projects", "Less than 10% of projects"…
+## $ JobSatisfaction        &lt;chr&gt; "10 - Highly Satisfied", "7", "5", "6", "7", "5…
+## $ JobSatisfaction2       &lt;dbl&gt; 10, 7, 5, 6, 7, 5, 8, 9, 8, 9, 6, 8, 6, 7, 7, 1…
+```
+
+---
+
+## Select a single column
+
+View only the `Age`:
+
+--
+.pull-left[
+
+```r
+datascience %&gt;%
+  select(Age)
+```
+
+```
+## # A tibble: 2,618 × 1
+##      Age
+##    &lt;dbl&gt;
+##  1    56
+##  2    33
+##  3    26
+##  4    25
+##  5    33
+##  6    21
+##  7    22
+##  8    29
+##  9    35
+## 10    37
+## # … with 2,608 more rows
+```
+]
+--
+.pull-right[
+- Start with a data frame
+- Pass it to the `select()` function.
+- Argument is variable we want to select: `Age`
+- The result is a data frame with 2,657 and 1 column: --dplyr functions always 
+expect a data frame and always yield a data frame.
+]
+
+---
+
+## Select multiple columns
+
+
+View only the `Age` type and `Major`:
+
+--
+
+.pull-left[
+
+```r
+datascience %&gt;%
+  select(Age, Major)
+```
+
+```
+## # A tibble: 2,618 × 2
+##      Age Major                                                       
+##    &lt;dbl&gt; &lt;chr&gt;                                                       
+##  1    56 Mathematics or statistics                                   
+##  2    33 Other                                                       
+##  3    26 Computer Science                                            
+##  4    25 Physics                                                     
+##  5    33 Electrical Engineering                                      
+##  6    21 Computer Science                                            
+##  7    22 Information technology, networking, or system administration
+##  8    29 Computer Science                                            
+##  9    35 Physics                                                     
+## 10    37 Electrical Engineering                                      
+## # … with 2,608 more rows
+```
+]
+--
+.pull-right[
+.discussion[
+What if we wanted to select these columns, and then arrange the data in descending order of Age?
+]
+]
+
+---
+
+## Data wrangling, step-by-step
+
+.pull-left[
+.vocab[Select:]
+
+```r
+datascience %&gt;%
+  select(Age, Major)
+```
+
+```
+## # A tibble: 2,618 × 2
+##      Age Major                                                       
+##    &lt;dbl&gt; &lt;chr&gt;                                                       
+##  1    56 Mathematics or statistics                                   
+##  2    33 Other                                                       
+##  3    26 Computer Science                                            
+##  4    25 Physics                                                     
+##  5    33 Electrical Engineering                                      
+##  6    21 Computer Science                                            
+##  7    22 Information technology, networking, or system administration
+##  8    29 Computer Science                                            
+##  9    35 Physics                                                     
+## 10    37 Electrical Engineering                                      
+## # … with 2,608 more rows
+```
+]
+
+--
+.pull-right[
+.vocab[Select, then arrange:]
+
+```r
+datascience %&gt;%
+  select(Age, Major) %&gt;%
+  arrange(desc(Age))
+```
+
+```
+## # A tibble: 2,618 × 2
+##      Age Major                                                       
+##    &lt;dbl&gt; &lt;chr&gt;                                                       
+##  1   100 Engineering (non-computer focused)                          
+##  2    99 Information technology, networking, or system administration
+##  3    78 Electrical Engineering                                      
+##  4    74 A social science                                            
+##  5    73 Electrical Engineering                                      
+##  6    70 Mathematics or statistics                                   
+##  7    70 Engineering (non-computer focused)                          
+##  8    70 Engineering (non-computer focused)                          
+##  9    69 Physics                                                     
+## 10    68 Mathematics or statistics                                   
+## # … with 2,608 more rows
+```
+]
+
+---
+
+## What's happening here?
+
+
+```r
+datascience %&gt;%
+  select(Age, Major) %&gt;%
+  arrange(Major)
+```
+
+```
+## # A tibble: 2,618 × 2
+##      Age Major           
+##    &lt;dbl&gt; &lt;chr&gt;           
+##  1    26 A health science
+##  2    28 A health science
+##  3    28 A health science
+##  4    49 A health science
+##  5    34 A health science
+##  6    30 A health science
+##  7    30 A health science
+##  8    43 A health science
+##  9    39 A health science
+## 10    31 A health science
+## # … with 2,608 more rows
+```
+
+---
+
+
+
+class: middle, center
+
+# Pipes
+
+---
+
+## What is a pipe?
+
+In programming, a pipe is a technique for passing information from one process to another.
+
+--
+
+.pull-left[
+- Start with the data frame `datasccience`, and pass it to the `select()` function,
+]
+.pull-right[
+.small[
+
+```r
+*datascience %&gt;%
+  select(Age, Major) %&gt;%
+  arrange(desc(Age))
+```
+
+```
+## # A tibble: 2,618 × 2
+##      Age Major                                                       
+##    &lt;dbl&gt; &lt;chr&gt;                                                       
+##  1   100 Engineering (non-computer focused)                          
+##  2    99 Information technology, networking, or system administration
+##  3    78 Electrical Engineering                                      
+##  4    74 A social science                                            
+##  5    73 Electrical Engineering                                      
+##  6    70 Mathematics or statistics                                   
+##  7    70 Engineering (non-computer focused)                          
+##  8    70 Engineering (non-computer focused)                          
+##  9    69 Physics                                                     
+## 10    68 Mathematics or statistics                                   
+## # … with 2,608 more rows
+```
+]
+]
+
+---
+
+## What is a pipe?
+
+In programming, a pipe is a technique for passing information from one process to another.
+
+.pull-left[
+- Start with the data frame `datascience`, and pass it to the `select()` function,
+- then we select the variables `Age` and `Major`,
+]
+.pull-right[
+.small[
+
+```r
+datascience %&gt;%
+* select(Age, Major) %&gt;%
+  arrange(desc(Age))
+```
+
+```
+## # A tibble: 2,618 × 2
+##      Age Major                                                       
+##    &lt;dbl&gt; &lt;chr&gt;                                                       
+##  1   100 Engineering (non-computer focused)                          
+##  2    99 Information technology, networking, or system administration
+##  3    78 Electrical Engineering                                      
+##  4    74 A social science                                            
+##  5    73 Electrical Engineering                                      
+##  6    70 Mathematics or statistics                                   
+##  7    70 Engineering (non-computer focused)                          
+##  8    70 Engineering (non-computer focused)                          
+##  9    69 Physics                                                     
+## 10    68 Mathematics or statistics                                   
+## # … with 2,608 more rows
+```
+]
+]
+
+---
+
+## What is a pipe?
+
+In programming, a pipe is a technique for passing information from one process to another.
+
+.pull-left[
+- Start with the data frame `datascience`, and pass it to the `select()` function,
+- then we select the variables `Age` and `Major`,
+- and then we arrange the data frame by `Age` in descending order.
+]
+.pull-right[
+.small[
+
+```r
+datascience %&gt;%
+  select(Age, Major) %&gt;% 
+* arrange(desc(Age))
+```
+
+```
+## # A tibble: 2,618 × 2
+##      Age Major                                                       
+##    &lt;dbl&gt; &lt;chr&gt;                                                       
+##  1   100 Engineering (non-computer focused)                          
+##  2    99 Information technology, networking, or system administration
+##  3    78 Electrical Engineering                                      
+##  4    74 A social science                                            
+##  5    73 Electrical Engineering                                      
+##  6    70 Mathematics or statistics                                   
+##  7    70 Engineering (non-computer focused)                          
+##  8    70 Engineering (non-computer focused)                          
+##  9    69 Physics                                                     
+## 10    68 Mathematics or statistics                                   
+## # … with 2,608 more rows
+```
+]
+]
+
+---
+
+## How does a pipe work?
+
+- You can think about the following sequence of actions - find keys,  start car, drive to work, park.
+
+--
+- Expressed as a set of nested functions in R pseudocode this would look like:
+
+```r
+park(drive(start_car(find("keys")), to = "work"))
+```
+
+--
+- Writing it out using pipes give it a more natural (and easier to read)
+structure:
+  - Read the pipe as "and then"
+
+```r
+find("keys") %&gt;%
+  start_car() %&gt;%
+  drive(to = "work") %&gt;%
+  park()
+```
+
+---
+
+## What about other arguments?
+
+Use the dot to
+
+- send results to a function argument other than first one or 
+- use the previous result for multiple arguments
+
+
+```r
+datascience %&gt;%
+  filter(Major == "Computer Science") %&gt;%
+* ggplot(., aes(x = Age)) +
+  geom_histogram(bins = 10)
+```
+
+&lt;img src="04-tidy-data-wrangle-new_files/figure-html/unnamed-chunk-18-1.png" height="20%" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: middle, center
+
+# Working with a single data frame
+
+---
+
+class: middle
+
+### You have a single data frame, and you want to process it and prepare it for anlaysis! 
+
+
+---
+
+## `select` to keep variables
+
+
+```r
+datascience %&gt;%
+* select(Age, Major)
+```
+
+```
+## # A tibble: 2,618 × 2
+##      Age Major                                                       
+##    &lt;dbl&gt; &lt;chr&gt;                                                       
+##  1    56 Mathematics or statistics                                   
+##  2    33 Other                                                       
+##  3    26 Computer Science                                            
+##  4    25 Physics                                                     
+##  5    33 Electrical Engineering                                      
+##  6    21 Computer Science                                            
+##  7    22 Information technology, networking, or system administration
+##  8    29 Computer Science                                            
+##  9    35 Physics                                                     
+## 10    37 Electrical Engineering                                      
+## # … with 2,608 more rows
+```
+
+---
+
+## `select` to exclude variables
+
+.small[
+
+```r
+datascience %&gt;%
+* select(-Age)
+```
+
+```
+## # A tibble: 2,618 × 16
+##     ...1 Country    Gender Emplo…¹ Emplo…² Forma…³ Major Compe…⁴ Compe…⁵ Curre…⁶
+##    &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;  
+##  1     1 United St… Male   Indepe… Mix of… Master… Math…  250000 USD     Operat…
+##  2     2 Russia     Male   Employ… Intern… Bachel… Other 1200000 RUB     Softwa…
+##  3     3 Taiwan     Male   Employ… Financ… Master… Comp… 1100000 TWD     Softwa…
+##  4     4 United St… Male   Employ… Academ… Bachel… Phys…   20000 USD     Resear…
+##  5     5 United St… Male   Employ… Teleco… Doctor… Elec…  100000 USD     Scient…
+##  6     6 Czech Rep… Male   Employ… Academ… Some c… Comp…   20000 CZK     Other  
+##  7     7 Russia     Male   Employ… Mix of… Bachel… Info…  624000 RUB     Data A…
+##  8     8 Poland     Male   Employ… Pharma… Master… Comp…  126000 PLN     Softwa…
+##  9     9 United St… Male   Employ… Techno… Doctor… Phys…  133000 USD     Engine…
+## 10    10 Sweden     Male   Employ… Techno… Master… Elec…   80000 USD     Machin…
+## # … with 2,608 more rows, 6 more variables: TitleFit &lt;chr&gt;,
+## #   LanguageRecommendation &lt;chr&gt;, DataScienceIdentity &lt;chr&gt;,
+## #   WorkDataVisualizations &lt;chr&gt;, JobSatisfaction &lt;chr&gt;,
+## #   JobSatisfaction2 &lt;dbl&gt;, and abbreviated variable names ¹​EmploymentStatus,
+## #   ²​EmployerIndustry, ³​FormalEducation, ⁴​CompensationAmount,
+## #   ⁵​CompensationCurrency, ⁶​CurrentJobTitle
+```
+]
+
+---
+
+## `select` a range of variables
+
+
+```r
+datascience %&gt;%
+* select(Gender:EmploymentStatus)
+```
+
+```
+## # A tibble: 2,618 × 3
+##    Gender   Age EmploymentStatus                                    
+##    &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;                                               
+##  1 Male      56 Independent contractor, freelancer, or self-employed
+##  2 Male      33 Employed full-time                                  
+##  3 Male      26 Employed full-time                                  
+##  4 Male      25 Employed part-time                                  
+##  5 Male      33 Employed full-time                                  
+##  6 Male      21 Employed part-time                                  
+##  7 Male      22 Employed full-time                                  
+##  8 Male      29 Employed full-time                                  
+##  9 Male      35 Employed full-time                                  
+## 10 Male      37 Employed full-time                                  
+## # … with 2,608 more rows
+```
+
+---
+
+## `arrange` in ascending / descending order
+
+.pull-left[
+
+```r
+datascience %&gt;%
+  select(Age, Gender) %&gt;%
+* arrange(Age)
+```
+
+```
+## # A tibble: 2,618 × 2
+##      Age Gender              
+##    &lt;dbl&gt; &lt;chr&gt;               
+##  1     0 Male                
+##  2     1 Male                
+##  3    19 Female              
+##  4    19 Female              
+##  5    19 Male                
+##  6    20 Male                
+##  7    20 Male                
+##  8    20 Female              
+##  9    20 A different identity
+## 10    20 Male                
+## # … with 2,608 more rows
+```
+]
+.pull-right[
+
+```r
+datascience %&gt;%
+  select(Age, Gender) %&gt;%
+* arrange(desc(Age))
+```
+
+```
+## # A tibble: 2,618 × 2
+##      Age Gender              
+##    &lt;dbl&gt; &lt;chr&gt;               
+##  1   100 A different identity
+##  2    99 A different identity
+##  3    78 Male                
+##  4    74 Male                
+##  5    73 Male                
+##  6    70 Male                
+##  7    70 Male                
+##  8    70 Male                
+##  9    69 Male                
+## 10    68 A different identity
+## # … with 2,608 more rows
+```
+]
+
+---
+
+## `slice` for certain row numbers
+
+.midi[
+
+```r
+# first five
+datascience %&gt;%
+* slice(1:5)
+```
+
+```
+## # A tibble: 5 × 17
+##    ...1 Country       Gender   Age Emplo…¹ Emplo…² Forma…³ Major Compe…⁴ Compe…⁵
+##   &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;  
+## 1     1 United States Male      56 Indepe… Mix of… Master… Math…  250000 USD    
+## 2     2 Russia        Male      33 Employ… Intern… Bachel… Other 1200000 RUB    
+## 3     3 Taiwan        Male      26 Employ… Financ… Master… Comp… 1100000 TWD    
+## 4     4 United States Male      25 Employ… Academ… Bachel… Phys…   20000 USD    
+## 5     5 United States Male      33 Employ… Teleco… Doctor… Elec…  100000 USD    
+## # … with 7 more variables: CurrentJobTitle &lt;chr&gt;, TitleFit &lt;chr&gt;,
+## #   LanguageRecommendation &lt;chr&gt;, DataScienceIdentity &lt;chr&gt;,
+## #   WorkDataVisualizations &lt;chr&gt;, JobSatisfaction &lt;chr&gt;,
+## #   JobSatisfaction2 &lt;dbl&gt;, and abbreviated variable names ¹​EmploymentStatus,
+## #   ²​EmployerIndustry, ³​FormalEducation, ⁴​CompensationAmount,
+## #   ⁵​CompensationCurrency
+```
+]
+
+---
+
+.tip[
+In R, you can use the `#` (hashtag or pound sign, depending on your age for adding comments to your code. 
+Any text following `#` will be printed as is, and won't be run as R code.
+This is useful for leaving comments in your code and for temporarily disabling 
+certain lines of code while debugging.
+]
+
+.small[
+
+```r
+datascience %&gt;%
+  # slice the first five rows  # this line is a comment
+  #select(hotel) %&gt;%           # this one doesn't run
+  slice(1:5)                   # this line runs
+```
+
+```
+## # A tibble: 5 × 17
+##    ...1 Country       Gender   Age Emplo…¹ Emplo…² Forma…³ Major Compe…⁴ Compe…⁵
+##   &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;  
+## 1     1 United States Male      56 Indepe… Mix of… Master… Math…  250000 USD    
+## 2     2 Russia        Male      33 Employ… Intern… Bachel… Other 1200000 RUB    
+## 3     3 Taiwan        Male      26 Employ… Financ… Master… Comp… 1100000 TWD    
+## 4     4 United States Male      25 Employ… Academ… Bachel… Phys…   20000 USD    
+## 5     5 United States Male      33 Employ… Teleco… Doctor… Elec…  100000 USD    
+## # … with 7 more variables: CurrentJobTitle &lt;chr&gt;, TitleFit &lt;chr&gt;,
+## #   LanguageRecommendation &lt;chr&gt;, DataScienceIdentity &lt;chr&gt;,
+## #   WorkDataVisualizations &lt;chr&gt;, JobSatisfaction &lt;chr&gt;,
+## #   JobSatisfaction2 &lt;dbl&gt;, and abbreviated variable names ¹​EmploymentStatus,
+## #   ²​EmployerIndustry, ³​FormalEducation, ⁴​CompensationAmount,
+## #   ⁵​CompensationCurrency
+```
+]
+
+---
+
+## `slice` for certain row numbers
+
+.midi[
+
+```r
+# last five
+last_row &lt;- nrow(datascience) # nrow() gives the number of rows in a data frame
+datascience %&gt;%
+* slice((last_row - 4):last_row)
+```
+
+```
+## # A tibble: 5 × 17
+##    ...1 Country Gender   Age EmploymentS…¹ Emplo…² Forma…³ Major Compe…⁴ Compe…⁵
+##   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;  
+## 1  2614 Japan   Male      32 Employed par… Retail  Bachel… Comp…   3.5e6 JPY    
+## 2  2615 Other   Male      26 Independent … Financ… Bachel… Other   1.2e7 UGX    
+## 3  2616 Other   Male      56 Employed ful… Other   Bachel… Math…   5  e4 USD    
+## 4  2617 Germany Male      34 Employed ful… Teleco… Bachel… Comp…   8.4e4 EUR    
+## 5  2618 Norway  Male      32 Employed ful… Financ… Master… Math…   7.5e4 EUR    
+## # … with 7 more variables: CurrentJobTitle &lt;chr&gt;, TitleFit &lt;chr&gt;,
+## #   LanguageRecommendation &lt;chr&gt;, DataScienceIdentity &lt;chr&gt;,
+## #   WorkDataVisualizations &lt;chr&gt;, JobSatisfaction &lt;chr&gt;,
+## #   JobSatisfaction2 &lt;dbl&gt;, and abbreviated variable names ¹​EmploymentStatus,
+## #   ²​EmployerIndustry, ³​FormalEducation, ⁴​CompensationAmount,
+## #   ⁵​CompensationCurrency
+```
+]
+
+---
+
+## `filter` to select a subset of rows
+
+.midi[
+
+```r
+# bookings in City datascience
+datascience %&gt;%
+* filter(Major  == "Computer Science")
+```
+
+```
+## # A tibble: 801 × 17
+##     ...1 Country      Gender   Age Emplo…¹ Emplo…² Forma…³ Major Compe…⁴ Compe…⁵
+##    &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;  
+##  1     3 Taiwan       Male      26 Employ… Financ… Master… Comp… 1100000 TWD    
+##  2     6 Czech Repub… Male      21 Employ… Academ… Some c… Comp…   20000 CZK    
+##  3     8 Poland       Male      29 Employ… Pharma… Master… Comp…  126000 PLN    
+##  4    11 Iran         Male      31 Employ… Techno… Doctor… Comp…   15000 USD    
+##  5    19 Brazil       Male      25 Employ… Academ… Master… Comp…    1500 BRL    
+##  6    20 Brazil       Male      32 Employ… Academ… Master… Comp…   25000 BRL    
+##  7    21 Hungary      Male      38 Employ… Techno… Bachel… Comp…  372000 HUF    
+##  8    23 Russia       Male      31 Indepe… CRM/Ma… Some c… Comp…  840000 RUB    
+##  9    29 India        Male      23 Employ… Techno… Master… Comp…  360000 INR    
+## 10    32 New Zealand  Male      30 Employ… Govern… Bachel… Comp…   90000 NZD    
+## # … with 791 more rows, 7 more variables: CurrentJobTitle &lt;chr&gt;,
+## #   TitleFit &lt;chr&gt;, LanguageRecommendation &lt;chr&gt;, DataScienceIdentity &lt;chr&gt;,
+## #   WorkDataVisualizations &lt;chr&gt;, JobSatisfaction &lt;chr&gt;,
+## #   JobSatisfaction2 &lt;dbl&gt;, and abbreviated variable names ¹​EmploymentStatus,
+## #   ²​EmployerIndustry, ³​FormalEducation, ⁴​CompensationAmount,
+## #   ⁵​CompensationCurrency
+```
+]
+
+---
+
+## `filter` for many conditions at once
+
+
+```r
+datascience %&gt;%
+  filter( 
+*   Major == "Computer Science",
+*   Age == 30
+    ) %&gt;% 
+  select(Major, Age)
+```
+
+```
+## # A tibble: 41 × 2
+##    Major              Age
+##    &lt;chr&gt;            &lt;dbl&gt;
+##  1 Computer Science    30
+##  2 Computer Science    30
+##  3 Computer Science    30
+##  4 Computer Science    30
+##  5 Computer Science    30
+##  6 Computer Science    30
+##  7 Computer Science    30
+##  8 Computer Science    30
+##  9 Computer Science    30
+## 10 Computer Science    30
+## # … with 31 more rows
+```
+
+---
+
+## `filter` for more complex conditions
+
+
+```r
+datascience %&gt;%
+  filter( 
+*   Major == "Computer Science" | Major == "Other",   # | means or
+*   Age == 30,
+    ) %&gt;% 
+  select(Major, Age)
+```
+
+```
+## # A tibble: 50 × 2
+##    Major              Age
+##    &lt;chr&gt;            &lt;dbl&gt;
+##  1 Computer Science    30
+##  2 Computer Science    30
+##  3 Computer Science    30
+##  4 Computer Science    30
+##  5 Computer Science    30
+##  6 Computer Science    30
+##  7 Computer Science    30
+##  8 Computer Science    30
+##  9 Computer Science    30
+## 10 Other               30
+## # … with 40 more rows
+```
+
+---
+
+## Logical operators in R
+
+&lt;br&gt;
+
+operator    | definition                   || operator     | definition
+------------|------------------------------||--------------|----------------
+`&lt;`         | less than                   ||`x`&amp;nbsp;&amp;#124;&amp;nbsp;`y`     | `x` OR `y` 
+`&lt;=`        |	less than or equal to        ||`is.na(x)`    | test if `x` is `NA`
+`&gt;`         | greater than                 ||`!is.na(x)`   | test if `x` is not `NA`
+`&gt;=`        |	greater than or equal to     ||`x %in% y`    | test if `x` is in `y`
+`==`        |	exactly equal to             ||`!(x %in% y)` | test if `x` is not in `y`
+`!=`        |	not equal to                 ||`!x`          | not `x`
+`x &amp; y`     | `x` AND `y`                  ||              |
+
+---
+
+class: middle, center
+
+## Demo
+
+---
+
+
+
+
+## `distinct` to filter for unique rows
+
+... and `arrange` to order alphabetically. Note which variables are kept in the resulting data frame!
+
+.small[
+.pull-left[
+
+```r
+datascience %&gt;% 
+* distinct(EmployerIndustry) %&gt;%
+  arrange(EmployerIndustry)
+```
+
+```
+## # A tibble: 16 × 1
+##    EmployerIndustry                
+##    &lt;chr&gt;                           
+##  1 Academic                        
+##  2 CRM/Marketing                   
+##  3 Financial                       
+##  4 Government                      
+##  5 Hospitality/Entertainment/Sports
+##  6 Insurance                       
+##  7 Internet-based                  
+##  8 Manufacturing                   
+##  9 Military/Security               
+## 10 Mix of fields                   
+## 11 Non-profit                      
+## 12 Other                           
+## 13 Pharmaceutical                  
+## 14 Retail                          
+## 15 Technology                      
+## 16 Telecommunications
+```
+]
+
+.pull-right[
+
+```r
+datascience %&gt;% 
+* distinct(Country, EmployerIndustry) %&gt;%
+  arrange(Country, EmployerIndustry)
+```
+
+```
+## # A tibble: 479 × 2
+##    Country   EmployerIndustry
+##    &lt;chr&gt;     &lt;chr&gt;           
+##  1 Argentina Government      
+##  2 Argentina Mix of fields   
+##  3 Argentina Other           
+##  4 Argentina Retail          
+##  5 Argentina Technology      
+##  6 Australia Academic        
+##  7 Australia CRM/Marketing   
+##  8 Australia Financial       
+##  9 Australia Government      
+## 10 Australia Insurance       
+## # … with 469 more rows
+```
+]
+]
+
+---
+
+## `count` to create frequency tables
+
+.pull-left[
+
+```r
+# alphabetical order by default
+datascience %&gt;%
+* count(EmployerIndustry)
+```
+
+```
+## # A tibble: 16 × 2
+##    EmployerIndustry                     n
+##    &lt;chr&gt;                            &lt;int&gt;
+##  1 Academic                           555
+##  2 CRM/Marketing                       80
+##  3 Financial                          245
+##  4 Government                         161
+##  5 Hospitality/Entertainment/Sports    31
+##  6 Insurance                           72
+##  7 Internet-based                     153
+##  8 Manufacturing                       82
+##  9 Military/Security                   37
+## 10 Mix of fields                      220
+## 11 Non-profit                          41
+## 12 Other                              234
+## 13 Pharmaceutical                      58
+## 14 Retail                              69
+## 15 Technology                         500
+## 16 Telecommunications                  80
+```
+]
+--
+.pull-right[
+
+```r
+# descending frequency order
+datascience %&gt;%
+  count(EmployerIndustry, 
+*       sort = TRUE)
+```
+
+```
+## # A tibble: 16 × 2
+##    EmployerIndustry                     n
+##    &lt;chr&gt;                            &lt;int&gt;
+##  1 Academic                           555
+##  2 Technology                         500
+##  3 Financial                          245
+##  4 Other                              234
+##  5 Mix of fields                      220
+##  6 Government                         161
+##  7 Internet-based                     153
+##  8 Manufacturing                       82
+##  9 CRM/Marketing                       80
+## 10 Telecommunications                  80
+## 11 Insurance                           72
+## 12 Retail                              69
+## 13 Pharmaceutical                      58
+## 14 Non-profit                          41
+## 15 Military/Security                   37
+## 16 Hospitality/Entertainment/Sports    31
+```
+]
+
+---
+
+## `count` and `arrange`
+
+.pull-left[
+
+```r
+# ascending frequency order
+datascience  %&gt;%
+  count(EmployerIndustry) %&gt;%
+* arrange(n)
+```
+
+```
+## # A tibble: 16 × 2
+##    EmployerIndustry                     n
+##    &lt;chr&gt;                            &lt;int&gt;
+##  1 Hospitality/Entertainment/Sports    31
+##  2 Military/Security                   37
+##  3 Non-profit                          41
+##  4 Pharmaceutical                      58
+##  5 Retail                              69
+##  6 Insurance                           72
+##  7 CRM/Marketing                       80
+##  8 Telecommunications                  80
+##  9 Manufacturing                       82
+## 10 Internet-based                     153
+## 11 Government                         161
+## 12 Mix of fields                      220
+## 13 Other                              234
+## 14 Financial                          245
+## 15 Technology                         500
+## 16 Academic                           555
+```
+]
+.pull-right[
+
+```r
+# descending frequency order
+# just like adding sort = TRUE
+datascience %&gt;%
+  count(EmployerIndustry) %&gt;%
+* arrange(desc(n))
+```
+
+```
+## # A tibble: 16 × 2
+##    EmployerIndustry                     n
+##    &lt;chr&gt;                            &lt;int&gt;
+##  1 Academic                           555
+##  2 Technology                         500
+##  3 Financial                          245
+##  4 Other                              234
+##  5 Mix of fields                      220
+##  6 Government                         161
+##  7 Internet-based                     153
+##  8 Manufacturing                       82
+##  9 CRM/Marketing                       80
+## 10 Telecommunications                  80
+## 11 Insurance                           72
+## 12 Retail                              69
+## 13 Pharmaceutical                      58
+## 14 Non-profit                          41
+## 15 Military/Security                   37
+## 16 Hospitality/Entertainment/Sports    31
+```
+]
+
+---
+
+## `count` for multiple variables
+
+
+```r
+datascience %&gt;%
+* count(EmploymentStatus, EmployerIndustry)
+```
+
+```
+## # A tibble: 47 × 3
+##    EmploymentStatus   EmployerIndustry                     n
+##    &lt;chr&gt;              &lt;chr&gt;                            &lt;int&gt;
+##  1 Employed full-time Academic                           479
+##  2 Employed full-time CRM/Marketing                       66
+##  3 Employed full-time Financial                          222
+##  4 Employed full-time Government                         141
+##  5 Employed full-time Hospitality/Entertainment/Sports    26
+##  6 Employed full-time Insurance                           66
+##  7 Employed full-time Internet-based                     122
+##  8 Employed full-time Manufacturing                       78
+##  9 Employed full-time Military/Security                   29
+## 10 Employed full-time Mix of fields                      180
+## # … with 37 more rows
+```
+
+---
+
+## order matters when you `count`
+
+.midi[
+.pull-left[
+
+```r
+datascience %&gt;%
+* count(EmploymentStatus, EmployerIndustry)
+```
+
+```
+## # A tibble: 47 × 3
+##    EmploymentStatus   EmployerIndustry                     n
+##    &lt;chr&gt;              &lt;chr&gt;                            &lt;int&gt;
+##  1 Employed full-time Academic                           479
+##  2 Employed full-time CRM/Marketing                       66
+##  3 Employed full-time Financial                          222
+##  4 Employed full-time Government                         141
+##  5 Employed full-time Hospitality/Entertainment/Sports    26
+##  6 Employed full-time Insurance                           66
+##  7 Employed full-time Internet-based                     122
+##  8 Employed full-time Manufacturing                       78
+##  9 Employed full-time Military/Security                   29
+## 10 Employed full-time Mix of fields                      180
+## # … with 37 more rows
+```
+]
+.pull-right[
+
+```r
+datascience %&gt;%
+* count(EmployerIndustry, EmploymentStatus)
+```
+
+```
+## # A tibble: 47 × 3
+##    EmployerIndustry EmploymentStatus                                         n
+##    &lt;chr&gt;            &lt;chr&gt;                                                &lt;int&gt;
+##  1 Academic         Employed full-time                                     479
+##  2 Academic         Employed part-time                                      46
+##  3 Academic         Independent contractor, freelancer, or self-employed    30
+##  4 CRM/Marketing    Employed full-time                                      66
+##  5 CRM/Marketing    Employed part-time                                       4
+##  6 CRM/Marketing    Independent contractor, freelancer, or self-employed    10
+##  7 Financial        Employed full-time                                     222
+##  8 Financial        Employed part-time                                       2
+##  9 Financial        Independent contractor, freelancer, or self-employed    21
+## 10 Government       Employed full-time                                     141
+## # … with 37 more rows
+```
+]
+]
+
+---
+
+class: middle, center
+
+## Demo
+
+---
+
+## `mutate` to add a new variable
+
+
+```r
+datascience %&gt;%
+* mutate(compensation_1k = CompensationAmount/1000) %&gt;%
+  select(compensation_1k, CompensationAmount)
+```
+
+```
+## # A tibble: 2,618 × 2
+##    compensation_1k CompensationAmount
+##              &lt;dbl&gt;              &lt;dbl&gt;
+##  1             250             250000
+##  2            1200            1200000
+##  3            1100            1100000
+##  4              20              20000
+##  5             100             100000
+##  6              20              20000
+##  7             624             624000
+##  8             126             126000
+##  9             133             133000
+## 10              80              80000
+## # … with 2,608 more rows
+```
+
+---
+
+.discussion[
+What is happening in the following chunk?
+]
+
+.midi[
+
+```r
+datascience %&gt;%
+  count(Gender, EmploymentStatus) %&gt;%
+  mutate(prop = n / sum(n))
+```
+
+```
+## # A tibble: 11 × 4
+##    Gender                                            EmploymentS…¹     n    prop
+##    &lt;chr&gt;                                             &lt;chr&gt;         &lt;int&gt;   &lt;dbl&gt;
+##  1 A different identity                              Employed ful…    14 5.35e-3
+##  2 A different identity                              Employed par…     2 7.64e-4
+##  3 A different identity                              Independent …     1 3.82e-4
+##  4 Female                                            Employed ful…   304 1.16e-1
+##  5 Female                                            Employed par…    19 7.26e-3
+##  6 Female                                            Independent …    24 9.17e-3
+##  7 Male                                              Employed ful…  1938 7.40e-1
+##  8 Male                                              Employed par…   103 3.93e-2
+##  9 Male                                              Independent …   198 7.56e-2
+## 10 Non-binary, genderqueer, or gender non-conforming Employed ful…    10 3.82e-3
+## 11 Non-binary, genderqueer, or gender non-conforming Independent …     5 1.91e-3
+## # … with abbreviated variable name ¹​EmploymentStatus
+```
+]
+
+---
+
+## `summarise` for summary stats
+
+
+```r
+# mean average daily rate for all bookings
+datascience %&gt;%
+* summarise(mean_age = mean(Age))
+```
+
+```
+## # A tibble: 1 × 1
+##   mean_age
+##      &lt;dbl&gt;
+## 1     34.2
+```
+
+--
+
+.tip[
+`summarise()` changes the data frame entirely, it collapses rows down to a single 
+summary statistics, and removes all columns that are irrelevant to the calculation.
+]
+
+---
+
+.tip[
+`summarise()` also lets you get away with being sloppy and not naming your new 
+column, but that's not recommended!
+]
+
+.midi[
+.pull-left[
+
+
+
+```r
+datascience %&gt;%
+  summarise(mean(Age)) 
+```
+
+```
+## # A tibble: 1 × 1
+##   `mean(Age)`
+##         &lt;dbl&gt;
+## 1        34.2
+```
+]
+
+.pull-right[
+
+
+```r
+datascience %&gt;%
+  summarise(mean_age = mean(Age)) 
+```
+
+```
+## # A tibble: 1 × 1
+##   mean_age
+##      &lt;dbl&gt;
+## 1     34.2
+```
+]
+]
+---
+
+## `group_by` for grouped operations
+
+
+```r
+# mean age for each category of employment status
+datascience %&gt;%
+* group_by(EmploymentStatus) %&gt;%
+  summarise(mean_age = mean(Age))
+```
+
+```
+## # A tibble: 3 × 2
+##   EmploymentStatus                                     mean_age
+##   &lt;chr&gt;                                                   &lt;dbl&gt;
+## 1 Employed full-time                                       34.1
+## 2 Employed part-time                                       28.8
+## 3 Independent contractor, freelancer, or self-employed     38.2
+```
+
+---
+
+## Calculating frequencies
+
+The following two give the same result, so `count` is simply short for `group_by` then determine frequencies 
+
+.pull-left[
+
+```r
+datascience %&gt;%
+  group_by(EmploymentStatus) %&gt;%
+  summarise(n = n())
+```
+
+```
+## # A tibble: 3 × 2
+##   EmploymentStatus                                         n
+##   &lt;chr&gt;                                                &lt;int&gt;
+## 1 Employed full-time                                    2266
+## 2 Employed part-time                                     124
+## 3 Independent contractor, freelancer, or self-employed   228
+```
+]
+.pull-right[
+
+```r
+datascience %&gt;%
+  count(EmploymentStatus)
+```
+
+```
+## # A tibble: 3 × 2
+##   EmploymentStatus                                         n
+##   &lt;chr&gt;                                                &lt;int&gt;
+## 1 Employed full-time                                    2266
+## 2 Employed part-time                                     124
+## 3 Independent contractor, freelancer, or self-employed   228
+```
+]
+
+---
+
+## Multiple summary statistics
+
+`summarise` can be used for multiple summary statistics as well
+
+
+```r
+datascience %&gt;%
+  summarise(
+    mean_age = mean(Age),
+    median_age = median(Age),
+    max_age = max(Age)
+    )
+```
+
+```
+## # A tibble: 1 × 3
+##   mean_age median_age max_age
+##      &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;
+## 1     34.2         32     100
+```
+
+---
+
+class: middle, center
+
+## Demo
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"slideNumberFormat": "%current%",
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
