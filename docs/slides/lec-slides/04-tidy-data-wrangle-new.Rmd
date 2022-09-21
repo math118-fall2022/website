@@ -502,7 +502,7 @@ certain lines of code while debugging.
 ```{r}
 datascience %>%
   # slice the first five rows  # this line is a comment
-  #select(hotel) %>%           # this one doesn't run
+  #select(Age) %>%           # this one doesn't run
   slice(1:5)                   # this line runs
 ```
 ]
@@ -526,7 +526,7 @@ datascience %>%
 
 .midi[
 ```{r}
-# bookings in City datascience
+# respondents majoring in CS
 datascience %>%
   filter(Major  == "Computer Science") #<<
 ````
@@ -669,13 +669,13 @@ datascience %>%
 .pull-left[
 ```{r}
 datascience %>%
-  count(EmploymentStatus, EmployerIndustry) #<<
+  count(Country, Age) #<<
 ```
 ]
 .pull-right[
 ```{r}
 datascience %>%
-  count(EmployerIndustry, EmploymentStatus)  #<<
+  count(Age, Country)  #<<
 ```
 ]
 ]
@@ -705,7 +705,7 @@ What is happening in the following chunk?
 .midi[
 ```{r}
 datascience %>%
-  count(Gender, EmploymentStatus) %>%
+  count(FormalEducation, EmploymentStatus) %>%
   mutate(prop = n / sum(n))
 ```
 ]
@@ -772,14 +772,14 @@ The following two give the same result, so `count` is simply short for `group_by
 .pull-left[
 ```{r}
 datascience %>%
-  group_by(EmploymentStatus) %>%
+  group_by(EmployerIndustry) %>%
   summarise(n = n())
 ```
 ]
 .pull-right[
 ```{r}
 datascience %>%
-  count(EmploymentStatus)
+  count(EmployerIndustry)
 ```
 ]
 

@@ -794,7 +794,7 @@ certain lines of code while debugging.
 ```r
 datascience %&gt;%
   # slice the first five rows  # this line is a comment
-  #select(hotel) %&gt;%           # this one doesn't run
+  #select(Age) %&gt;%           # this one doesn't run
   slice(1:5)                   # this line runs
 ```
 
@@ -854,7 +854,7 @@ datascience %&gt;%
 .midi[
 
 ```r
-# bookings in City datascience
+# respondents majoring in CS
 datascience %&gt;%
 * filter(Major  == "Computer Science")
 ```
@@ -1205,48 +1205,48 @@ datascience %&gt;%
 
 ```r
 datascience %&gt;%
-* count(EmploymentStatus, EmployerIndustry)
+* count(Country, Age)
 ```
 
 ```
-## # A tibble: 47 × 3
-##    EmploymentStatus   EmployerIndustry                     n
-##    &lt;chr&gt;              &lt;chr&gt;                            &lt;int&gt;
-##  1 Employed full-time Academic                           479
-##  2 Employed full-time CRM/Marketing                       66
-##  3 Employed full-time Financial                          222
-##  4 Employed full-time Government                         141
-##  5 Employed full-time Hospitality/Entertainment/Sports    26
-##  6 Employed full-time Insurance                           66
-##  7 Employed full-time Internet-based                     122
-##  8 Employed full-time Manufacturing                       78
-##  9 Employed full-time Military/Security                   29
-## 10 Employed full-time Mix of fields                      180
-## # … with 37 more rows
+## # A tibble: 879 × 3
+##    Country     Age     n
+##    &lt;chr&gt;     &lt;dbl&gt; &lt;int&gt;
+##  1 Argentina    24     1
+##  2 Argentina    25     2
+##  3 Argentina    28     1
+##  4 Argentina    37     1
+##  5 Argentina    38     1
+##  6 Argentina    40     1
+##  7 Argentina    46     1
+##  8 Argentina    48     1
+##  9 Argentina    50     1
+## 10 Australia     0     1
+## # … with 869 more rows
 ```
 ]
 .pull-right[
 
 ```r
 datascience %&gt;%
-* count(EmployerIndustry, EmploymentStatus)
+* count(Age, Country)
 ```
 
 ```
-## # A tibble: 47 × 3
-##    EmployerIndustry EmploymentStatus                                         n
-##    &lt;chr&gt;            &lt;chr&gt;                                                &lt;int&gt;
-##  1 Academic         Employed full-time                                     479
-##  2 Academic         Employed part-time                                      46
-##  3 Academic         Independent contractor, freelancer, or self-employed    30
-##  4 CRM/Marketing    Employed full-time                                      66
-##  5 CRM/Marketing    Employed part-time                                       4
-##  6 CRM/Marketing    Independent contractor, freelancer, or self-employed    10
-##  7 Financial        Employed full-time                                     222
-##  8 Financial        Employed part-time                                       2
-##  9 Financial        Independent contractor, freelancer, or self-employed    21
-## 10 Government       Employed full-time                                     141
-## # … with 37 more rows
+## # A tibble: 879 × 3
+##      Age Country           n
+##    &lt;dbl&gt; &lt;chr&gt;         &lt;int&gt;
+##  1     0 Australia         1
+##  2     1 United States     1
+##  3    19 Canada            1
+##  4    19 Other             1
+##  5    19 Philippines       1
+##  6    20 Hungary           1
+##  7    20 Indonesia         1
+##  8    20 Nigeria           1
+##  9    20 Russia            2
+## 10    20 United States     2
+## # … with 869 more rows
 ```
 ]
 ]
@@ -1295,25 +1295,28 @@ What is happening in the following chunk?
 
 ```r
 datascience %&gt;%
-  count(Gender, EmploymentStatus) %&gt;%
+  count(FormalEducation, EmploymentStatus) %&gt;%
   mutate(prop = n / sum(n))
 ```
 
 ```
-## # A tibble: 11 × 4
-##    Gender                                            EmploymentS…¹     n    prop
-##    &lt;chr&gt;                                             &lt;chr&gt;         &lt;int&gt;   &lt;dbl&gt;
-##  1 A different identity                              Employed ful…    14 5.35e-3
-##  2 A different identity                              Employed par…     2 7.64e-4
-##  3 A different identity                              Independent …     1 3.82e-4
-##  4 Female                                            Employed ful…   304 1.16e-1
-##  5 Female                                            Employed par…    19 7.26e-3
-##  6 Female                                            Independent …    24 9.17e-3
-##  7 Male                                              Employed ful…  1938 7.40e-1
-##  8 Male                                              Employed par…   103 3.93e-2
-##  9 Male                                              Independent …   198 7.56e-2
-## 10 Non-binary, genderqueer, or gender non-conforming Employed ful…    10 3.82e-3
-## 11 Non-binary, genderqueer, or gender non-conforming Independent …     5 1.91e-3
+## # A tibble: 14 × 4
+##    FormalEducation                                         Emplo…¹     n    prop
+##    &lt;chr&gt;                                                   &lt;chr&gt;   &lt;int&gt;   &lt;dbl&gt;
+##  1 Bachelor's degree                                       Employ…   631 2.41e-1
+##  2 Bachelor's degree                                       Employ…    43 1.64e-2
+##  3 Bachelor's degree                                       Indepe…    72 2.75e-2
+##  4 Doctoral degree                                         Employ…   537 2.05e-1
+##  5 Doctoral degree                                         Employ…    21 8.02e-3
+##  6 Doctoral degree                                         Indepe…    34 1.30e-2
+##  7 I prefer not to answer                                  Employ…     5 1.91e-3
+##  8 I prefer not to answer                                  Employ…     1 3.82e-4
+##  9 Master's degree                                         Employ…  1041 3.98e-1
+## 10 Master's degree                                         Employ…    48 1.83e-2
+## 11 Master's degree                                         Indepe…   107 4.09e-2
+## 12 Some college/university study without earning a bachel… Employ…    52 1.99e-2
+## 13 Some college/university study without earning a bachel… Employ…    11 4.20e-3
+## 14 Some college/university study without earning a bachel… Indepe…    15 5.73e-3
 ## # … with abbreviated variable name ¹​EmploymentStatus
 ```
 ]
@@ -1415,33 +1418,59 @@ The following two give the same result, so `count` is simply short for `group_by
 
 ```r
 datascience %&gt;%
-  group_by(EmploymentStatus) %&gt;%
+  group_by(EmployerIndustry) %&gt;%
   summarise(n = n())
 ```
 
 ```
-## # A tibble: 3 × 2
-##   EmploymentStatus                                         n
-##   &lt;chr&gt;                                                &lt;int&gt;
-## 1 Employed full-time                                    2266
-## 2 Employed part-time                                     124
-## 3 Independent contractor, freelancer, or self-employed   228
+## # A tibble: 16 × 2
+##    EmployerIndustry                     n
+##    &lt;chr&gt;                            &lt;int&gt;
+##  1 Academic                           555
+##  2 CRM/Marketing                       80
+##  3 Financial                          245
+##  4 Government                         161
+##  5 Hospitality/Entertainment/Sports    31
+##  6 Insurance                           72
+##  7 Internet-based                     153
+##  8 Manufacturing                       82
+##  9 Military/Security                   37
+## 10 Mix of fields                      220
+## 11 Non-profit                          41
+## 12 Other                              234
+## 13 Pharmaceutical                      58
+## 14 Retail                              69
+## 15 Technology                         500
+## 16 Telecommunications                  80
 ```
 ]
 .pull-right[
 
 ```r
 datascience %&gt;%
-  count(EmploymentStatus)
+  count(EmployerIndustry)
 ```
 
 ```
-## # A tibble: 3 × 2
-##   EmploymentStatus                                         n
-##   &lt;chr&gt;                                                &lt;int&gt;
-## 1 Employed full-time                                    2266
-## 2 Employed part-time                                     124
-## 3 Independent contractor, freelancer, or self-employed   228
+## # A tibble: 16 × 2
+##    EmployerIndustry                     n
+##    &lt;chr&gt;                            &lt;int&gt;
+##  1 Academic                           555
+##  2 CRM/Marketing                       80
+##  3 Financial                          245
+##  4 Government                         161
+##  5 Hospitality/Entertainment/Sports    31
+##  6 Insurance                           72
+##  7 Internet-based                     153
+##  8 Manufacturing                       82
+##  9 Military/Security                   37
+## 10 Mix of fields                      220
+## 11 Non-profit                          41
+## 12 Other                              234
+## 13 Pharmaceutical                      58
+## 14 Retail                              69
+## 15 Technology                         500
+## 16 Telecommunications                  80
 ```
 ]
 
