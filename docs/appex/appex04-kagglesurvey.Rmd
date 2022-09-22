@@ -49,16 +49,18 @@ Today, your group is going to dive deeper into the `datascience` survey data. I 
 
 Your final results must include: 
 
-  - The use of a new variable  via `mutate()` 
-  
   - Summary statistics or frequency table
   
   - Visualization
   
+  - Comments of your code using the pound-symbol (#) to describe what you are doing in each code chunk
+  
 You can create more than one visualization and/or more than one table. Whatever speaks to you! The individual components (i.e. table/summary stats vs plot) do not need to use the same set of variables. The following code chunks are provided as guidance, but you are welcome to go in whatever order you'd like and also to create more code chunks!
 
+As a stretch goal, I encourage you to try using `mutate()` somewhere in your analysis, but it isn't necessary!
 
-### Mutating/subsetting
+
+### Mutating/subsetting (optional)
 
 ```{r mutate}
 
@@ -66,13 +68,13 @@ You can create more than one visualization and/or more than one table. Whatever 
 
 ### Summary statistics/tables
 
-```{r tables-summaries}
+```{r tables-summaries-1}
 
 ```
 
 ### Visualizations
 
-```{r data-viz}
+```{r data-viz-1}
 
 
 ```
@@ -96,4 +98,5 @@ Below is the data dictionary for the subset of the Kaggle data data.
 |TitleFit              |character | Assessment of how well title fits actual duties. One of "Fine", "Perfectly", "Poorly"|
 |LanguageRecommendation|character | Recommended programming language|
 |WorkDataVisualizations|character | Proportion of job dedicated to creating data visualizations, broken into pre-determined categories|
-|JobSatisfaction       |character |  Rating of job satisfcation one scale of 1-10, where 1 is not satisfied and 10 is highly satisfied|
+|JobSatisfaction       |character |  Rating of job satisfaction on scale of 1-10, where 1 is not satisfied and 10 is highly satisfied|
+|JobSatisfaction2       |double |  Rating of job satisfaction on scale of 1-10, where 1 is not satisfied and 10 is highly satisfied|
