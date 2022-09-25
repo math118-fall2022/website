@@ -4,17 +4,24 @@
     <title>Intro to Probability</title>
     <meta charset="utf-8" />
     <meta name="author" content="Becky Tang" />
+    <script src="libs/font-awesome/header-attrs/header-attrs.js"></script>
     <link href="libs/font-awesome/font-awesome/css/all.css" rel="stylesheet" />
     <link href="libs/font-awesome/font-awesome/css/v4-shims.css" rel="stylesheet" />
-    <link rel="stylesheet" href="sta199-slides.css" type="text/css" />
+    <link rel="stylesheet" href="math118-slides.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # Intro to Probability
+]
+.author[
 ### Becky Tang
-### 05.26.2021
+]
+.date[
+### 9/30/22
+]
 
 ---
 
@@ -73,8 +80,7 @@ example:
 .small[
 - What is the prevalence of diabetes among **U.S. adults**, and has it changed
 over time? 
-- Does the average amount of caffeine vary by vendor in **12 oz. cups of**
-**coffee at Duke coffee shops**?
+- Does the average amount of snow vary by vendor in **counties in Vermont**?
 - Is there a relationship between tumor type and five-year mortality among
 **breast cancer patients**?
 ]
@@ -98,61 +104,6 @@ that are .vocab[generalizable] (i.e. applicable) to the broader population of in
 &lt;br&gt; 
 
 We'll use probability and statistical inference (more on this later!) to draw conclusions about the population based on our sample.
-
----
-
-class: center, middle
-
-
-# Interpreting probabilities
-
----
-
-## Interpretations of probability
-
-&lt;br&gt;
-
-&lt;img src="img/06/box.png" width="50%" style="display: block; margin: auto;" /&gt;
-
-.center[
-*"There is a 1 in 3 chance of selecting a white ball"*
-]
-
----
-
-## Interpretations of probability
-
-&lt;br&gt;
-
-&lt;img src="img/06/rain.jfif" width="50%" style="display: block; margin: auto;" /&gt;
-
-.center[
-*"There is a 75% chance of rain tomorrow"*
-]
-
----
-
-## Interpretations of probability
-
-&lt;br&gt;
-
-&lt;img src="img/06/surgery.jpg" width="50%" style="display: block; margin: auto;" /&gt;
-
-.center[
-*"The surgery has a 50% probability of success"*
-]
-
----
-
-## Interpretations of probability
-
-&lt;br&gt;
-
-&lt;img src="img/06/surgery.jpg" width="50%" style="display: block; margin: auto;" /&gt;
-
-.center[
-.vocab[Long-run frequencies] vs. .vocab[degree of belief]
-]
 
 ---
 
@@ -450,6 +401,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable

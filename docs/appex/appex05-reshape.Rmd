@@ -1,0 +1,98 @@
+---
+title: "AE 05: Reshaping"
+author: "Your Name"
+date: "9/26/2022"
+output: 
+  html_document:
+    theme: readable
+---
+
+## Clone a repo + start a new project
+
+Go to the `appex-05-[GITHUB USERNAME]` repo, clone it, and start a new project in RStudio. 
+
+
+**Note:** In each of these exercises you will need to set `eval=TRUE` in the code chunk header when you're
+ready to knit and run the code for that exercise.
+
+
+## Pivoting longer
+
+We will first work the dataset `relig_income`, which contains data from a survey by Pew. This dataset contains three variables:
+
+  - `religion`, stored in the rows,
+  - the annual income bracket spread across the column names, and
+  - the count (number of surveyees) if the religion-income pair, stored in the cell values.
+
+After loading the data, go ahead and `View()` it to get a feel for the data.
+
+```{r setup, eval = T, message = F, warning = F}
+library(tidyverse)
+data("relig_income")
+```
+
+
+### Exercise 1.
+
+Suppose our observation unit of interest is `religion`. Explain why this data frame is in the wide format.
+
+### Exercise 2
+
+Pivot the data into the long form shown here:
+
+```{r echo = F}
+relig_income %>%
+  pivot_longer(cols = -1, names_to = "income", values_to = "count")
+```
+
+```{r pivot_longer, eval=FALSE}
+relig_income %>%
+  pivot_longer(cols = ____, # hint: it's easier to specify which column you don't want to pivot!
+               names_to = ____,
+               values_to = ____)
+```
+
+## Pivoting wider
+
+Let's now work with the some more data about fish! The `fish_encounters` dataset contains information about fish swimming down a river. Each station recorded if a tagged fish was observed at its monitor stations. The dataset contains three variables:
+
+  - `fish`, the fish identifier,
+  - `station`, the measurement stations
+  - `seen` = 1 if the fish was seen 
+
+After loading the data, go ahead and `View()` it to get a feel for the data.
+
+
+```{r}
+data("fish_encounters")
+```
+
+### Exercise 3
+
+Suppose our observation unit of interest is `fish`. Explain why this data frame is in the long format.
+
+### Exercise 4
+
+We want to pivot the data such that each fish is an observation, and we can easily see which stations it was observed at. Specifically, we want the data in this **wide** format:
+
+```{r echo = F}
+fish_encounters %>%
+  pivot_wider(names_from = station, values_from = seen)
+```
+
+Fill in the following code to change into the desired format.
+
+```{r pivot_wider, eval = F}
+fish_encounters %>%
+  pivot_wider(names_from = _____, 
+              values_from = ______)
+```
+
+### Exercise 5
+
+You might notice that there are a lot of `NA` or missing values after pivoting wider. This is means that the fish was not observed at that given station. Let's replace the `NA` values with 0s. In your code for Exercise 4, add the following to your `pivot_wider()` function call: `values_fill = 0`. 
+
+
+## Submitting application exercises 
+
+**Once you have completed the activity, push your final changes to your GitHub repo! Make sure your repo is updated on GitHub, and that's all you need to do to submit application exercises for participation.**

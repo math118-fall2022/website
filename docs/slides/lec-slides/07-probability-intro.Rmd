@@ -1,12 +1,11 @@
 ---
 title: "Intro to Probability"
 author: "Becky Tang"
-date: "05.26.2021"
+date: "9/30/22"
 output:
   xaringan::moon_reader:
     mathjax: "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML"
-    css: "sta199-slides.css"
-    logo: img/sta199-sticker-icon.png
+    css: "math118-slides.css"
     lib_dir: libs/font-awesome
     nature:
       highlightStyle: github
@@ -101,8 +100,7 @@ example:
 .small[
 - What is the prevalence of diabetes among **U.S. adults**, and has it changed
 over time? 
-- Does the average amount of caffeine vary by vendor in **12 oz. cups of**
-**coffee at Duke coffee shops**?
+- Does the average amount of snow vary by vendor in **counties in Vermont**?
 - Is there a relationship between tumor type and five-year mortality among
 **breast cancer patients**?
 ]
@@ -126,69 +124,6 @@ that are .vocab[generalizable] (i.e. applicable) to the broader population of in
 <br> 
 
 We'll use probability and statistical inference (more on this later!) to draw conclusions about the population based on our sample.
-
----
-
-class: center, middle
-
-
-# Interpreting probabilities
-
----
-
-## Interpretations of probability
-
-<br>
-
-```{r box, echo=FALSE, out.width = "50%", fig.align="center"}
-knitr::include_graphics("img/06/box.png")
-```
-
-.center[
-*"There is a 1 in 3 chance of selecting a white ball"*
-]
-
----
-
-## Interpretations of probability
-
-<br>
-
-```{r rain, echo=FALSE, out.width = "50%" , fig.align="center"}
-knitr::include_graphics("img/06/rain.jfif")
-```
-
-.center[
-*"There is a 75% chance of rain tomorrow"*
-]
-
----
-
-## Interpretations of probability
-
-<br>
-
-```{r surgery, echo=FALSE, out.width = "50%", fig.align="center"}
-knitr::include_graphics("img/06/surgery.jpg")
-```
-
-.center[
-*"The surgery has a 50% probability of success"*
-]
-
----
-
-## Interpretations of probability
-
-<br>
-
-```{r surgery-2, echo=FALSE, out.width = "50%", fig.align="center"}
-knitr::include_graphics("img/06/surgery.jpg")
-```
-
-.center[
-.vocab[Long-run frequencies] vs. .vocab[degree of belief]
-]
 
 ---
 

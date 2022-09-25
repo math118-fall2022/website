@@ -1,0 +1,263 @@
+---
+title: "Reshaping"
+author: "Becky Tang"
+date: "9/26/2022"
+output:
+  xaringan::moon_reader:
+    mathjax: "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML"
+    css: "math118-slides.css"
+    lib_dir: libs/font-awesome
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      slideNumberFormat: "%current%" 
+      ratio: "16:9"
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(magick)
+knitr::opts_chunk$set(warning = F,message = F,
+                      fig.align = "center") 
+data("iris")
+```
+
+class: center, middle
+
+## Housekeeping
+
+---
+
+class: center, middle
+
+# Reshaping
+
+---
+
+# Why reshape?
+
+- Sometimes, our data is not always in the format that we would like
+
+- We want to preserve all the information, but "massage" it prior to analysis
+
+  - Move information between rows and columns
+  
+
+
+---
+
+# Types of data frames
+
+- Data frames are often described as **wide** or **long**
+
+- **Wide**: when a row has more than one observation, and the units of observation (e.g., individuals, countries, households) are on one row each
+
+- **Long**: when a row has only one observation, but the units of observation are repeated down a column
+
+---
+
+# Long to wide data
+
+- This is our original data, where `country`  is our unit of observation.
+
+- Why is this considered long data?
+
+
+```{r echo = F}
+set.seed(1)
+country_long <- data.frame(
+    expand.grid(country = c("Sweden", "Denmark", "Norway"), month  = c("jan","feb", "march")),
+    avgtemp = round(runif(9, 3, 12), 0)
+    )
+
+country_long
+```
+
+
+---
+
+# Long to wide data
+
+- Want to reshape from to wide data, where each unit of observation (`country`) has exactly one row
+
+
+.pull-left[
+Long data:
+```{r echo = F}
+country_long
+```
+]
+
+.pull-right[
+Wide data:
+```{r echo = F}
+country_long %>%
+  pivot_wider(names_from = month, values_from = avgtemp) 
+```
+
+]
+
+
+
+---
+
+# Long to wide data
+
+- `pivot_wider()` function turns data from long to wide
+
+- Takes two arguments:
+
+  - `names_from`: the name of the variable(s) in the data frame to get the name of the output column
+  
+  - `values_from`: the name of the variable(s) in the data frame to get the cell values from
+
+---
+
+# Long to Wide data
+
+.pull-left[
+Original long data:
+```{r echo = F, eval = T}
+country_long 
+```
+]
+
+.pull-right[
+Desired wide data:
+```{r echo = F}
+country_long %>%
+  pivot_wider(names_from = month, values_from = avgtemp) 
+```
+
+```{r eval = F}
+country_long %>%
+  pivot_wider(names_from = ____,
+              values_from = _____)
+```
+
+.question[What should I pass in for `names_from` and `values_from`?]
+]
+
+
+---
+# Long to Wide data
+
+```{r eval = T}
+country_long %>%
+  pivot_wider(names_from = month, #<<
+              values_from = avgtemp) #<<
+```
+
+---
+
+# Wide to long data
+
+- Long data structure is often preferred
+
+- Often required for advanced statistical analysis and graphing.
+  
+
+.pull-left[
+Now this is our original data: 
+
+```{r echo = F}
+country_wide <- data.frame(
+    country = c("Sweden", "Denmark", "Norway"),
+    "jan" = country_long$avgtemp[1:3],
+    "feb" = country_long$avgtemp[4:6],
+    "march" = country_long$avgtemp[7:9])
+country_wide 
+```
+]
+
+.pull-right[
+And this is what we want:
+
+```{r echo = F}
+country_wide %>%
+  pivot_longer(cols = 2:4, names_to = "month", values_to = "avg_temp")
+```
+]
+
+---
+
+# Wide to Long data
+
+- `pivot_longer()` function can be used to go from wide to long data
+
+- Takes three arguments:
+
+  - `cols`: specify which columns in the dataframe to pivot into longer format. That is, the ones that should "move"
+  
+  - `names_to`: a string (your choice) specifying the name of the new column created from the column names species by `cols`
+  
+  - `values_to`: a string (your choice) specifying the name of the column to create from the data stored in cell values
+
+
+
+---
+
+# Wide to Long data
+
+This is my original data. 
+
+```{r}
+country_wide
+```
+
+For each row, I want a country, the month, and the temperature within that month. What should I choose for the arguments `cols`?
+
+--
+
+- `cols`: the columns `jan`, `feb`, and `march`
+
+--
+
+- `names_to`: anything you'd like, so long as it makes sense. I will choose "month"
+
+- `values_to`: anything you'd like, so long as it makes sense. I will choose "avg_temp"
+
+---
+
+# Wide to Long data
+
+```{r}
+country_wide %>%
+  pivot_longer(cols = c(jan, feb, march), #<<
+               names_to = "month", #<<
+               values_to = "avg_temp") #<<
+```
+
+---
+
+# Wide to Long data
+
+- Can specify column indices in `cols` argument
+
+- What you choose for `values_to` or `names_to` doesn't affect resulting structure
+
+.pull-left[
+```{r}
+country_wide %>%
+  pivot_longer(cols = 2:4, #<< 
+               names_to = "month",
+               values_to = "temp") #<<
+```
+]
+
+.pull-right[
+```{r}
+country_wide %>%
+  pivot_longer(cols = -country, #<< 
+               names_to = "month",
+               values_to = "temp")
+```
+
+]
+
+
+

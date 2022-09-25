@@ -1,12 +1,11 @@
 ---
-title: "AE 05a: Joining data from multiple sources"
+title: "Joining data from multiple sources"
 author: "Becky Tang"
-date: "05.24.2021"
+date: "9/26/22"
 output:
   xaringan::moon_reader:
     mathjax: "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML"
-    css: "sta199-slides.css"
-    logo: img/sta199-sticker-icon.png
+    css: "math118-slides.css"
     lib_dir: libs/font-awesome
     nature:
       highlightStyle: github
@@ -61,14 +60,14 @@ library(tidyverse)
 library(knitr)
 library(skimr)
 library(scales)
-hotels <- read_csv("data/hotels.csv")
+library(magick)
+datascience <- read_csv("data/kaggle_survey_subset.csv")
 ```
 
 
 class: middle, center
 
 ## `mutate`
-(from May 20 lecture)
 
 ---
 
@@ -76,8 +75,8 @@ class: middle, center
 
 .small[
 ```{r eval=FALSE}
-hotels %>% 
-  mutate(people = adults + babies + children)
+datascience %>% 
+  mutate(inUS = Country == "United States")
 ```
 ]
 ---
@@ -87,17 +86,19 @@ hotels %>%
 Most often when you define a new variable with `mutate` you'll also want to save the resulting data frame, often by writing over the original data frame.
 
 ```{r}
-hotels <- hotels %>% 
-  mutate(people = adults + babies + children)
+datascience <- datascience %>%  #<<
+  mutate(inUS = Country == "United States")
 ```
 
 ---
 
 ### Check before you move on
 
+- Notice the variable type of `inUS`
+
 ```{r}
-hotels %>% 
-  select(adults, children,babies, people) 
+datascience %>% 
+  select(Country, inUS) 
 ```
 
 ---
@@ -142,46 +143,7 @@ glimpse(fisheries)
 
 ---
 
-## Quick summaries of the data
-
-.xsmall[
-```{r render = normal_print, echo=2}
-options(width=140)
-skim(fisheries) #skimr package
-```
-]
-
----
-
-## Some summary stats
-
-```{r}
-fisheries %>%
-  summarise(
-    mean_cap = mean(capture),
-    mean_aqc = mean(aquaculture),
-    mean_tot = mean(total)
-  )
-```
-
---
-
-<br>
-
-.hand[
-well, that was boring...
-]
-
----
-
-## A new approach!
-
-```{r}
-fisheries %>%
-  summarise(across(capture:total, mean))
-```
-
----
+### Discuss
 
 .discussion[
 The (not-so-great) visualization below shows the distribution of fishery harvest 
@@ -191,7 +153,7 @@ than 100,000 tons are not included in the visualization.
 ]
 
 
-```{r echo=FALSE, out.width="60%", fig.align="center"}
+```{r echo=FALSE, out.width="70%", fig.align="center"}
 include_graphics("img/05/fisheries.png")
 ```
 
@@ -355,6 +317,177 @@ include_graphics("img/05/full-join.gif")
 
 ---
 
+.discussion[
+We want to keep all rows and columns from `fisheries` and add a column for 
+corresponding continents. Which join function should we use?
+]
+
+.pull-left[
+```{r}
+fisheries %>% select(country)
+```
+]
+.pull-right[
+```{r}
+continents
+```
+]
+
+---
+
+## Join fisheries and continents 
+
+```{r}
+fisheries <- left_join(fisheries, continents,
+                       by = "country") #<< 
+fisheries
+```
+
+--
+
+.discussion[
+Must have at least one variable name in common!
+]
+
+
+
+---
+
+## Check the data
+
+```{r}
+fisheries %>%
+  slice(11:20)
+```
+
+---
+
+## Check the data
+
+```{r}
+fisheries %>%
+  filter(is.na(continent))
+```
+
+---
+
+## Implement fixes
+
+.small[
+```{r}
+fisheries <- fisheries %>%
+  mutate(continent = case_when( #<<
+    country == "Democratic Republic of the Congo" ~ "Africa", #<<
+    country == "Hong Kong"                        ~ "Asia", #<<
+    country == "Myanmar"                          ~ "Asia", #<<
+    TRUE                                          ~ continent #<<
+    )
+  )
+```
+
+...and check again
+
+```{r include=FALSE}
+options(width=90)
+```
+]
+
+```{r}
+fisheries %>%
+  filter(is.na(continent))
+```
+
+
+---
+
+class: middle, center
+
+## Demo
+<!--
+.your-turn[
+- [RStudio Cloud](http://rstd.io/dsbox-cloud) > `AE 05 - Fisheries + Data joins` > open `fisheries.Rmd` and knit.
+- Knit the document and work on the Exercise 1.
+- Once done, place a green sticky on your laptop. If you have questions, place a pink sticky.
+]
+-->
+
+
+---
+
+```{r include=FALSE}
+fisheries <- fisheries %>%
+  mutate(aquaculture_perc = aquaculture / total)
+fisheries_summary <- fisheries %>%
+  group_by(continent) %>%
+  summarise(
+    min_ap  = min(aquaculture_perc),
+    mean_ap = mean(aquaculture_perc),
+    max_ap  = max(aquaculture_perc)
+  )
+```
+
+## Visualize continent summary stats
+
+```{r fig.height=4,fig.width=10}
+ggplot(fisheries_summary, aes(x = continent, y = mean_ap)) +
+  geom_col()+
+  theme(text = element_text(size = 20))
+```
+
+---
+
+## Improve visualization
+
+```{r fig.height=4,fig.width=10}
+ggplot(fisheries_summary, 
+       aes(x = fct_reorder(continent, mean_ap), y = mean_ap)) + #<<
+  geom_col()+
+  theme(text = element_text(size = 20))
+```
+
+---
+
+## Improve visualization further
+
+```{r eval=FALSE}
+ggplot(fisheries_summary, 
+       aes(y = fct_reorder(continent, mean_ap), x = mean_ap)) + 
+  geom_col() +
+  labs( #<<
+    x = "",  #<<
+    y = "",  #<<
+    title = "Average share of aquaculture by continent",  #<<
+    subtitle = "out of total fisheries harvest, 2016",  #<<
+    caption = "Source: bit.ly/2VrawTt" #<<
+  ) +  #<<
+  theme_minimal() #<<
+```
+
+See next slide...
+
+---
+
+```{r echo=FALSE}
+ggplot(fisheries_summary, 
+       aes(y = fct_reorder(continent, mean_ap), x = mean_ap)) +
+  geom_col() +
+  labs(
+    x = "", y = "",
+    title = "Average share of aquaculture by continent",
+    subtitle = "out of total fisheries harvest, 2016",
+    caption = "Source: bit.ly/2VrawTt"
+  ) +
+  theme_minimal()
+```
+
+---
+
+class: middle, center
+
+## Extra joins
+
+---
+
 ## `semi_join()`
 
 Returns all rows from `x` with a match in `y` (does not add columns from `y`)
@@ -387,198 +520,3 @@ include_graphics("img/05/anti-join.gif")
 ```
 ]
 
----
-
-.discussion[
-We want to keep all rows and columns from `fisheries` and add a column for 
-corresponding continents. Which join function should we use?
-]
-
-.pull-left[
-```{r}
-fisheries %>% select(country)
-```
-]
-.pull-right[
-```{r}
-continents
-```
-]
-
----
-
-## Join fisheries and continents 
-
-```{r}
-fisheries <- left_join(fisheries, continents) 
-```
-
---
-
-.discussion[
-How does `left_join()` know to join the two data frames by `country`?
-]
-
-Hint:
-
-- Variables in the original fisheries dataset:
-
-```{r echo=FALSE}
-fisheries %>% select(-continent) %>% names()
-```
-
-- Variables in the continents dataset:
-
-```{r echo=FALSE}
-names(continents)
-```
-
-
----
-
-## Check the data
-
-```{r}
-fisheries %>%
-  slice(11:20)
-```
-
----
-
-## Check the data
-
-```{r}
-fisheries %>%
-  filter(is.na(continent))
-```
-
----
-
-## Implement fixes
-
-.small[
-```{r}
-fisheries <- fisheries %>%
-  mutate(continent = case_when(
-    country == "Democratic Republic of the Congo" ~ "Africa",
-    country == "Hong Kong"                        ~ "Asia",
-    country == "Myanmar"                          ~ "Asia",
-    TRUE                                          ~ continent
-    )
-  )
-```
-
-...and check again
-
-```{r include=FALSE}
-options(width=90)
-```
-]
-
-```{r}
-fisheries %>%
-  filter(is.na(continent))
-```
-
----
-
-.discussion[
-What does the following code do?
-]
-
-```{r eval=FALSE}
-fisheries %>%
-  mutate(aquaculture_perc = aquaculture / total)
-```
-
----
-
-class: middle, center
-
-## Demo
-<!--
-.your-turn[
-- [RStudio Cloud](http://rstd.io/dsbox-cloud) > `AE 05 - Fisheries + Data joins` > open `fisheries.Rmd` and knit.
-- Knit the document and work on the Exercise 1.
-- Once done, place a green sticky on your laptop. If you have questions, place a pink sticky.
-]
--->
-
----
-
-class: middle, center
-
-## Demo
-
-<!--
-.your-turn[
-- [RStudio Cloud](http://rstd.io/dsbox-cloud) > `AE 05 - Fisheries + Data joins` > open `fisheries.Rmd` and knit.
-- Knit the document and work on the Exercises 2 - 4.
-- Once done, place a green sticky on your laptop. If you have questions, place a pink sticky.
-]
--->
----
-
-```{r include=FALSE}
-fisheries <- fisheries %>%
-  mutate(aquaculture_perc = aquaculture / total)
-fisheries_summary <- fisheries %>%
-  group_by(continent) %>%
-  summarise(
-    min_ap  = min(aquaculture_perc),
-    mean_ap = mean(aquaculture_perc),
-    max_ap  = max(aquaculture_perc)
-  )
-```
-
-## Visualize continent summary stats
-
-```{r fig.height=4,fig.width=10}
-ggplot(fisheries_summary, aes(x = continent, y = mean_ap)) +
-  geom_col()
-```
-
----
-
-## Improve visualization
-
-```{r fig.height=4,fig.width=10}
-ggplot(fisheries_summary, 
-       aes(x = fct_reorder(continent, mean_ap), y = mean_ap)) + #<<
-  geom_col()
-```
-
----
-
-## Improve visualization further
-
-```{r eval=FALSE}
-ggplot(fisheries_summary, 
-       aes(y = fct_reorder(continent, mean_ap), x = mean_ap)) + #<<
-  geom_col() +
-  labs( #<<
-    x = "",  #<<
-    y = "",  #<<
-    title = "Average share of aquaculture by continent",  #<<
-    subtitle = "out of total fisheries harvest, 2016",  #<<
-    caption = "Source: bit.ly/2VrawTt" #<<
-  ) +  #<<
-  theme_minimal() #<<
-```
-
-See next slide...
-
----
-
-```{r echo=FALSE}
-ggplot(fisheries_summary, 
-       aes(y = fct_reorder(continent, mean_ap), x = mean_ap)) +
-  geom_col() +
-  labs(
-    x = "", y = "",
-    title = "Average share of aquaculture by continent",
-    subtitle = "out of total fisheries harvest, 2016",
-    caption = "Source: bit.ly/2VrawTt"
-  ) +
-  theme_minimal()
-```

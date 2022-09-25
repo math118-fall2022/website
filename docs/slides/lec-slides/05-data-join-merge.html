@@ -4,17 +4,24 @@
     <title>Joining data from multiple sources</title>
     <meta charset="utf-8" />
     <meta name="author" content="Becky Tang" />
+    <script src="libs/font-awesome/header-attrs/header-attrs.js"></script>
     <link href="libs/font-awesome/font-awesome/css/all.css" rel="stylesheet" />
     <link href="libs/font-awesome/font-awesome/css/v4-shims.css" rel="stylesheet" />
-    <link rel="stylesheet" href="sta199-slides.css" type="text/css" />
+    <link rel="stylesheet" href="math118-slides.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # Joining data from multiple sources
+]
+.author[
 ### Becky Tang
-### 05.24.2021
+]
+.date[
+### 9/26/22
+]
 
 ---
 
@@ -38,7 +45,6 @@ layout: true
 class: middle, center
 
 ## `mutate`
-(from May 20 lecture)
 
 ---
 
@@ -47,8 +53,8 @@ class: middle, center
 .small[
 
 ```r
-hotels %&gt;% 
-  mutate(people = adults + babies + children)
+datascience %&gt;% 
+  mutate(inUS = Country == "United States")
 ```
 ]
 ---
@@ -59,35 +65,37 @@ Most often when you define a new variable with `mutate` you'll also want to save
 
 
 ```r
-hotels &lt;- hotels %&gt;% 
-  mutate(people = adults + babies + children)
+*datascience &lt;- datascience %&gt;%
+  mutate(inUS = Country == "United States")
 ```
 
 ---
 
 ### Check before you move on
 
+- Notice the variable type of `inUS`
+
 
 ```r
-hotels %&gt;% 
-  select(adults, children,babies, people) 
+datascience %&gt;% 
+  select(Country, inUS) 
 ```
 
 ```
-## # A tibble: 119,390 x 4
-##    adults children babies people
-##     &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-##  1      2        0      0      2
-##  2      2        0      0      2
-##  3      1        0      0      1
-##  4      1        0      0      1
-##  5      2        0      0      2
-##  6      2        0      0      2
-##  7      2        0      0      2
-##  8      2        0      0      2
-##  9      2        0      0      2
-## 10      2        0      0      2
-## # … with 119,380 more rows
+## # A tibble: 2,618 × 2
+##    Country        inUS 
+##    &lt;chr&gt;          &lt;lgl&gt;
+##  1 United States  TRUE 
+##  2 Russia         FALSE
+##  3 Taiwan         FALSE
+##  4 United States  TRUE 
+##  5 United States  TRUE 
+##  6 Czech Republic FALSE
+##  7 Russia         FALSE
+##  8 Poland         FALSE
+##  9 United States  TRUE 
+## 10 Sweden         FALSE
+## # … with 2,608 more rows
 ```
 
 ---
@@ -141,86 +149,7 @@ glimpse(fisheries)
 
 ---
 
-## Quick summaries of the data
-
-.xsmall[
-
-```r
-skim(fisheries) #skimr package
-```
-
-```
-## ── Data Summary ────────────────────────
-##                            Values   
-## Name                       fisheries
-## Number of rows             216      
-## Number of columns          4        
-## _______________________             
-## Column type frequency:              
-##   character                1        
-##   numeric                  3        
-## ________________________            
-## Group variables            None     
-## 
-## ── Variable type: character ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-##   skim_variable n_missing complete_rate   min   max empty n_unique whitespace
-## 1 country               0             1     4    32     0      215          0
-## 
-## ── Variable type: numeric ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-##   skim_variable n_missing complete_rate    mean       sd    p0    p25    p50     p75     p100 hist 
-## 1 capture               0             1 421916. 1478638.     0 3280.  33797  221884. 17800000 ▇▁▁▁▁
-## 2 aquaculture           0             1 508368. 4496073.     0   25.2  1574.  25998  63700000 ▇▁▁▁▁
-## 3 total                 0             1 930284. 5846301.     0 7270.  44648. 271901. 81500000 ▇▁▁▁▁
-```
-]
-
----
-
-## Some summary stats
-
-
-```r
-fisheries %&gt;%
-  summarise(
-    mean_cap = mean(capture),
-    mean_aqc = mean(aquaculture),
-    mean_tot = mean(total)
-  )
-```
-
-```
-## # A tibble: 1 x 3
-##   mean_cap mean_aqc mean_tot
-##      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-## 1  421916.  508368.  930284.
-```
-
---
-
-&lt;br&gt;
-
-.hand[
-well, that was boring...
-]
-
----
-
-## A new approach!
-
-
-```r
-fisheries %&gt;%
-  summarise(across(capture:total, mean))
-```
-
-```
-## # A tibble: 1 x 3
-##   capture aquaculture   total
-##     &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;
-## 1 421916.     508368. 930284.
-```
-
----
+### Discuss
 
 .discussion[
 The (not-so-great) visualization below shows the distribution of fishery harvest 
@@ -230,7 +159,7 @@ than 100,000 tons are not included in the visualization.
 ]
 
 
-&lt;img src="img/05/fisheries.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="img/05/fisheries.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -263,7 +192,7 @@ fisheries
 ```
 
 ```
-## # A tibble: 82 x 4
+## # A tibble: 82 × 4
 ##    country    capture aquaculture   total
 ##    &lt;chr&gt;        &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;
 ##  1 Angola      486490         655  487145
@@ -294,7 +223,7 @@ fisheries %&gt;% select(country)
 ```
 
 ```
-## # A tibble: 82 x 1
+## # A tibble: 82 × 1
 ##    country   
 ##    &lt;chr&gt;     
 ##  1 Angola    
@@ -317,7 +246,7 @@ continents
 ```
 
 ```
-## # A tibble: 245 x 2
+## # A tibble: 245 × 2
 ##    country           continent
 ##    &lt;chr&gt;             &lt;chr&gt;    
 ##  1 Afghanistan       Asia     
@@ -368,7 +297,7 @@ x
 ```
 
 ```
-## # A tibble: 3 x 1
+## # A tibble: 3 × 1
 ##   value
 ##   &lt;dbl&gt;
 ## 1     1
@@ -384,7 +313,7 @@ y
 ```
 
 ```
-## # A tibble: 3 x 1
+## # A tibble: 3 × 1
 ##   value
 ##   &lt;dbl&gt;
 ## 1     1
@@ -406,7 +335,7 @@ inner_join(x, y)
 ```
 
 ```
-## # A tibble: 2 x 1
+## # A tibble: 2 × 1
 ##   value
 ##   &lt;dbl&gt;
 ## 1     1
@@ -430,7 +359,7 @@ left_join(x, y)
 ```
 
 ```
-## # A tibble: 3 x 1
+## # A tibble: 3 × 1
 ##   value
 ##   &lt;dbl&gt;
 ## 1     1
@@ -455,7 +384,7 @@ right_join(x, y)
 ```
 
 ```
-## # A tibble: 3 x 1
+## # A tibble: 3 × 1
 ##   value
 ##   &lt;dbl&gt;
 ## 1     1
@@ -480,7 +409,7 @@ full_join(x, y)
 ```
 
 ```
-## # A tibble: 4 x 1
+## # A tibble: 4 × 1
 ##   value
 ##   &lt;dbl&gt;
 ## 1     1
@@ -491,53 +420,6 @@ full_join(x, y)
 ]
 .pull-right[
 ![](img/05/full-join.gif)&lt;!-- --&gt;
-]
-
----
-
-## `semi_join()`
-
-Returns all rows from `x` with a match in `y` (does not add columns from `y`)
-
-.pull-left[
-
-```r
-semi_join(x, y)
-```
-
-```
-## # A tibble: 2 x 1
-##   value
-##   &lt;dbl&gt;
-## 1     1
-## 2     2
-```
-]
-.pull-right[
-![](img/05/semi-join.gif)&lt;!-- --&gt;
-]
-
----
-
-## `anti_join()`
-
-Returns all rows from `x` without a match in `y` (does not add columns from `y`)
-
-.pull-left[
-
-```r
-anti_join(x, y)
-```
-
-```
-## # A tibble: 1 x 1
-##   value
-##   &lt;dbl&gt;
-## 1     3
-```
-]
-.pull-right[
-![](img/05/anti-join.gif)&lt;!-- --&gt;
 ]
 
 ---
@@ -554,7 +436,7 @@ fisheries %&gt;% select(country)
 ```
 
 ```
-## # A tibble: 82 x 1
+## # A tibble: 82 × 1
 ##    country   
 ##    &lt;chr&gt;     
 ##  1 Angola    
@@ -577,7 +459,7 @@ continents
 ```
 
 ```
-## # A tibble: 245 x 2
+## # A tibble: 245 × 2
 ##    country           continent
 ##    &lt;chr&gt;             &lt;chr&gt;    
 ##  1 Afghanistan       Asia     
@@ -600,30 +482,34 @@ continents
 
 
 ```r
-fisheries &lt;- left_join(fisheries, continents) 
+fisheries &lt;- left_join(fisheries, continents,
+*                      by = "country")
+fisheries
+```
+
+```
+## # A tibble: 82 × 5
+##    country    capture aquaculture   total continent
+##    &lt;chr&gt;        &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;    
+##  1 Angola      486490         655  487145 Africa   
+##  2 Argentina   755226        3673  758899 Americas 
+##  3 Australia   174629       96847  271476 Oceania  
+##  4 Bangladesh 1674770     2203554 3878324 Asia     
+##  5 Brazil      705000      581230 1286230 Americas 
+##  6 Cambodia    629950      172500  802450 Asia     
+##  7 Cameroon    233190        2315  235505 Africa   
+##  8 Canada      874727      200765 1075492 Americas 
+##  9 Chad        110000          94  110094 Africa   
+## 10 Chile      1829238     1050117 2879355 Americas 
+## # … with 72 more rows
 ```
 
 --
 
 .discussion[
-How does `left_join()` know to join the two data frames by `country`?
+Must have at least one variable name in common!
 ]
 
-Hint:
-
-- Variables in the original fisheries dataset:
-
-
-```
-## [1] "country"     "capture"     "aquaculture" "total"
-```
-
-- Variables in the continents dataset:
-
-
-```
-## [1] "country"   "continent"
-```
 
 
 ---
@@ -637,7 +523,7 @@ fisheries %&gt;%
 ```
 
 ```
-## # A tibble: 10 x 5
+## # A tibble: 10 × 5
 ##    country                           capture aquaculture    total continent
 ##    &lt;chr&gt;                               &lt;dbl&gt;       &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;    
 ##  1 China                            17800000    63700000 81500000 Asia     
@@ -663,7 +549,7 @@ fisheries %&gt;%
 ```
 
 ```
-## # A tibble: 3 x 5
+## # A tibble: 3 × 5
 ##   country                          capture aquaculture   total continent
 ##   &lt;chr&gt;                              &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;    
 ## 1 Democratic Republic of the Congo  237372        3161  240533 &lt;NA&gt;     
@@ -679,11 +565,11 @@ fisheries %&gt;%
 
 ```r
 fisheries &lt;- fisheries %&gt;%
-  mutate(continent = case_when(
-    country == "Democratic Republic of the Congo" ~ "Africa",
-    country == "Hong Kong"                        ~ "Asia",
-    country == "Myanmar"                          ~ "Asia",
-    TRUE                                          ~ continent
+* mutate(continent = case_when(
+*   country == "Democratic Republic of the Congo" ~ "Africa",
+*   country == "Hong Kong"                        ~ "Asia",
+*   country == "Myanmar"                          ~ "Asia",
+*   TRUE                                          ~ continent
     )
   )
 ```
@@ -700,22 +586,11 @@ fisheries %&gt;%
 ```
 
 ```
-## # A tibble: 0 x 5
+## # A tibble: 0 × 5
 ## # … with 5 variables: country &lt;chr&gt;, capture &lt;dbl&gt;, aquaculture &lt;dbl&gt;, total &lt;dbl&gt;,
 ## #   continent &lt;chr&gt;
 ```
 
----
-
-.discussion[
-What does the following code do?
-]
-
-
-```r
-fisheries %&gt;%
-  mutate(aquaculture_perc = aquaculture / total)
-```
 
 ---
 
@@ -730,19 +605,7 @@ class: middle, center
 ]
 --&gt;
 
----
 
-class: middle, center
-
-## Demo
-
-&lt;!--
-.your-turn[
-- [RStudio Cloud](http://rstd.io/dsbox-cloud) &gt; `AE 05 - Fisheries + Data joins` &gt; open `fisheries.Rmd` and knit.
-- Knit the document and work on the Exercises 2 - 4.
-- Once done, place a green sticky on your laptop. If you have questions, place a pink sticky.
-]
---&gt;
 ---
 
 
@@ -752,10 +615,11 @@ class: middle, center
 
 ```r
 ggplot(fisheries_summary, aes(x = continent, y = mean_ap)) +
-  geom_col()
+  geom_col()+
+  theme(text = element_text(size = 20))
 ```
 
-![](05-data-join-merge_files/figure-html/unnamed-chunk-43-1.png)&lt;!-- --&gt;
+![](05-data-join-merge_files/figure-html/unnamed-chunk-33-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -765,10 +629,11 @@ ggplot(fisheries_summary, aes(x = continent, y = mean_ap)) +
 ```r
 ggplot(fisheries_summary, 
 *      aes(x = fct_reorder(continent, mean_ap), y = mean_ap)) +
-  geom_col()
+  geom_col()+
+  theme(text = element_text(size = 20))
 ```
 
-![](05-data-join-merge_files/figure-html/unnamed-chunk-44-1.png)&lt;!-- --&gt;
+![](05-data-join-merge_files/figure-html/unnamed-chunk-34-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -777,7 +642,7 @@ ggplot(fisheries_summary,
 
 ```r
 ggplot(fisheries_summary, 
-*      aes(y = fct_reorder(continent, mean_ap), x = mean_ap)) +
+       aes(y = fct_reorder(continent, mean_ap), x = mean_ap)) + 
   geom_col() +
 * labs(
 *   x = "",
@@ -793,7 +658,61 @@ See next slide...
 
 ---
 
-![](05-data-join-merge_files/figure-html/unnamed-chunk-46-1.png)&lt;!-- --&gt;
+![](05-data-join-merge_files/figure-html/unnamed-chunk-36-1.png)&lt;!-- --&gt;
+
+---
+
+class: middle, center
+
+## Extra joins
+
+---
+
+## `semi_join()`
+
+Returns all rows from `x` with a match in `y` (does not add columns from `y`)
+
+.pull-left[
+
+```r
+semi_join(x, y)
+```
+
+```
+## # A tibble: 2 × 1
+##   value
+##   &lt;dbl&gt;
+## 1     1
+## 2     2
+```
+]
+.pull-right[
+![](img/05/semi-join.gif)&lt;!-- --&gt;
+]
+
+---
+
+## `anti_join()`
+
+Returns all rows from `x` without a match in `y` (does not add columns from `y`)
+
+.pull-left[
+
+```r
+anti_join(x, y)
+```
+
+```
+## # A tibble: 1 × 1
+##   value
+##   &lt;dbl&gt;
+## 1     3
+```
+]
+.pull-right[
+![](img/05/anti-join.gif)&lt;!-- --&gt;
+]
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
@@ -843,6 +762,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable

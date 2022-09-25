@@ -11,9 +11,8 @@
 
 <meta name="author" content="Your Name" />
 
-<meta name="date" content="2022-09-23" />
 
-<title>AE 05: Join data sets + data wrangling</title>
+<title>AE 05: Reshaping</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -375,116 +374,132 @@ pre code {
 
 
 
-<h1 class="title toc-ignore">AE 05: Join data sets + data wrangling</h1>
+<h1 class="title toc-ignore">AE 05: Reshaping</h1>
 <h4 class="author">Your Name</h4>
-<h4 class="date">2022-09-23</h4>
+<h4 class="date">9/26/2022</h4>
 
 </div>
 
 
-<div id="code-styling-workflow" class="section level2">
-<h2>Code styling + workflow</h2>
-<ul>
-<li>Avoid long lines of code.
-<ul>
-<li>We should be able to see <u>all</u> of your code.</li>
-</ul></li>
-<li>Name code chunks.</li>
-<li>Knit, commit, and push regularly.
-<ul>
-<li>Think about it like clicking to save regularly as you type a
-report.</li>
-</ul></li>
-</ul>
-</div>
-<div id="questions" class="section level2">
-<h2>Questions?</h2>
-</div>
 <div id="clone-a-repo-start-a-new-project" class="section level2">
 <h2>Clone a repo + start a new project</h2>
-<p>Go to the <code>appex-05-[GITHUB USERNAME]</code> repo, clone it into
-your Math118 folder, and start a new project in RStudio.</p>
+<p>Go to the <code>appex-05-[GITHUB USERNAME]</code> repo, clone it, and
+start a new project in RStudio.</p>
+<p><strong>Note:</strong> In each of these exercises you will need to
+set <code>eval=TRUE</code> in the code chunk header when you’re ready to
+knit and run the code for that exercise.</p>
 </div>
-<div id="note" class="section level2">
-<h2>Note</h2>
-<p>For this Application Exercise, you are provided with lots of starter
-code/hints. In order to allow the whole document to run, we have set
-each <code>R</code> chunk headers to <code>eval = FALSE</code>. As you
-complete each exercise, change the <code>R</code> chunk header to
-<code>eval = TRUE</code> before you knit in order to run your
-changes.</p>
-</div>
-<div id="practice-with-data-joins-and-wrangling" class="section level2">
-<h2>Practice with data joins and wrangling</h2>
-<p>You may need to install the <code>scales</code> library. If so, run
-<code>install.packages(&quot;scales&quot;)</code> in your
-<strong>console</strong>.</p>
+<div id="pivoting-longer" class="section level2">
+<h2>Pivoting longer</h2>
+<p>We will first work the dataset <code>relig_income</code>, which
+contains data from a survey by Pew. This dataset contains three
+variables:</p>
+<ul>
+<li><code>religion</code>, stored in the rows,</li>
+<li>the annual income bracket spread across the column names, and</li>
+<li>the count (number of surveyees) if the religion-income pair, stored
+in the cell values.</li>
+</ul>
+<p>After loading the data, go ahead and <code>View()</code> it to get a
+feel for the data.</p>
 <pre class="r"><code>library(tidyverse)
-library(scales)
-fisheries &lt;- read_csv(&quot;data/fisheries.csv&quot;)
-continents &lt;- read_csv(&quot;data/continents.csv&quot;)</code></pre>
-<p>We will write code that fills in the gaps from joining the data sets
-to creating the updated visualizations.</p>
-<div id="exercise-1" class="section level3">
-<h3>Exercise 1</h3>
-<p>We wish to add to the <code>fisheries</code> data the continent that
-a country is located in.</p>
-<p>Write code that joins together the <code>fisheries</code> dataset and
-the <code>continent</code> dataset by the variable they have in common.
-Store it by saving over the current <code>fisheries</code> data frame.
-The code below will help you get started.</p>
-<pre class="r"><code>&lt;- fisheries %&gt;%
-  left_join(______, by = ______)  </code></pre>
-<p>Once you are happy with your join, run the following code by setting
-<code>eval = TRUE</code>.</p>
-<pre class="r"><code>fisheries &lt;- fisheries %&gt;%
-  filter(total &gt; 100000) %&gt;%
-  mutate(
-    continent = case_when(
-      country == &quot;Democratic Republic of the Congo&quot; ~ &quot;Africa&quot;,
-      country == &quot;Hong Kong&quot;                        ~ &quot;Asia&quot;,
-      country == &quot;Myanmar&quot;                          ~ &quot;Asia&quot;,
-      TRUE                                          ~ continent
-      ),
-    aquaculture_perc = aquaculture / total
-    )</code></pre>
+data(&quot;relig_income&quot;)</code></pre>
+<div id="exercise-1." class="section level3">
+<h3>Exercise 1.</h3>
+<p>Suppose our observation unit of interest is <code>religion</code>.
+Explain why this data frame is in the wide format.</p>
 </div>
 <div id="exercise-2" class="section level3">
 <h3>Exercise 2</h3>
-<p>Create a new data frame called <code>fisheries_summary</code> that
-calculates median and mean aquaculture percentage for each continent in
-the fisheries data.</p>
-<p>Recall that the function for calculating the mean and median are
-<code>mean()</code> and <code>median()</code> in R.</p>
-<pre class="r"><code>fisheries_summary &lt;- fisheries %&gt;%
-  # code here                      </code></pre>
+<p>Pivot the data into the long form shown here:</p>
+<pre><code>## # A tibble: 180 × 3
+##    religion income             count
+##    &lt;chr&gt;    &lt;chr&gt;              &lt;dbl&gt;
+##  1 Agnostic &lt;$10k                 27
+##  2 Agnostic $10-20k               34
+##  3 Agnostic $20-30k               60
+##  4 Agnostic $30-40k               81
+##  5 Agnostic $40-50k               76
+##  6 Agnostic $50-75k              137
+##  7 Agnostic $75-100k             122
+##  8 Agnostic $100-150k            109
+##  9 Agnostic &gt;150k                 84
+## 10 Agnostic Don&#39;t know/refused    96
+## # … with 170 more rows</code></pre>
+<pre class="r"><code>relig_income %&gt;%
+  pivot_longer(cols = ____, # hint: it&#39;s easier to specify which column you don&#39;t want to pivot!
+               names_to = ____,
+               values_to = ____)</code></pre>
 </div>
+</div>
+<div id="pivoting-wider" class="section level2">
+<h2>Pivoting wider</h2>
+<p>Let’s now work with the some more data about fish! The
+<code>fish_encounters</code> dataset contains information about fish
+swimming down a river. Each station recorded if a tagged fish was
+observed at its monitor stations. The dataset contains three
+variables:</p>
+<ul>
+<li><code>fish</code>, the fish identifier,</li>
+<li><code>station</code>, the measurement stations</li>
+<li><code>seen</code> = 1 if the fish was seen</li>
+</ul>
+<p>After loading the data, go ahead and <code>View()</code> it to get a
+feel for the data.</p>
+<pre class="r"><code>data(&quot;fish_encounters&quot;)</code></pre>
 <div id="exercise-3" class="section level3">
 <h3>Exercise 3</h3>
-<p>Take the <code>fisheries_summary</code> data frame and order the
-results in descending order of median aquaculture percentage.</p>
+<p>Suppose our observation unit of interest is <code>fish</code>.
+Explain why this data frame is in the long format.</p>
 </div>
 <div id="exercise-4" class="section level3">
 <h3>Exercise 4</h3>
-<p>The code below creates the graph you originally saw in the lecture
-slides. Change it such that we visualize the median aquaculture
-percentage instead. Adjust the labels accordingly!</p>
-<pre class="r"><code>ggplot(fisheries_summary, 
-       aes(y = fct_reorder(continent, mean_ap), x = mean_ap)) +
-  geom_col() +
-  scale_x_continuous(labels = label_percent(accuracy = 1)) +
-  labs(
-    x = &quot;&quot;,
-    y = &quot;&quot;,
-    title = &quot;Average share of aquaculture by continent&quot;,
-    subtitle = &quot;out of total fisheries harvest, 2016&quot;,
-    caption = &quot;Source: bit.ly/2VrawTt&quot;
-  ) +
-  theme_minimal()</code></pre>
-<p><br><br></p>
-<hr>
-<p><em>This exercise was modified from “Fisheries” in <a href="https://datasciencebox.org/">Data Science in Box</a>.</em></p>
+<p>We want to pivot the data such that each fish is an observation, and
+we can easily see which stations it was observed at. Specifically, we
+want the data in this <strong>wide</strong> format:</p>
+<pre><code>## # A tibble: 19 × 12
+##    fish  Release I80_1 Lisbon  Rstr Base_TD   BCE   BCW  BCE2  BCW2   MAE   MAW
+##    &lt;fct&gt;   &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+##  1 4842        1     1      1     1       1     1     1     1     1     1     1
+##  2 4843        1     1      1     1       1     1     1     1     1     1     1
+##  3 4844        1     1      1     1       1     1     1     1     1     1     1
+##  4 4845        1     1      1     1       1    NA    NA    NA    NA    NA    NA
+##  5 4847        1     1      1    NA      NA    NA    NA    NA    NA    NA    NA
+##  6 4848        1     1      1     1      NA    NA    NA    NA    NA    NA    NA
+##  7 4849        1     1     NA    NA      NA    NA    NA    NA    NA    NA    NA
+##  8 4850        1     1     NA     1       1     1     1    NA    NA    NA    NA
+##  9 4851        1     1     NA    NA      NA    NA    NA    NA    NA    NA    NA
+## 10 4854        1     1     NA    NA      NA    NA    NA    NA    NA    NA    NA
+## 11 4855        1     1      1     1       1    NA    NA    NA    NA    NA    NA
+## 12 4857        1     1      1     1       1     1     1     1     1    NA    NA
+## 13 4858        1     1      1     1       1     1     1     1     1     1     1
+## 14 4859        1     1      1     1       1    NA    NA    NA    NA    NA    NA
+## 15 4861        1     1      1     1       1     1     1     1     1     1     1
+## 16 4862        1     1      1     1       1     1     1     1     1    NA    NA
+## 17 4863        1     1     NA    NA      NA    NA    NA    NA    NA    NA    NA
+## 18 4864        1     1     NA    NA      NA    NA    NA    NA    NA    NA    NA
+## 19 4865        1     1      1    NA      NA    NA    NA    NA    NA    NA    NA</code></pre>
+<p>Fill in the following code to change into the desired format.</p>
+<pre class="r"><code>fish_encounters %&gt;%
+  pivot_wider(names_from = _____, 
+              values_from = ______)</code></pre>
 </div>
+<div id="exercise-5" class="section level3">
+<h3>Exercise 5</h3>
+<p>You might notice that there are a lot of <code>NA</code> or missing
+values after pivoting wider. This is means that the fish was not
+observed at that given station. Let’s replace the <code>NA</code> values
+with 0s. In your code for Exercise 4, add the following to your
+<code>pivot_wider()</code> function call:
+<code>values_fill = 0</code>.</p>
+</div>
+</div>
+<div id="submitting-application-exercises" class="section level2">
+<h2>Submitting application exercises</h2>
+<p><strong>Once you have completed the activity, push your final changes
+to your GitHub repo! Make sure your repo is updated on GitHub, and
+that’s all you need to do to submit application exercises for
+participation.</strong></p>
 </div>
 
 
