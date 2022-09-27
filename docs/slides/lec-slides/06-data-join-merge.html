@@ -20,7 +20,7 @@ class: center, middle, inverse, title-slide
 ### Becky Tang
 ]
 .date[
-### 9/26/22
+### 9/28/22
 ]
 
 ---
@@ -41,22 +41,47 @@ layout: true
 
 
 
+## Announcements
 
-class: middle, center
+- HW 03 released today, due Tuesday 10/04 at 11:59pm
 
-## `mutate`
+- TA: Evan Hunter will hold hours on Sundays 7-9pm in Warner basement
+
+- Fall and Thanksgiving break travel plans
+
 
 ---
 
-### `mutate` to add new variables
+class: middle, center
 
-.small[
+## Storing
+
+---
+
+### `mutate`
+
+.question[What does the following code do?]
+
 
 ```r
 datascience %&gt;% 
-  mutate(inUS = Country == "United States")
+  mutate(inUS = Country == "United States") %&gt;%
+  dplyr::select(Country, inUS) %&gt;%
+  slice(1:5)
 ```
-]
+--
+
+```
+## # A tibble: 5 × 2
+##   Country       inUS 
+##   &lt;chr&gt;         &lt;lgl&gt;
+## 1 United States TRUE 
+## 2 Russia        FALSE
+## 3 Taiwan        FALSE
+## 4 United States TRUE 
+## 5 United States TRUE
+```
+
 ---
 
 ### "Save" when you `mutate`
@@ -72,8 +97,6 @@ Most often when you define a new variable with `mutate` you'll also want to save
 ---
 
 ### Check before you move on
-
-- Notice the variable type of `inUS`
 
 
 ```r
@@ -129,9 +152,7 @@ Source: https://en.wikipedia.org/wiki/Fishing_industry_by_country
 fisheries &lt;- read_csv("data/fisheries.csv")
 ```
 
----
-
-## First look at the data 
+**First look at the data:**
 
 
 ```r
@@ -297,12 +318,12 @@ x
 ```
 
 ```
-## # A tibble: 3 × 1
-##   value
-##   &lt;dbl&gt;
-## 1     1
-## 2     2
-## 3     3
+## # A tibble: 3 × 2
+##      ID value
+##   &lt;dbl&gt; &lt;chr&gt;
+## 1     1 x1   
+## 2     2 x2   
+## 3     3 x3
 ```
 ]
 .pull-right[
@@ -313,12 +334,12 @@ y
 ```
 
 ```
-## # A tibble: 3 × 1
-##   value
-##   &lt;dbl&gt;
-## 1     1
-## 2     2
-## 3     4
+## # A tibble: 3 × 2
+##      ID vlue 
+##   &lt;dbl&gt; &lt;chr&gt;
+## 1     1 y1   
+## 2     2 y2   
+## 3     4 y4
 ```
 ]
 
@@ -331,15 +352,15 @@ Adds columns to `x` from `y`, matching all rows in `x` AND `y`
 .pull-left[
 
 ```r
-inner_join(x, y)
+inner_join(x, y, variable = "ID")
 ```
 
 ```
-## # A tibble: 2 × 1
-##   value
-##   &lt;dbl&gt;
-## 1     1
-## 2     2
+## # A tibble: 2 × 3
+##      ID value vlue 
+##   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
+## 1     1 x1    y1   
+## 2     2 x2    y2
 ```
 ]
 .pull-right[
@@ -355,16 +376,16 @@ Adds columns to `x` from `y`, matching all rows in `x`
 .pull-left[
 
 ```r
-left_join(x, y)
+left_join(x, y, variable = "ID")
 ```
 
 ```
-## # A tibble: 3 × 1
-##   value
-##   &lt;dbl&gt;
-## 1     1
-## 2     2
-## 3     3
+## # A tibble: 3 × 3
+##      ID value vlue 
+##   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
+## 1     1 x1    y1   
+## 2     2 x2    y2   
+## 3     3 x3    &lt;NA&gt;
 ```
 ]
 .pull-right[
@@ -380,16 +401,16 @@ Adds columns to `x` from `y`, matching all rows in `y`
 .pull-left[
 
 ```r
-right_join(x, y)
+right_join(x, y, variable = "ID")
 ```
 
 ```
-## # A tibble: 3 × 1
-##   value
-##   &lt;dbl&gt;
-## 1     1
-## 2     2
-## 3     4
+## # A tibble: 3 × 3
+##      ID value vlue 
+##   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
+## 1     1 x1    y1   
+## 2     2 x2    y2   
+## 3     4 &lt;NA&gt;  y4
 ```
 ]
 .pull-right[
@@ -405,17 +426,17 @@ Adds columns to `x` from `y`, matching all rows in `x` OR `y`
 .pull-left[
 
 ```r
-full_join(x, y)
+full_join(x, y, variable = "ID")
 ```
 
 ```
-## # A tibble: 4 × 1
-##   value
-##   &lt;dbl&gt;
-## 1     1
-## 2     2
-## 3     3
-## 4     4
+## # A tibble: 4 × 3
+##      ID value vlue 
+##   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
+## 1     1 x1    y1   
+## 2     2 x2    y2   
+## 3     3 x3    &lt;NA&gt; 
+## 4     4 &lt;NA&gt;  y4
 ```
 ]
 .pull-right[
@@ -557,6 +578,8 @@ fisheries %&gt;%
 ## 3 Myanmar                          2072390     1017644 3090034 &lt;NA&gt;
 ```
 
+- You may often get `NA` values when using `left_join()`, `right_join()`, or `full_join()`
+
 ---
 
 ## Implement fixes
@@ -596,7 +619,8 @@ fisheries %&gt;%
 
 class: middle, center
 
-## Demo
+## Demo: Kaggle data 
+## appex-06, Exercise 1
 &lt;!--
 .your-turn[
 - [RStudio Cloud](http://rstd.io/dsbox-cloud) &gt; `AE 05 - Fisheries + Data joins` &gt; open `fisheries.Rmd` and knit.
@@ -619,7 +643,7 @@ ggplot(fisheries_summary, aes(x = continent, y = mean_ap)) +
   theme(text = element_text(size = 20))
 ```
 
-![](05-data-join-merge_files/figure-html/unnamed-chunk-33-1.png)&lt;!-- --&gt;
+![](06-data-join-merge_files/figure-html/unnamed-chunk-34-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -633,7 +657,7 @@ ggplot(fisheries_summary,
   theme(text = element_text(size = 20))
 ```
 
-![](05-data-join-merge_files/figure-html/unnamed-chunk-34-1.png)&lt;!-- --&gt;
+![](06-data-join-merge_files/figure-html/unnamed-chunk-35-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -642,7 +666,7 @@ ggplot(fisheries_summary,
 
 ```r
 ggplot(fisheries_summary, 
-       aes(y = fct_reorder(continent, mean_ap), x = mean_ap)) + 
+*      aes(y = fct_reorder(continent, mean_ap), x = mean_ap)) +
   geom_col() +
 * labs(
 *   x = "",
@@ -658,7 +682,7 @@ See next slide...
 
 ---
 
-![](05-data-join-merge_files/figure-html/unnamed-chunk-36-1.png)&lt;!-- --&gt;
+![](06-data-join-merge_files/figure-html/unnamed-chunk-37-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -679,11 +703,11 @@ semi_join(x, y)
 ```
 
 ```
-## # A tibble: 2 × 1
-##   value
-##   &lt;dbl&gt;
-## 1     1
-## 2     2
+## # A tibble: 2 × 2
+##      ID value
+##   &lt;dbl&gt; &lt;chr&gt;
+## 1     1 x1   
+## 2     2 x2
 ```
 ]
 .pull-right[
@@ -703,10 +727,10 @@ anti_join(x, y)
 ```
 
 ```
-## # A tibble: 1 × 1
-##   value
-##   &lt;dbl&gt;
-## 1     3
+## # A tibble: 1 × 2
+##      ID value
+##   &lt;dbl&gt; &lt;chr&gt;
+## 1     3 x3
 ```
 ]
 .pull-right[

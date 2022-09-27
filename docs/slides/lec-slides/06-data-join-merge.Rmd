@@ -1,7 +1,7 @@
 ---
 title: "Joining data from multiple sources"
 author: "Becky Tang"
-date: "9/26/22"
+date: "9/28/22"
 output:
   xaringan::moon_reader:
     mathjax: "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML"
@@ -64,21 +64,41 @@ library(magick)
 datascience <- read_csv("data/kaggle_survey_subset.csv")
 ```
 
+## Announcements
 
-class: middle, center
+- HW 03 released today, due Tuesday 10/04 at 11:59pm
 
-## `mutate`
+- TA: Evan Hunter will hold hours on Sundays 7-9pm in Warner basement
+
+- Fall and Thanksgiving break travel plans
+
 
 ---
 
-### `mutate` to add new variables
+class: middle, center
 
-.small[
-```{r eval=FALSE}
+## Storing
+
+---
+
+### `mutate`
+
+.question[What does the following code do?]
+
+```{r eval = F}
 datascience %>% 
-  mutate(inUS = Country == "United States")
+  mutate(inUS = Country == "United States") %>%
+  dplyr::select(Country, inUS) %>%
+  slice(1:5)
 ```
-]
+--
+```{r echo = F}
+datascience %>% 
+  mutate(inUS = Country == "United States") %>%
+  dplyr::select(Country, inUS) %>%
+  slice(1:5)
+```
+
 ---
 
 ### "Save" when you `mutate`
@@ -93,8 +113,6 @@ datascience <- datascience %>%  #<<
 ---
 
 ### Check before you move on
-
-- Notice the variable type of `inUS`
 
 ```{r}
 datascience %>% 
@@ -133,9 +151,7 @@ Source: https://en.wikipedia.org/wiki/Fishing_industry_by_country
 fisheries <- read_csv("data/fisheries.csv")
 ```
 
----
-
-## First look at the data 
+**First look at the data:**
 
 ```{r}
 glimpse(fisheries)
@@ -232,7 +248,7 @@ For the next few slides...
 
 .pull-left[
 ```{r echo=FALSE}
-x <- tibble(value = c(1, 2, 3))
+x <- tibble(ID = c(1, 2, 3), value = c("x1", "x2", "x3"))
 ```
 ```{r}
 x
@@ -240,7 +256,7 @@ x
 ]
 .pull-right[
 ```{r echo=FALSE}
-y <- tibble(value = c(1, 2, 4))
+y <- tibble(ID = c(1, 2, 4), vlue = c("y1", "y2", "y4"))
 ```
 ```{r}
 y
@@ -255,7 +271,7 @@ Adds columns to `x` from `y`, matching all rows in `x` AND `y`
 
 .pull-left[
 ```{r}
-inner_join(x, y)
+inner_join(x, y, variable = "ID")
 ```
 ]
 .pull-right[
@@ -272,7 +288,7 @@ Adds columns to `x` from `y`, matching all rows in `x`
 
 .pull-left[
 ```{r}
-left_join(x, y)
+left_join(x, y, variable = "ID")
 ```
 ]
 .pull-right[
@@ -289,7 +305,7 @@ Adds columns to `x` from `y`, matching all rows in `y`
 
 .pull-left[
 ```{r}
-right_join(x, y)
+right_join(x, y, variable = "ID")
 ```
 ]
 .pull-right[
@@ -306,7 +322,7 @@ Adds columns to `x` from `y`, matching all rows in `x` OR `y`
 
 .pull-left[
 ```{r}
-full_join(x, y)
+full_join(x, y, variable = "ID")
 ```
 ]
 .pull-right[
@@ -369,6 +385,8 @@ fisheries %>%
   filter(is.na(continent))
 ```
 
+- You may often get `NA` values when using `left_join()`, `right_join()`, or `full_join()`
+
 ---
 
 ## Implement fixes
@@ -402,7 +420,8 @@ fisheries %>%
 
 class: middle, center
 
-## Demo
+## Demo: Kaggle data 
+## appex-06, Exercise 1
 <!--
 .your-turn[
 - [RStudio Cloud](http://rstd.io/dsbox-cloud) > `AE 05 - Fisheries + Data joins` > open `fisheries.Rmd` and knit.
@@ -451,7 +470,7 @@ ggplot(fisheries_summary,
 
 ```{r eval=FALSE}
 ggplot(fisheries_summary, 
-       aes(y = fct_reorder(continent, mean_ap), x = mean_ap)) + 
+       aes(y = fct_reorder(continent, mean_ap), x = mean_ap)) + #<<
   geom_col() +
   labs( #<<
     x = "",  #<<

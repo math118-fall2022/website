@@ -513,8 +513,6 @@ font-size: 10pt;
 <li><a href="#getting-started" id="toc-getting-started">Getting
 started</a>
 <ul>
-<li><a href="#configure-git" id="toc-configure-git">Configure
-git</a></li>
 <li><a href="#update-yaml" id="toc-update-yaml">Update YAML</a></li>
 <li><a href="#packages" id="toc-packages">Packages</a></li>
 </ul></li>
@@ -536,27 +534,15 @@ prize.</p>
 <p>In this homework we will work with the data from this article to
 recreate some of their visualizations as well as explore new
 questions.</p>
-<p>The learning goals of this lab are:</p>
-<ul>
-<li>Manipulate and transform data to prepare it for visualization.</li>
-<li>Recreate visualizations.</li>
-<li>Summarize data.</li>
-</ul>
+<p>The learning goals of this homework are: - Manipulate and transform
+data to prepare it for visualization. - Recreate visualizations. -
+Summarize data.</p>
 <div id="getting-started" class="section level1">
 <h1>Getting started</h1>
 <p>Go to the course GitHub organization and locate your HW 03 repo,
 which should be named <code>hw-03-nobel-[GITHUB USERNAME]</code>. Grab
 the URL of the repo, and clone it in RStudio. Refer to HW 01 for
 step-by-step for cloning a repo and creating a new RStudio project.</p>
-<div id="configure-git" class="section level2">
-<h2>Configure git</h2>
-<p>Before we can get started we need to do one more thing. Specifically,
-we need to configure your git so that RStudio can communicate with
-GitHub. This requires two pieces of information: your email address and
-your GitHub username.</p>
-<p>To do so, run the following:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_git_config</span>(<span class="at">user.name =</span> <span class="st">&quot;github username&quot;</span>, <span class="at">user.email =</span> <span class="st">&quot;your email&quot;</span>)</span></code></pre></div>
-</div>
 <div id="update-yaml" class="section level2">
 <h2>Update YAML</h2>
 <p>Change the author to your name in YAML.</p>
@@ -565,7 +551,7 @@ your GitHub username.</p>
 <h2>Packages</h2>
 <p>We’ll use the <strong>tidyverse</strong> package for this analysis.
 Run the following code in the Console to load this package.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 </div>
 </div>
 <div id="the-data" class="section level1">
@@ -573,7 +559,7 @@ Run the following code in the Console to load this package.</p>
 <p>The dataset for this assignment can be found as a csv file in the
 <code>data</code> folder of your repository. You can read it in using
 the following.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>nobel <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/nobel.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>nobel <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/nobel.csv&quot;</span>)</span></code></pre></div>
 <p>The variable descriptions are as follows:</p>
 <ul>
 <li><code>id</code>: ID number</li>
@@ -624,10 +610,10 @@ at the time of winning the award</li>
 <div id="exercises" class="section level1">
 <h1>Exercises</h1>
 <p>Note that in this lab, the R chunks are not provided for you.
-Therefore you must create your own code chunks and name them properly. A
-portion of the lab grade will be based on: - Naming code chunks -
-Reasonable number of commits to ensure you are tracking your progress -
-Good coding style</p>
+Therefore you must create your own code chunks. A portion of the lab
+grade will be based on: - Reasonable number of commits to ensure you are
+tracking your progress - Good coding style - Figures are appropriately
+sized (i.e. not too big or small)</p>
 <div id="get-to-know-your-data" class="section level3">
 <h3>Get to know your data</h3>
 <ol style="list-style-type: decimal">
@@ -641,7 +627,9 @@ The lecture about logical operators could be useful
 here!</span></span></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Create a new data frame called <code>nobel_living</code> that
-filters for</li>
+filters for the following criteria. Confirm that once you have filtered
+for these characteristics you are left with a data frame with 228
+observations.</li>
 </ol>
 <ul>
 <li>laureates for whom <code>country</code> is available</li>
@@ -650,18 +638,14 @@ are denoted with <code>&quot;org&quot;</code> as their <code>gender</code>)</li>
 <li>laureates who are still alive (their <code>died_date</code> is
 <code>NA</code>)</li>
 </ul>
-<p>Confirm that once you have filtered for these characteristics you are
-left with a data frame with 228 observations.</p>
 <div class="commit">
 <p>Knit, commit and push your changes to GitHub with an appropriate
-commit message again. Make sure to commit and push all changed files so
-that your Git pane is cleared up afterwards.</p>
+commit message again.</p>
 </div>
 </div>
-<div id="most-living-nobel-laureates-were-based-in-the-us-when-they-won-their-prizes" class="section level3">
-<h3>“Most living Nobel laureates were based in the US when they won
-their prizes”</h3>
-<p>… says the Buzzfeed article. Let’s see if that’s true.</p>
+<div id="the-buzzfeed-article-says-most-living-nobel-laureates-were-based-in-the-us-when-they-won-their-prizes.-lets-see-if-thats-true." class="section level3">
+<h3>The Buzzfeed article says “most living Nobel laureates were based in
+the US when they won their prizes”. Let’s see if that’s true.</h3>
 <p>First, we’ll create a new variable to identify whether the laureate
 was in the US when they won their prize. We’ll use the
 <code>mutate()</code> function for this. The following pipeline mutates
@@ -676,18 +660,17 @@ the condition we’re testing for. If <code>country</code> is equal to
 achieve the same result using the <code>fct_other()</code> function
 (i.e. with <code>country_us = fct_other(country,
 “USA”)</code>).</span></span></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>nobel_living <span class="ot">&lt;-</span> nobel_living <span class="sc">%&gt;%</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">country_us =</span> <span class="fu">if_else</span>(country <span class="sc">==</span> <span class="st">&quot;USA&quot;</span>, <span class="st">&quot;USA&quot;</span>, <span class="st">&quot;Other&quot;</span>)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>nobel_living <span class="ot">&lt;-</span> nobel_living <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">country_us =</span> <span class="fu">if_else</span>(country <span class="sc">==</span> <span class="st">&quot;USA&quot;</span>, <span class="st">&quot;USA&quot;</span>, <span class="st">&quot;Other&quot;</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <p>Next, we will limit our analysis to only the following categories:
 Physics, Medicine, Chemistry, and Economics.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>nobel_living_science <span class="ot">&lt;-</span> nobel_living <span class="sc">%&gt;%</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Physics&quot;</span>, <span class="st">&quot;Medicine&quot;</span>, <span class="st">&quot;Chemistry&quot;</span>, <span class="st">&quot;Economics&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>nobel_living_science <span class="ot">&lt;-</span> nobel_living <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Physics&quot;</span>, <span class="st">&quot;Medicine&quot;</span>, <span class="st">&quot;Chemistry&quot;</span>, <span class="st">&quot;Economics&quot;</span>))</span></code></pre></div>
 <p><strong>You will work with the <code>nobel_living_science</code> data
-frame you created above for the remainder of the lab.</strong> This
-means you’ll need to define this data frame in your R Markdown
-document.</p>
+frame you created above for the remainder of the lab. This means you’ll
+need to define this data frame in your R Markdown document.</strong></p>
 <p><label for="tufte-mn-3" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-3" class="margin-toggle"><span class="marginnote"><span style="display: block;"><strong>Hint:</strong>
 You can change the orientation of the bars using the
 <code>coord_flip()</code> function in ggplot2. Click <a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">here</a>
@@ -698,37 +681,47 @@ category of prize and whether the laureate was in the US when they won
 the nobel prize. Note: Your visualization should be faceted by category.
 For each facet you should have two bars, one for winners in the US and
 one for Other. Flip the coordinates so the bars are horizontal, not
-vertical. Interpret your visualization, and say a few words about
-whether the Buzzfeed headline is supported by the data.</li>
+vertical. <strong>Interpret your visualization, and say a few words
+about whether the Buzzfeed headline is supported by the
+data.</strong></li>
 </ol>
 <div class="commit">
 <p>Knit, commit and push your changes to GitHub with an appropriate
-commit message again. Make sure to commit and push all changed files so
-that your Git pane is cleared up afterwards.*</p>
+commit message again.</p>
 </div>
-<div id="but-of-those-us-based-nobel-laureates-many-were-born-in-other-countries" class="section level3">
-<h3>“But of those US-based Nobel laureates, many were born in other
-countries…”</h3>
+</div>
+<div id="buzzfeed-then-says-but-of-those-us-based-nobel-laureates-many-were-born-in-other-countries" class="section level3">
+<h3>Buzzfeed then says “but of those US-based Nobel laureates, many were
+born in other countries…”</h3>
 <p><label for="tufte-mn-4" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-4" class="margin-toggle"><span class="marginnote"><span style="display: block;"><strong>Hint:</strong>
 You should be able to borrow from code you used earlier to create the
 <code>country_us</code> variable.</span></span></p>
 <ol start="4" style="list-style-type: decimal">
-<li><p>Create a new variable called <code>born_country_us</code> that
-has the value <code>&quot;USA&quot;</code> if the laureate is born in the US, and
+<li>Create a new variable called <code>born_country_us</code> that has
+the value <code>&quot;USA&quot;</code> if the laureate is born in the US, and
 <code>&quot;Other&quot;</code> otherwise. Be sure to save the variable to the
-<code>nobel_living_science</code> data frame.</p></li>
-<li><p>Add a second variable to your visualization from Exercise 3 based
-on whether the laureate was born in the US or not. Your final
-visualization should contain a facet for each category, within each
-facet a bar for whether they won the award in the US or not, and within
-each bar whether they were born in the US or not. Based on your
-visualization, do the data appear to support Buzzfeed’s claim? Explain
-your reasoning in 1-2 sentences.</p></li>
+<code>nobel_living_science</code> data frame.</li>
+</ol>
+<p> </p>
+<ol start="5" style="list-style-type: decimal">
+<li>Build on your visualization from Exercise 3 by adding a second
+variable based on whether the laureate was born in the US or not. Please
+create a new visualization here, and do not modify your visualization in
+Exercise 3. Your final visualization should:
+<ul>
+<li>contain a facet for each category,</li>
+<li>within each facet, have a bar for whether they won the award in the
+US or not, and</li>
+<li>within each bar, display whether they were born in the US or
+not.</li>
+</ul>
+<strong>Based on your visualization, do the data appear to support
+Buzzfeed’s claim? Explain your reasoning in 1-2 sentences.</strong></li>
 </ol>
 <div class="commit">
 <p>Knit, commit and push your changes to GitHub with an appropriate
-commit message again. Make sure to commit and push all changed files so
-that your Git pane is cleared up afterwards.</p>
+commit message again.</p>
+</div>
 </div>
 <div id="heres-where-those-immigrant-nobelists-were-born" class="section level3">
 <h3>Here’s where those immigrant Nobelists were born</h3>
@@ -746,15 +739,14 @@ country.</li>
 </ol>
 <div class="commit">
 <p>Knit, commit and push your changes to GitHub with an appropriate
-commit message again. Make sure to commit and push all changed files so
-that your Git pane is cleared up afterwards.</p>
+commit message again.</p>
+</div>
 </div>
 <div id="wrapping-up-and-submission" class="section level2">
 <h2>Wrapping up and Submission</h2>
 <p>Go back through your write up to make sure you followed the coding
-style guidelines we discussed in class (e.g. no long lines of code).</p>
-<p>Also, make sure all of your R chunks are properly labeled, and your
-figures are reasonably sized.</p>
+style guidelines we discussed in class (e.g. no long lines of code), and
+your figures are reasonably sized.</p>
 <p>Once you are finished, push to GitHub one last time and upload your
 PDF document to Canvas.</p>
 </div>
