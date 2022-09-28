@@ -59,7 +59,7 @@ Write code that joins together the `datascience` dataset and the `conversion` da
 
 ### Exercise 2
 
-Now create a new variable called `compensationUSD` that converts the original `CompensationAmount` into USD. This is achieved by multiplying the `CompensationAmount` by the `ExchangeRate`. Store it by saving over the current `datascience` data frame.
+Now create a new variable called `compensationUSD` that converts the original `CompensationAmount` into USD. This is achieved by multiplying the `CompensationAmount` by the `exchangeRate`. Store it by saving over the current `datascience` data frame.
 
 ```{r eval = F}
 <- datascience %>%
@@ -81,7 +81,7 @@ Recall that the function for calculating the median is `median()` in R.
 
 ### Exercise 4
 
-Take the `fisheries_summary` data frame and order the results in descending 
+Take the `compensation_summary` data frame and order the results in descending 
 order of median USD compensation. Is anything surprising?
 
 ```{r compensation-summary-major-sorted}

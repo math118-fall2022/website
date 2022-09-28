@@ -9,34 +9,46 @@ output: html_document
 library(tidyverse)
 ```
 
-```{r setup}
+```{r setup, echo = F}
 coffee <- c(rep("Does not drink coffee", 6477), rep("Drinks coffee occasionally", 34152), rep("Drinks coffee regularly", 28535))
 died <- c(rep("Died", 1039), rep("Did not die", 5438), 
           rep("Died", 4440), rep("Did not die", 29712),
           rep("Died", 3601), rep("Did not die", 24934))
-coffee_data = tibble(coffee = coffee,
-                     died = died)
+coffee_data = tibble(coffee_use = coffee,
+                     status = died)
+knitr::kable(table(coffee_use = coffee_data$coffee_use, status = coffee_data$status))
 ```
 
 Number of people in our dataset:
 
 ```{r}
-nrow(coffee_data)
 ```
 
 
 Let event A = died and event B = non-coffee drinker. Calculate the following for a randomly selected person in the cohort
 
+a) P(died)
+
 ```{r prob_A}
+
+```
+
+```{r prob_A_ans, echo = F, eval = F}
 # P(A) = P(died)
 coffee_data %>%
   count(died) %>%
   mutate(proportion = n / sum(n))
 
 ```
-P(A) = 0.131
+
+
+b) P(non-coffee drinker)
 
 ```{r prob_B}
+
+```
+
+```{r prob_B_ans, echo = F, eval = F}
 # P(B) = P(non coffee)
 coffee_data %>%
   count(coffee) %>%
@@ -44,9 +56,13 @@ coffee_data %>%
 
 ```
 
-P(B) = 0.094
+c) P(died and non-coffee drinker)
 
 ```{r prob_AB}
+
+```
+
+```{r prob_AB_ans, echo = F, eval = F}
 # P(A and B) = P(died and non-coffee)
 coffee_data %>%
   filter(died == "Died",
@@ -58,9 +74,14 @@ coffee_data %>%
   mutate(proportion = n / sum(n))
 ```
 
-P(A and B) = 0.015
+
+d) P(died or non-coffee drinker)
 
 ```{r prob_AoB}
+
+```
+
+```{r prob_AoB_ans, echo = F, eval = F}
 # P(A or B) = P(A) + P(B) - P(A and B) 
 p_a <- 0.131
 p_b <- 0.094
@@ -69,15 +90,16 @@ p_aob <- 0.015
 p_a + p_b - p_aob
 ```
 
-P(A or B) = 0.21
+e) P(died or coffee drinker)
 
 ```{r prob_AoBc}
+
+```
+
+```{r prob_AoBc_ans, echo = F, eval = F}
 # P(A or Bc)
 p_a + (1 - p_b) - (0.064 + 0.052)
 ```
 
-P(A or B^c) = P(A) + P(B^c) - P(A and B^c)
-            = P(died) + P(drink coffee) - P(died and drink coffee)
-            = 0.921
 
 

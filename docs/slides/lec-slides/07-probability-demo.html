@@ -369,70 +369,42 @@ pre code {
 </div>
 
 
-<pre class="r"><code>coffee &lt;- c(rep(&quot;Does not drink coffee&quot;, 6477), rep(&quot;Drinks coffee occasionally&quot;, 34152), rep(&quot;Drinks coffee regularly&quot;, 28535))
-died &lt;- c(rep(&quot;Died&quot;, 1039), rep(&quot;Did not die&quot;, 5438), 
-          rep(&quot;Died&quot;, 4440), rep(&quot;Did not die&quot;, 29712),
-          rep(&quot;Died&quot;, 3601), rep(&quot;Did not die&quot;, 24934))
-coffee_data = tibble(coffee = coffee,
-                     died = died)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Did not die</th>
+<th align="right">Died</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Does not drink coffee</td>
+<td align="right">5438</td>
+<td align="right">1039</td>
+</tr>
+<tr class="even">
+<td align="left">Drinks coffee occasionally</td>
+<td align="right">29712</td>
+<td align="right">4440</td>
+</tr>
+<tr class="odd">
+<td align="left">Drinks coffee regularly</td>
+<td align="right">24934</td>
+<td align="right">3601</td>
+</tr>
+</tbody>
+</table>
 <p>Number of people in our dataset:</p>
-<pre class="r"><code>nrow(coffee_data)</code></pre>
-<pre><code>## [1] 69164</code></pre>
 <p>Let event A = died and event B = non-coffee drinker. Calculate the
 following for a randomly selected person in the cohort</p>
-<pre class="r"><code># P(A) = P(died)
-coffee_data %&gt;%
-  count(died) %&gt;%
-  mutate(proportion = n / sum(n))</code></pre>
-<pre><code>## # A tibble: 2 × 3
-##   died            n proportion
-##   &lt;chr&gt;       &lt;int&gt;      &lt;dbl&gt;
-## 1 Did not die 60084      0.869
-## 2 Died         9080      0.131</code></pre>
-<p>P(A) = 0.131</p>
-<pre class="r"><code># P(B) = P(non coffee)
-coffee_data %&gt;%
-  count(coffee) %&gt;%
-  mutate(proportion = n / sum(n))</code></pre>
-<pre><code>## # A tibble: 3 × 3
-##   coffee                         n proportion
-##   &lt;chr&gt;                      &lt;int&gt;      &lt;dbl&gt;
-## 1 Does not drink coffee       6477     0.0936
-## 2 Drinks coffee occasionally 34152     0.494 
-## 3 Drinks coffee regularly    28535     0.413</code></pre>
-<p>P(B) = 0.094</p>
-<pre class="r"><code># P(A and B) = P(died and non-coffee)
-coffee_data %&gt;%
-  filter(died == &quot;Died&quot;,
-         coffee == &quot;Does not drink coffee&quot;) %&gt;%
-  nrow()</code></pre>
-<pre><code>## [1] 1039</code></pre>
-<pre class="r"><code>coffee_data %&gt;%
-  count(died, coffee) %&gt;%
-  mutate(proportion = n / sum(n))</code></pre>
-<pre><code>## # A tibble: 6 × 4
-##   died        coffee                         n proportion
-##   &lt;chr&gt;       &lt;chr&gt;                      &lt;int&gt;      &lt;dbl&gt;
-## 1 Did not die Does not drink coffee       5438     0.0786
-## 2 Did not die Drinks coffee occasionally 29712     0.430 
-## 3 Did not die Drinks coffee regularly    24934     0.361 
-## 4 Died        Does not drink coffee       1039     0.0150
-## 5 Died        Drinks coffee occasionally  4440     0.0642
-## 6 Died        Drinks coffee regularly     3601     0.0521</code></pre>
-<p>P(A and B) = 0.015</p>
-<pre class="r"><code># P(A or B) = P(A) + P(B) - P(A and B) 
-p_a &lt;- 0.131
-p_b &lt;- 0.094
-p_aob &lt;- 0.015
-
-p_a + p_b - p_aob</code></pre>
-<pre><code>## [1] 0.21</code></pre>
-<p>P(A or B) = 0.21</p>
-<pre class="r"><code># P(A or Bc)
-p_a + (1 - p_b) - (0.064 + 0.052)</code></pre>
-<pre><code>## [1] 0.921</code></pre>
-<p>P(A or B^c) = P(A) + P(B^c) - P(A and B^c) = P(died) + P(drink
-coffee) - P(died and drink coffee) = 0.921</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>P(died)</p></li>
+<li><p>P(non-coffee drinker)</p></li>
+<li><p>P(died and non-coffee drinker)</p></li>
+<li><p>P(died or non-coffee drinker)</p></li>
+<li><p>P(died or coffee drinker)</p></li>
+</ol>
 
 
 
