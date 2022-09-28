@@ -1,12 +1,12 @@
 ---
-title: "06 - Demo"
+title: "Probability - Demo"
 author: "Becky Tang"
-date: "5/26/2021"
+date: "9/30/2022"
 output: html_document
 ---
 
-```{r packages}
-library(tidyverse, message = F)
+```{r packages, include = F}
+library(tidyverse)
 ```
 
 ```{r setup}
