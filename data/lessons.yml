@@ -50,6 +50,7 @@ lessons:
    slides: "lec-slides/06-data-join-merge.html"
    appex: "appex06-join-wrangle.html"
  - title: "HW 03 assigned"
+   hw: "hw-03-nobel.html"
  - date: "Friday, Sep. 30"
    title: "Introduction to probability"
  - date: "Week 04"
