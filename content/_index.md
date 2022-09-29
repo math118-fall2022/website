@@ -19,6 +19,7 @@ markup: "mmark"
 <span></span>     | <span></span>     | <span></span>    | <span></span>    |  <span></span>      
 ------------------|-------------------|------------------|------------------|------------------ 
 Professor        | [Becky Tang](https://beckytang.rbind.io/) | <a href="mailto:btang@middlebury.edu" title="email"><i class="fa fa-envelope"></i></a> &nbsp; <a href="https://github.com/beckytang" title="GitHub"><i class="fa fa-github"></i></a> | M 3:00-5:00pm; F 10:30am-12:00pm; by appointment | 
+TA | Evan Hunter | | Su 7:00-9:00pm WNS 010 | 
 
 ### Texts
 
