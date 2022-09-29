@@ -433,17 +433,22 @@ class: middle, center
 
 ---
 
-```{r include=FALSE}
+## Creating summary by `continent`
+
+```{r include= T}
 fisheries <- fisheries %>%
   mutate(aquaculture_perc = aquaculture / total)
 fisheries_summary <- fisheries %>%
   group_by(continent) %>%
   summarise(
-    min_ap  = min(aquaculture_perc),
     mean_ap = mean(aquaculture_perc),
-    max_ap  = max(aquaculture_perc)
+    min_ap = min(aquaculture_perc)
   )
+fisheries_summary
 ```
+
+
+---
 
 ## Visualize continent summary stats
 

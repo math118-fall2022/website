@@ -632,7 +632,34 @@ class: middle, center
 
 ---
 
+## Creating summary by `continent`
 
+
+```r
+fisheries &lt;- fisheries %&gt;%
+  mutate(aquaculture_perc = aquaculture / total)
+fisheries_summary &lt;- fisheries %&gt;%
+  group_by(continent) %&gt;%
+  summarise(
+    mean_ap = mean(aquaculture_perc),
+    min_ap = min(aquaculture_perc)
+  )
+fisheries_summary
+```
+
+```
+## # A tibble: 5 × 3
+##   continent mean_ap  min_ap
+##   &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt;
+## 1 Africa     0.0943 0      
+## 2 Americas   0.192  0      
+## 3 Asia       0.367  0      
+## 4 Europe     0.165  0.00682
+## 5 Oceania    0.150  0.0197
+```
+
+
+---
 
 ## Visualize continent summary stats
 

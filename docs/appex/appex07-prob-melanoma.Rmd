@@ -23,7 +23,7 @@ knitr::include_graphics("img/venn-diagram.png")
 
 ## Clone a repo + start a new project
 
-Go to the `ae-07-[GITHUB USERNAME]` repo, clone it, and start a new project in RStudio. 
+Go to the `appex-07-[GITHUB USERNAME]` repo, clone it, and start a new project in RStudio. 
 
 ## Data
 
