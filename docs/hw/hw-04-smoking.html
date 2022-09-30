@@ -515,6 +515,8 @@ outcomes</h1>
 <li><a href="#set-up" id="toc-set-up">Set-up</a></li>
 <li><a href="#packages" id="toc-packages">Packages</a></li>
 <li><a href="#the-data" id="toc-the-data">The data</a></li>
+<li><a href="#good-coding-practice" id="toc-good-coding-practice">Good
+coding practice</a></li>
 <li><a href="#exercises" id="toc-exercises">Exercises</a></li>
 <li><a href="#submission" id="toc-submission">Submission</a></li>
 </ul>
@@ -522,15 +524,13 @@ outcomes</h1>
 
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>The goal of today’s lab is to practice visualizing and calculating
-probabilities using the tidyverse.</p>
+<p>The goal of today’s homework is to practice visualizing and
+calculating probabilities using the tidyverse.</p>
 </div>
 <div id="set-up" class="section level1">
 <h1>Set-up</h1>
-<p>Clone the <strong>hw-04-smoking</strong> assignment repo in RStudio.
-Don’t forget to configure git if you haven’t already done so:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(usethis)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">use_git_config</span>(<span class="at">user.name=</span><span class="st">&quot;your github username&quot;</span>, <span class="at">user.email=</span><span class="st">&quot;your email&quot;</span>)</span></code></pre></div>
+<p>Clone the <strong>hw-04-smoking</strong> assignment repo into GitHub
+desktop. Then open the .Rmd file in RStudio sto get started!</p>
 </div>
 <div id="packages" class="section level1">
 <h1>Packages</h1>
@@ -538,8 +538,8 @@ Don’t forget to configure git if you haven’t already done so:</p>
 <code>mosaicData</code> packages.</p>
 <p><label for="tufte-mn-1" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-1" class="margin-toggle"><span class="marginnote"><span style="display: block;">You may need to install
 the <code>mosaicData</code> package!</span></span></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mosaicData) </span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mosaicData) </span></code></pre></div>
 <p>Note that these packages are also loaded in your R Markdown
 document.</p>
 </div>
@@ -551,16 +551,25 @@ status at the start of the study, and their health outcome 20 years
 later.</p>
 <p>The data is in the <code>mosaicData</code> package. You can load it
 with</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Whickham)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Whickham)</span></code></pre></div>
 <p>Take a peek at the codebook with</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>?Whickham</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>?Whickham</span></code></pre></div>
+</div>
+<div id="good-coding-practice" class="section level1">
+<h1>Good coding practice</h1>
+<p>Please follow these coding practices in this homework and all coding
+moving forward. <strong>Your code style will be assessed according to
+the following guidelines</strong>:</p>
+<ul>
+<li>Using a new line for each <code>dplyr</code> function (lines end in
+<code>%&gt;%</code>) or <code>ggplot</code> layer (lines end in
+<code>+</code>)</li>
+<li>Indents after the new line for pipes or ggplot layers</li>
+</ul>
 </div>
 <div id="exercises" class="section level1">
 <h1>Exercises</h1>
-<p><strong>Write all R code according to the style guidelines discussed
-in class.</strong> Be especially careful about staying within the 80
-character limit, as demonstrated by your lab TAs! Don’t forget to name
-your code chunks, and commit often!</p>
+<p>Don’t forget to commit often!</p>
 <ol style="list-style-type: decimal">
 <li><p>How many observations are in this dataset? What does each
 observation represent?</p></li>
@@ -572,9 +581,10 @@ health outcome to be?</p></li>
 status and health outcome.</p></li>
 <li><p>Calculate the conditional probabilities of death for each smoking
 status, only reporting probabilities for the <code>outcome</code> of
-Dead. Briefly describe the relationship, and evaluate whether or not it
-is what you expected. Use the visualization from the previous exercise
-and the conditional probabilities to support your narrative.</p></li>
+Dead. <strong>Briefly describe the relationship, and evaluate whether or
+not it is what you expected.</strong> Use the visualization from the
+previous exercise and the conditional probabilities to support your
+narrative.</p></li>
 <li><p>Create a new variable called <code>age_cat</code> using the
 following scheme:</p>
 <ul>
@@ -587,9 +597,10 @@ by <code>age_cat</code>.</p></li>
 <li><p>Extend the table from Exercise 5 by breaking it down by age
 category.</p></li>
 <li><p>Compare the visualization from Exercise 7 and the table from
-Exercise 8 to what you previously observed in Exercises 4 and 5. What
-changed, and what might explain the change? Use the table you calculated
-in Exercise 8 to support your narrative.</p></li>
+Exercise 8 to what you previously observed in Exercises 4 and 5.
+<strong>What changed, and what might explain the change? Use the table
+you calculated in Exercise 8 to support your
+narrative.</strong></p></li>
 </ol>
 </div>
 <div id="submission" class="section level1">
