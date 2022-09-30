@@ -4,15 +4,23 @@
     <title>Scientific studies, confounding, and Simpson’s paradox</title>
     <meta charset="utf-8" />
     <meta name="author" content="Becky Tang" />
-    <link rel="stylesheet" href="sta199-slides.css" type="text/css" />
+    <meta name="date" content="2022-10-05" />
+    <script src="libs/font-awesome/header-attrs-2.16/header-attrs.js"></script>
+    <link rel="stylesheet" href="math118-slides.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # Scientific studies, confounding, and Simpson’s paradox
+]
+.author[
 ### Becky Tang
-### 06.02.2021
+]
+.date[
+### 10/05/2022
+]
 
 ---
 
@@ -33,7 +41,6 @@ layout: true
 
 ## Announcements
 
-- HW 01 - due **Today 11:59pm**
 
 
 ---
@@ -116,6 +123,21 @@ A &lt;font class="vocab"&gt;confounding&lt;/font&gt; variable is an an extraneou
 .footnote[
 Randall Munroe CC BY-NC 2.5 http://xkcd.com/552/
 ]
+
+---
+
+## Spurious correlations
+
+
+
+```r
+knitr::include_graphics("img/08/shark-icecream.png")
+```
+
+&lt;img src="img/08/shark-icecream.png" width="50%" /&gt;
+
+- https://www.tylervigen.com/spurious-correlations
+
 
 ---
 
@@ -284,13 +306,29 @@ class: center, middle
 
 ## Simpson's paradox
 
-&lt;img src="08-confounding_files/figure-html/simpsons_plot-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="09-confounding_files/figure-html/simpsons_plot-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
 ## Simpson's paradox 
 
-&lt;img src="08-confounding_files/figure-html/simpsons_plot2-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="09-confounding_files/figure-html/simpsons_plot2-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Berkeley Admissions
+
+- Study of gender bias
+
+  - We saw that men who applied were more likely than women to be admitted (44% vs 35%)
+  
+  - The difference was so large that it was unlikely to be due to chance 
+  
+--
+
+- However, the data given omitted information about the departments that the people were applying to
+
+  - We will look at the six largest departments: A, B, C, D, E, F
 
 ---
 
@@ -332,7 +370,7 @@ admissions %&gt;%
 ```
 
 ```
-## # A tibble: 4 x 4
+## # A tibble: 4 × 4
 ## # Groups:   gender [2]
 ##   gender decision     n prop_admit
 ##   &lt;chr&gt;  &lt;fct&gt;    &lt;int&gt;      &lt;dbl&gt;
@@ -346,7 +384,7 @@ admissions %&gt;%
 
 ## Overall distribution of acceptance
 
-![](08-confounding_files/figure-html/berkley_hist-1.png)&lt;!-- --&gt;
+![](09-confounding_files/figure-html/berkley_hist-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -387,29 +425,15 @@ Let's look at data from the six largest departments, labeled A-F:
 
 ---
 
-## UC Berkeley admissions: Conditional probabilities
-
-
-
-|   | women|  men|  all|
-|:--|-----:|----:|----:|
-|A  |  0.82| 0.62| 0.64|
-|B  |  0.68| 0.63| 0.63|
-|C  |  0.34| 0.37| 0.35|
-|D  |  0.35| 0.33| 0.34|
-|E  |  0.24| 0.28| 0.25|
-|F  |  0.07| 0.06| 0.06|
-
----
 
 
 ## Distribution of acceptance by department
 
-.pull_left[
+
 
 ```r
 admissions %&gt;%
-  count(department, gender, decision)
+  count(department, gender, decision) 
 ```
 
 ```
@@ -439,19 +463,24 @@ admissions %&gt;%
 ## 23          F   male     deny 351
 ## 24          F   male    admit  22
 ```
-]
 
-.pull_right[
+---
+
+
+
+## Distribution of acceptance by department
+
+
 
 ```r
 admissions %&gt;%
   count(department, gender, decision) %&gt;%
-  group_by(department, gender) %&gt;%
+* group_by(department, gender) %&gt;%
   mutate(prop_admit = n / sum(n)) 
 ```
 
 ```
-## # A tibble: 24 x 5
+## # A tibble: 24 × 5
 ## # Groups:   department, gender [12]
 ##    department gender decision     n prop_admit
 ##    &lt;fct&gt;      &lt;chr&gt;  &lt;fct&gt;    &lt;int&gt;      &lt;dbl&gt;
@@ -467,13 +496,6 @@ admissions %&gt;%
 ## 10 C          female admit      202      0.341
 ## # … with 14 more rows
 ```
-]
-
-&lt;br&gt;
-
-.question[
-  What type of visualization would be appropriate for representing this data?
-]
 
 ---
 
@@ -481,7 +503,7 @@ admissions %&gt;%
 
 ## Distribution of acceptance by department
 
-![](08-confounding_files/figure-html/berkley_hist_facet-1.png)&lt;!-- --&gt;
+![](09-confounding_files/figure-html/berkley_hist_facet-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -515,6 +537,8 @@ admissions %&gt;%
 .footnote[
   [https://homepage.stat.uiowa.edu/~mbognar/1030/Bickel-Berkeley.pdf](https://homepage.stat.uiowa.edu/~mbognar/1030/Bickel-Berkeley.pdf)
 ]
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
@@ -564,6 +588,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable

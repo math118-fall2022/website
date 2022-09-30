@@ -1,7 +1,7 @@
 ---
-title: "AE 07: Alinity COVID-19 Test"
+title: "AE 09: Alinity COVID-19 Test"
 name: "Your name"
-date: "05.27.2021"
+date: "10/03/2022"
 output: 
   html_document:
     theme: readable
@@ -9,16 +9,7 @@ output:
 
 ## Clone a repo + start a new project
 
-Go to the `ae-07-[GITHUB USERNAME]` repo, clone it, and start a new project in RStudio. 
-
-## Configure git
-
-Run the following code to configure Git. Fill in your GitHub username and the email address associated with your GitHub account. 
-
-```{r eval=FALSE}
-library(usethis)
-use_git_config(user.name = "your github username", user.email ="your email")
-```
+Go to the `appex-07-[GITHUB USERNAME]` repo, clone it, and start a new project in RStudio. 
 
 ```{r load-packages, warning = FALSE, message = FALSE}
 library(tidyverse)
@@ -28,22 +19,18 @@ library(tidyverse)
 
 ## Warm-up
 
-Suppose in a class that 30% of students were Pratt students and 70% were 
-Trinity. 10% of Pratt students are vegetarian and 5% of Trinity students are 
-vegetarian. 
+Suppose in a class that 80% of the students identified as male and 20% identify as female. 60% of the male students are Econ majors and 80% of the female students are Econ majors. 
 
 ### Exercise 1
 
-What is the probability that a randomly selected student in this class is 
-vegetarian?
+What is the probability that a randomly selected student in this class is an Econ major?
 
 ```{r ex-1}
 ```
 
 ### Exercise 2
 
-Given that a student is vegetarian, what is the probability that they are in 
-Pratt?
+Given that a student is an Econ major, what is the probability that they are male?
 
 ```{r ex-2}
 ```
@@ -51,14 +38,14 @@ Pratt?
 ## The Abbott Alinity Test
 
 The global coronavirus pandemic illustrates the need for accurate testing of 
-COVID-19, as its extreme infectivity poses a significant public health threat. 
-Due to the time-sensitive nature of the situation, the FDA has enacted emergency 
+COVID-19, as its extreme infection rate poses a significant public health threat. 
+Due to the time-sensitive nature of the situation, the FDA enacted emergency 
 authorization of a number of serological tests for COVID-19. Full details of 
 these tests may be found on its website 
 [here](https://www.fda.gov/medical-devices/coronavirus-disease-2019-covid-19-emergency-use-authorizations-medical-devices/eua-authorized-serology-test-performance).
 
 The Abbott Alinity test has an estimated sensitivity of 100% and specificity of 
-99%. Recall from lecture: $D$ is the event that a patient has the disease, and let $T$ is the event that the test is positive for that disease.
+99%. Let $D$ be the event that a patient has the disease, and let $T$ be the event that the test is positive for that disease.
 
 - Prevalence: $P(D)$
 - Sensitivity: $P(T | D)$
