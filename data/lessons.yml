@@ -58,6 +58,8 @@ lessons:
  - date: "Week 04"
  - date: "Monday, Oct. 3"
    title: "Conditional Probability"
+   slides: "lec-slides/08-conditional-probability.html"
+   appex: "appex08-alinity.html"
  - date: "Tuesday, Oct. 4"
    title: "HW 03 due at 11:59pm"
  - date: "Wednesday, Oct. 5"
