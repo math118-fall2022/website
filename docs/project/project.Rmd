@@ -2,17 +2,18 @@
 title: "Be a data scientist!"
 output: 
     html_document: 
-     css: "./sta199-hw.css"
      toc: true
      toc_float: true
      fig_caption: false
 ---
 
-Proposals due **Friday, July 9 at 11:59pm**
+Proposals due **Friday, November 18 at 11:59pm**
 
-Report, slides, and repository due **Tuesday, July 20 at 11:59pm**
+Draft component due **Friday, December 2 at 11:59pm**
 
-Presentations will occur on **Wednesday, July 21 and Thursday, July 22 during class**
+Report, slides, and repository due **Thursday, December 8 at 11:59pm**
+
+Presentations will occur on **Friday, December 9 and Monday, December 12 during class**
 
 # Introduction
 
@@ -27,13 +28,17 @@ courses or research projects. The goal of this project is for you to demonstrate
 proficiency in the techniques we have covered in this class (and beyond, if you 
 like) and apply them to a dataset in a meaningful way.
 
+This project is *partner-optional*. The partners may be self-selected or randomly selected.
+If you selft-select a partner, one of you should e-mail me and CC your partner on the e-mail by **Sunday, November 6 at 11:59pm**. If you would like a random partner, please e-mail me  by **Sunday, November 6 at 11:59pm**. I will let you know who your partner is by Monday, November 7 at 11:59pm.
+
 # Brief project logistics
 
 
-The four deliverables for the final project are
+The five deliverables for the final project are
 
 - A written proposal detailing the data you chose, along with some EDA and at least
 two questions you are interested in answering
+- A draft of one component of the final report that you would like feedback on
 - A written, reproducible report detailing your analysis
 - A GitHub repository corresponding to your report
 - A brief set of slides that correspond to your intended oral presentation 
@@ -42,9 +47,10 @@ two questions you are interested in answering
 
 The grade breakdown is as follows:
 
-Total                                                   | 125 pts
+Total                                                   | 135 pts
 --------------------------------------------------------|--------
 **Proposal**                                            | 15 pts
+**Draft component**                                     | 10 pts
 **Written report**                                      | 60 pts
 **Slides**                                              | 15 pts
 **Repository**                                          | 5 pts
@@ -112,7 +118,14 @@ explore. You must include some EDA (ex. univariate or bivariate plots,
 tables of summary statistics, etc), and you must also list at least two questions that you are interested in answering using the data.
 
 There is no page limit or requirement. For submission, submit the .pdf document
-to Gradescope by Friday, July 9 at 11:59pm. The main purpose of this component of the project is to help you get started, and so Becky can give feedback/suggestions about the data and questions of interest.
+to Canvas by Friday, November 18 at 11:59pm. The main purpose of this component of the project is to help you get started, and so Professor Tang can give feedback/suggestions about the data and questions of interest.
+
+## Draft component
+
+For this portion, you should turn in a draft of *one* component of your written report (see below). This should be done using R Markdown. Ideally, you would submit a draft for
+a component you would like to get feedback on. For submission, submit the .pdf document
+to Canvas by Friday, December 2 at 11:59pm. This will be the main opportunity
+to receive guidance from Professor Tang.
 
 ## Written report
 
@@ -126,7 +139,7 @@ components of the report are as follows, but feel free to expand with additional
 sections as necessary. There is no page limit or requirement -- however, you
 must comprehensively address all aspects below. Please be judicious in what you
 decide to include in your final write-up. For submission, submit the .pdf document
-to Gradescope.
+to Canvas.
 
 The written report is worth 60 points, broken down as
 
@@ -185,9 +198,7 @@ that will output the proposal and final write-up in two separate documents
 - Meaningful README file on the GitHub repository that contains a *codebook*
 for relevant variables
 - Dataset(s) (in csv or RData format, in a `/data` folder)
-- Presentation (if using Keynote/PowerPoint/Google Slides, export to PDF and put 
-in repo, in a `/presentation` folder). To do this, create a folder in your file environment in
-Rstudio called `presentation` and upload the slides there.
+- Presentation (if using Keynote/PowerPoint/Google Slides, export to PDF and upload the slides to your GitHub repostiroy).
 
 Style and format does count for this assignment, so please take the time to make 
 sure everything looks good and your data and code are properly formatted.
@@ -198,61 +209,17 @@ In addition to the write-up, you must also create presentation
 slides that summarize and showcase your project. Introduce your research question 
 and dataset, showcase visualizations, and provide some conclusions. These slides
 should serve as a brief visual accompaniment to your write-up and will be graded 
-for content and quality. They can also be used for your Presentation. For submission, convert these slides to a .pdf document
-to be submitted to Gradescope.
+for content and quality. They can also be used for your Presentation. For submission, convert these slides to a .pdf document and upload them to Canvas.
 
 
 ## Presentation
 
-On the last two days of class, **Wednesday, July 21 and Thursday, July 22 during class**, everyone will present their projects. There will be a seven-minute time limit for each presentation followed by three minutes for questions, for a total of ten-minutes per presentation. You may, and should, use the slides as detailed in the previous section during your presentation.
+On the last two days of class, everyone will present their projects. There will be a seven-minute time limit for each presentation followed by three minutes for questions, for a total of ten-minutes per presentation. You may, and should, use the slides as detailed in the previous section during your presentation.
 
 ## Participation
 
 You are expected to attend both days of presentations, and be actively engaged by
 asking questions and providing feedback.
-
-
-# Asynchronous options
-
-If you cannot attend or give presentations due to taking the course asynchronously, you must let Becky know by **Monday, July 12 at 11:59pm**. Note that only 
-students who enrolled in the asynchornous section of the course may take this option.
-
-You will still be required to complete the final project. The details of the proposal, written report, slides, repository, and overall neatness/presentation style are the same as for the synchronous students. The presentation and participation will be slightly modified as follows:
-
-## Presentation
-
-You will be required to upload a 7-minute video presentation by **Wednesday, July 21 at 10:15am EST**. You will receive questions and feedback from Becky, and you must respond to the questions by e-mail within 24 hours of receiving them. You will post the presentation video in Warpwire, which is accessible from the 
-the course Sakai site (bottom of the left-hand tool bar).
-
-### To post your video on Warpwire:
-
-- Click the Warpwire tab in the course Sakai site.
-- Click the “+” and select “Upload files”.
-- Locate the video on your computer and click to upload.
-- Once you’ve uploaded the video to Warpwire, click to share the video and make
-a copy of the video’s URL. You will need this when you submit the video.
-
-### To post the video for assignment:
-
-- Click the Assignments tab in the course Sakai site.
-- Click the Project assignment.
-- Click the Warpwire icon (between the flag and shopping cart icons). Select your video, then click “Insert 1 item.” This will embed your video in the conversation.
-Under the video, paste the URL to your video.
-- You’re done!
-
-
-For the presentation, you can speak over your slide deck, similar to the lecture 
-content videos. I recommend using Zoom to record your presentation; however, you 
-can use whatever platform works best for your group. Below are a few resources 
-to help you record video presentations:
-
-- [Recording presentations in Zoom](https://kb.siue.edu/61721)
-- [Apple Quicktime for screen recording]( https://support.apple.com/en-gb/guide/quicktime-player/qtp97b08e666/mac)
-- [Windows 10 built-in screen recording functionality](https://www.youtube.com/watch?v=OfPbr1mRDuo)
-## Participation
-
-You are expected to watch each day's recorded lecture/presentations. For each day
-of live presentations, you are required to submit feedback/questions via a provided form by 11:59pm of that night. For example, for presentations that take place on Wednesday, July 21, you should submit the feedback by 11:59pm Wednesday, July 21.
 
 
 # Overall notes

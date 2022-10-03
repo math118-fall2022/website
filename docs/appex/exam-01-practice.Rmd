@@ -1,0 +1,39 @@
+---
+title: "Exam 01 Practice"
+author: "your name"
+output:
+  pdf_document: default
+---
+
+## Middlebury Honor Code pledge: I, ________ , have neither given nor received unauthorized aid on this assignment.
+
+## Packages
+
+In addition to `tidyverse `, you will need the `nycflights13` package for the data. You will need to load these packages.
+
+```{r}
+# load packages here
+```
+
+## The data
+
+The `nycflights13` package contains information about all flights that departed from NYC (e.g. EWR, JFK and LGA) in 2013. The main data is in the `flights` data frame, but there are additional data sets which could be used to help understand what causes delay. These datasets are...
+
+* `planes`: construction information about each plane
+* `airports`: airport names and locations
+* `airlines`: translation between two letter carrier codes and names
+
+## Question 1
+
+## Question 2
+
+## Question 3
+
+## Question 4
+
+## Question 5
+
+## Question 6
+
+
+

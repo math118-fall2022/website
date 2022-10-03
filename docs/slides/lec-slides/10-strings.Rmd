@@ -1,11 +1,11 @@
 ---
 title: "Strings"
 author: "Becky Tang"
-date: "07.08.2021"
+date: "10/7/22"
 output:
   xaringan::moon_reader:
     mathjax: "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML"
-    css: "sta199-slides.css"
+    css: "math118-slides.css"
     logo: img/sta199-sticker-icon.png
     lib_dir: libs/font-awesome
     nature:
@@ -100,15 +100,47 @@ Character strings in R are defined by double quotation marks.
 They can include letters, numbers, punctuation, whitespace, etc.
 
 ```{r}
-string1 <- "STA 199 is my favorite class."
+string1 <- "MATH 118 is my favorite class."
 string1
 ```
 
-You can combine character strings in a vector.
+You can combine character strings in a **vector**.
 
 ```{r}
-string2 <- c("STA 199", "Data Science", "Duke")
+string2 <- c("MATH 118", "Data Science", "Middlebury")
 string2
+```
+
+---
+
+## To quote or not to quote?
+
+```{r eval = F}
+datascience %>%
+  filter(Major == "Computer Science")
+```
+
+Why does `Major` not have quotes, but `"Computer Science"` does?
+
+--
+
+- If you do not use quotes, R assumes you are referring to the name of an object
+
+- If you use quotes, R assumes you are simply entering a character string 
+
+---
+
+## To quote or not to quote?
+
+```{r}
+#This defines an object 
+object_name <- 2
+
+# This is the name of an object
+object_name
+
+# This is a character string
+"object_name"
 ```
 
 ---
@@ -149,26 +181,6 @@ string5 <- "\\"
 
 This may seem tedious but it will come up later!
 
----
-
-## `writeLines`
-
-`writeLines` shows the contents of the string not
-including escapes.
-
-.pull-left[
-```{r}
-string4
-writeLines(string4)
-```
-]
-.pull-right[
-```{r}
-string5
-writeLines(string5)
-```
-]
-
 
 ---
 
@@ -190,7 +202,7 @@ Given a string, return the number of characters.
 
 .midi[
 ```{r}
-string1 <- "STA 199 is my favorite class."
+string1 <- "Math 118 is my favorite class."
 str_length(string1)
 ```
 ]
@@ -226,7 +238,7 @@ str_length(states)
 Combine two or more strings.
 
 ```{r}
-str_c("STA 199", "is", "my", "favorite", "class")
+str_c("Math 118", "is", "my", "favorite", "class")
 ```
 
 
@@ -235,9 +247,12 @@ str_c("STA 199", "is", "my", "favorite", "class")
 Use `sep` to specify how the strings are separated.
 
 ```{r}
-str_c("STA 199", "is", "my", "favorite", "class", sep = " ")
+str_c("Math 119", "is", "my", "favorite", "class", sep = "-")
 ```
 
+```{r}
+str_c("Math 119", "is", "my", "favorite", "class", sep = " ")
+```
 
 ---
 
@@ -256,7 +271,7 @@ str_to_upper(states)
 
 ## `str_sub`
 
-Extract parts of a string from `start` to `end`, inclusive.
+Extract subsets (parts) of a string from `start` to `end`, inclusive.
 
 .midi[
 ```{r}
@@ -280,23 +295,41 @@ str_sub(states, -4, -1)
 Can combine `str_sub` and `str_to_upper` to capitalize each state.
 
 .midi[
-```{r}
+```{r eval = F}
 str_sub(states, 1, 1) <- str_to_upper(str_sub(states, 1, 1))
-states
 ```
 ]
+
+.question[What is this code doing?]
+
+--
+```{r echo = F}
+str_sub(states, 1, 1) <- str_to_upper(str_sub(states, 1, 1))
+```
+
+```{r}
+states
+```
 
 ---
 
 ## `str_sort`
 
-Sort a string. Here we sort in decreasing alphabetical order.
+.question[What do we think this code is doing?]
 
 .midi[
-```{r}
+```{r eval = F}
 str_sort(states, decreasing = TRUE)
 ```
 ]
+
+--
+
+Sort a vector of strings, in decreasing alphabetical order.
+
+```{r echo = F}
+str_sort(states, decreasing = TRUE)
+```
 
 ---
 
@@ -319,9 +352,8 @@ To demonstrate, we will use a vector of all of the states bordering North
 Carolina.
 
 ```{r}
-nc_states <- c("North Carolina", "South Carolina", 
-               "Virginia", "Tennessee", "Georgia")
-nc_states
+vt_neighbors <- c("Vermont", "New York", "Massachusetts", "New Hampshire")
+vt_neighbors
 ```
 
 ---
@@ -332,7 +364,7 @@ We can match exactly.
 
 
 ```{r}
-str_view_all(nc_states, "in")
+str_view_all(vt_neighbors, "ew")
 ```
 
 
@@ -344,7 +376,17 @@ Match any character using `.`
 
 
 ```{r}
-str_view_all(nc_states, "i.")
+str_view_all(vt_neighbors, "e.")
+```
+
+---
+
+## Extract matches
+
+Pulls the match (if it exist) from each element in the character
+
+```{r}
+str_extract(vt_neighbors, "New")
 ```
 
 ---
@@ -354,7 +396,7 @@ str_view_all(nc_states, "i.")
 Match the start of a string using `^`
 
 ```{r}
-str_view_all(nc_states, "^G")
+str_view_all(vt_neighbors, "^V")
 ```
 
 ---
@@ -365,7 +407,7 @@ Match the end of a string using `$`
 
 
 ```{r}
-str_view_all(nc_states, "a$")
+str_view_all(vt_neighbors, "s$")
 ```
 
 ---
@@ -375,8 +417,8 @@ str_view_all(nc_states, "a$")
 Determine if a character vector matches a pattern.
 
 ```{r}
-nc_states
-str_detect(nc_states, "a")
+vt_neighbors
+str_detect(vt_neighbors, "a")
 ```
 
 
@@ -384,10 +426,10 @@ str_detect(nc_states, "a")
 
 ## `str_subset`
 
-Select elements that match a pattern.
+Select elements from the character vector that match a pattern.
 
 ```{r}
-str_subset(nc_states, "e$")
+str_subset(vt_neighbors, "e$")
 ```
 
 
@@ -399,8 +441,8 @@ How many matches are there in a string?
 
 
 ```{r}
-nc_states
-str_count(nc_states, "a")
+vt_neighbors
+str_count(vt_neighbors, "a")
 ```
 
 
@@ -412,7 +454,7 @@ Replace first match with new strings.
 
 
 ```{r}
-str_replace(nc_states, "a", "-")
+str_replace(vt_neighbors, "s", "-")
 ```
 
 
@@ -423,9 +465,18 @@ str_replace(nc_states, "a", "-")
 Replace all matches with new strings.
 
 ```{r}
-str_replace_all(nc_states, "a", "-")
+str_replace_all(vt_neighbors, "s", "-")
 ```
 
+--
+
+Don't forget to save results:
+
+```{r}
+vt_neighbors
+vt_neighbors_replaced <- str_replace_all(vt_neighbors, "s", "-")
+vt_neighbors_replaced
+```
 
 
 ---
@@ -434,7 +485,8 @@ str_replace_all(nc_states, "a", "-")
 
 The regular expressions below match more than one character.
 
-- Match any digit using `\d` or `[[:digit:]]`
+- Match any single digit using `\d` or `[[:digit:]]`
+- Match all digits using `\d+` or `[[:digit:]]+`
 - Match any whitespace using `\s` or `[[:space:]]`
 - Match f, g, or h using `[fgh]` 
 - Match anything but f, g, or h using `[^fgh]`
@@ -444,6 +496,29 @@ The regular expressions below match more than one character.
 
 Remember these are regular expressions! To match digits you'll need to *escape*
 the string, so use `"\\d"`, not `"\d"`
+
+---
+
+## Working within pipeline
+
+```{r echo = F}
+vt_df <- data.frame(state = vt_neighbors, state_code = c("VT", "NY", "MA", "NH"))
+```
+
+```{r}
+vt_df %>%
+  mutate(state_code = str_to_lower(state_code))
+```
+
+---
+
+## Working within pipeline
+
+```{r}
+vt_df %>%
+  mutate(state = str_replace_all(state, "[ea]", "-"))
+```
+
 
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: "AE 09: Alinity COVID-19 Test"
+title: "AE 08: Alinity COVID-19 Test"
 name: "Your name"
 date: "10/03/2022"
 output: 
@@ -9,7 +9,7 @@ output:
 
 ## Clone a repo + start a new project
 
-Go to the `appex-07-[GITHUB USERNAME]` repo, clone it, and start a new project in RStudio. 
+Go to the `appex-08-[GITHUB USERNAME]` repo, clone it, and start a new project in RStudio. 
 
 ```{r load-packages, warning = FALSE, message = FALSE}
 library(tidyverse)

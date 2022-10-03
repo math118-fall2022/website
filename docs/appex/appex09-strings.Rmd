@@ -1,0 +1,76 @@
+---
+title: "AE 09: Strings"
+name: "Your name"
+output: html_document
+date: "10/07/2022"
+---
+
+
+
+## Clone a repo + start a new project
+
+Go to the `appex-09-[GITHUB USERNAME]` repo, clone it, and start a new project in RStudio. 
+
+```{r setup, warning=FALSE, message = F}
+library(tidyverse)
+addresses <- c("24 Merchants Row", "30 Seymour St.", "3 Mill St.", "111 Maple St.", "7 Bakery Ln.")
+```
+
+### Exercise 1
+
+Create your own string vector called `name_parts` which holds at least two elements: your first name, your middle name (if you have one), and your last name. Please type them all in **lowercase** letters.
+
+```{r}
+```
+
+### Exercise 2
+
+Combine the elements of `name_parts` into a single string separated by spaces. Name this new string `my_name`.
+
+```{r ex2}
+
+```
+
+### Exercise 3
+
+Capitilize the first letter of each character in `my_name`.
+
+```{r ex3}
+
+```
+
+Now we will work a vector called `addresses`:
+
+```{r addresses}
+addresses
+```
+
+### Exercise 4
+
+Obtain the number of characters in each string of `addresses`.
+
+```{r ex4}
+
+
+```
+
+### Exercise 5
+
+Select the elements from `addresses` that end in "St.".
+
+```{r ex5}
+
+```
+
+### Exercise 6: Optional stretch goal!
+
+Pull or access only the numeric part of `addresses` (i.e. the entire address number for each element).
+
+```{r ex6}
+
+```
+
+
+
+
+

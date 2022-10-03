@@ -4,20 +4,27 @@
     <title>Strings</title>
     <meta charset="utf-8" />
     <meta name="author" content="Becky Tang" />
+    <script src="libs/font-awesome/header-attrs/header-attrs.js"></script>
     <link href="libs/font-awesome/font-awesome/css/all.css" rel="stylesheet" />
     <link href="libs/font-awesome/font-awesome/css/v4-shims.css" rel="stylesheet" />
     <script src="libs/font-awesome/htmlwidgets/htmlwidgets.js"></script>
     <link href="libs/font-awesome/str_view/str_view.css" rel="stylesheet" />
     <script src="libs/font-awesome/str_view-binding/str_view.js"></script>
-    <link rel="stylesheet" href="sta199-slides.css" type="text/css" />
+    <link rel="stylesheet" href="math118-slides.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # Strings
+]
+.author[
 ### Becky Tang
-### 07.08.2021
+]
+.date[
+### 10/7/22
+]
 
 ---
 
@@ -66,24 +73,68 @@ They can include letters, numbers, punctuation, whitespace, etc.
 
 
 ```r
-string1 &lt;- "STA 199 is my favorite class."
+string1 &lt;- "MATH 118 is my favorite class."
 string1
 ```
 
 ```
-## [1] "STA 199 is my favorite class."
+## [1] "MATH 118 is my favorite class."
 ```
 
-You can combine character strings in a vector.
+You can combine character strings in a **vector**.
 
 
 ```r
-string2 &lt;- c("STA 199", "Data Science", "Duke")
+string2 &lt;- c("MATH 118", "Data Science", "Middlebury")
 string2
 ```
 
 ```
-## [1] "STA 199"      "Data Science" "Duke"
+## [1] "MATH 118"     "Data Science" "Middlebury"
+```
+
+---
+
+## To quote or not to quote?
+
+
+```r
+datascience %&gt;%
+  filter(Major == "Computer Science")
+```
+
+Why does `Major` not have quotes, but `"Computer Science"` does?
+
+--
+
+- If you do not use quotes, R assumes you are referring to the name of an object
+
+- If you use quotes, R assumes you are simply entering a character string 
+
+---
+
+## To quote or not to quote?
+
+
+```r
+#This defines an object 
+object_name &lt;- 2
+
+# This is the name of an object
+object_name
+```
+
+```
+## [1] 2
+```
+
+```r
+# This is a character string
+"object_name"
+```
+
+```
+## [1] "object_name"
 ```
 
 ---
@@ -127,50 +178,6 @@ string5 &lt;- "\\"
 
 This may seem tedious but it will come up later!
 
----
-
-## `writeLines`
-
-`writeLines` shows the contents of the string not
-including escapes.
-
-.pull-left[
-
-```r
-string4
-```
-
-```
-## [1] "I said \"Hello\" to my class."
-```
-
-```r
-writeLines(string4)
-```
-
-```
-## I said "Hello" to my class.
-```
-]
-.pull-right[
-
-```r
-string5
-```
-
-```
-## [1] "\\"
-```
-
-```r
-writeLines(string5)
-```
-
-```
-## \
-```
-]
-
 
 ---
 
@@ -210,12 +217,12 @@ Given a string, return the number of characters.
 .midi[
 
 ```r
-string1 &lt;- "STA 199 is my favorite class."
+string1 &lt;- "Math 118 is my favorite class."
 str_length(string1)
 ```
 
 ```
-## [1] 29
+## [1] 30
 ```
 ]
 
@@ -257,11 +264,11 @@ Combine two or more strings.
 
 
 ```r
-str_c("STA 199", "is", "my", "favorite", "class")
+str_c("Math 118", "is", "my", "favorite", "class")
 ```
 
 ```
-## [1] "STA 199ismyfavoriteclass"
+## [1] "Math 118ismyfavoriteclass"
 ```
 
 
@@ -271,13 +278,21 @@ Use `sep` to specify how the strings are separated.
 
 
 ```r
-str_c("STA 199", "is", "my", "favorite", "class", sep = " ")
+str_c("Math 119", "is", "my", "favorite", "class", sep = "-")
 ```
 
 ```
-## [1] "STA 199 is my favorite class"
+## [1] "Math 119-is-my-favorite-class"
 ```
 
+
+```r
+str_c("Math 119", "is", "my", "favorite", "class", sep = " ")
+```
+
+```
+## [1] "Math 119 is my favorite class"
+```
 
 ---
 
@@ -313,7 +328,7 @@ str_to_upper(states)
 
 ## `str_sub`
 
-Extract parts of a string from `start` to `end`, inclusive.
+Extract subsets (parts) of a string from `start` to `end`, inclusive.
 
 .midi[
 
@@ -358,6 +373,16 @@ Can combine `str_sub` and `str_to_upper` to capitalize each state.
 
 ```r
 str_sub(states, 1, 1) &lt;- str_to_upper(str_sub(states, 1, 1))
+```
+]
+
+.question[What is this code doing?]
+
+--
+
+
+
+```r
 states
 ```
 
@@ -376,19 +401,24 @@ states
 ## [45] "Vermont"        "Virginia"       "Washington"     "West virginia" 
 ## [49] "Wisconsin"      "Wyoming"
 ```
-]
 
 ---
 
 ## `str_sort`
 
-Sort a string. Here we sort in decreasing alphabetical order.
+.question[What do we think this code is doing?]
 
 .midi[
 
 ```r
 str_sort(states, decreasing = TRUE)
 ```
+]
+
+--
+
+Sort a vector of strings, in decreasing alphabetical order.
+
 
 ```
 ##  [1] "Wyoming"        "Wisconsin"      "West virginia"  "Washington"    
@@ -405,7 +435,6 @@ str_sort(states, decreasing = TRUE)
 ## [45] "Colorado"       "California"     "Arkansas"       "Arizona"       
 ## [49] "Alaska"         "Alabama"
 ```
-]
 
 ---
 
@@ -429,14 +458,12 @@ Carolina.
 
 
 ```r
-nc_states &lt;- c("North Carolina", "South Carolina", 
-               "Virginia", "Tennessee", "Georgia")
-nc_states
+vt_neighbors &lt;- c("Vermont", "New York", "Massachusetts", "New Hampshire")
+vt_neighbors
 ```
 
 ```
-## [1] "North Carolina" "South Carolina" "Virginia"       "Tennessee"     
-## [5] "Georgia"
+## [1] "Vermont"       "New York"      "Massachusetts" "New Hampshire"
 ```
 
 ---
@@ -448,11 +475,11 @@ We can match exactly.
 
 
 ```r
-str_view_all(nc_states, "in")
+str_view_all(vt_neighbors, "ew")
 ```
 
-<div id="htmlwidget-f09ca64ef1da94bbcf50" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f09ca64ef1da94bbcf50">{"x":{"html":"<ul>\n  <li>North Carol<span class='match'>in<\/span>a<\/li>\n  <li>South Carol<span class='match'>in<\/span>a<\/li>\n  <li>Virg<span class='match'>in<\/span>ia<\/li>\n  <li>Tennessee<\/li>\n  <li>Georgia<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-f3dff944dcbb4db0495b" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f3dff944dcbb4db0495b">{"x":{"html":"<ul>\n  <li>Vermont<\/li>\n  <li>N<span class='match'>ew<\/span> York<\/li>\n  <li>Massachusetts<\/li>\n  <li>N<span class='match'>ew<\/span> Hampshire<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 
 
 ---
@@ -464,11 +491,26 @@ Match any character using `.`
 
 
 ```r
-str_view_all(nc_states, "i.")
+str_view_all(vt_neighbors, "e.")
 ```
 
-<div id="htmlwidget-478af1ca74157e51b0c0" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-478af1ca74157e51b0c0">{"x":{"html":"<ul>\n  <li>North Carol<span class='match'>in<\/span>a<\/li>\n  <li>South Carol<span class='match'>in<\/span>a<\/li>\n  <li>V<span class='match'>ir<\/span>g<span class='match'>in<\/span><span class='match'>ia<\/span><\/li>\n  <li>Tennessee<\/li>\n  <li>Georg<span class='match'>ia<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-7e514e98b0f5bea195d4" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7e514e98b0f5bea195d4">{"x":{"html":"<ul>\n  <li>V<span class='match'>er<\/span>mont<\/li>\n  <li>N<span class='match'>ew<\/span> York<\/li>\n  <li>Massachus<span class='match'>et<\/span>ts<\/li>\n  <li>N<span class='match'>ew<\/span> Hampshire<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+
+---
+
+## Extract matches
+
+Pulls the match (if it exist) from each element in the character
+
+
+```r
+str_extract(vt_neighbors, "New")
+```
+
+```
+## [1] NA    "New" NA    "New"
+```
 
 ---
 
@@ -478,11 +520,11 @@ Match the start of a string using `^`
 
 
 ```r
-str_view_all(nc_states, "^G")
+str_view_all(vt_neighbors, "^V")
 ```
 
-<div id="htmlwidget-446c2fe5174c5a921539" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-446c2fe5174c5a921539">{"x":{"html":"<ul>\n  <li>North Carolina<\/li>\n  <li>South Carolina<\/li>\n  <li>Virginia<\/li>\n  <li>Tennessee<\/li>\n  <li><span class='match'>G<\/span>eorgia<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-51b04a08570fceda3d7a" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-51b04a08570fceda3d7a">{"x":{"html":"<ul>\n  <li><span class='match'>V<\/span>ermont<\/li>\n  <li>New York<\/li>\n  <li>Massachusetts<\/li>\n  <li>New Hampshire<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 
 ---
 
@@ -493,11 +535,11 @@ Match the end of a string using `$`
 
 
 ```r
-str_view_all(nc_states, "a$")
+str_view_all(vt_neighbors, "s$")
 ```
 
-<div id="htmlwidget-e53f5151a82638f86bfb" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e53f5151a82638f86bfb">{"x":{"html":"<ul>\n  <li>North Carolin<span class='match'>a<\/span><\/li>\n  <li>South Carolin<span class='match'>a<\/span><\/li>\n  <li>Virgini<span class='match'>a<\/span><\/li>\n  <li>Tennessee<\/li>\n  <li>Georgi<span class='match'>a<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-6e8b35595f07fbffb14f" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6e8b35595f07fbffb14f">{"x":{"html":"<ul>\n  <li>Vermont<\/li>\n  <li>New York<\/li>\n  <li>Massachusett<span class='match'>s<\/span><\/li>\n  <li>New Hampshire<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 
 ---
 
@@ -507,20 +549,19 @@ Determine if a character vector matches a pattern.
 
 
 ```r
-nc_states
+vt_neighbors
 ```
 
 ```
-## [1] "North Carolina" "South Carolina" "Virginia"       "Tennessee"     
-## [5] "Georgia"
+## [1] "Vermont"       "New York"      "Massachusetts" "New Hampshire"
 ```
 
 ```r
-str_detect(nc_states, "a")
+str_detect(vt_neighbors, "a")
 ```
 
 ```
-## [1]  TRUE  TRUE  TRUE FALSE  TRUE
+## [1] FALSE FALSE  TRUE  TRUE
 ```
 
 
@@ -528,15 +569,15 @@ str_detect(nc_states, "a")
 
 ## `str_subset`
 
-Select elements that match a pattern.
+Select elements from the character vector that match a pattern.
 
 
 ```r
-str_subset(nc_states, "e$")
+str_subset(vt_neighbors, "e$")
 ```
 
 ```
-## [1] "Tennessee"
+## [1] "New Hampshire"
 ```
 
 
@@ -549,20 +590,19 @@ How many matches are there in a string?
 
 
 ```r
-nc_states
+vt_neighbors
 ```
 
 ```
-## [1] "North Carolina" "South Carolina" "Virginia"       "Tennessee"     
-## [5] "Georgia"
+## [1] "Vermont"       "New York"      "Massachusetts" "New Hampshire"
 ```
 
 ```r
-str_count(nc_states, "a")
+str_count(vt_neighbors, "a")
 ```
 
 ```
-## [1] 2 2 1 0 1
+## [1] 0 0 2 1
 ```
 
 
@@ -575,12 +615,11 @@ Replace first match with new strings.
 
 
 ```r
-str_replace(nc_states, "a", "-")
+str_replace(vt_neighbors, "s", "-")
 ```
 
 ```
-## [1] "North C-rolina" "South C-rolina" "Virgini-"       "Tennessee"     
-## [5] "Georgi-"
+## [1] "Vermont"       "New York"      "Ma-sachusetts" "New Hamp-hire"
 ```
 
 
@@ -592,14 +631,34 @@ Replace all matches with new strings.
 
 
 ```r
-str_replace_all(nc_states, "a", "-")
+str_replace_all(vt_neighbors, "s", "-")
 ```
 
 ```
-## [1] "North C-rolin-" "South C-rolin-" "Virgini-"       "Tennessee"     
-## [5] "Georgi-"
+## [1] "Vermont"       "New York"      "Ma--achu-ett-" "New Hamp-hire"
 ```
 
+--
+
+Don't forget to save results:
+
+
+```r
+vt_neighbors
+```
+
+```
+## [1] "Vermont"       "New York"      "Massachusetts" "New Hampshire"
+```
+
+```r
+vt_neighbors_replaced &lt;- str_replace_all(vt_neighbors, "s", "-")
+vt_neighbors_replaced
+```
+
+```
+## [1] "Vermont"       "New York"      "Ma--achu-ett-" "New Hamp-hire"
+```
 
 
 ---
@@ -608,7 +667,8 @@ str_replace_all(nc_states, "a", "-")
 
 The regular expressions below match more than one character.
 
-- Match any digit using `\d` or `[[:digit:]]`
+- Match any single digit using `\d` or `[[:digit:]]`
+- Match all digits using `\d+` or `[[:digit:]]+`
 - Match any whitespace using `\s` or `[[:space:]]`
 - Match f, g, or h using `[fgh]` 
 - Match anything but f, g, or h using `[^fgh]`
@@ -618,6 +678,45 @@ The regular expressions below match more than one character.
 
 Remember these are regular expressions! To match digits you'll need to *escape*
 the string, so use `"\\d"`, not `"\d"`
+
+---
+
+## Working within pipeline
+
+
+
+
+```r
+vt_df %&gt;%
+  mutate(state_code = str_to_lower(state_code))
+```
+
+```
+##           state state_code
+## 1       Vermont         vt
+## 2      New York         ny
+## 3 Massachusetts         ma
+## 4 New Hampshire         nh
+```
+
+---
+
+## Working within pipeline
+
+
+```r
+vt_df %&gt;%
+  mutate(state = str_replace_all(state, "[ea]", "-"))
+```
+
+```
+##           state state_code
+## 1       V-rmont         VT
+## 2      N-w York         NY
+## 3 M-ss-chus-tts         MA
+## 4 N-w H-mpshir-         NH
+```
+
 
 ---
 
@@ -676,6 +775,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable
