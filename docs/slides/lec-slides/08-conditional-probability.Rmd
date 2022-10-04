@@ -306,10 +306,11 @@ What do these probabilities mean in plain English?
 
 .pull-left[
 From the FDA package insert for the Oraquick ADVANCE Rapid HIV-1/2 Antibody
-Test, 
-- Sensitivity, $P(T | D)$, is 99.3%
-- Specificity, $P(T^c | D^c)$, is 99.8%
-From CDC statistics in 2016, 14.3/100,000 Americans aged 13 or older are HIV+.
+Test:
+  - Sensitivity, $P(T | D)$, is 99.3%
+  - Specificity, $P(T^c | D^c)$, is 99.8%
+
+From CDC statistics in 2016, 14.3/100,000 = 0.000143 Americans aged 13 or older are HIV+.
 ]
 
 .pull-right[

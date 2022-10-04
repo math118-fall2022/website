@@ -1,5 +1,5 @@
 ---
-title: "08 - Demo"
+title: "Conditional Probability - Demo"
 author: "Becky Tang"
 date: "10/03/2022"
 output: html_document
@@ -9,19 +9,25 @@ output: html_document
 library(tidyverse)
 ```
 
-```{r setup}
+```{r setup, echo = F}
 coffee <- c(rep("Does not drink coffee", 6477), rep("Drinks coffee occasionally", 34152), rep("Drinks coffee regularly", 28535))
 died <- c(rep("Died", 1039), rep("Did not die", 5438), 
           rep("Died", 4440), rep("Did not die", 29712),
           rep("Died", 3601), rep("Did not die", 24934))
-coffee_data = tibble(coffee = coffee,
-                     died = died)
+coffee_data = tibble(coffee_use = coffee,
+                     status = died)
+table(coffee_data)
 ```
 
 A = died, B = does not drink coffee
 
 ```{r marginal_A}
 # P(A)
+coffee_data %>%
+  group_by(coffee_use) %>% 
+  count(died) %>%
+  mutate(n / sum(n))
+
 ```
 
 ```{r marginal_B}
@@ -36,6 +42,11 @@ A = died, B = does not drink coffee
 
 ```{r conditional_givenB}
 # P(A | B)
+
+coffee_data %>%
+  group_by(coffee_use) %>%
+  count(died) %>%
+  mutate(prop = n/sum(n))
 
 ```
 

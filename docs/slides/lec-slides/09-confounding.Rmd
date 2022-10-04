@@ -39,7 +39,17 @@ library(tidyverse)
 
 ## Announcements
 
+- HW 04 released today! Due Tuesday, October 11 at 11:59pm
 
+- No application exercise today!!
+
+- Monday, October 10:
+  
+  - Office hours change: 10:30am-12pm (instead of 3-5pm)
+  
+  - Introduce final project
+  
+  - Practice midterm
 
 ---
 

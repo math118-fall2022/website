@@ -13,7 +13,7 @@
 
 <meta name="date" content="2022-10-03" />
 
-<title>08 - Demo</title>
+<title>Conditional Probability - Demo</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -363,19 +363,18 @@ pre code {
 
 
 
-<h1 class="title toc-ignore">08 - Demo</h1>
+<h1 class="title toc-ignore">Conditional Probability - Demo</h1>
 <h4 class="author">Becky Tang</h4>
 <h4 class="date">10/03/2022</h4>
 
 </div>
 
 
-<pre class="r"><code>coffee &lt;- c(rep(&quot;Does not drink coffee&quot;, 6477), rep(&quot;Drinks coffee occasionally&quot;, 34152), rep(&quot;Drinks coffee regularly&quot;, 28535))
-died &lt;- c(rep(&quot;Died&quot;, 1039), rep(&quot;Did not die&quot;, 5438), 
-          rep(&quot;Died&quot;, 4440), rep(&quot;Did not die&quot;, 29712),
-          rep(&quot;Died&quot;, 3601), rep(&quot;Did not die&quot;, 24934))
-coffee_data = tibble(coffee = coffee,
-                     died = died)</code></pre>
+<pre><code>##                             status
+## coffee_use                   Did not die  Died
+##   Does not drink coffee             5438  1039
+##   Drinks coffee occasionally       29712  4440
+##   Drinks coffee regularly          24934  3601</code></pre>
 <p>A = died, B = does not drink coffee</p>
 <pre class="r"><code># P(A)</code></pre>
 <pre class="r"><code># P(B)</code></pre>
