@@ -1,11 +1,11 @@
 ---
 title: "Data science ethics"
 author: "Becky Tang"
-date: "06.03.2021"
+date: "10/6/22"
 output:
   xaringan::moon_reader:
     mathjax: "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML"
-    css: "sta199-slides.css"
+    css: "math118-slides.css"
     logo: img/sta199-sticker-icon.png
     lib_dir: libs/font-awesome
     nature:
@@ -69,6 +69,73 @@ library(tidyverse)
  - Privacy
 
  - Algorithmic bias
+
+---
+
+## Discuss 
+
+- Prompt: Think of a time when you have shared a photo of you and your friends to social media
+
+  - Have you ever had to crop a photo that you shared?
+  
+  - How did you decide what to crop out?
+  
+---
+
+## Activity
+
+- Crop the images as if you were uploading them to social media
+
+---
+
+
+## Discuss 
+
+- What images were challenging for you to decide how to crop?
+
+- Which images did you and your partner crop the same (or similarly)?
+
+- Which images did you and your partner crop differently?
+
+--
+
+- How might the cropping data here be biased?
+
+- How might we address these biases?
+
+---
+
+
+## Watch
+
+.center[
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Ok5sKLXqynQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+Are We Automating Racism?
+by Glad You Asked
+]
+
+---
+
+## Prompt
+
+- Using shared definition/understanding of racism, do you think the algorithm used by Twitter was responsible for prejudice, discrimination, or antagonism?
+
+--
+
+-How was the Twitter cropping algorithm trained? 
+
+- According to the video, where is a potential source of bias when training similar cropping algorithms?
+
+---
+
+## Activity
+
+- Read about how this actually played out and Twitter’s response when presented with evidence of bias in their cropping algorithm.
+
+  - Do you think Twitter’s response was appropriate?
+  
+  - What are the risks and potential harms of systems, such as social media platforms like Twitter, becoming too dependent on machine learning?
 
 ---
 
@@ -154,7 +221,7 @@ Is this visualization telling the complete story? What's missing?
 
 
 ```{r echo=FALSE, out.width = "50%"}
-  knitr::include_graphics("img/09/cigarettes3.png")
+knitr::include_graphics("img/09/cigarettes3.png")
 ```
 
 .footnote[ [How Charts Lie: Getting Smarter About Visual Information](https://wwnorton.com/books/9781324001560) ]
@@ -165,7 +232,7 @@ Is this visualization telling the complete story? What's missing?
 
 
 ```{r echo=FALSE, out.width = "70%", fig.align='center'}
-  knitr::include_graphics("img/09/cigarettes4.png")
+knitr::include_graphics("img/09/cigarettes4.png")
 ```
 
 .footnote[ [How Charts Lie: Getting Smarter About Visual Information](https://wwnorton.com/books/9781324001560) ]
