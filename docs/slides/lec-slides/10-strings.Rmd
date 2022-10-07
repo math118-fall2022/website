@@ -273,6 +273,29 @@ str_c("Math 119", "is", "my", "favorite", "class", sep = " ")
 
 ---
 
+## `str_c`
+
+Combine together the strings within a character vector using `collapse`:
+
+```{r}
+string_vec <- c("Math", "118", "is", "my", "favorite", "class")
+str_c(string_vec, collapse = "")
+```
+
+```{r}
+str_c(string_vec, collapse = " ")
+```
+
+--
+
+What happens if you don't use `collapse`?
+
+```{r}
+str_c(string_vec)
+```
+
+---
+
 ## `str_to_lower` and `str_to_upper`
 
 Convert the case of a string from lower to upper or upper to lower.
@@ -283,6 +306,15 @@ str_to_upper(states)
 ```
 ]
 
+---
+
+## `str_to_title`
+
+Converts a string into a title-cased version: converts the first character of each words to uppercase and the remaining characters in lowercase
+
+```{r}
+str_to_title("math is 188 my favorite class")
+```
 
 ---
 

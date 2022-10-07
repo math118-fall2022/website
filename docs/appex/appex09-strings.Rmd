@@ -22,20 +22,18 @@ Create your own string vector called `name_parts` which holds at least two eleme
 *Remember*: a vector is created using the `c()` function, where the components are separated by commas.
 
 ```{r}
-
 ```
 
 ### Exercise 2
 
-Combine the elements of `name_parts` into a single string separated by spaces. Name this new string `my_name`.
+Combine the elements of `name_parts` into a single string separated by spaces. Name this new string `my_name`. 
 
 ```{r ex2}
-
 ```
 
 ### Exercise 3
 
-Capitilize the first letter of each character in `my_name`.
+Capitalize the first letter of each character in `name_parts`.
 
 ```{r ex3}
 
