@@ -1,7 +1,7 @@
 ---
 title: "Data science ethics"
 author: "Becky Tang"
-date: "10/6/22"
+date: "10/12/2022"
 output:
   xaringan::moon_reader:
     mathjax: "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML"
@@ -66,76 +66,9 @@ library(tidyverse)
 
  - Misrepresenting data
 
- - Privacy
-
  - Algorithmic bias
 
----
-
-## Discuss 
-
-- Prompt: Think of a time when you have shared a photo of you and your friends to social media
-
-  - Have you ever had to crop a photo that you shared?
-  
-  - How did you decide what to crop out?
-  
----
-
-## Activity
-
-- Crop the images as if you were uploading them to social media
-
----
-
-
-## Discuss 
-
-- What images were challenging for you to decide how to crop?
-
-- Which images did you and your partner crop the same (or similarly)?
-
-- Which images did you and your partner crop differently?
-
---
-
-- How might the cropping data here be biased?
-
-- How might we address these biases?
-
----
-
-
-## Watch
-
-.center[
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Ok5sKLXqynQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-Are We Automating Racism?
-by Glad You Asked
-]
-
----
-
-## Prompt
-
-- Using shared definition/understanding of racism, do you think the algorithm used by Twitter was responsible for prejudice, discrimination, or antagonism?
-
---
-
--How was the Twitter cropping algorithm trained? 
-
-- According to the video, where is a potential source of bias when training similar cropping algorithms?
-
----
-
-## Activity
-
-- Read about how this actually played out and Twitter’s response when presented with evidence of bias in their cropping algorithm.
-
-  - Do you think Twitter’s response was appropriate?
-  
-  - What are the risks and potential harms of systems, such as social media platforms like Twitter, becoming too dependent on machine learning?
+ - Privacy
 
 ---
 
@@ -158,26 +91,6 @@ knitr::include_graphics("img/09/axis-start-at-0.png")
 
 .footnote[Ingraham, C. (2019) ["You’ve been reading charts wrong. Here’s how a pro does it."](https://www.washingtonpost.com/business/2019/10/14/youve-been-reading-charts-wrong-heres-how-pro-does-it/), The Washington Post, 14 Oct.]
 
----
-
-.question[
-Do you recognize this map? What does it show?
-]
-
-```{r echo=FALSE, out.width=650}
-knitr::include_graphics("img/09/election-2016-county.png")
-```
-
-.footnote[Gamio, L. (2016) ["Election maps are telling you big lies about small things"](https://www.washingtonpost.com/graphics/politics/2016-election/how-election-maps-lie/), The Washington Post, 1 Nov.]
-
-
----
-
-```{r echo=FALSE, out.width=900}
-  knitr::include_graphics("img/09/cairo-what-matters.png")
-```
-
-.footnote[Credit: Alberto Cairo, [Visual Trumpery talk](https://visualtrumperytour.wordpress.com/).]
 
 ---
 
@@ -239,52 +152,6 @@ knitr::include_graphics("img/09/cigarettes4.png")
 
 ---
 
-
-
-class: middle, center
-
-## Privacy
-
----
-
-## OK Cupid Data Breach
-
-- In 2016, researchers published data of 70,000 OkCupid users—including usernames, political leanings, drug usage, and intimate sexual details.
-
->"Some may object to the ethics of gathering and releasing this data. However, all the data found in the dataset are or were already publicly available, so releasing this dataset merely presents it in a more useful form.""
-> Researchers Emil Kirkegaard and Julius Daugbjerg Bjerrekær
-- Although the researchers did not release the real names and pictures of the OkCupid users, critics noted that their identities could easily be uncovered from the details provided—such as from the usernames.
-
-<br>
-
-<small>[*OKCupid Study Reveals the Perils of Big-Data Science*](https://www.wired.com/2016/05/okcupid-study-reveals-perils-big-data-science/)</small>
-
----
-
-class: middle
-
-.question[
-In analysis of data individuals willingly shared publicly on a given platform (e.g. social media data), how do you make sure you don't violate reasonable expectations of privacy?
-]
-
-```{r out.width = "70%", echo = FALSE}
-knitr::include_graphics("img/09/okcupid-tweet.png")
-```
----
-
-
-## Facebook & Cambridge Analytica
-
-```{r out.width = "60%", echo = FALSE}
-knitr::include_graphics("img/09/facebook-cambridge-analytica-explained.jpg")
-```
-
-<br>
-
-[How Cambridge Analytica turned Facebook 'likes' into a lucrative political tool](https://www.theguardian.com/technology/2018/mar/17/facebook-cambridge-analytica-kogan-data-algorithm)
-
----
-
 class: middle, center
 
 ## Algorithmic bias
@@ -336,10 +203,11 @@ knitr::include_graphics("img/09/hathaway.png")
 ## Bias in health care risk algorithm
 
 - Algorithm to target patients for “high-risk care management” programs that seek to improve the care of patients with complex health needs by providing additional resources
-- Such program are considered effective at improving outcomes and satisfaction while reducing costs, but are themselves costly -> want to identify patients who would benefit the most
+- Such program are considered effective at improving outcomes and satisfaction while reducing costs, but are themselves costly -> want to identify patients who would benefit the most 
 - Algorithm’s designers used previous patients’ health care spending as a proxy for medical need
+  - Assigned patients a "risk score", where higher risk meant more complex needs and therefore priority 
 
--- 
+--
 
 What happened: Algorithm tended to assign lower risk score to black patients
 
@@ -380,8 +248,6 @@ knitr::include_graphics("img/09/risk_illness.png")
 
 ## Bias in algorithms used for sentencing
 
---
-
 ```{r out.width = "70%"}
 knitr::include_graphics("img/09/propublica-criminal-sentencing.png")
 ```
@@ -412,7 +278,11 @@ Risk scores assigned to more than 7,000 people arrested in Broward County, Flori
 
 - 20% of those predicted to commit violent crimes actually did
 
+--
+
 - Algorithm had higher accuracy (61%) when full range of crimes taken into account (e.g. misdemeanors)
+
+--
 
 - Algorithm was more likely to falsely flag African American defendants as higher risk, at almost twice the rate as Caucasian defendants
 
@@ -428,6 +298,137 @@ class: middle, center
 Read more at 
 
 [propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing](https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing).
+
+---
+
+class: middle, center
+
+## Activity: Algorithmic Bias
+
+---
+
+## Discuss 
+
+- Prompt: Think of a time when you have shared a photo of you and your friends to social media
+
+  - Have you ever had to crop a photo that you shared?
+  
+  - How did you decide what to crop out?
+  
+---
+
+## Activity
+
+- Crop the images as if you were uploading them to social media
+
+---
+
+
+## Discuss 
+
+- What images were challenging for you to decide how to crop?
+
+- Which images did you and your partner crop the same (or similarly)?
+
+- Which images did you and your partner crop differently?
+
+--
+
+- How might the cropping data here be biased?
+
+- How might we address these biases?
+
+---
+
+
+## Watch
+
+.center[
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Ok5sKLXqynQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+Are We Automating Racism?
+by Glad You Asked
+]
+
+---
+
+## Prompt
+
+- Using shared definition/understanding of racism, do you think the algorithm used by Twitter was responsible for prejudice, discrimination, or antagonism?
+
+--
+
+- How was the Twitter cropping algorithm trained? 
+
+- According to the video, where is a potential source of bias when training similar cropping algorithms?
+
+---
+
+## Activity
+
+- Read about how this actually played out and Twitter’s response when presented with evidence of bias in their cropping algorithm.
+
+  - Do you think Twitter’s response was appropriate?
+  
+  - What are the risks and potential harms of systems, such as social media platforms like Twitter, becoming too dependent on machine learning?
+
+---
+
+## Twitter's response
+
+- Conducted a study using photos of celebrities from Wikidata
+
+--
+
+```{r out.width="70%"}
+knitr::include_graphics("img/09/twitter_findings.png")
+```
+
+.footnote[Source (and read more here): https://arxiv.org/abs/2105.08667]
+
+---
+
+class: middle, center
+
+## Privacy
+
+---
+
+## OK Cupid Data Breach
+
+- In 2016, researchers published data of 70,000 OkCupid users—including usernames, political leanings, drug usage, and intimate sexual details.
+
+>"Some may object to the ethics of gathering and releasing this data. However, all the data found in the dataset are or were already publicly available, so releasing this dataset merely presents it in a more useful form.""
+> Researchers Emil Kirkegaard and Julius Daugbjerg Bjerrekær
+- Although the researchers did not release the real names and pictures of the OkCupid users, critics noted that their identities could easily be uncovered from the details provided—such as from the usernames.
+
+<br>
+
+<small>[*OKCupid Study Reveals the Perils of Big-Data Science*](https://www.wired.com/2016/05/okcupid-study-reveals-perils-big-data-science/)</small>
+
+---
+
+class: middle
+
+.question[
+In analysis of data individuals willingly shared publicly on a given platform (e.g. social media data), how do you make sure you don't violate reasonable expectations of privacy?
+]
+
+```{r out.width = "70%", echo = FALSE}
+knitr::include_graphics("img/09/okcupid-tweet.png")
+```
+---
+
+
+## Facebook & Cambridge Analytica
+
+```{r out.width = "60%", echo = FALSE}
+knitr::include_graphics("img/09/facebook-cambridge-analytica-explained.jpg")
+```
+
+<br>
+
+[How Cambridge Analytica turned Facebook 'likes' into a lucrative political tool](https://www.theguardian.com/technology/2018/mar/17/facebook-cambridge-analytica-kogan-data-algorithm)
 
 ---
 

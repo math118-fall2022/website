@@ -66,6 +66,23 @@ states <- c("alabama", "alaska", "arizona", "arkansas", "california",
 ```
 
 
+## Housekeeping
+
+- Homework 4 due Tuesday, Oct. 11 at 11:59pm
+
+- This is an application exercise today (the last one before the midterm!)
+
+- You are welcome to come to any of my office hours next week:
+
+  - Monday: 10:30am-12:00pm
+  - Tuesday: 11:00am-12:00pm
+  - Wednesday: 10:30am-12:00pm
+
+- Please fill out this anonymous survey: https://forms.gle/jcdJhoFRUHcx4vsR9
+
+
+---
+
 class: middle, center
 
 ## `stringr`

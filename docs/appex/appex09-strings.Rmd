@@ -5,11 +5,10 @@ output: html_document
 date: "10/07/2022"
 ---
 
-
-
 ## Clone a repo + start a new project
 
 Go to the `appex-09-[GITHUB USERNAME]` repo, clone it, and start a new project in RStudio. 
+
 
 ```{r setup, warning=FALSE, message = F}
 library(tidyverse)
@@ -20,7 +19,10 @@ addresses <- c("24 Merchants Row", "30 Seymour St.", "3 Mill St.", "111 Maple St
 
 Create your own string vector called `name_parts` which holds at least two elements: your first name, your middle name (if you have one), and your last name. Please type them all in **lowercase** letters.
 
+*Remember*: a vector is created using the `c()` function, where the components are separated by commas.
+
 ```{r}
+
 ```
 
 ### Exercise 2

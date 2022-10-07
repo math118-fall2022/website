@@ -4,6 +4,7 @@
     <title>Data science ethics</title>
     <meta charset="utf-8" />
     <meta name="author" content="Becky Tang" />
+    <meta name="date" content="2022-10-12" />
     <script src="libs/font-awesome/header-attrs/header-attrs.js"></script>
     <link href="libs/font-awesome/font-awesome/css/all.css" rel="stylesheet" />
     <link href="libs/font-awesome/font-awesome/css/v4-shims.css" rel="stylesheet" />
@@ -20,7 +21,7 @@ class: center, middle, inverse, title-slide
 ### Becky Tang
 ]
 .date[
-### 10/6/22
+### 10/12/2022
 ]
 
 ---
@@ -45,9 +46,220 @@ layout: true
 
  - Misrepresenting data
 
+ - Algorithmic bias
+
  - Privacy
 
- - Algorithmic bias
+---
+
+class: middle, center
+
+## Misrepresenting data
+
+---
+
+.question[
+What is the difference between these two pictures? Which presents a better way to represent these data?
+]
+
+&lt;br&gt;
+
+&lt;img src="img/09/axis-start-at-0.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+.footnote[Ingraham, C. (2019) ["You’ve been reading charts wrong. Here’s how a pro does it."](https://www.washingtonpost.com/business/2019/10/14/youve-been-reading-charts-wrong-heres-how-pro-does-it/), The Washington Post, 14 Oct.]
+
+
+---
+
+.question[
+Is this visualization telling the complete story? What's missing?
+]
+
+&lt;img src="img/09/diminishing-return.jpg" width="50%" style="display: block; margin: auto;" /&gt;
+
+.footnote[Credit: [Statistics How To](https://www.statisticshowto.com/probability-and-statistics/descriptive-statistics/misleading-graphs/)]
+
+---
+
+.question[
+...smoking cigarettes can help you live longer?
+]
+
+&lt;img src="img/09/cigarettes1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+.footnote[ [How Charts Lie: Getting Smarter About Visual Information](https://wwnorton.com/books/9781324001560) ]
+
+---
+
+&gt; Missing information
+
+
+&lt;img src="img/09/cigarettes2.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+.footnote[ [How Charts Lie: Getting Smarter About Visual Information](https://wwnorton.com/books/9781324001560) ]
+
+---
+
+
+&gt; Simpson's paradox
+
+
+&lt;img src="img/09/cigarettes3.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+.footnote[ [How Charts Lie: Getting Smarter About Visual Information](https://wwnorton.com/books/9781324001560) ]
+
+---
+
+&gt; Individual level
+
+
+&lt;img src="img/09/cigarettes4.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+.footnote[ [How Charts Lie: Getting Smarter About Visual Information](https://wwnorton.com/books/9781324001560) ]
+
+---
+
+class: middle, center
+
+## Algorithmic bias
+
+---
+
+class: middle, center
+
+## The Hathaway Effect
+
+---
+
+&lt;img src="img/09/hathaway.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+.footnote[["Does Anne Hathaway News Drive Berkshire Hathaway's Stock?"](https://www.theatlantic.com/technology/archive/2011/03/does-anne-hathaway-news-drive-berkshire-hathaways-stock/72661/)]
+
+---
+
+## The Hathaway Effect
+
+- **Oct. 3, 2008** - Rachel Getting Married opens: .vocab[BRK.A up .44%]
+
+- **Jan. 5, 2009** - Bride Wars opens: .vocab[BRK.A up 2.61%]
+
+- **Feb. 8, 2010** - Valentine’s Day opens: .vocab[BRK.A up 1.01%]
+
+- **March 5, 2010** - Alice in Wonderland opens: .vocab[BRK.A up .74%]
+
+- **Nov. 24, 2010** - Love and Other Drugs opens: .vocab[BRK.A up 1.62%]
+
+- **Nov. 29, 2010** - Anne announced as co-host of the Oscars: .vocab[BRK.A up .25%]
+
+.footnote[[The Hathaway Effect: How Anne Gives Warren Buffet a Rise](https://www.huffpost.com/entry/the-hathaway-effect-how-a_b_830041)]
+---
+
+## Amazon's experimental hiring algorithm
+
+- Used AI to give job candidates scores ranging from one to five stars - much like shoppers rate products on Amazon, some of the people said
+- Company realized its new system was not rating candidates for software developer jobs and other technical posts in a gender-neutral way
+- Amazon’s system taught itself that male candidates were preferable
+
+&gt;Gender bias was not the only issue. Problems with the data that underpinned the models’ judgments meant that unqualified candidates were often recommended for all manner of jobs, the people said.
+.footnote[Dastin, J. (2018) [Amazon scraps secret AI recruiting tool that showed bias against women](https://reut.rs/2Od9fPr), Reuters, 10 Oct.]
+
+---
+
+## Bias in health care risk algorithm
+
+- Algorithm to target patients for “high-risk care management” programs that seek to improve the care of patients with complex health needs by providing additional resources
+- Such program are considered effective at improving outcomes and satisfaction while reducing costs, but are themselves costly -&gt; want to identify patients who would benefit the most 
+- Algorithm’s designers used previous patients’ health care spending as a proxy for medical need
+  - Assigned patients a "risk score", where higher risk meant more complex needs and therefore priority 
+
+--
+
+What happened: Algorithm tended to assign lower risk score to black patients
+
+Obermeyer, Z., Powers, B., Vogeli, C., &amp; Mullainathan, S. (2019). [Dissecting racial bias in an algorithm used to manage the health of populations](https://science.sciencemag.org/content/366/6464/447/tab-figures-data), Science.
+---
+
+## Bias in health care risk algorithm
+
+&lt;img src="img/09/illness_expenditure.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+&gt; Issue: health care spending does not equal need. 
+
+---
+
+## Bias in health care risk algorithm
+
+.pull-left[
+&lt;img src="img/09/risk_expenditure.png" width="70%" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+&lt;img src="img/09/risk_illness.png" width="70%" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+&gt; Even though black patients tend to have more severe medical conditions, algorithm is built to predict health care costs rather than illness
+
+
+---
+
+
+## Bias in algorithms used for sentencing
+
+&lt;img src="img/09/propublica-criminal-sentencing.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+There’s software used across the country to predict future criminal activity. And it's biased...
+
+[Pro Publica, May 23, 2016](https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing)
+
+---
+
+class: middle
+
+&gt;“Although these measures were crafted with the best of intentions, I am concerned that they inadvertently undermine our efforts to ensure individualized and equal justice,” he said, adding, “they may exacerbate unwarranted and unjust disparities that are already far too common in our criminal justice system and in our society.”
+&gt; Then  U.S. Attorney General Eric Holder (2014)
+---
+
+## ProPublica analysis
+
+.vocab[Data:]
+
+Risk scores assigned to more than 7,000 people arrested in Broward County, Florida, in 2013 and 2014 + whether they were charged with new crimes over the next two years
+
+---
+
+## ProPublica analysis
+
+.vocab[Results:]
+
+- 20% of those predicted to commit violent crimes actually did
+
+--
+
+- Algorithm had higher accuracy (61%) when full range of crimes taken into account (e.g. misdemeanors)
+
+--
+
+- Algorithm was more likely to falsely flag African American defendants as higher risk, at almost twice the rate as Caucasian defendants
+
+&lt;img src="img/09/propublica-results.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+class: middle, center 
+
+Read more at 
+
+[propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing](https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing).
+
+---
+
+class: middle, center
+
+## Activity: Algorithmic Bias
 
 ---
 
@@ -102,7 +314,7 @@ by Glad You Asked
 
 --
 
--How was the Twitter cropping algorithm trained? 
+- How was the Twitter cropping algorithm trained? 
 
 - According to the video, where is a potential source of bias when training similar cropping algorithms?
 
@@ -118,91 +330,17 @@ by Glad You Asked
 
 ---
 
-class: middle, center
+## Twitter's response
 
-## Misrepresenting data
+- Conducted a study using photos of celebrities from Wikidata
 
----
+--
 
-.question[
-What is the difference between these two pictures? Which presents a better way to represent these data?
-]
+&lt;img src="img/09/twitter_findings.png" width="70%" style="display: block; margin: auto;" /&gt;
 
-&lt;br&gt;
-
-&lt;img src="img/09/axis-start-at-0.png" width="80%" style="display: block; margin: auto;" /&gt;
-
-
-.footnote[Ingraham, C. (2019) ["You’ve been reading charts wrong. Here’s how a pro does it."](https://www.washingtonpost.com/business/2019/10/14/youve-been-reading-charts-wrong-heres-how-pro-does-it/), The Washington Post, 14 Oct.]
+.footnote[Source (and read more here): https://arxiv.org/abs/2105.08667]
 
 ---
-
-.question[
-Do you recognize this map? What does it show?
-]
-
-&lt;img src="img/09/election-2016-county.png" width="650" style="display: block; margin: auto;" /&gt;
-
-.footnote[Gamio, L. (2016) ["Election maps are telling you big lies about small things"](https://www.washingtonpost.com/graphics/politics/2016-election/how-election-maps-lie/), The Washington Post, 1 Nov.]
-
-
----
-
-&lt;img src="img/09/cairo-what-matters.png" width="900" style="display: block; margin: auto;" /&gt;
-
-.footnote[Credit: Alberto Cairo, [Visual Trumpery talk](https://visualtrumperytour.wordpress.com/).]
-
----
-
-.question[
-Is this visualization telling the complete story? What's missing?
-]
-
-&lt;img src="img/09/diminishing-return.jpg" width="50%" style="display: block; margin: auto;" /&gt;
-
-.footnote[Credit: [Statistics How To](https://www.statisticshowto.com/probability-and-statistics/descriptive-statistics/misleading-graphs/)]
-
----
-
-.question[
-...smoking cigarettes can help you live longer?
-]
-
-&lt;img src="img/09/cigarettes1.png" width="50%" style="display: block; margin: auto;" /&gt;
-
-.footnote[ [How Charts Lie: Getting Smarter About Visual Information](https://wwnorton.com/books/9781324001560) ]
-
----
-
-&gt; Missing information
-
-
-&lt;img src="img/09/cigarettes2.png" width="50%" style="display: block; margin: auto;" /&gt;
-
-.footnote[ [How Charts Lie: Getting Smarter About Visual Information](https://wwnorton.com/books/9781324001560) ]
-
----
-
-
-&gt; Simpson's paradox
-
-
-&lt;img src="img/09/cigarettes3.png" width="50%" style="display: block; margin: auto;" /&gt;
-
-.footnote[ [How Charts Lie: Getting Smarter About Visual Information](https://wwnorton.com/books/9781324001560) ]
-
----
-
-&gt; Individual level
-
-
-&lt;img src="img/09/cigarettes4.png" width="70%" style="display: block; margin: auto;" /&gt;
-
-.footnote[ [How Charts Lie: Getting Smarter About Visual Information](https://wwnorton.com/books/9781324001560) ]
-
----
-
-
 
 class: middle, center
 
@@ -241,140 +379,6 @@ In analysis of data individuals willingly shared publicly on a given platform (e
 &lt;br&gt;
 
 [How Cambridge Analytica turned Facebook 'likes' into a lucrative political tool](https://www.theguardian.com/technology/2018/mar/17/facebook-cambridge-analytica-kogan-data-algorithm)
-
----
-
-class: middle, center
-
-## Algorithmic bias
-
----
-
-class: middle, center
-
-## The Hathaway Effect
-
----
-
-&lt;img src="img/09/hathaway.png" width="50%" style="display: block; margin: auto;" /&gt;
-
-.footnote[["Does Anne Hathaway News Drive Berkshire Hathaway's Stock?"](https://www.theatlantic.com/technology/archive/2011/03/does-anne-hathaway-news-drive-berkshire-hathaways-stock/72661/)]
-
----
-
-## The Hathaway Effect
-
-- **Oct. 3, 2008** - Rachel Getting Married opens: .vocab[BRK.A up .44%]
-
-- **Jan. 5, 2009** - Bride Wars opens: .vocab[BRK.A up 2.61%]
-
-- **Feb. 8, 2010** - Valentine’s Day opens: .vocab[BRK.A up 1.01%]
-
-- **March 5, 2010** - Alice in Wonderland opens: .vocab[BRK.A up .74%]
-
-- **Nov. 24, 2010** - Love and Other Drugs opens: .vocab[BRK.A up 1.62%]
-
-- **Nov. 29, 2010** - Anne announced as co-host of the Oscars: .vocab[BRK.A up .25%]
-
-.footnote[[The Hathaway Effect: How Anne Gives Warren Buffet a Rise](https://www.huffpost.com/entry/the-hathaway-effect-how-a_b_830041)]
----
-
-## Amazon's experimental hiring algorithm
-
-- Used AI to give job candidates scores ranging from one to five stars - much like shoppers rate products on Amazon, some of the people said
-- Company realized its new system was not rating candidates for software developer jobs and other technical posts in a gender-neutral way
-- Amazon’s system taught itself that male candidates were preferable
-
-&gt;Gender bias was not the only issue. Problems with the data that underpinned the models’ judgments meant that unqualified candidates were often recommended for all manner of jobs, the people said.
-.footnote[Dastin, J. (2018) [Amazon scraps secret AI recruiting tool that showed bias against women](https://reut.rs/2Od9fPr), Reuters, 10 Oct.]
-
----
-
-## Bias in health care risk algorithm
-
-- Algorithm to target patients for “high-risk care management” programs that seek to improve the care of patients with complex health needs by providing additional resources
-- Such program are considered effective at improving outcomes and satisfaction while reducing costs, but are themselves costly -&gt; want to identify patients who would benefit the most
-- Algorithm’s designers used previous patients’ health care spending as a proxy for medical need
-
--- 
-
-What happened: Algorithm tended to assign lower risk score to black patients
-
-Obermeyer, Z., Powers, B., Vogeli, C., &amp; Mullainathan, S. (2019). [Dissecting racial bias in an algorithm used to manage the health of populations](https://science.sciencemag.org/content/366/6464/447/tab-figures-data), Science.
----
-
-## Bias in health care risk algorithm
-
-&lt;img src="img/09/illness_expenditure.png" width="50%" style="display: block; margin: auto;" /&gt;
-
-&gt; Issue: health care spending does not equal need. 
-
----
-
-## Bias in health care risk algorithm
-
-.pull-left[
-&lt;img src="img/09/risk_expenditure.png" width="70%" style="display: block; margin: auto;" /&gt;
-]
-
-.pull-right[
-&lt;img src="img/09/risk_illness.png" width="70%" style="display: block; margin: auto;" /&gt;
-]
-
-
-
-&gt; Even though black patients tend to have more severe medical conditions, algorithm is built to predict health care costs rather than illness
-
-
----
-
-
-## Bias in algorithms used for sentencing
-
---
-
-&lt;img src="img/09/propublica-criminal-sentencing.png" width="70%" style="display: block; margin: auto;" /&gt;
-
-There’s software used across the country to predict future criminal activity. And it's biased...
-
-[Pro Publica, May 23, 2016](https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing)
-
----
-
-class: middle
-
-&gt;“Although these measures were crafted with the best of intentions, I am concerned that they inadvertently undermine our efforts to ensure individualized and equal justice,” he said, adding, “they may exacerbate unwarranted and unjust disparities that are already far too common in our criminal justice system and in our society.”
-&gt; Then  U.S. Attorney General Eric Holder (2014)
----
-
-## ProPublica analysis
-
-.vocab[Data:]
-
-Risk scores assigned to more than 7,000 people arrested in Broward County, Florida, in 2013 and 2014 + whether they were charged with new crimes over the next two years
-
----
-
-## ProPublica analysis
-
-.vocab[Results:]
-
-- 20% of those predicted to commit violent crimes actually did
-
-- Algorithm had higher accuracy (61%) when full range of crimes taken into account (e.g. misdemeanors)
-
-- Algorithm was more likely to falsely flag African American defendants as higher risk, at almost twice the rate as Caucasian defendants
-
-&lt;img src="img/09/propublica-results.png" width="90%" style="display: block; margin: auto;" /&gt;
-
-
----
-
-class: middle, center 
-
-Read more at 
-
-[propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing](https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing).
 
 ---
 

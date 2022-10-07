@@ -37,6 +37,23 @@ class: center, middle, inverse, title-slide
 
 
 
+## Housekeeping
+
+- Homework 4 due Tuesday, Oct. 11 at 11:59pm
+
+- This is an application exercise today (the last one before the midterm!)
+
+- You are welcome to come to any of my office hours next week:
+
+  - Monday: 10:30am-12:00pm
+  - Tuesday: 11:00am-12:00pm
+  - Wednesday: 10:30am-12:00pm
+
+- Please fill out this anonymous survey: https://forms.gle/jcdJhoFRUHcx4vsR9
+
+
+---
+
 class: middle, center
 
 ## `stringr`
@@ -478,8 +495,8 @@ We can match exactly.
 str_view_all(vt_neighbors, "ew")
 ```
 
-<div id="htmlwidget-f3dff944dcbb4db0495b" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f3dff944dcbb4db0495b">{"x":{"html":"<ul>\n  <li>Vermont<\/li>\n  <li>N<span class='match'>ew<\/span> York<\/li>\n  <li>Massachusetts<\/li>\n  <li>N<span class='match'>ew<\/span> Hampshire<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-540d28bcf984021ee16b" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-540d28bcf984021ee16b">{"x":{"html":"<ul>\n  <li>Vermont<\/li>\n  <li>N<span class='match'>ew<\/span> York<\/li>\n  <li>Massachusetts<\/li>\n  <li>N<span class='match'>ew<\/span> Hampshire<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 
 
 ---
@@ -494,8 +511,8 @@ Match any character using `.`
 str_view_all(vt_neighbors, "e.")
 ```
 
-<div id="htmlwidget-7e514e98b0f5bea195d4" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7e514e98b0f5bea195d4">{"x":{"html":"<ul>\n  <li>V<span class='match'>er<\/span>mont<\/li>\n  <li>N<span class='match'>ew<\/span> York<\/li>\n  <li>Massachus<span class='match'>et<\/span>ts<\/li>\n  <li>N<span class='match'>ew<\/span> Hampshire<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-edd71e27e860824b59f6" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-edd71e27e860824b59f6">{"x":{"html":"<ul>\n  <li>V<span class='match'>er<\/span>mont<\/li>\n  <li>N<span class='match'>ew<\/span> York<\/li>\n  <li>Massachus<span class='match'>et<\/span>ts<\/li>\n  <li>N<span class='match'>ew<\/span> Hampshire<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 
 ---
 
@@ -523,8 +540,8 @@ Match the start of a string using `^`
 str_view_all(vt_neighbors, "^V")
 ```
 
-<div id="htmlwidget-51b04a08570fceda3d7a" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-51b04a08570fceda3d7a">{"x":{"html":"<ul>\n  <li><span class='match'>V<\/span>ermont<\/li>\n  <li>New York<\/li>\n  <li>Massachusetts<\/li>\n  <li>New Hampshire<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-ba2e0bce423e8735b0bd" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ba2e0bce423e8735b0bd">{"x":{"html":"<ul>\n  <li><span class='match'>V<\/span>ermont<\/li>\n  <li>New York<\/li>\n  <li>Massachusetts<\/li>\n  <li>New Hampshire<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 
 ---
 
@@ -538,8 +555,8 @@ Match the end of a string using `$`
 str_view_all(vt_neighbors, "s$")
 ```
 
-<div id="htmlwidget-6e8b35595f07fbffb14f" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6e8b35595f07fbffb14f">{"x":{"html":"<ul>\n  <li>Vermont<\/li>\n  <li>New York<\/li>\n  <li>Massachusett<span class='match'>s<\/span><\/li>\n  <li>New Hampshire<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-c5a72348bb7052930295" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c5a72348bb7052930295">{"x":{"html":"<ul>\n  <li>Vermont<\/li>\n  <li>New York<\/li>\n  <li>Massachusett<span class='match'>s<\/span><\/li>\n  <li>New Hampshire<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 
 ---
 

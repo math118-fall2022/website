@@ -1,0 +1,217 @@
+---
+title: "HW 05 - Bootstrap estimation"
+subtitle: "due Thursday, June 10 at 11:59p"
+output: 
+  tufte::tufte_html:
+    highlight: pygments
+    css: "./math118-hw.css"
+    toc: true
+    toc_depth: 2
+link-citations: yes
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r include=FALSE}
+library(tidyverse)
+library(tufte)
+library(knitr)
+options(
+  htmltools.dir.version = FALSE, # for blogdown
+  show.signif.stars = FALSE,     # for regression output
+  digits = 2
+  )
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+# Introduction and Data
+
+The goal of this week's homework is to practice creating bootstrap confidence intervals, and visualizing bootstrap distributions. 
+
+# Tips 
+
+- Use a small number of reps (about 100) as you write and test out your code. Once you have finalized all of your code, increase the number of reps to at least 1000 (10,000 if possible) to produce your final results. 
+- Write your code and narrative in a reproducible way, so you can easily change the number of reps. Tips on making your code more reproducible:
+
+### Tip 1: Set your seed
+
+When dealing with randomness (as often the case in simulation in statistics), it is important to specify which pseudo-random draw you used in your analysis, so that you or someone else can reproduce the exact numbers you initially report. The `set.seed()` function in R allows you to ensure that all of your analysis relies on a specific pseudo-random draw:
+
+```{r set_seed, eval = F}
+set.seed(42)
+```
+
+### Tip 2: Define global parameters
+
+Often, we rely on specific parameters values throughout our analysis, and at a later point, we may want to replace them. In order to minimize the need to change your code later, we can assign the parameter values to a name, and use the name (rather than the hard-coded value) downstream. Then, to update your code at a later point, you can just change the value. Here, we are assinging the number of reps to a variable called `num_reps`:
+
+```{r global_params, eval = F}
+num_reps <- 100
+boot_dist <- diamonds %>%
+  infer::specify(response = price) %>%
+  infer::generate(reps=num_reps, type = "bootstrap") %>%
+  infer::calculate(stat="mean")
+```
+
+# The data
+
+The data may be found by cloning your **hw-05-boston-**  repository available in the [GitHub course organization](https://github.com/math118-fall2022).
+
+Today's data comes from the city of Boston, courtesy of the U.S. Census Bureau. In particular, the `Boston` dataset contains data about median value of owner-occupied housing units in 506 suburbs of Boston. "Owner-occupied housing units" is defined as: one-family houses on less than 10 acres without a business or medical office on the property. The variables and their definitions are as follows:
+
+  - `crim`: per capita crime rate by town 
+  - `rm`: average number of rooms per dwelling
+  - `age`: proportion of owner-occupied units built prior to 1940
+  - `dis`: weighted mean of distances to five Boston employment centers
+  - `tax`: full-value property-tax rate per $10,000
+  - `ptratio`: pupil-teacher ratio by town
+  - `lstat`: lower status of the population (percent)
+  - `medv`: median value of owner-occupied homes (in $1000s)
+
+You may load in the data with the following code, where `____` should be
+replaced by a meaningful name of your choosing:
+
+```{r eval=FALSE}
+library(tidyverse)
+library(infer)
+Boston <- read_csv("data/Boston.csv")
+```
+
+# Exercises
+
+Write all R code according to the style guidelines discussed in class. 
+
+```{marginfigure}
+**Hint**: be careful with how missing values are coded in this survey. As well,
+don't forget to set a seed in order to ensure reproducibility!
+```
+
+1. Based on this data set, provide an estimate for the population mean of the median value of owner-occupied homes in Boston, `medv`. 
+
+```{r}
+set.seed(1)
+Boston %>%
+  summarise(mean = mean(medv))
+```
+
+2. Construct a 95%  bootstrap interval for the mean of the median value of owner-occupied homes in Boston. Use at least 1,000 bootstrap samples. Make sure your interval is *reproducible*.
+
+```{r}
+nreps <- 5000
+boot_dist <- Boston %>%
+  specify(response = medv) %>%
+  generate(reps = nreps, type = "bootstrap") %>%
+  calculate(stat = "mean")
+ci <- boot_dist %>%
+  summarise(lb = quantile(stat, 0.025),
+            ub = quantile(stat, 0.975))
+ci
+```
+
+3. Visualize the bootstrap distribution and your confidence interval from 
+Exercise 2. Interpret the confidence interval you constructed.
+
+```{r}
+ggplot(boot_dist, aes(x = stat)) +
+  geom_histogram(alpha = 0.6) + 
+  geom_vline(xintercept = ci$lb, lty = 2, size = 1, color = "orange") +
+   geom_vline(xintercept = ci$ub, lty = 2, size = 1, color = "orange") +
+  labs(title = "Bootstrap distirbution of mean median value of Boston homes",
+       subtitle = "with 95% confidence interval",
+       x = "Bootstrap means",
+       y = "count")
+
+visualize(boot_dist) +
+  shade_confidence_interval(endpoints = ci)+
+  labs(title = "Bootstrap distirbution of mean median value of Boston homes",
+       subtitle = "with 95% confidence interval",
+       x = "Bootstrap means",
+       y = "count")
+
+```
+
+4. Among towns with a pupil-teacher ratio of at most 15, provide a point estimate of the *proportion* of owner-occupied houses in Boston with median values over $40,000.
+
+```{r}
+Boston %>%
+  filter(ptratio <= 15) %>%
+  summarise(prop_40_plus = mean(medv >= 40))
+
+# alternatively
+Boston %>%
+  filter(ptratio <= 15) %>%
+  mutate(over40 = ifelse(medv >= 40, 1, 0)) %>%
+  summarise(prop_40_plus = mean(over40))
+```
+
+5. For towns with a pupil-teacher ratio of at most 15, construct a **99%**  bootstrap interval for the proportion of owner-occupied
+houses in Boston with median values over $40,000.  Make sure your interval is *reproducible*.
+
+```{r}
+nreps <- 5000
+boot_dist <- Boston %>%
+  filter(ptratio <= 15) %>%
+  mutate(over40 = ifelse(medv >= 40, "yes", "no")) %>%
+  specify(response = over40, success = "yes") %>%
+  generate(reps = nreps, type = "bootstrap") %>%
+  calculate(stat = "prop")
+ci <- boot_dist %>%
+  summarise(lb = quantile(stat, 0.005),
+            ub = quantile(stat, 0.995))
+ci
+```
+
+
+6. Visualize the bootstrap distribution and your confidence interval from 
+Exercise 5. Interpret the confidence interval you constructed.
+
+```{r}
+visualize(boot_dist) +
+  shade_confidence_interval(endpoints = ci)+
+  labs(title = "Bootstrap distribution of proportion of homes with median value > $40,000 among towns in towns to p:t <= 15",
+       subtitle = "with 99% confidence interval",
+       x = "Bootstrap proportions",
+       y = "count")
+
+```
+
+
+7. Provide a point estimate of the *correlation* between the median housing value of owerner-occupied houses in Boston `medv` and the pupil-teacher ratio in the town.
+
+```{r}
+Boston %>%
+  summarise(cor = cor(medv, ptratio))
+```
+
+```{marginfigure}
+**Hint**: To simulate the correlation between two variables, use `specify(var1 ~ var2)`. Remember that correlation is still a numerical quantity, so that should help you choose the type of simulation you want to perform.
+```
+
+
+8. Construct a 95% bootstrap interval for the correlation between the median housing value of owerner-occupied houses in Boston `medv` and the pupil-teacher ratio in the town. Make sure your interval is *reproducible*.
+
+
+```{r}
+boot_dist <- Boston %>%
+  specify(medv ~ ptratio) %>%
+  generate(reps = nreps, type = "bootstrap") %>%
+  calculate(stat = "correlation")
+
+get_ci(boot_dist, level = 0.95)
+```
+
+9. Construct a **99%** bootstrap interval using the bootstrap distribution from Exercise 8.  
+
+    How does the 99% bootstrap interval compare to the 95% bootstrap interval calculated in the previous exercise?
+  
+    In general, how does the bootstrap interval change when the confidence level increases?
+    
+```{r}
+get_ci(boot_dist, level = 0.99)
+```
+
+# Submission
+
+Knit to PDF to create a PDF document. Knit and commit all remaining changes, 
+and push your work to GitHub. Make sure all files are updated on your GitHub 
+repo. Please only upload your PDF document to Canvas.
