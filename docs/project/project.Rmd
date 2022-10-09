@@ -28,8 +28,8 @@ courses or research projects. The goal of this project is for you to demonstrate
 proficiency in the techniques we have covered in this class (and beyond, if you 
 like) and apply them to a dataset in a meaningful way.
 
-This project is *partner-optional*. The partners may be self-selected or randomly selected.
-If you selft-select a partner, one of you should e-mail me and CC your partner on the e-mail by **Sunday, November 6 at 11:59pm**. If you would like a random partner, please e-mail me  by **Sunday, November 6 at 11:59pm**. I will let you know who your partner is by Monday, November 7 at 11:59pm.
+This project is *partnered*. The partners may be self-selected or randomly assigned.
+If you self-select a partner, one of you should e-mail me and CC your partner on the e-mail by **Saturday, November 5 at 11:59pm**. If you would like a random partner, please e-mail me  by **Sunday, November 5 at 11:59pm**. I will let you know who your partner is by Sunday, November 6 at 11:59pm.
 
 # Brief project logistics
 
@@ -218,8 +218,9 @@ On the last two days of class, everyone will present their projects. There will 
 
 ## Participation
 
-You are expected to attend both days of presentations, and be actively engaged by
-asking questions and providing feedback.
+You are expected to attend both days of presentations, and be actively engaged by asking questions and providing feedback.
+
+Additionally, everyone will be asked to assess the contributions of their partner. 
 
 
 # Overall notes
