@@ -1,12 +1,11 @@
 ---
 title: "Bootstrap Estimation"
 author: "Becky Tang"
-date: "06.07.2021"
+date: "10/19/2022"
 output:
   xaringan::moon_reader:
     mathjax: "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML"
-    css: "sta199-slides.css"
-    logo: img/sta199-sticker-icon.png
+    css: "math118-slides.css"
     lib_dir: libs/font-awesome
     nature:
       highlightStyle: github
@@ -573,8 +572,6 @@ class: center, middle
 
 .pull-left[
 ![](img/10/infer.png)
-<br><br>
-[infer.netlify.com](http://infer.netlify.com)
 ]
 
 .pull-right[
@@ -585,6 +582,9 @@ expressive statistical grammar that coheres with the tidyverse design framework.
 ```{r}
 library(infer)
 ```
+
+<br><br>
+[infer.netlify.com](http://infer.netlify.com)
 ]
 
 ---
@@ -698,49 +698,84 @@ distribution. To get middle 95%, we want to omit 2.5% on the left and on the rig
 Use `dplyr` functions:
 
 ```{r}
-boot_dist %>%
-  summarise(lower_bound = quantile(stat, 0.025),
-            upper_bound = quantile(stat, 0.975))
+ci <- boot_dist %>%
+  summarise(lower_b = quantile(stat, 0.025), 
+            upper_b = quantile(stat, 0.975))
+ci
 ```
 
 ---
 
-## Visualize a confidence interval
+## Visualize a confidence interval (Option 1)
 
 Using `geom_vline()` to mark the bounds of the confidence interval
 
-```{r echo=FALSE}
-lower_bound <- boot_dist %>% 
-  summarize(lower_bound = quantile(stat, 0.025)) %>% 
-  pull()
-upper_bound <- boot_dist %>% 
-  summarize(upper_bound = quantile(stat, 0.975)) %>% 
-  pull()
-```
 
-```{r echo=FALSE, out.width = "75%"}
-ggplot(data = boot_dist, mapping = aes(x = stat)) +
+```{r eval = F, out.width = "75%"}
+ggplot(data = boot_dist, mapping = aes(x = stat)) + #<<
   geom_histogram(binwidth = 5, alpha = .5) +
-  geom_vline(xintercept = c(lower_bound, upper_bound), 
+  geom_vline(xintercept = ci$lower_b, #<<
+             color = "steelblue", lty = 2, size = 1) + 
+  geom_vline(xintercept = ci$upper_b, #<<
              color = "steelblue", lty = 2, size = 1) +
-  labs(title = "Bootstrap distribution of means",
+  labs(title = "Bootstrap distribution of mean price-per-guest",
        subtitle = "with 95% confidence interval",
        x = "Means", y = "Count") +
   theme_minimal()
 ```
 
+---
+
+## Visualize a confidence interval (Option 1)
+
+
+```{r echo=FALSE, out.width = "75%"}
+ggplot(data = boot_dist, mapping = aes(x = stat)) + #<<
+  geom_histogram(binwidth = 5, alpha = .5) +
+  geom_vline(xintercept = ci$lower_b, #<<
+             color = "steelblue", lty = 2, size = 1) + 
+  geom_vline(xintercept = ci$upper_b, #<<
+             color = "steelblue", lty = 2, size = 1) +
+  labs(title = "Bootstrap distribution of mean price-per-guest",
+       subtitle = "with 95% confidence interval",
+       x = "Means", y = "Count") +
+  theme_minimal()
+```
 
 ---
+
+## Visualize a confidence interval (Option 2)
+
+```{r eval = F, out.width = "75%"}
+visualize(boot_dist) + #<<
+  shade_confidence_interval(endpoints = ci)+ #<<
+  labs(title = "Bootstrap distribution of mean price-per-guest",
+       subtitle = "with 95% confidence interval",
+       x = "Means", y = "Count") 
+```
+---
+
+## Visualize a confidence interval (Option 2)
+
+```{r echo = F, out.width = "75%"}
+visualize(boot_dist) + #<<
+  shade_confidence_interval(endpoints = ci)+ #<<
+  labs(title = "Bootstrap distribution of mean price-per-guest",
+       subtitle = "with 95% confidence interval",
+       x = "Means", y = "Count") 
+```
+---
+
 
 ## Interpreting a confidence interval
 
 Our 95% confidence interval (CI) is 
-(`r round(lower_bound, 1)`, `r round(upper_bound, 1)`).
+(`r round(ci$lower_b, 1)`, `r round(ci$upper_b, 1)`).
 
 .question[
 Does this mean there is a 95% chance that the true mean price per night in the
 population is contained in the interval 
-(`r round(lower_bound, 1)`, `r round(upper_bound, 1)`)?
+(`r round(ci$lower_b, 1)`, `r round(ci$upper_b, 1)`)?
 ]
 
 
@@ -781,5 +816,5 @@ we would *expect* 95% of these intervals to contain the population mean.
 ## Interpretation 
 
 .question[
-**We are 95% confident that the mean price per guest per night for Airbnbs in Asheville, NC is between `r round(lower_bound,1)` and `r round(upper_bound,1)` dollars. **
+**We are 95% confident that the mean price per guest per night for Airbnbs in Asheville, NC is between `r round(ci$lower_b,1)` and `r round(ci$upper_b,1)` dollars. **
 ]

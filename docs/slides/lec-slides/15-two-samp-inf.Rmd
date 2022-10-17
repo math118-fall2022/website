@@ -551,7 +551,7 @@ null_dist <- mb_yawn %>%
   calculate(stat = "diff in props", order = c("treatment", "control"))
 ```
 
-Generate simulated results via pemutation
+Generate simulated results via permutation
 
 ---
 
@@ -573,7 +573,7 @@ order in which to take the different in proportions for the calculation: $(\hat{
 
 ---
 
-## Visualizing the null distirbution
+## Visualizing the null distribution
 
 What would you expect the center of the null distribution to be?
 
