@@ -2,11 +2,11 @@
 title: "Simulation-based testing"
 subtitle: "Part 1"
 author: "Becky Tang"
-date: "06.09.2021"
+date: "10/24/2022"
 output:
   xaringan::moon_reader:
     mathjax: "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML"
-    css: "sta199-slides.css"
+    css: "math118-slides.css"
     logo: img/sta199-sticker-icon.png
     lib_dir: libs/font-awesome
     nature:

@@ -12,7 +12,7 @@
 
 
 
-<title>HW 05 - Bootstrap estimation</title>
+<title>HW 06 - Parkinsons</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -523,15 +523,13 @@ font-size: 10pt;
 
 
 
-<h1 class="title toc-ignore">HW 05 - Bootstrap estimation</h1>
-<h3 class="subtitle">due Tuesday, October 25 at 11:59pm</h3>
+<h1 class="title toc-ignore">HW 06 - Parkinsons</h1>
+<h3 class="subtitle">due Tuesday, June 22 at 11:59p</h3>
 
 
 <div id="TOC">
 <ul>
 <li><a href="#introduction-and-data" id="toc-introduction-and-data">Introduction and Data</a></li>
-<li><a href="#tips" id="toc-tips">Tips</a></li>
-<li><a href="#the-data" id="toc-the-data">The data</a></li>
 <li><a href="#exercises" id="toc-exercises">Exercises</a></li>
 <li><a href="#submission" id="toc-submission">Submission</a></li>
 </ul>
@@ -539,159 +537,163 @@ font-size: 10pt;
 
 <div id="introduction-and-data" class="section level1">
 <h1>Introduction and Data</h1>
-<p>The goal of this week’s homework is to practice creating bootstrap
-confidence intervals, and visualizing bootstrap distributions.</p>
-</div>
-<div id="tips" class="section level1">
-<h1>Tips</h1>
+<p>The goal of today’s lab is to practice statistical inference using
+simulation procedures. The data for today’s lab may be found by cloning
+your repository available at the class GitHub repository. Use the
+lecture notes, readings, and application exercises to help you complete
+the lab. You can also use <a href="img/06-parkinsons/sim-inference-chart.png">this chart on
+simulation-based inference</a> to help you determine the appropriate
+sampling scheme when conducting simulation-based inference.</p>
+<p>The dataset is adapted from Little et al. (2007), and contains voice
+measurements from individuals both with and without Parkinson’s Disease
+(PD), a progressive neurological disorder that affects the motor system.
+The aim of Little et al.’s study was to examine whether they could
+diagnose PD by examining the spectral (sound-wave) properties of
+patients’ voices.</p>
+<p>147 measurements were taken from patients with PD, and 48
+measurements were taken from healthy controls. For the purposes of this
+lab, you may assume that measurements are representative of the
+underlying populations (PD vs. healthy).</p>
+<p>The variables in the dataset are as follows:</p>
 <ul>
-<li>Use a small number of reps (about 100) as you write and test out
-your code. Once you have finalized all of your code, increase the number
-of reps to at least 1000 (10,000 if possible) to produce your final
-results.</li>
-<li>Write your code and narrative in a reproducible way, so you can
-easily change the number of reps. Tips on making your code more
-reproducible:</li>
-</ul>
-<div id="tip-1-set-your-seed" class="section level3">
-<h3>Tip 1: Set your seed</h3>
-<p>When dealing with randomness (as often the case in simulation in
-statistics), it is important to specify which pseudo-random draw you
-used in your analysis, so that you or someone else can reproduce the
-exact numbers you initially report. The <code>set.seed()</code> function
-in R allows you to ensure that all of your analysis relies on a specific
-pseudo-random draw:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span></code></pre></div>
-</div>
-<div id="tip-2-define-global-parameters" class="section level3">
-<h3>Tip 2: Define global parameters</h3>
-<p>Often, we rely on specific parameters values throughout our analysis,
-and at a later point, we may want to replace them. In order to minimize
-the need to change your code later, we can assign the parameter values
-to a name, and use the name (rather than the hard-coded value)
-downstream. Then, to update your code at a later point, you can just
-change the value. Here, we are assinging the number of reps to a
-variable called <code>num_reps</code>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>num_reps <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>boot_dist <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  infer<span class="sc">::</span><span class="fu">specify</span>(<span class="at">response =</span> price) <span class="sc">%&gt;%</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  infer<span class="sc">::</span><span class="fu">generate</span>(<span class="at">reps=</span>num_reps, <span class="at">type =</span> <span class="st">&quot;bootstrap&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  infer<span class="sc">::</span><span class="fu">calculate</span>(<span class="at">stat=</span><span class="st">&quot;mean&quot;</span>)</span></code></pre></div>
-</div>
-</div>
-<div id="the-data" class="section level1">
-<h1>The data</h1>
-<p>The data may be found by cloning your <strong>hw-05-boston-</strong>
-repository available in the <a href="https://github.com/math118-fall2022">GitHub course
-organization</a>.</p>
-<p>Today’s data comes from the city of Boston, courtesy of the U.S.
-Census Bureau. In particular, the <code>Boston</code> dataset contains
-data about median value of owner-occupied housing units in 506 suburbs
-of Boston. “Owner-occupied housing units” is defined as: one-family
-houses on less than 10 acres without a business or medical office on the
-property. The variables and their definitions are as follows:</p>
-<ul>
-<li><code>crim</code>: per capita crime rate by town</li>
-<li><code>rm</code>: average number of rooms per dwelling</li>
-<li><code>age</code>: proportion of owner-occupied units built prior to
-1940</li>
-<li><code>dis</code>: weighted mean of distances to five Boston
-employment centers</li>
-<li><code>tax</code>: full-value property-tax rate per $10,000</li>
-<li><code>ptratio</code>: pupil-teacher ratio by town</li>
-<li><code>lstat</code>: lower status of the population (percent)</li>
-<li><code>medv</code>: median value of owner-occupied homes (in
-$1000s)</li>
+<li><code>clip</code>: ID of the recording number</li>
+<li><code>jitter</code>: a measure of variation in fundamental
+frequency</li>
+<li><code>shimmer</code>: a measure of variation in amplitude</li>
+<li><code>hnr</code>: a ratio of total components vs. noise in the voice
+recording</li>
+<li><code>status</code>: PD vs. Healthy</li>
+<li><code>avg.f.q</code>: 1, 2, or 3, corresponding to average vocal
+fundamental frequency (1 = low, 2 = mid, 3 = high)</li>
 </ul>
 <p>You may load in the data with the following code, where
 <code>____</code> should be replaced by a meaningful name of your
-choosing. Don’t forget to set <code>eval = TRUE</code> before
-knitting:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>___ <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/Boston.csv&quot;</span>)</span></code></pre></div>
+choosing:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(infer)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>____ <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/parkinsons.csv&quot;</span>)</span></code></pre></div>
 </div>
 <div id="exercises" class="section level1">
 <h1>Exercises</h1>
-<p>Write all R code according to the style guidelines discussed in
-class. Make sure that your plots have appropriate labels and titles.</p>
-<p><label for="tufte-mn-1" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-1" class="margin-toggle"><span class="marginnote"><span style="display: block;"><strong>Hint</strong>:
-Don’t forget to set a seed in order to ensure
-reproducibility!</span></span></p>
+<p><br></p>
+<div class="commit">
+<b>NOTES</b>
+<ul>
+<li>
+To write <span class="math inline">\(\mu\)</span>, type in
+<code>$\mu$</code> in the narrative. To write <span class="math inline">\(\alpha\)</span>, type in <code>$\alpha$</code> in
+your narrative. To write <span class="math inline">\(\neq\)</span>, type
+in <code>$\neq$</code> in your narrative.
+</li>
+<li>
+At that start of each exercise that requires simulation, set a random
+seed equal to the Exercise number in the R chunk.
+</li>
+</ul>
+</div>
+<div id="part-1" class="section level3">
+<h3>Part 1</h3>
+<p>Is there enough evidence to suggest that the mean HNR in the voice
+recordings of the healthy patients is significantly different from 25 at
+the <span class="math inline">\(\alpha\)</span> = 0.05 significance
+level?</p>
 <ol style="list-style-type: decimal">
-<li>Based on this data set, provide a point estimate for the population
-mean of the median value of owner-occupied homes in Boston,
-<code>medv</code>.</li>
+<li>Write out the null and alternative hypotheses for this question in
+both words and symbols.</li>
+</ol>
+<p><label for="tufte-mn-1" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-1" class="margin-toggle"><span class="marginnote"></span></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Display a visualization of your simulated null distribution, and
+describe the values that would cause you to reject your null hypothesis
+(called the <em>rejection region</em>). Does our observed sample mean
+lie in this rejection region?</li>
 </ol>
 <p><label for="tufte-mn-2" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-2" class="margin-toggle"><span class="marginnote"></span></p>
-<ol start="2" style="list-style-type: decimal">
-<li>Construct a 95% bootstrap interval for the mean of the median value
-of owner-occupied homes in Boston. Use at least 1,000 bootstrap samples.
-Make sure your interval is <em>reproducible</em>.</li>
+<ol start="3" style="list-style-type: decimal">
+<li>What is your p-value, decision, and conclusion in context of the
+research question?</li>
 </ol>
 <p><label for="tufte-mn-3" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-3" class="margin-toggle"><span class="marginnote"></span></p>
-<ol start="3" style="list-style-type: decimal">
-<li>Visualize the bootstrap distribution and your confidence interval
-from Exercise 2. Interpret the confidence interval you constructed.</li>
+<ol start="4" style="list-style-type: decimal">
+<li>Given your conclusion in Exercise 3, which type of error could you
+possibly have made? What would making such an error mean in the context
+of the research question?</li>
 </ol>
 <p><label for="tufte-mn-4" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-4" class="margin-toggle"><span class="marginnote"></span></p>
-<ol start="4" style="list-style-type: decimal">
-<li>Considering towns with a pupil-teacher ratio of at most 15, provide
-a point estimate of the <em>proportion</em> of owner-occupied houses in
-Boston with median values over $40,000.</li>
+</div>
+<div id="part-2" class="section level3">
+<h3>Part 2</h3>
+<p>Researchers suspect that patients with PD are less able to control
+their vocal muscles, and thus may have a different HNR (tonal component
+to noise ratio) compared to healthy volunteers. Thus, they are
+interested in whether the mean HNR in voice recordings among patients
+with PD is statistically significantly different from 24.7 at the 0.05
+significance level.</p>
+<ol start="5" style="list-style-type: decimal">
+<li>Write out the null and alternative hypotheses for this question in
+both words and symbols.</li>
 </ol>
 <p><label for="tufte-mn-5" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-5" class="margin-toggle"><span class="marginnote"></span></p>
-<ol start="5" style="list-style-type: decimal">
-<li>For towns with a pupil-teacher ratio of at most 15, construct a
-<strong>99%</strong> bootstrap interval for the proportion of
-owner-occupied houses in Boston with median values over $40,000. Make
-sure your interval is <em>reproducible</em>.</li>
+<ol start="6" style="list-style-type: decimal">
+<li>Display a visualization of your simulated null distribution, and
+describe the values that fall into the rejection region. Does our
+observed sample mean lie in this rejection region?</li>
 </ol>
 <p><label for="tufte-mn-6" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-6" class="margin-toggle"><span class="marginnote"></span></p>
-<ol start="6" style="list-style-type: decimal">
-<li>Visualize the bootstrap distribution and your confidence interval
-from Exercise 5. Interpret the confidence interval you constructed.</li>
+<ol start="7" style="list-style-type: decimal">
+<li>What is your p-value, decision, and conclusion in context of the
+research question?</li>
 </ol>
 <p><label for="tufte-mn-7" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-7" class="margin-toggle"><span class="marginnote"></span></p>
-<ol start="7" style="list-style-type: decimal">
-<li>Provide a point estimate of the <em>correlation</em> between the
-median housing value of owner-occupied houses in Boston
-<code>medv</code> and the pupil-teacher ratio in the town.</li>
-</ol>
-<p><label for="tufte-mn-8" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-8" class="margin-toggle"><span class="marginnote"><span style="display: block;"><strong>Hint</strong>:
-To simulate the correlation between two variables, use
-<code>specify(var1 ~ var2)</code>. Remember that correlation is still a
-numerical quantity, so that should help you choose the type of
-simulation you want to perform.</span></span></p>
 <ol start="8" style="list-style-type: decimal">
-<li>Construct a 95% bootstrap interval for the correlation between the
-median housing value of owner-occupied houses in Boston
-<code>medv</code> and the pupil-teacher ratio in the town. Make sure
-your interval is <em>reproducible</em>.</li>
+<li>Given your conclusion in Exercise 6, which type of error could you
+possibly have made? What would making such an error mean in the context
+of the research question?</li>
 </ol>
-<p><em>Note</em>: you do not need to visualize your confidence
-interval.</p>
-<p><label for="tufte-mn-9" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-9" class="margin-toggle"><span class="marginnote"><span style="display: block;"><strong>Hint</strong>:
-To simulate the correlation between two variables <code>var1</code> and
-<code>var2</code>, use <code>specify(var1 ~ var2)</code>. Remember that
-correlation is still a numerical quantity, so that should help you
-choose the type of simulation you want to perform.</span></span></p>
+<p><label for="tufte-mn-8" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-8" class="margin-toggle"><span class="marginnote"></span></p>
+</div>
+<div id="part-3" class="section level3">
+<h3>Part 3</h3>
+<p>Suppose we are now interested in testing whether a correlation exists
+between voice jitter and voice shimmer among healthy volunteers. Test
+whether the correlation between these two values is non-zero at the
+<span class="math inline">\(\alpha\)</span> = <strong>0.01</strong>
+level.</p>
+<p><label for="tufte-mn-9" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-9" class="margin-toggle"><span class="marginnote"><span style="display: block;">As an aside,
+correlation is given in symbols by <span class="math inline"><span class="math inline">\(\rho\)</span></span>.</span></span></p>
 <ol start="9" style="list-style-type: decimal">
-<li>Construct and report your <strong>95%</strong> and
-<strong>99%</strong> bootstrap interval using the bootstrap distribution
-from Exercise 8. Then answer the following questions:</li>
+<li>Write out the null and alternative hypotheses in words.</li>
 </ol>
-<ul>
-<li><p>How does the 95% bootstrap interval in the previous exercise
-compare to the intervals calculated here?</p></li>
-<li><p>In general, how does the bootstrap interval change when the
-confidence level increases?</p></li>
-</ul>
-<p><label for="tufte-mn-10" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-10" class="margin-toggle"><span class="marginnote"></span></p>
+<p><label for="tufte-mn-10" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-10" class="margin-toggle"><span class="marginnote"><span style="display: block;"><strong>Hint</strong>:
+Refer to HW 05 for what to <code>specify()</code>. Use
+<code>hypothesize(null = “independence”)</code>. The type of simulated
+data we will <code>generate()</code> depends on two
+quantities/variables; consult the chart.</span></span></p>
+<ol start="10" style="list-style-type: decimal">
+<li>Display a visualization of your simulated null distribution, and
+describe the values that would cause you to reject your null hypothesis.
+Does the observed sample correlation lie in this rejection region?</li>
+</ol>
+<p><label for="tufte-mn-11" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-11" class="margin-toggle"><span class="marginnote"></span></p>
+<ol start="11" style="list-style-type: decimal">
+<li>What is your p-value, decision, and conclusion in context of the
+research question?</li>
+</ol>
+<p><label for="tufte-mn-12" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-12" class="margin-toggle"><span class="marginnote"></span></p>
+<ol start="12" style="list-style-type: decimal">
+<li>What is the probability you’ve made a Type 1 error? If you cannot
+tell for sure, explain why. Similarly, what is the probability you’ve
+made a Type 2 error? If you cannot tell for sure, explain why.</li>
+</ol>
+<p><label for="tufte-mn-13" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-13" class="margin-toggle"><span class="marginnote"></span></p>
+</div>
 </div>
 <div id="submission" class="section level1">
 <h1>Submission</h1>
 <p>Knit to PDF to create a PDF document. Knit and commit all remaining
 changes, and push your work to GitHub. Make sure all files are updated
-on your GitHub repo. Please only upload your PDF document to Canvas.</p>
+on your GitHub repo.</p>
+<p>Please then upload your PDF document to Canvas.</p>
 </div>
 
 

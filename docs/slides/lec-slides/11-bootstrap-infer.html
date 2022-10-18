@@ -418,6 +418,8 @@ abb %&gt;%
 * specify(response = ppg)
 ```
 
+- `specify()` is used to specify which variable in our data frame is the relevant response variable (i.e. the variable we're bootstrapping).
+
 ---
 
 ## Generate bootstrap means
@@ -430,6 +432,8 @@ abb %&gt;%
   # generate 15000 bootstrap samples
 * generate(reps = 15000, type = "bootstrap")
 ```
+
+- `generate()` generates the bootstrap samples.
 
 ---
 
@@ -445,6 +449,8 @@ abb %&gt;%
   # calculate the statistic of each bootstrap sample
 * calculate(stat = "mean")
 ```
+
+- `calculate()` calculates the sample statistic. In this case, we're using the mean, but we could just as easily calculate, say, bootstrap medians.
 
 ---
 

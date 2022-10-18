@@ -122,22 +122,26 @@ Exercise 5. Interpret the confidence interval you constructed.
 
 
 ```{marginfigure}
-**Hint**: To simulate the correlation between two variables, use `specify(var1 ~ var2)`. Remember that correlation is still a numerical quantity, so that should help you choose the type of simulation you want to perform.
+
 ```
 
 7. Provide a point estimate of the *correlation* between the median housing value of owner-occupied houses in Boston `medv` and the pupil-teacher ratio in the town.
 
 ```{marginfigure}
+**Hint**: To simulate the correlation between two variables, use `specify(var1 ~ var2)`. Remember that correlation is still a numerical quantity, so that should help you choose the type of simulation you want to perform.
 ```
 
 8. Construct a 95% bootstrap interval for the correlation between the median housing value of owner-occupied houses in Boston `medv` and the pupil-teacher ratio in the town. Make sure your interval is *reproducible*.
 
+*Note*: you do not need to visualize your confidence interval.
+
 ```{marginfigure}
+**Hint**: To simulate the correlation between two variables `var1` and `var2`, use `specify(var1 ~ var2)`. Remember that correlation is still a numerical quantity, so that should help you choose the type of simulation you want to perform.
 ```
 
-9. Construct and report your **99%** bootstrap interval using the bootstrap distribution from Exercise 8. Then answer the following questions:
+9. Construct and report your **95%** and **99%** bootstrap interval using the bootstrap distribution from Exercise 8. Then answer the following questions:
   
-  - How does the 99% bootstrap interval compare to the 95% bootstrap interval calculated in the previous exercise?
+  - How does the 95% bootstrap interval in the previous exercise compare to the intervals calculated here?
   
   - In general, how does the bootstrap interval change when the confidence level increases?
     
