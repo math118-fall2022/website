@@ -4,18 +4,28 @@
     <title>Simulation-based testing</title>
     <meta charset="utf-8" />
     <meta name="author" content="Becky Tang" />
+    <meta name="date" content="2022-10-28" />
+    <script src="libs/font-awesome/header-attrs/header-attrs.js"></script>
     <link href="libs/font-awesome/font-awesome/css/all.css" rel="stylesheet" />
     <link href="libs/font-awesome/font-awesome/css/v4-shims.css" rel="stylesheet" />
-    <link rel="stylesheet" href="sta199-slides.css" type="text/css" />
+    <link rel="stylesheet" href="math118-slides.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # Simulation-based testing
+]
+.subtitle[
 ## Part 2
+]
+.author[
 ### Becky Tang
-### 06.10.2021
+]
+.date[
+### 10/28/2022
+]
 
 ---
 
@@ -233,7 +243,7 @@ asheville %&gt;%
 ```
 
 ```
-## # A tibble: 1 x 1
+## # A tibble: 1 × 1
 ##   mean_ppg
 ##      &lt;dbl&gt;
 ## 1     76.6
@@ -311,7 +321,8 @@ boot_means %&gt;%
 ```
 
 ```
-## # A tibble: 6 x 2
+## Response: ppg (numeric)
+## # A tibble: 6 × 2
 ##   replicate  stat
 ##       &lt;int&gt; &lt;dbl&gt;
 ## 1         1  81.0
@@ -361,7 +372,7 @@ boot_means %&gt;%
 ```
 
 ```
-## # A tibble: 1 x 1
+## # A tibble: 1 × 1
 ##   `mean(stat)`
 ##          &lt;dbl&gt;
 ## 1         76.6
@@ -436,7 +447,8 @@ boot_means %&gt;%
 ```
 
 ```
-## # A tibble: 6 x 3
+## Response: ppg (numeric)
+## # A tibble: 6 × 3
 ##   replicate  stat null_dist_stat
 ##       &lt;int&gt; &lt;dbl&gt;          &lt;dbl&gt;
 ## 1         1  81.0          104. 
@@ -516,7 +528,9 @@ null_dist
 ```
 
 ```
-## # A tibble: 5,000 x 2
+## Response: ppg (numeric)
+## Null Hypothesis: point
+## # A tibble: 5,000 × 2
 ##    replicate  stat
 ##        &lt;int&gt; &lt;dbl&gt;
 ##  1         1 104. 
@@ -541,7 +555,7 @@ null_dist %&gt;%
 ```
 
 ```
-## # A tibble: 1 x 1
+## # A tibble: 1 × 1
 ##    mean
 ##   &lt;dbl&gt;
 ## 1  100.
@@ -601,7 +615,7 @@ is specified?
 
 --
 
-- Why did we need to "shift" the bootstrap distribution when we generated the null distribution in this example, but we didn't need shift the distribution last time when we  generated the null distribution for inference on the population proportion?
+- Why did we need to "shift" the bootstrap distribution when we generated the null distribution in this example, but we didn't need shift the distribution last time when we  generated the null distribution for inference on the population proportion? 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
@@ -651,6 +665,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable

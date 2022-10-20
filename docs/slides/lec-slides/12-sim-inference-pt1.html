@@ -56,7 +56,7 @@ library(infer)
 
 
 ```r
-set.seed(0917)
+set.seed(1917)
 ```
 
 ---
@@ -69,12 +69,12 @@ class: center, middle
 
 ## Parameter vs. statistic
 
-A .vocab[parameter] is the "true" value of interest. We typically estimate the 
+- A .vocab[parameter] is the "true" value of interest. We typically estimate the 
 parameter using a .vocab[sample statistic] as a point estimate.
 
 --
 
-Common population parameters of interest and their corresponding
+- Common population parameters of interest and their corresponding
 sample statistic:
 
 | Quantity           | Parameter  | Statistic   |
@@ -136,11 +136,11 @@ organ_donor %&gt;%
 
 ## Organ donors: Parameter vs. statistic
 
-**Parameter**, `\(p~\)`: true rate of complication
+- **Parameter** `\(p~\)`: true rate (proportion) of complication
 
 &lt;br&gt; 
 
-**Statistic**, `\(\hat{p}~\)`: rate of complication in the sample = `\(\frac{3}{62}\)` = 
+- **Statistic**, `\(\hat{p}~\)`: rate of complication in the sample = `\(\frac{3}{62}\)` = 
 0.048
 
 ---
@@ -153,16 +153,18 @@ Is it possible to assess the consultant's claim using the data?
 
 --
 
-**No.** The claim is that there is a causal connection, but the data are 
+- **No.** The claim is that there is a causal connection, but the data are 
 observational. For example, maybe patients who can afford a medical consultant 
 can afford better medical care, which can also lead to a lower complication 
 rate.
 
-While it is not possible to assess the causal claim, it is still possible to 
+--
+
+- While it is not possible to assess the causal claim, it is still possible to 
 test for an association using these data. 
 
 
-For this question we ask, **how likely
+- For this question we ask, **how likely
 is it that the low complication rate observed of `\(\hat{p}\)` = 0.048 be due solely
 to chance?**
 
@@ -232,10 +234,10 @@ then we reject the null in favor of the alternative hypothesis. Otherwise, we ca
 
 ## Step 1: Defining the hypotheses
 
-Remember, the null and alternative hypotheses are defined for **parameters**,
+- Remember, the null and alternative hypotheses are defined for **parameters**,
 not statistics.
 
-What will our null and alternative hypotheses be for this example?
+- What will our null and alternative hypotheses be for this example?
 
 --
 
@@ -254,9 +256,9 @@ Expressed in symbols:
 
 ## Step 2: Collecting and summarizing data
 
-With these two hypotheses, we now take our sample and summarize the data.
+- With these two hypotheses, we now take our sample and summarize the data.
 
-The choice of summary statistic calculated depends on the type of data. In our 
+- The choice of summary statistic calculated depends on the type of data. In our 
 example, we use the sample proportion
 
 `$$\hat{p} = 3/62 \approx 0.048$$`
@@ -265,18 +267,21 @@ example, we use the sample proportion
 
 ## Step 3: Assessing the evidence observed
 
-Next, we calculate the probability of getting data like ours, *or more extreme*, 
+- Next, we calculate the probability of getting data like ours, *or more extreme*, 
 if `\(H_0\)` were in fact actually true.
 
-This is a conditional probability: "given that `\(H_0\)`: `\(p = 0.1\)` is true, what would be the probability of observing `\(\hat{p} = 3/62\)` or less?"
+- This is a conditional probability: "given that `\(H_0\)`: `\(p = 0.1\)` is true, what would be the probability of observing `\(\hat{p} = 3/62\)` or less?"
 
-&lt;br&gt; 
+--
 
-This probability is known as the .vocab[p-value].
+- This probability is known as the .vocab[p-value].
 
-&lt;br&gt; 
+.question[Note: the "p" in p-value is different from the proportion `\(p\)`!]
+--
 
-How do we define *or more extreme*?
+- How do we define *or more extreme*?
+
+
 
 
 ---
@@ -290,14 +295,18 @@ class: center, middle
 
 ## Simulating the null distribution
 
-Let's return to the organ transplant scenario.
+- Let's return to the organ transplant scenario.
 
-Since `\(H_0: p = 0.10\)`, we need to simulate a distribution for `\(\hat{p}\)` under 
-the null hypothesis such that the probability of complication for each patient 
-is 0.10 for 62 patients. 
+- Since `\(H_0: p = 0.10\)`, we need to simulate a distribution for `\(\hat{p}\)` under 
+the null hypothesis such that for 62 patients, the probability of complication for each patient 
+is 0.10.
 
-This null distribution for `\(\hat{p}\)` represents the distribution of the observed 
+--
+
+- This null distribution for `\(\hat{p}\)` represents the distribution of the observed 
 proportions we might expect, if the null hypothesis were true.
+
+--
 
 .question[
 When sampling from the null distribution, what is the expected proportion of
@@ -306,31 +315,18 @@ complications?
 
 ---
 
-## Data
+## Simulation procedures
 
 
-```r
-glimpse(organ_donor)
-```
+- To simulate null distribution for `\(\hat{p}\)`, we need to simulate data!
 
-```
-## Rows: 62
-## Columns: 1
-## $ outcome &lt;chr&gt; "complication", "complication", "complication", "no complicati…
-```
+- Set-up: we will flip an unfair coin `\(n=62\)` times that lands Heads 10% of time, and Tails 90% of time. 
 
-```r
-organ_donor %&gt;%
-  count(outcome)
-```
+1. For each flip `\(i = 1, 2, \ldots, 62\)`: if Heads, then simulated observation of "complication". If Tails, simulated observation of "no complication".
 
-```
-## # A tibble: 2 × 2
-##   outcome             n
-##   &lt;chr&gt;           &lt;int&gt;
-## 1 complication        3
-## 2 no complication    59
-```
+2. From the 62 simulated observations, calculate the proportion of "complication"
+
+- Repeat these steps 1 and 2 many times!
 
 ---
 
@@ -347,7 +343,7 @@ organ_donor %&gt;%
 ## [1] 0.0483871
 ```
 
-&lt;img src="12-sim-inference-pt1_files/figure-html/unnamed-chunk-6-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="12-sim-inference-pt1_files/figure-html/unnamed-chunk-5-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -364,7 +360,7 @@ organ_donor %&gt;%
 ## [1] 0.1451613
 ```
 
-&lt;img src="12-sim-inference-pt1_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="12-sim-inference-pt1_files/figure-html/unnamed-chunk-6-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -382,7 +378,7 @@ organ_donor %&gt;%
 ## [1] 0.1290323
 ```
 
-&lt;img src="12-sim-inference-pt1_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="12-sim-inference-pt1_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -396,12 +392,22 @@ We need a way to automate this process!
 .midi[
 
 ```r
+glimpse(organ_donor)
+```
+
+```
+## Rows: 62
+## Columns: 1
+## $ outcome &lt;chr&gt; "complication", "complication", "complication", "no complicati…
+```
+
+```r
 null_dist &lt;- organ_donor %&gt;%
   specify(response = outcome, success = "complication") %&gt;% 
   hypothesize(null = "point", 
               p = c("complication" = 0.10, "no complication" = 0.90) 
               ) %&gt;% 
-  generate(reps = 100, type = "simulate") %&gt;% 
+  generate(reps = 100, type = "draw") %&gt;% 
   calculate(stat = "prop")
 ```
 ]
@@ -419,15 +425,20 @@ null_dist &lt;- organ_donor %&gt;%
   hypothesize(null = "point", 
               p = c("complication" = 0.10, "no complication" = 0.90) 
               ) %&gt;% 
-  generate(reps = 100, type = "simulate") %&gt;% 
+  generate(reps = 100, type = "draw") %&gt;% 
   calculate(stat = "prop")
 ```
 ]
 
 - .vocab[`response`]: **`outcome`** variable in the **`organ_donor`** data frame
 
-- .vocab[`success`]: **`"complication"`**, the level of **outcome** we're interested in studying
+- .vocab[`success`]: **`"complication"`**, the level/category of **outcome** we're interested in studying
 
+  - Why? Because unlike in Asheville data, our response is categorical!
+
+--
+
+.question[Why don't we specify `success` = `"no complication"`?]
 ---
 
 ## `hypothesize()`
@@ -440,7 +451,7 @@ null_dist &lt;- organ_donor %&gt;%
 * hypothesize(null = "point",
 *             p = c("complication" = 0.10, "no complication" = 0.90)
 *             ) %&gt;%
-  generate(reps = 100, type = "simulate") %&gt;% 
+  generate(reps = 100, type = "draw") %&gt;% 
   calculate(stat = "prop")
 ```
 ]
@@ -463,14 +474,14 @@ null_dist &lt;- organ_donor %&gt;%
   hypothesize(null = "point", 
               p = c("complication" = 0.10, "no complication" = 0.90) 
               ) %&gt;% 
-* generate(reps = 100, type = "simulate") %&gt;%
+* generate(reps = 100, type = "draw") %&gt;%
   calculate(stat = "prop")
 ```
 ]
 
 - .vocab[`reps`]: the number of repetitions generated; here we generate 100 repetitions
 - .vocab[`type`]: 
-    - Choose **`"simulate"`** for testing a point null for categorical data
+    - Choose **`"draw"`** for testing a point null for categorical data
     - Choose **`"bootstrap"`** for estimation (recall from previous lecture)
     - Choose **`"permute"`** for testing independence 
 ---
@@ -542,7 +553,7 @@ What would you expect the center of the null distribution to be?
 
 --
 
-&lt;img src="12-sim-inference-pt1_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="12-sim-inference-pt1_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -553,7 +564,7 @@ What would you expect the center of the null distribution to be?
 What is the p-value (just eyeball it)? Recall that we observed a proportion of 0.048.
 ]
 
-&lt;img src="12-sim-inference-pt1_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="12-sim-inference-pt1_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -596,6 +607,21 @@ null_dist %&gt;%
 ```r
 null_dist %&gt;%
   filter(stat &lt;= (3/62)) %&gt;%
+  summarise(n = n())
+```
+
+```
+## # A tibble: 1 × 1
+##       n
+##   &lt;int&gt;
+## 1    15
+```
+--
+
+
+```r
+null_dist %&gt;%
+  filter(stat &lt;= (3/62)) %&gt;%
   summarise(p_value = n()/nrow(null_dist))
 ```
 
@@ -610,12 +636,12 @@ null_dist %&gt;%
 
 ## Step 4: Making a conclusion
 
-We reject the null hypothesis if the p-value is probability is small enough, i.e. it is very unlikely to observe our data or more extreme if `\(H_0\)` were 
+- We reject the null hypothesis if the p-value  is small enough, i.e. it is very unlikely to observe our data or more extreme if `\(H_0\)` were 
 actually true.
 
 --
 
-What is "small enough"? We often consider a threshold (the .vocab[significance level]
+- What is "small enough"? We often consider a threshold (the .vocab[significance level]
 or `\(\alpha\)`-level) defined *prior* to conducting the analysis.
 
 ---
@@ -659,29 +685,66 @@ didn't have enough data to tell that there was one)
 ## Organ donor example 
 
 
-The p-value 0.15 is greater than the significance level, `\(\alpha = 0.05\)`, so we .vocab[fail to reject the null hypothesis]. 
+- The p-value 0.15 is greater than the significance level, `\(\alpha = 0.05\)`, so we .vocab[fail to reject the null hypothesis]. 
 
-The data .vocab[do not] provide sufficient evidence that the true complication rate for this consultant's clients is less than the US rate, `\(p = 0.1\)`. 
+- The data .vocab[do not] provide sufficient evidence that the true complication rate for this consultant's clients is less than the US rate, `\(p = 0.1\)`. 
 
-&lt;!-- --- --&gt;
+---
 
-&lt;!-- ## What can go wrong? --&gt;
+## What can go wrong?
 
-&lt;!-- Suppose we test a certain null hypothesis, which can be either true or false  --&gt;
-&lt;!-- (we never know for sure!). We make one of two decisions given our data: either  --&gt;
-&lt;!-- reject or fail to reject `\(H_0\)`.  --&gt;
+- Suppose we test a certain null hypothesis, which can be either true or false
+(we never know for sure!). We make one of two decisions given our data: either
+reject or fail to reject `\(H_0\)`.
 
-&lt;!-- -- --&gt;
+--
 
-&lt;!-- We have the following four scenarios: --&gt;
+- We have the following four scenarios:
 
 
-&lt;!-- | Decision             | `\(H_0\)` is true | `\(H_0\)` is false | --&gt;
-&lt;!-- |----------------------|---------------|----------------| --&gt;
-&lt;!-- | Fail to reject `\(H_0\)` | Correct decision    | *Type II Error*  | --&gt;
-&lt;!-- | Reject `\(H_0\)`         | *Type I Error*  | Correct decision     | --&gt;
+| Decision             | `\(H_0\)` is true | `\(H_0\)` is false |
+|----------------------|---------------|----------------|
+| Fail to reject `\(H_0\)` | Correct decision    | *Type II Error*  |
+| Reject `\(H_0\)`         | *Type I Error*  | Correct decision     |
 
-&lt;!-- It is important to weigh the consequences of making each type of error. --&gt;
+It is important to weigh the consequences of making each type of error!
+
+--
+
+.question[
+What kind of error could we have made in organ donor example?
+]
+
+---
+
+## Summary
+
+- We can use simulation-based methods to test claims and perform hypothesis testing
+
+- In the organ donor example, the claim was about the population parameter `\(p\)`, the true rate of complication
+
+- We used simulation to assess a set of observed data with perhaps a different observed `\(\hat{p}\)`
+
+
+---
+
+## Summary (cont.)
+
+Hypothesis testing procedure:
+
+Pre-analysis: Set an `\(\alpha\)` level.
+ 
+ 1. Start with two hypotheses about the population: the null hypothesis and the 
+alternative hypothesis.
+
+ 2. Choose a (representative) sample, collect data, and analyze the data.
+
+ 3. Calculate the **p-value**
+
+ 4. Make a conclusion about the hypothesis and interpret in the context of your data.
+ 
+ 5. Smile! 
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
