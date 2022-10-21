@@ -524,7 +524,7 @@ font-size: 10pt;
 
 
 <h1 class="title toc-ignore">HW 05 - Bootstrap estimation</h1>
-<h3 class="subtitle">due Tuesday, October 25 at 11:59pm</h3>
+<h3 class="subtitle">due Tuesday, November 1 at 11:59pm</h3>
 
 
 <div id="TOC">
@@ -570,13 +570,13 @@ and at a later point, we may want to replace them. In order to minimize
 the need to change your code later, we can assign the parameter values
 to a name, and use the name (rather than the hard-coded value)
 downstream. Then, to update your code at a later point, you can just
-change the value. Here, we are assinging the number of reps to a
+change the value. Here, we are assigning the number of reps to a
 variable called <code>num_reps</code>:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>num_reps <span class="ot">&lt;-</span> <span class="dv">100</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>boot_dist <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  infer<span class="sc">::</span><span class="fu">specify</span>(<span class="at">response =</span> price) <span class="sc">%&gt;%</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  infer<span class="sc">::</span><span class="fu">generate</span>(<span class="at">reps=</span>num_reps, <span class="at">type =</span> <span class="st">&quot;bootstrap&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  infer<span class="sc">::</span><span class="fu">calculate</span>(<span class="at">stat=</span><span class="st">&quot;mean&quot;</span>)</span></code></pre></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(<span class="at">response =</span> price) <span class="sc">%&gt;%</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps=</span>num_reps, <span class="at">type =</span> <span class="st">&quot;bootstrap&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat=</span><span class="st">&quot;mean&quot;</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="the-data" class="section level1">

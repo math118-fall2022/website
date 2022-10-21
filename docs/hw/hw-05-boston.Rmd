@@ -1,6 +1,6 @@
 ---
 title: "HW 05 - Bootstrap estimation"
-subtitle: "due Tuesday, October 25 at 11:59pm"
+subtitle: "due Tuesday, November 1 at 11:59pm"
 output: 
   tufte::tufte_html:
     highlight: pygments
@@ -43,14 +43,14 @@ set.seed(42)
 
 ### Tip 2: Define global parameters
 
-Often, we rely on specific parameters values throughout our analysis, and at a later point, we may want to replace them. In order to minimize the need to change your code later, we can assign the parameter values to a name, and use the name (rather than the hard-coded value) downstream. Then, to update your code at a later point, you can just change the value. Here, we are assinging the number of reps to a variable called `num_reps`:
+Often, we rely on specific parameters values throughout our analysis, and at a later point, we may want to replace them. In order to minimize the need to change your code later, we can assign the parameter values to a name, and use the name (rather than the hard-coded value) downstream. Then, to update your code at a later point, you can just change the value. Here, we are assigning the number of reps to a variable called `num_reps`:
 
 ```{r global_params, eval = F}
 num_reps <- 100
 boot_dist <- diamonds %>%
-  infer::specify(response = price) %>%
-  infer::generate(reps=num_reps, type = "bootstrap") %>%
-  infer::calculate(stat="mean")
+  specify(response = price) %>%
+  generate(reps=num_reps, type = "bootstrap") %>%
+  calculate(stat="mean")
 ```
 
 
