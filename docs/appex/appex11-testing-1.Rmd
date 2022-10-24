@@ -28,7 +28,7 @@ asheville <- read_csv("data/asheville.csv")
 We will begin with Professor Tang demo-ing code. Then we will live-code together, and then you must complete the remainder of the Application Exercise on your own!
 
 
-## LIVE CODE DEMO
+## LIVE CODE 
 
 ### Exercise 1: discuss with someone next to you
 

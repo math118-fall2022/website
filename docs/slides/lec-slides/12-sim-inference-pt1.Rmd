@@ -7,7 +7,6 @@ output:
   xaringan::moon_reader:
     mathjax: "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML"
     css: "math118-slides.css"
-    logo: img/sta199-sticker-icon.png
     lib_dir: libs/font-awesome
     nature:
       highlightStyle: github
@@ -64,6 +63,15 @@ library(knitr)
 library(DT)
 library(openintro)
 ```
+
+
+---
+
+## Housekeeping
+
+- Midterm grades were released. Really well done!
+
+- Stats candidate job talk: Thursday 12:30-1:30pm in Warner 101
 
 ---
 
