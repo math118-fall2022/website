@@ -581,3 +581,19 @@ is specified?
 --
 
 - Why did we need to "shift" the bootstrap distribution when we generated the null distribution in this example, but we didn't need shift the distribution last time when we  generated the null distribution for inference on the population proportion? 
+
+---
+
+## Discussion
+
+Describe precisely how you would set up the simulation for the following hypothesis tests. 
+Imagine using index cards or chips to represent the data. Also specify whether the null hypothesis would be independence or point and whether the simulation type would be bootstrap or draw. In each of the scenarios you can assume sample size is
+100 and number of simulations is 15,000.
+
+1. Describe the simulation process for testing for a single population standard deviation. 
+Suppose the research question is asking whether the standard deviation is less than 3, 
+and the observed sample standard deviation is 2.
+
+2. Describe the simulation process for testing for a single population proportion. Suppose 
+the research question is asking whether proportion of successes is majority, and also that 
+the observed proportion of success is 0.6.
