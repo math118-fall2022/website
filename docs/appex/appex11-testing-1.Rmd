@@ -68,7 +68,7 @@ mean_ppg <- asheville # %>%
 ```
 
 ```{r}
-null_dist <- asheville # %>%
+null_dist # %>%
 ```
 
 

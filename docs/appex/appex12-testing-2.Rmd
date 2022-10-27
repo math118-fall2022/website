@@ -1,7 +1,7 @@
 ---
 title: "AppEx 12: Hypothesis Testing"
 subtitle: "Part 2"
-date: "10/31/2022"
+date: "10/28/2022"
 output: 
   html_document:
     theme: readable
@@ -17,7 +17,7 @@ https://infer.netlify.app/articles/observed_stat_examples.html
 
 Clone the **appex-12** repo on [GitHub](https://github.com/math118-fall2022) and start a new project in RStudio. 
 
-We will begin with Professor Tang demo-ing code. Then we will live-code together, and then you must complete the remainder of the Application Exercise on your own!
+We will live-code together, and then you must complete the remainder of this Application Exercise on your own!
 
 
 ## Data
@@ -53,8 +53,7 @@ Simulate the null distribution to test your hypotheses. You can use 1000 reps fo
 #### Option 1 
 
 ```{r}
-set.seed(1234)
-null_dist_opt1 <- asheville #%>% 
+# don't forget to set a seed! 
 ```
 
 #### Option 2
@@ -65,8 +64,7 @@ null_dist_opt1 <- asheville #%>%
 ```
 
 ```{r}
-set.seed(1234)
-null_dist_opt2 <- asheville # %>%
+# don't forget to set a seed! 
 ```
 
 
@@ -80,13 +78,9 @@ problem?
 
 ```{r}
 #calculate observed statistic
-obs_med <- asheville # %>%
- # finish the code
 
-```
 
-```{r}
-# null_dist_opt1 %>% 
+# obtain p-value
 ```
 
 
@@ -94,12 +88,9 @@ obs_med <- asheville # %>%
 
 ```{r}
 #calculate observed statistic
-obs_prop <- asheville # %>%
- # finish the code
-```
 
-```{r}
-# null_dist_opt2 %>%
+
+# obtain p-value
 ```
 
 
@@ -109,14 +100,16 @@ obs_prop <- asheville # %>%
 
 Suppose you are interested in whether the proportion of listings with a price per guest per night greater than $50 is 0.5. How would your null and 
 alternative hypotheses change in this case? Carry out the appropriate
-hypothesis test (Option 1 and/or Option 2 above), and report your p-value, decision, and conclusion in context of the research problem. 
+hypothesis test (Option 1 and/or Option 2 above), and report your p-value, decision, and conclusion in context of the research problem.  **Use a seed of 1234 to conduct this hypothesis test.**
+
 
 $H_0$: 
 
 $H_a$: 
 
+
 ```{r ex4}
-set.seed(1234)
+# your code here!
 
 ```
 

@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2022-10-31" />
+<meta name="date" content="2022-10-28" />
 
 <title>AppEx 12: Hypothesis Testing</title>
 
@@ -369,7 +369,7 @@ display: none;
 
 <h1 class="title toc-ignore">AppEx 12: Hypothesis Testing</h1>
 <h3 class="subtitle">Part 2</h3>
-<h4 class="date">10/31/2022</h4>
+<h4 class="date">10/28/2022</h4>
 
 </div>
 
@@ -382,6 +382,8 @@ display: none;
 <h2>Clone a repo + start a new project</h2>
 <p>Clone the <strong>appex-12</strong> repo on <a href="https://github.com/math118-fall2022">GitHub</a> and start a new
 project in RStudio.</p>
+<p>We will live-code together, and then you must complete the remainder
+of this Application Exercise on your own!</p>
 </div>
 <div id="data" class="section level2">
 <h2>Data</h2>
@@ -389,6 +391,9 @@ project in RStudio.</p>
 <pre class="r"><code>library(tidyverse)
 library(infer)</code></pre>
 <pre class="r"><code>asheville &lt;- read_csv(&quot;data/asheville.csv&quot;)</code></pre>
+</div>
+<div id="live-code-together" class="section level2">
+<h2>LIVE CODE TOGETHER!</h2>
 <div id="exercise-1" class="section level3">
 <h3>Exercise 1</h3>
 <p>Suppose you are interested in whether at least half of the Airbnb
@@ -407,14 +412,12 @@ be your null and alternative hypotheses? There are two options!</p>
 1000 reps for the in-class exercise.</p>
 <div id="option-1-1" class="section level4">
 <h4>Option 1</h4>
-<pre class="r"><code>set.seed(1234)
-null_dist_opt1 &lt;- asheville #%&gt;% </code></pre>
+<pre class="r"><code># don&#39;t forget to set a seed! </code></pre>
 </div>
 <div id="option-2-1" class="section level4">
 <h4>Option 2</h4>
 <pre class="r"><code>#create variable to track price</code></pre>
-<pre class="r"><code>set.seed(1234)
-null_dist_opt2 &lt;- asheville # %&gt;%</code></pre>
+<pre class="r"><code># don&#39;t forget to set a seed! </code></pre>
 </div>
 </div>
 <div id="exercise-3" class="section level3">
@@ -425,18 +428,21 @@ research problem?</p>
 <div id="option-1-2" class="section level4">
 <h4>Option 1</h4>
 <pre class="r"><code>#calculate observed statistic
-obs_med &lt;- asheville # %&gt;%
- # finish the code</code></pre>
-<pre class="r"><code># null_dist_opt1 %&gt;% </code></pre>
+
+
+# obtain p-value</code></pre>
 </div>
 <div id="option-2-2" class="section level4">
 <h4>Option 2</h4>
 <pre class="r"><code>#calculate observed statistic
-obs_prop &lt;- asheville # %&gt;%
- # finish the code</code></pre>
-<pre class="r"><code># null_dist_opt2 %&gt;%</code></pre>
+
+
+# obtain p-value</code></pre>
 </div>
 </div>
+</div>
+<div id="your-turn" class="section level2">
+<h2>YOUR TURN!</h2>
 <div id="exercise-4" class="section level3">
 <h3>Exercise 4</h3>
 <p>Suppose you are interested in whether the proportion of listings with
@@ -444,10 +450,11 @@ a price per guest per night greater than $50 is 0.5. How would your null
 and alternative hypotheses change in this case? Carry out the
 appropriate hypothesis test (Option 1 and/or Option 2 above), and report
 your p-value, decision, and conclusion in context of the research
-problem.</p>
+problem. <strong>Use a seed of 1234 to conduct this hypothesis
+test.</strong></p>
 <p><span class="math inline">\(H_0\)</span>:</p>
 <p><span class="math inline">\(H_a\)</span>:</p>
-<pre class="r"><code>set.seed(1234)</code></pre>
+<pre class="r"><code># your code here!</code></pre>
 </div>
 </div>
 

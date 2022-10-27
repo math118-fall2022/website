@@ -61,6 +61,7 @@ library(tidyverse)
 library(broom)
 library(knitr)
 library(DT)
+library(infer)
 library(openintro)
 ```
 
@@ -135,6 +136,29 @@ It is important to weigh the consequences of making each type of error.
 
 ## What can go wrong?
 
+Scenario: A food safety inspector is called to investigate a restaurant with a few customer reports of poor sanitation practices. The food safety inspector uses a hypothesis testing framework to evaluate whether regulations are not being met. If he decides the restaurant is in gross violation, its license to serve food will be revoked.
+
+--
+
+Discuss:
+
+- What are the hypotheses (in words)?
+
+- What is a Type I error in this context?
+
+- What is a Type II error in this context?
+
+- Which error is more problematic for the restaurant owner? For the diners? Why?
+
+| Decision             | $H_0$ is true | $H_0$ is false |
+|----------------------|---------------|----------------|
+| Fail to reject $H_0$ | Correct decision    | **Type II Error** |
+| Reject $H_0$         | **Type I Error**  | Correct decision     |
+
+---
+
+## What can go wrong?
+
 
 | Decision             | $H_0$ is true | $H_0$ is false |
 |----------------------|---------------|----------------|
@@ -172,6 +196,8 @@ Though we'd like to know if we're making a correct decision or making a Type I o
 Recall the organ donor example, where we observed $\hat{p} = \frac{3}{62} \approx 0.048$. When calculating the p-value, how does the meaning of "as or more extreme" mean differ for a one sided vs two sided alternative?
 
 - $H_a: p < 0.10$: find proportion of simulations that resulted in sample proportion $\leq 0.048$.
+
+--
 
 - $H_a: p \neq 0.10$: find proportion of simulations that resulted in sample proportion $\leq 0.048$ OR $\geq 0.10 + (0.10 - 0.048) = 0.152$
 
@@ -285,15 +311,18 @@ asheville %>%
 
 ## 3. Assessing the evidence 
 
-Next, we calculate the probability of getting data like ours, *<u>or more extreme</u>*, 
+Next, we calculate the p-value, which is probability of getting data like ours, *<u>or more extreme</u>*, 
 if $H_0$ were in fact actually true.
 
 This is a conditional probability: 
 > Given that $H_0$ is true (i.e., if $\mu$ were *actually* 100), what would 
 > be the probability of observing $\bar{x} = 76.6$ or more extreme?
-.question[
-This probability is known as the **p-value**.
-]
+
+--
+
+- Thus, we need a be in the world where $H_{0}$ is true, i.e. we need a *null distribution* 
+
+- We will obtain this via simulation
 
 ---
 
@@ -306,7 +335,7 @@ Airbnb listings, we might get a different sample mean.
 --
 
 There is some variability in the .vocab[sampling distribution] of the mean, and
-we want to make sure we quantify this. 
+we want to make sure we quantify this.
 
 --
 
@@ -315,190 +344,57 @@ How might we quantify the sampling distribution of the mean using only the data
 that we have from our original sample?
 ]
 
----
+--
 
-
-## Bootstrap distribution of the mean
-
-```{r}
-set.seed(12345)
-library(infer)
-boot_means <- asheville %>% 
-  specify(response = ppg) %>% #<<
-  generate(reps = 5000, type =  "bootstrap") %>% #<<
-  calculate(stat = "mean") #<<
-```
-
-
-```{r}
-boot_means %>%
- slice(1:6)
-```
+.vocab[Bootstrapping!]
 
 ---
 
-## Bootstrap distribution of the mean
+## Bootstrap distribution of the mean 
 
-```{r eval = F}
-ggplot(data = boot_means, aes(stat)) +
-  geom_histogram(binwidth = 2, color = "darkblue", fill = "skyblue") + 
-  labs(x = "Price per night", y = "Count") +
-  geom_vline(xintercept = mean(boot_means$stat), 
-             lwd = 2, color = "red")
-```
+.question[If we bootstrapped this data, where would we expect the distribution to be centered at?]
 
----
+--
 
-## Bootstrap distribution of the mean
-
-```{r, eval = F, echo = F, fig.height = 2.5}
-set.seed(12345)
-library(infer)
-boot_means <- asheville %>% 
-  specify(response = ppg) %>% 
-  generate(reps = 5000, type = "bootstrap") %>% 
-  calculate(stat = "mean")
-```
-
-
-```{r, echo = F, fig.height=2.5}
-ggplot(data = boot_means, aes(stat)) +
-  geom_histogram(binwidth = 2, color = "darkblue", fill = "skyblue") + 
-  labs(x = "Price per night", y = "Count") +
-  geom_vline(xintercept = mean(boot_means$stat), lwd = 2, color = "red")
-```
-
----
-
-## Shifting the distribution
-
-We've captured the variability in the sample mean among samples of size 50 from
-Asheville area Airbnbs, but remember that in the hypothesis testing paradigm,
-we must assess our observed evidence under the assumption that the null 
-hypothesis is true.
-
-.pull-left[
-```{r, eval = T}
-boot_means %>% 
-  summarize(mean(stat))
-```
-]
-
-.pull-right[
-Remember,
-
-$H_0: \mu = 100$
-
-$H_a: \mu \neq 100$
-]
-
----
-
-class: middle, center
-
-.question[
-Where is our bootstrap distribution of means currently centered?
-
-Where should the bootstrap distribution of means be centered if in fact $H_0$ 
-were actually true?
-]
-
-```{r, echo = F, fig.height = 1.5}
-ggplot(data = boot_means, aes(stat)) +
-  geom_histogram(binwidth = 2, color = "darkblue", fill = "skyblue") + 
-  labs(x = "Price per night", y = "Count") +
-  geom_vline(xintercept = mean(boot_means$stat), lwd = 2, color = "red")
-```
-
----
-
-## Shifting the distribution
-
-.question[
-Where is our bootstrap distribution of means currently centered?
-]
-
-```{r}
-ash_boot_mean <- boot_means %>% 
-  summarize(mean = mean(stat)) %>% 
-  pull() 
-
-ash_boot_mean
-```
-
----
-
-## Shifting the distribution
-
-If we shifted the bootstrap distribution by `offset`, then it will be centered
-at $\mu_0$: the null-hypothesized value for the mean.
-
-```{r}
-offset <- 100 - ash_boot_mean #<<
-offset
-```
-
-```{r}
-boot_means <- boot_means %>% 
-  mutate(null_dist_stat = stat + offset ) #<<
-boot_means %>%
- slice(1:6)
-```
-
----
-
-## Shifting the distribution
-
-```{r, eval = F}
-ggplot(data = boot_means, aes(x = null_dist_stat)) + #<<
-  geom_histogram(binwidth = 2, color = "darkblue", fill = "skyblue") + 
-  labs(x = "Price per night", y = "Count") +
-    geom_vline(xintercept = mean(boot_means$null_dist_stat), lwd = 2, color = "red")
-```
-
----
-
-## Distribution of $\bar{x}$ under $H_0$
-
-```{r, echo = F, fig.height = 2.45}
-ggplot(data = boot_means, aes(x = null_dist_stat)) + #<<
-  geom_histogram(binwidth = 2, color = "darkblue", fill = "skyblue") + 
-  labs(x = "Price per night", y = "Count") + 
-  geom_vline(xintercept = mean(boot_means$null_dist_stat), lwd = 2, color = "red")
-```
-
----
-
-## Simulating the null distribution with infer
-
-Rather than `mutate`-ing to shift the bootstrap distribution of $\bar{x}$ to be 
-centered at $\mu_0$, we can simulate the null distribution automatically:
-
-.pull-left[
-What we had before:
-```{r, eval = F}
-boot_means <- asheville %>% 
-  specify(response = ppg) %>% 
-  generate(reps = 5000, type = "bootstrap") %>% 
-  calculate(stat = "mean")
-# then shift by offset
-```
-]
-
-.pull-right[
-More streamlined version: 
-```{r, eval = F}
-null_dist <- asheville %>%
+```{r echo = T}
+set.seed(1)
+boot_mean_ppg <- asheville %>%
   specify(response = ppg) %>%
-  hypothesize(null = "point", mu = 100) %>% #<<
-  generate(reps = 5000, type = "bootstrap") %>%  
+  generate(reps = 1000, type = "bootstrap") %>%
   calculate(stat = "mean")
+boot_mean <- boot_mean_ppg %>%
+  summarise(mean = mean(stat)) %>%
+  pull()
+boot_mean
 ```
-]
+
+---
+
+## Shifting the distribution
+
+- But remember that in the hypothesis testing paradigm, we must assess our observed evidence under the assumption that the null
+hypothesis $(H_{0}: \mu = 100)$ is true!
+
+- If we shifted the bootstrap distribution by 100 - `r round(boot_mean, 3)`, then it will be centered at $100$
+
+```{r echo = T}
+offset <- 100 - boot_mean
+
+null_dist <- boot_mean_ppg %>%
+  mutate(null_dist_stat = stat + offset)
+```
+
+```{r echo = T}
+null_dist %>%
+  summarise(mean = mean(null_dist_stat))
+```
 
 ---
 
 ## Simulating the null distribution with infer
+
+Rather than `mutate`-ing to shift the bootstrap distribution of $\bar{x}$ to be
+centered at $\mu_0$, we can simulate the null distribution automatically:
 
 ```{r}
 null_dist <- asheville %>%
@@ -507,19 +403,6 @@ null_dist <- asheville %>%
   generate(reps = 5000, type = "bootstrap") %>%  
   calculate(stat = "mean")
 ```
-
-.pull-left[
-```{r}
-null_dist
-```
-]
-
-.pull-right[
-```{r}
-null_dist %>%
-  summarise(mean = mean(stat))
-```
-]
 
 ---
 
@@ -541,7 +424,7 @@ Remember, $H_0: \mu = 100$ and $H_a: \mu \neq 100$
 ```{r}
 null_dist %>%
   # everything as or more extreme as what we observed
-  filter(stat <= mean_ppg | stat >= (100 + (100 - mean_ppg))) %>% 
+  filter(stat <= mean_ppg | stat >= (100 + (100 - mean_ppg))) %>% #<< 
   # number n() of such simulated values, divided by total number of simulations
   summarise(p_value = n()/nrow(null_dist)) %>%
   pull(p_value)
@@ -582,18 +465,18 @@ is specified?
 
 - Why did we need to "shift" the bootstrap distribution when we generated the null distribution in this example, but we didn't need shift the distribution last time when we  generated the null distribution for inference on the population proportion? 
 
----
+<!-- --- -->
 
-## Discussion
+<!-- ## Discussion -->
 
-Describe precisely how you would set up the simulation for the following hypothesis tests. 
-Imagine using index cards or chips to represent the data. Also specify whether the null hypothesis would be independence or point and whether the simulation type would be bootstrap or draw. In each of the scenarios you can assume sample size is
-100 and number of simulations is 15,000.
+<!-- Describe precisely how you would set up the simulation for the following hypothesis tests.  -->
+<!-- Imagine using index cards or chips to represent the data. Also specify whether the null hypothesis would be independence or point and whether the simulation type would be bootstrap or draw. In each of the scenarios you can assume sample size is -->
+<!-- 100 and number of simulations is 15,000. -->
 
-1. Describe the simulation process for testing for a single population standard deviation. 
-Suppose the research question is asking whether the standard deviation is less than 3, 
-and the observed sample standard deviation is 2.
+<!-- 1. Describe the simulation process for testing for a single population standard deviation.  -->
+<!-- Suppose the research question is asking whether the standard deviation is less than 3,  -->
+<!-- and the observed sample standard deviation is 2. -->
 
-2. Describe the simulation process for testing for a single population proportion. Suppose 
-the research question is asking whether proportion of successes is majority, and also that 
-the observed proportion of success is 0.6.
+<!-- 2. Describe the simulation process for testing for a single population proportion. Suppose  -->
+<!-- the research question is asking whether proportion of successes is majority, and also that  -->
+<!-- the observed proportion of success is 0.6. -->
