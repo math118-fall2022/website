@@ -1,0 +1,81 @@
+---
+title: "AppEx 13: Wine"
+date: ""
+output: 
+  html_document:
+    theme: readable
+---
+
+# What makes a good wine?
+
+The goal of this application is to continue practicing two-sample statistical inference using
+both simulation-based approaches. Use the lecture notes, readings, 
+and application exercises to help you complete homework.
+
+# The Data
+
+Today's dataset has been adapted from a large data set of wine reviews from
+[Kaggle](https://www.kaggle.com/zynicide/wine-reviews). Reviews were scraped from 
+WineEnthusiast, which contain information about both the wine itself as well as 
+the reviewer's description of that wine. Here, I provide a subset of the data. 
+You may consider each of these observations to be an
+independent, representative sample of all wines.
+
+The variables are as follows
+
+- `country`: the country that the wine is from (France, Italy, US)
+- `points`: the number of points WineEnthusiast rated the wine on a scale of 1-100. 
+- `price`: cost for a bottle (USD)
+- `variety`: type of grapes used to make the wine
+- `type`: red or white wine
+- `title`: title of the wine review
+- `description`: reviewer's description of the wine
+
+### Clone a repo + start a new project
+
+- Clone the **appex-13-diff-means** repo and start a new project in RStudio. 
+
+
+## Load data and packages 
+
+```{r load-packages-data, eval = FALSE}
+library(tidyverse)
+library(infer)
+___ <- read_csv("data/wines.csv")
+```
+
+## Exercises
+
+Suppose you are  interested in how the type of wine (red or white) impacts its price. Comprehensively evaluate the hypothesis that
+the average price of red wines is different from the average price of white wines in these three countries. Use $\alpha = 0.05$ as the significance level.
+
+### Exercise 1: State your hypotheses
+
+### Exercise 2: Obtain your null distribution
+
+Because we will be simulating randomly, we should first set a seed. Set the seed equal to the exercise number.
+
+```{r seed}
+# set seed here
+
+```
+
+```{r ex2}
+# obtain null distribution
+```
+
+### Exercise 3: Visualize
+
+Display a visualization of your simulated null distribution, and describe the values that would cause you to reject your null hypothesis. Does the observed sample statistic lie in this rejection region?
+
+### Exercise 4: Conclude
+
+What is your p-value, decision, and conclusion in context of the
+research question?
+
+### Exercise 5: Confidence interval
+
+Construct and interpret a 95% two-sided confidence interval for the
+difference you investigated in Exercise 2.
+
+

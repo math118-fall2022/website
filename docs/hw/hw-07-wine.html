@@ -12,7 +12,7 @@
 
 
 
-<title>HW 06 - Parkinsons</title>
+<title>HW 07: Wine</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -523,163 +523,150 @@ font-size: 10pt;
 
 
 
-<h1 class="title toc-ignore">HW 06 - Parkinsons</h1>
-<h3 class="subtitle">due Tuesday, Nov. 8 at 11:59pm</h3>
+<h1 class="title toc-ignore">HW 07: Wine</h1>
+<h3 class="subtitle">due Tue, June 29 at 11:59p</h3>
 
 
-<div id="TOC">
-<ul>
-<li><a href="#introduction-and-data" id="toc-introduction-and-data">Introduction and Data</a></li>
-<li><a href="#exercises" id="toc-exercises">Exercises</a></li>
-<li><a href="#submission" id="toc-submission">Submission</a></li>
-</ul>
+
+<div id="what-makes-a-good-wine" class="section level1">
+<h1>What makes a good wine?</h1>
+<p>The goal of this homework is to continue practicing two-sample
+statistical inference using both simulation-based approaches. Use the
+lecture notes, readings, and application exercises to help you complete
+homework.</p>
 </div>
-
-<div id="introduction-and-data" class="section level1">
-<h1>Introduction and Data</h1>
-<p>The goal of today’s homework is to practice statistical inference
-using simulation procedures. The data for today’s lab may be found by
-cloning your repository available at the class GitHub repository. Use
-the lecture notes, readings, and application exercises to help you
-complete the lab. You can also use <a href="img/06-parkinsons/sim-inference-chart.png">this chart on
-simulation-based inference</a> to help you determine the appropriate
-sampling scheme when conducting simulation-based inference.</p>
-<p>The dataset is adapted from Little et al. (2007), and contains voice
-measurements from individuals both with and without Parkinson’s Disease
-(PD), a progressive neurological disorder that affects the motor system.
-The aim of Little et al.’s study was to examine whether they could
-diagnose PD by examining the spectral (sound-wave) properties of
-patients’ voices. This is the same data we saw in class.</p>
-<p>147 measurements were taken from patients with PD, and 48
-measurements were taken from healthy controls. For the purposes of this
-lab, you may assume that measurements are representative of the
-underlying populations (PD vs. healthy).</p>
-<p>The variables in the dataset are as follows:</p>
+<div id="the-data" class="section level1">
+<h1>The Data</h1>
+<p>Today’s dataset has been adapted from a large data set of wine
+reviews from <a href="https://www.kaggle.com/zynicide/wine-reviews">Kaggle</a>. Reviews
+were scraped from WineEnthusiast, which contain information about both
+the wine itself as well as the reviewer’s description of that wine.
+Here, I provide a subset of the data. You may consider each of these
+observations to be an independent, representative sample of all
+wines.</p>
+<p>The variables are as follows</p>
 <ul>
-<li><code>clip</code>: ID of the recording number</li>
-<li><code>jitter</code>: a measure of variation in fundamental
-frequency</li>
-<li><code>shimmer</code>: a measure of variation in amplitude</li>
-<li><code>hnr</code>: a ratio of total components vs. noise in the voice
-recording</li>
-<li><code>status</code>: PD vs. Healthy</li>
-<li><code>avg.f.q</code>: 1, 2, or 3, corresponding to average vocal
-fundamental frequency (1 = low, 2 = mid, 3 = high)</li>
+<li><code>country</code>: the country that the wine is from (France,
+Italy, US)</li>
+<li><code>points</code>: the number of points WineEnthusiast rated the
+wine on a scale of 1-100.</li>
+<li><code>price</code>: cost for a bottle (USD)</li>
+<li><code>variety</code>: type of grapes used to make the wine</li>
+<li><code>type</code>: red or white wine</li>
+<li><code>title</code>: title of the wine review</li>
+<li><code>description</code>: reviewer’s description of the wine</li>
 </ul>
-<p>You may load in the data with the following code, where
-<code>____</code> should be replaced by a meaningful name of your
-choosing. Then be sure to remove the <code>eval = FALSE</code>:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(infer)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>____ <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/parkinsons.csv&quot;</span>)</span></code></pre></div>
+<p>Cloning your repository, which is available at the class GitHub
+repository. Load the data into your RStudio environment, and don’t
+forget to configure GitHub beforehand. Write all R code according to the
+style guidelines discussed in class.</p>
+<p>To following resource provides code needed to make useful symbols.
+You may use the code to typeset the characters of interest in the
+<em>narrative</em> of your document:</p>
+<ul>
+<li><span class="math inline">\(\mu\)</span>: <code>$\mu$</code></li>
+<li><span class="math inline">\(\alpha\)</span>:
+<code>$\alpha$</code></li>
+<li><span class="math inline">\(\ge\)</span>: <code>$\ge$</code></li>
+<li><span class="math inline">\(\le\)</span>: <code>$\le$</code></li>
+<li><span class="math inline">\(\neq\)</span>: <code>$\neq$</code></li>
+<li><span class="math inline">\(H_0\)</span>: <code>$H_0$</code></li>
+<li><span class="math inline">\(H_a\)</span>: <code>$H_a$</code></li>
+</ul>
 </div>
 <div id="exercises" class="section level1">
 <h1>Exercises</h1>
-<p><br></p>
-<div class="commit">
-<b>NOTES</b>
-<ul>
-<li>
-To write <span class="math inline">\(\mu\)</span>, type in
-<code>$\mu$</code> in the narrative. To write <span class="math inline">\(\mu_{H}\)</span>, type in <code>$\mu_{H}$</code>
-in the narrative. To write <span class="math inline">\(\alpha\)</span>,
-type in <code>$\alpha$</code> in your narrative. To write <span class="math inline">\(\neq\)</span>, type in <code>$\neq$</code> in your
-narrative.
-</li>
-<li>
-At that start of each exercise that requires simulation, set a random
-seed equal to the Exercise number in the R chunk.
-</li>
-</ul>
-</div>
+<p><strong>Overall hint:</strong> When performing a hypothesis test, you
+must provide the significance level of your test, the null and
+alternative hypotheses, the p-value, your decision, and an
+interpretation of the p-value in context of the original research
+question.</p>
+<p>You may load in the data with the following code, where
+<code>____</code> should be replaced by a meaningful name of your
+choosing:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(infer)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>____ <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/wines.csv&quot;</span>)</span></code></pre></div>
+<p><strong>At the start of each exercise that requires simulation, set a
+random seed equal to the exercise number in the R chunk.</strong></p>
 <div id="part-1" class="section level3">
 <h3>Part 1</h3>
-<p>Is there enough evidence to suggest that the mean HNR in the voice
-recordings of the healthy patients is significantly different from 25 at
-the <span class="math inline">\(\alpha\)</span> = 0.05 significance
-level?</p>
 <ol style="list-style-type: decimal">
-<li>Write out the null and alternative hypotheses for this question in
-both words and symbols.</li>
+<li>For this exercise alone, consider wines from the US and Italy only.
+Evaluate the hypothesis that the <code>country</code> where the wine is
+produced is independent of its <code>type</code> (red or white). Use a
+significance level of <span class="math inline">\(\alpha =
+0.05\)</span>. Visualize your null distribution.</li>
 </ol>
 <p><label for="tufte-mn-1" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-1" class="margin-toggle"><span class="marginnote"></span></p>
-<ol start="2" style="list-style-type: decimal">
-<li>Display a visualization of your simulated null distribution, and
-describe the values that would cause you to reject your null hypothesis
-(called the <em>rejection region</em>). Does our observed sample mean
-lie in this rejection region?</li>
-</ol>
-<p><label for="tufte-mn-2" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-2" class="margin-toggle"><span class="marginnote"></span></p>
-<ol start="3" style="list-style-type: decimal">
-<li>What is your p-value, decision, and conclusion in context of the
-research question?</li>
-</ol>
-<p><label for="tufte-mn-3" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-3" class="margin-toggle"><span class="marginnote"></span></p>
-<ol start="4" style="list-style-type: decimal">
-<li>Given your conclusion in Exercise 3, which type of error could you
-possibly have made? What would making such an error mean in the context
-of the research question?</li>
-</ol>
-<p><label for="tufte-mn-4" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-4" class="margin-toggle"><span class="marginnote"></span></p>
 </div>
 <div id="part-2" class="section level3">
 <h3>Part 2</h3>
-<p>Researchers suspect that patients with PD are less able to control
-their vocal muscles, and thus may have a different HNR (tonal component
-to noise ratio) compared to healthy volunteers. Thus, they are
-interested in whether the mean HNR in voice recordings among patients
-with PD is statistically significantly different from the mean HNR in
-voice recordings among healthy patients. The researchers select the 0.05
-significance level.</p>
+<p>Let’s say I’m doing to a nice dinner party, and I’m told to bring a
+bottle of wine. I want to bring an acceptable bottle, but I don’t like
+these friends enough to spend more than $20 on a bottle of wine. So I
+have to be strategic. I’ve been told that a cheap white is usually
+better than a cheap red, but that an expensive red is always better than
+an expensive white. Maybe I should buy a wine based on its
+points-to-price ratio.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Wrangle your data frame to create a new variable <code>ratio</code>,
+calculated as a wine’s points divided by its price.</li>
+</ol>
+<p><label for="tufte-mn-2" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-2" class="margin-toggle"><span class="marginnote"></span></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Wines with higher values for this ratio might indicate that the wine
+is a good deal. Comprehensively evaluate the hypothesis at the <span class="math inline">\(\alpha = 0.05\)</span> level that among wines that
+are at most $20 per bottle, white wines have a higher average
+point-to-price ratio compared to red wines.</li>
+</ol>
+<p><label for="tufte-mn-3" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-3" class="margin-toggle"><span class="marginnote"></span></p>
+<ol start="4" style="list-style-type: decimal">
+<li>How would your decision and conclusion change if we used <span class="math inline">\(\alpha = 0.10\)</span> instead?</li>
+</ol>
+<p><label for="tufte-mn-4" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-4" class="margin-toggle"><span class="marginnote"><span style="display: block;"><strong>Hint</strong>:
+refer back to the lectures about probability and the definition of Type
+I error to answer this question!</span></span></p>
 <ol start="5" style="list-style-type: decimal">
-<li>Write out the null and alternative hypotheses for this question in
-both words and symbols.</li>
+<li>Suppose you perform 10 independent hypothesis tests at the <span class="math inline">\(\alpha = 0.05\)</span> level, and further suppose
+that in reality, the null hypothesis is TRUE for all 10 tests. What is
+the probability that you make at least one Type I error?</li>
 </ol>
 <p><label for="tufte-mn-5" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-5" class="margin-toggle"><span class="marginnote"></span></p>
 <ol start="6" style="list-style-type: decimal">
-<li>Simulate your null distribution.</li>
+<li>Let’s say you just really hate white wine and are trying to
+demonstrate to others that it’s associated with lower ratings in terms
+of points. Describe the potential ethical ramifications of performing
+all of these tests and reporting only the significant results from the
+tests that support your narrative. Consider your answer from Exercise 5
+in crafting this narrative.</li>
 </ol>
 <p><label for="tufte-mn-6" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-6" class="margin-toggle"><span class="marginnote"></span></p>
-<ol start="7" style="list-style-type: decimal">
-<li>What is your p-value, decision, and conclusion in context of the
-research question?</li>
-</ol>
-<p><label for="tufte-mn-7" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-7" class="margin-toggle"><span class="marginnote"></span></p>
 </div>
 <div id="part-3" class="section level3">
 <h3>Part 3</h3>
-<p>Suppose we are now interested in testing whether a correlation exists
-between voice jitter and voice shimmer among healthy volunteers. Test
-whether the correlation between these two values is non-zero at the
-<span class="math inline">\(\alpha\)</span> = <strong>0.01</strong>
-level.</p>
-<p><label for="tufte-mn-8" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-8" class="margin-toggle"><span class="marginnote"><span style="display: block;">As an aside,
-correlation is given in symbols by <span class="math inline"><span class="math inline">\(\rho\)</span></span>.</span></span></p>
+<p>From Exercise 2, you may have noticed that the observed
+<code>points</code> values lie between 80 and 100, even though the
+points are awarded on the 1-100 scale. This is because WineEnthusiast
+only provides reviews for wines that are at least considered “Good”.
+They using the following scale for classification of quality:</p>
+<ul>
+<li>80-84 = Good</li>
+<li>85-89 = Very good</li>
+<li>90-94 = Outstanding</li>
+<li>95-100 = Classic</li>
+</ul>
+<ol start="7" style="list-style-type: decimal">
+<li>Create a new variable for the quality of each wine based on its
+points.</li>
+</ol>
+<p><label for="tufte-mn-7" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-7" class="margin-toggle"><span class="marginnote"></span></p>
 <ol start="8" style="list-style-type: decimal">
-<li>Write out the null and alternative hypotheses in words.</li>
+<li>Is there evidence to suggest that the quality of a wine and the
+<code>country</code> where its produced are associated? Comprehensively
+evaluate this hypothesis.</li>
 </ol>
-<p><label for="tufte-mn-9" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-9" class="margin-toggle"><span class="marginnote"><span style="display: block;"><strong>Hint</strong>:
-Refer to HW 05 for what to <code>specify()</code>. Use
-<code>hypothesize(null = “independence”)</code>. The type of simulated
-data we will <code>generate()</code> depends on two
-quantities/variables; consult the chart.</span></span></p>
-<ol start="9" style="list-style-type: decimal">
-<li>Display a visualization of your simulated null distribution, and
-describe the values that would cause you to reject your null hypothesis.
-Does the observed sample correlation lie in this rejection region?</li>
-</ol>
-<p><label for="tufte-mn-10" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-10" class="margin-toggle"><span class="marginnote"></span></p>
-<ol start="10" style="list-style-type: decimal">
-<li>What is your p-value, decision, and conclusion in context of the
-research question?</li>
-</ol>
-<p><label for="tufte-mn-11" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-11" class="margin-toggle"><span class="marginnote"></span></p>
-<ol start="11" style="list-style-type: decimal">
-<li>What is the probability you’ve made a Type 1 error? If you cannot
-tell for sure, explain why. Similarly, what is the probability you’ve
-made a Type 2 error? If you cannot tell for sure, explain why.</li>
-</ol>
-<p><label for="tufte-mn-12" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-12" class="margin-toggle"><span class="marginnote"></span></p>
+<p><label for="tufte-mn-8" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-8" class="margin-toggle"><span class="marginnote"></span></p>
 </div>
 </div>
 <div id="submission" class="section level1">
@@ -687,7 +674,7 @@ made a Type 2 error? If you cannot tell for sure, explain why.</li>
 <p>Knit to PDF to create a PDF document. Knit and commit all remaining
 changes, and push your work to GitHub. Make sure all files are updated
 on your GitHub repo.</p>
-<p>Please then upload your PDF document to Canvas.</p>
+<p>Please upload your PDF document to Canvas.</p>
 </div>
 
 

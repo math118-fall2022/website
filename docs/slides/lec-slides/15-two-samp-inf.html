@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Two-sample inference</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Becky Tang" />
+    <meta name="date" content="2022-10-31" />
+    <script src="libs/font-awesome/header-attrs/header-attrs.js"></script>
+    <link href="libs/font-awesome/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <link rel="stylesheet" href="math118-slides.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Two-sample inference
+]
+.author[
+### Becky Tang
+]
+.date[
+### 10/31/2022
+]
+
+---
+
+
+
+
+layout: true
+
+&lt;div class="my-footer"&gt;
+&lt;span&gt;
+&lt;a href="http://datasciencebox.org" target="_blank"&gt;datasciencebox.org&lt;/a&gt;
+&lt;/span&gt;
+&lt;/div&gt; 
+
+
+
+
+
+---
+
+
+## Recap
+
+So far, we've talked about performing interval estimation and hypothesis 
+testing for means using simulation-based methods
+
+In all cases so far, we've only compared one sample against a hypothesized 
+value.
+
+.question[
+But what if we wanted to compare two samples against *each other*?
+]
+
+---
+
+
+class: center, middle
+
+# Permutation tests for difference in means
+
+---
+
+## Two-sample inference for means
+
+Suppose we have two (representative) samples, and wanted to either 
+
+- estimate the .vocab[difference in means] in the two
+populations 
+  - confidence interval for `\(\mu_1 - \mu_2\)`
+  
+- Test the hypotheses
+
+`\begin{align*}
+H_0: \mu_1 = \mu_2 \\
+H_a: \mu_1 \neq \mu_2,
+\end{align*}`
+
+where `\(\mu_1\)` and `\(\mu_2\)` are the population means in groups 1 and 2.
+
+---
+
+class: middle
+
+.question[
+How might you calculate a confidence interval and address the above hypothesis test using simulation-based methods?
+]
+
+---
+
+## Data
+
+&lt;img src="img/15/spectrogram.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+.footnote[Adapted from Erdogdu Sakar, B., et al. *Collection and Analysis of a Parkinson*
+*Speech Dataset with Multiple Types of Sound Recordings*, IEEE Journal of 
+Biomedical and Health Informatics, vol. 17(4), pp. 828-834, 2013
+(image from [Wikipedia](https://en.wikipedia.org/wiki/Spectrogram))]
+
+---
+
+## Some voice analysis terminology
+
+&lt;img src="img/15/jitter.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+- .vocab[Jitter]: frequency variation from cycle to cycle
+- .vocab[Shimmer]: amplitude variation of the sound wave
+
+Jitter and shimmer are affected by lack of control of vocal cord vibration, and
+pathological differences from average values may be indicative of Parkinson's
+Disease (PD).
+
+(from Teixeira, Oliveira, and Lopes, 2013)
+
+---
+
+## Question of interest
+
+Is there a difference in average voice jitter between patients with Parkinson's disease (PD) and those who don't have Parkinson's disease (control group)? 
+
+The `parkinsons.csv` we looked at in lab contains repeated voice recordings from a number of patients,
+some with PD and some serving as non-PD controls (Erdogdu B et al.). For now,
+**assume that all samples were taken independently from each other** (this is
+not actually the case, but we'll make this assumption).
+
+Jitter is given in milliseconds (ms), and shimmer is given in decibels (dB).
+
+---
+
+## Data
+
+
+```r
+parkinsons &lt;- read_csv("data/parkinsons.csv")
+parkinsons %&gt;% 
+  slice(29:33)
+```
+
+```
+## # A tibble: 5 × 6
+##   clip            jitter shimmer   hnr status  avg.f.q
+##   &lt;chr&gt;            &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;
+## 1 phon_R01_S06_5 0.0031    0.161  26.0 PD            2
+## 2 phon_R01_S06_6 0.00502   0.168  25.7 PD            2
+## 3 phon_R01_S07_1 0.00289   0.097  26.8 Healthy       3
+## 4 phon_R01_S07_2 0.00241   0.089  30.9 Healthy       3
+## 5 phon_R01_S07_3 0.00212   0.111  30.8 Healthy       3
+```
+
+---
+
+## Bootstrap estimation
+
+Let's construct the bootstrap distribution for the **difference in means**.
+
+
+```r
+library(infer)
+set.seed(2020)
+boot_diffs &lt;- parkinsons %&gt;% 
+* specify(jitter ~ status) %&gt;%
+  generate(reps = 1000, type = "bootstrap") %&gt;% 
+  calculate(stat = "diff in means", 
+            order = c("Healthy", "PD")) 
+```
+
+--
+
+.question[What does the argument in `specify()` mean?. Why is it no longer of the form `specify(response = &lt;var&gt;)`?]
+
+--
+
+- We want to look at the relationship between `jitter` and `status`, not just `jitter` alone!
+
+
+---
+## Bootstrap estimation
+
+Let's construct the bootstrap distribution for the **difference in means**.
+
+
+```r
+library(infer)
+set.seed(2020)
+boot_diffs &lt;- parkinsons %&gt;% 
+  specify(jitter ~ status) %&gt;% 
+  generate(reps = 1000, type = "bootstrap") %&gt;% 
+* calculate(stat = "diff in means",
+*           order = c("Healthy", "PD"))
+```
+
+- In `calculate()`, we now specify `stat = "diff in means"`
+
+.question[What does this `order` argument mean? Why do we need it?]
+
+---
+
+## Bootstrap estimation
+
+Let's construct the bootstrap distribution for the **difference in means**.
+
+&lt;img src="15-two-samp-inf_files/figure-html/unnamed-chunk-6-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+## CI for difference in means
+
+Let's construct the 95% bootstrap confidence interval for the **difference in means**.
+
+
+```
+## # A tibble: 1 × 2
+##      lower    upper
+##      &lt;dbl&gt;    &lt;dbl&gt;
+## 1 -0.00413 -0.00220
+```
+
+.vocab[Interpretation: ]We are 95% confident that the mean voice jitter for people without Parkinson's disease is about 0.002 to 0.004 ms .vocab[less than] the mean voice jitter for those with Parkinson's disease.
+
+  - Note the .vocab[order] of the interpretation! 
+
+--
+
+.question[
+Is there evidence that there is a difference in mean voice jitter between PD patients and healthy patients?
+]
+
+---
+
+## Hypothesis testing
+
+Let `\(\mu_P\)` be the mean voice jitter among PD patients, and `\(\mu_H\)` be the mean
+voice jitter among healthy patients. Let's test
+
+`\begin{align*}
+H_0: \mu_P = \mu_H\\
+H_a: \mu_P \neq \mu_H
+\end{align*}`
+
+If the two means are truly equal (i.e., if `\(H_0\)` is true), then the difference, `\(\mu_H - \mu_P\)`, should be **zero**.
+
+---
+
+## Hypothesis testing
+
+Let's construct the simulated .vocab[null distribution] for the difference in means, `\(\mu_H - \mu_P\)`. If the two means are truly equal (i.e., if `\(H_0\)` is true), then this difference should be zero.
+
+--
+
+
+```r
+null_dist &lt;- parkinsons %&gt;%
+* specify(jitter ~ status) %&gt;%
+  hypothesize(null = "independence") %&gt;% 
+  generate(reps = 1000, type = "permute") %&gt;% 
+* calculate(stat = "diff in means",
+*           order = c("Healthy", "PD"))
+```
+
+- Just as for confidence interval, we use `specify(jitter ~ status)` because we want to examine how mean `jitter` varies by different `status`
+
+- We will `calculate()` the same statistic and specify the same order
+
+---
+
+## Hypothesis testing
+
+Let's construct the simulated .vocab[null distribution] for the difference in means, `\(\mu_H - \mu_P\)`. If the two means are truly equal (i.e., if `\(H_0\)` is true), then this difference should be zero.
+
+--
+
+
+```r
+null_dist &lt;- parkinsons %&gt;%
+  specify(jitter ~ status) %&gt;% 
+* hypothesize(null = "independence") %&gt;%
+  generate(reps = 1000, type = "permute") %&gt;% 
+  calculate(stat = "diff in means", 
+            order = c("Healthy", "PD")) 
+```
+
+.question[Why is it no longer the usual `hypothesize(null = "point")`?]
+
+--
+
+- If the difference in means is truly zero, then we would say that voice `jitter` is independent of what `status` patient you are
+
+---
+
+## Hypothesis testing
+
+Let's construct the simulated .vocab[null distribution] for the difference in means, `\(\mu_H - \mu_P\)`. If the two means are truly equal (i.e., if `\(H_0\)` is true), then this difference should be zero.
+
+--
+
+
+```r
+null_dist &lt;- parkinsons %&gt;%
+  specify(jitter ~ status) %&gt;% 
+  hypothesize(null = "independence") %&gt;% 
+* generate(reps = 1000, type = "permute") %&gt;%
+  calculate(stat = "diff in means", 
+            order = c("Healthy", "PD")) 
+```
+
+.question[Why `type = "permute"` and not `type = "bootstrap"`?]
+
+---
+
+## Permuting
+
+- Our null hypothesis is that the mean `jitter` of the two groups, `"Healthy"` and `"PD"`, are equal
+
+- How do we create a null distribution here?
+
+--
+
+- If the `jitter` across the two groups is truly not different, then if I shuffled the observed `jitter` values around, split them into two groups, and looked at the the respective mean `jitter` in these new groups, .vocab[what would we expect the difference between the two means to be]?
+
+
+---
+
+
+## Permuting
+
+- This idea of shuffling or rearranging the observations around is known as .vocab[permuting]
+
+- We will use cards to understand how this works
+
+--
+
+
+```r
+parkinsons %&gt;%
+  count(status)
+```
+
+```
+## # A tibble: 2 × 2
+##   status      n
+##   &lt;chr&gt;   &lt;int&gt;
+## 1 Healthy    48
+## 2 PD        147
+```
+
+Begin by writing each observed value `jitter` on its own card, for a total of 195 cards. Then:
+
+--
+
+1. Shuffle the cards well and deal 48 into one group, and the remaining 147 into a second group
+
+2. Calculate the means of each group `\((\bar{x}_{1}, \bar{x}_{2})\)`, then record the difference `\(\bar{x}_{1} - \bar{x}_{2}\)`
+
+Repeat steps 1 and 2 multiple times! This will create a null distribution of the difference in means.
+
+--
+
+This is similar in spirit to bootstrap estimation, but here we **sample without replacement**; we merely permute/shuffle the labels of each of our `jitter` values.
+
+---
+
+## Hypothesis testing
+  
+This is our null distribution for the Parkinson's data obtained via permuting:
+  
+&lt;img src="15-two-samp-inf_files/figure-html/unnamed-chunk-12-1.png" style="display: block; margin: auto;" /&gt;
+
+This distribution approximates all the possible differences in means we could have seen if 
+`\(H_0\)` were in fact true. 
+
+---
+
+## Hypothesis testing
+
+Obtain our .vocab[statistic], the *observed* difference in means (option 1):
+ 
+
+```r
+mean_healthy &lt;- parkinsons %&gt;%
+  filter(status == "Healthy") %&gt;%
+  summarise(mean_jitter = mean(jitter)) %&gt;% 
+  pull()
+mean_pd &lt;- parkinsons %&gt;%
+  filter(status == "PD") %&gt;%
+  summarise(mean_jitter = mean(jitter)) %&gt;% 
+  pull()
+obs_diff &lt;- mean_healthy - mean_pd
+obs_diff
+```
+
+```
+## [1] -0.00312321
+```
+
+
+---
+
+## Hypothesis testing
+
+Obtain our .vocab[statistic], the *observed* difference in means (option 2):
+
+
+```r
+obs_diff &lt;- parkinsons %&gt;% 
+  specify(jitter ~ status) %&gt;% 
+  calculate(stat = "diff in means", order = c("Healthy", "PD")) %&gt;% 
+  pull()
+obs_diff
+```
+
+```
+## [1] -0.00312321
+```
+
+---
+
+
+## Hypothesis testing
+
+- Obtain our .vocab[p-value]:
+
+
+```r
+null_dist %&gt;% 
+  filter(stat &lt;=  obs_diff | stat &gt;= (0 + (0 - obs_diff))) %&gt;%
+  summarise(p_val = n() / nrow(null_dist))
+```
+
+```
+## # A tibble: 1 × 1
+##   p_val
+##   &lt;dbl&gt;
+## 1     0
+```
+
+--
+
+- Equivalently, can calculate p-value using the following code which uses the absolute value function `abs()` because the hypothesized null difference is 0:
+
+
+```r
+null_dist %&gt;% 
+* filter(abs(stat) &gt;= abs(obs_diff)) %&gt;%
+  summarise(p_val = n() / nrow(null_dist))
+```
+
+```
+## # A tibble: 1 × 1
+##   p_val
+##   &lt;dbl&gt;
+## 1     0
+```
+
+---
+
+## Conclusion 
+
+The p-value is very small, so we reject `\(H_0\)`. The data provide sufficient evidence that there is a difference in the mean voice jitter between patients who have Parkinson's disease and those who don't have the disease.
+
+---
+
+
+class: center, middle
+
+# Permutation tests for independence
+
+---
+
+## Is yawning contagious?
+
+.pull-left[
+![](img/15/yawn1.png)
+]
+.pull-right[
+![](img/15/yawn2.png)
+]
+
+---
+
+## Is yawning contagious?
+
+An experiment conducted by the MythBusters tested if a person can be subconsciously influenced into yawning if another person near them yawns.
+
+They recruited 50 people, spoke to each subject one-one-one, and intentially either yawned
+or did not yawn during the session. Each subject sat in a small room for a fixed amount of time, and the Mythbusters secretly observed to see whether they yawned.
+
+---
+
+## Description
+
+Randomly assigned people to two groups: 34 to a group where a person near them yawned (treatment) and 16 to a control group where they didn't see someone yawn (control).
+
+
+
+
+```r
+glimpse(mb_yawn)
+```
+
+```
+## Rows: 50
+## Columns: 2
+## $ group   &lt;chr&gt; "treatment", "treatment", "treatment", "control", "control", "…
+## $ outcome &lt;chr&gt; "yawn", "yawn", "no yawn", "no yawn", "yawn", "yawn", "yawn", …
+```
+
+```r
+mb_yawn %&gt;%
+  count(group, outcome)
+```
+
+```
+##       group outcome  n
+## 1   control no yawn 12
+## 2   control    yawn  4
+## 3 treatment no yawn 24
+## 4 treatment    yawn 10
+```
+
+---
+
+## Proportion of yawners
+
+
+```r
+mb_yawn %&gt;%
+  count(group, outcome) %&gt;%
+  group_by(group) %&gt;%
+  mutate(rel_prop = round(n / sum(n), 2))
+```
+
+```
+## # A tibble: 4 × 4
+## # Groups:   group [2]
+##   group     outcome     n rel_prop
+##   &lt;chr&gt;     &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt;
+## 1 control   no yawn    12     0.75
+## 2 control   yawn        4     0.25
+## 3 treatment no yawn    24     0.71
+## 4 treatment yawn       10     0.29
+```
+
+The Mythbusters claimed that the difference in proportion of yawners between the two groups (0.04) was significant, based on intuition. Let's see if hypothesis testing agrees...
+
+---
+
+## Independence? 
+
+Based on the proportions we calculated, do you think yawning is really contagious, i.e. are seeing someone yawn and yawning dependent?
+
+
+```
+## # A tibble: 4 × 4
+## # Groups:   group [2]
+##   group     outcome     n p_hat
+##   &lt;chr&gt;     &lt;chr&gt;   &lt;int&gt; &lt;dbl&gt;
+## 1 control   no yawn    12  0.75
+## 2 control   yawn        4  0.25
+## 3 treatment no yawn    24  0.71
+## 4 treatment yawn       10  0.29
+```
+
+---
+
+## Possible explanations
+
+- The observed differences might suggest that yawning is contagious, i.e. seeing someone yawn and yawning are dependent
+
+- But the differences are small enough that we might wonder if they might simple be **due to chance**
+
+- If we were to repeat the experiment on another group of 50 people, we may see different results. So let's simulate using a **permutation test**
+
+---
+
+## Hypotheses
+
+`\(H_0\)`: yawning (outcome) and seeimg someone yawn (treatment vs. control) are independent:
+
+`$$p_{treat} = p_{control}$$`
+
+`\(H_{a}\)`: yawning and seeing someone yawn are not independent (in fact, we will specify that the proportion of yawners is greater in the treatment group than in the control group:
+
+`$$p_{treat} &gt; p_{control}$$`
+
+where `\(p_{treat}\)` is the true proportion of yawners among those who saw someone else yawn, and similarly for 
+`\(p_{control}\)`.
+
+Note, these are equivalent to `\(H_0: p_{treat} - p_{control} = 0\)` and `\(H_a: p_{treat} - p_{control} &gt; 0\)`.
+
+---
+
+## Permuting the treatment assignments
+
+We know from our observed data that 14 people yawned and 36 people didn't yawn.
+
+We also know that there were 16 people in the control group (didn't see someone yawn) and 34 people in the treatment group (saw someone yawn), resulting in a test statistic of 0.0441.
+
+
+```r
+p_hat_diff &lt;- mb_yawn %&gt;%
+  count(group, outcome) %&gt;%
+  group_by(group) %&gt;%
+  mutate(p_hat = n / sum(n), 2) %&gt;%
+  filter(outcome == "yawn") %&gt;%
+  pull(p_hat) %&gt;%
+  diff()
+p_hat_diff
+```
+
+```
+## [1] 0.04411765
+```
+
+
+---
+
+##  Permuting the treatment assignments
+
+While keeping the responses (yawn vs. no yawn) fixed at what we observed, we will *permute* or shuffle the treatment assignments of the observations and recalculate the difference in proportions.
+
+That is, we will recalculate the difference in proportions as if some of the yawners and some of the non-yawners perhaps might have been in a different treatment group.
+
+--
+
+Why do we do this?
+
+---
+
+## The null hypothesis
+
+Recall that under `\(H_0\)`, there is no association between seeing someone yawn (treatment vs control) and the act of yawning (outcome).
+
+If there truly is no association between treatment and control, then shuffling whether someone was assigned to watch somebody yawn or not yawn shouldn't matter -- we would expect similar proportions of people who yawn in each group.
+
+--
+
+Because we are in the hypothesis testing framework, we generate our null distribution assuming `\(H_0\)` true. How can we obtain that null distribution?
+
+---
+
+## Repeated permutations
+
+We will do this treatment-shuffling again and again, calculate the difference in proportion for each simulation, and use this as an approximation to the null distribution.
+
+This distribution approximates all the possible differences in proportion we could have seen if 
+`\(H_0\)` were in fact true. 
+
+This is similar in spirit to bootstrap estimation, but here we **sample without replacement**; we merely permute/shuffle the treatment labels of each of our outcomes.
+
+
+---
+
+## Using `infer`
+
+
+```r
+null_dist &lt;- mb_yawn %&gt;%
+* specify(response = outcome, explanatory = group, success = "yawn") %&gt;%
+  hypothesize(null = "independence") %&gt;%
+  generate(1000, type = "permute") %&gt;%
+  calculate(stat = "diff in props", order = c("treatment", "control"))
+```
+
+Because we are interested in the whether or not someone yawned, `response = outcome`.
+
+We are comparing the proportions between two levels of the variable `group`, so `explanatory = group`.
+
+Since the response variable is categorical, specify which level should be success
+
+---
+
+## Using `infer`
+
+
+```r
+null_dist &lt;- mb_yawn %&gt;%
+  specify(response = outcome, explanatory = group, success = "yawn") %&gt;%  
+* hypothesize(null = "independence") %&gt;%
+  generate(1000, type = "permute") %&gt;% 
+  calculate(stat = "diff in props", order = c("treatment", "control"))
+```
+
+Null hypothesis: the outcome and treatment are independent.
+
+---
+
+
+## Using `infer`
+
+
+```r
+null_dist &lt;- mb_yawn %&gt;%
+  specify(response = outcome, explanatory = group, success = "yawn") %&gt;%  
+  hypothesize(null = "independence") %&gt;% 
+* generate(1000, type = "permute") %&gt;%
+  calculate(stat = "diff in props", order = c("treatment", "control"))
+```
+
+Generate simulated results via permutation
+
+---
+
+## Using `infer`
+
+
+```r
+set.seed(100)
+null_dist &lt;- mb_yawn %&gt;%
+  specify(response = outcome, explanatory = group, success = "yawn") %&gt;%  
+  hypothesize(null = "independence") %&gt;% 
+  generate(1000, type = "permute") %&gt;% 
+* calculate(stat = "diff in props", order = c("treatment", "control"))
+```
+
+Calculate the sample statistic of interest (difference in proportions). 
+
+Because the explanatory variable `group` is categorical, we need to tell R the
+order in which to take the different in proportions for the calculation: `\((\hat{p}_{treat} - \hat{p}_{control})\)`.
+
+---
+
+## Visualizing the null distribution
+
+What would you expect the center of the null distribution to be?
+
+
+
+```r
+visualize(null_dist) 
+```
+
+&lt;img src="15-two-samp-inf_files/figure-html/unnamed-chunk-26-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Calculating the p-value
+
+
+```r
+null_dist %&gt;%
+  filter(stat &gt;= p_hat_diff) %&gt;%
+  summarise(p_val = n()/nrow(null_dist))
+```
+
+```
+## # A tibble: 1 × 1
+##   p_val
+##   &lt;dbl&gt;
+## 1  0.53
+```
+
+OR
+
+
+```r
+null_dist %&gt;%
+  get_p_value(obs_stat = p_hat_diff, direction = "greater")
+```
+
+```
+## # A tibble: 1 × 1
+##   p_value
+##     &lt;dbl&gt;
+## 1    0.53
+```
+--
+
+What is the conclusion of our hypothesis test?
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"slideNumberFormat": "%current%",
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

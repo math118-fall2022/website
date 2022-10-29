@@ -1,0 +1,165 @@
+---
+title: "HW 07: Wine"
+subtitle: "due Tuesday, Nov. 15 at 11:59pm"
+output: 
+  tufte::tufte_html:
+    highlight: pygments
+    css: "math118-hw.css"
+link-citations: yes
+---
+
+```{r include=FALSE}
+library(tidyverse)
+library(tufte)
+library(knitr)
+options(
+  htmltools.dir.version = FALSE, # for blogdown
+  show.signif.stars = FALSE,     # for regression output
+  digits = 2
+  )
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+
+# What makes a good wine?
+
+The goal of this homework is to continue practicing two-sample statistical inference using
+both simulation-based approaches. Use the lecture notes, readings, 
+and application exercises to help you complete homework.
+
+# The Data
+
+Today's dataset has been adapted from a large data set of wine reviews from
+[Kaggle](https://www.kaggle.com/zynicide/wine-reviews). Reviews were scraped from 
+WineEnthusiast, which contain information about both the wine itself as well as 
+the reviewer's description of that wine. Here, I provide a subset of the data. 
+You may consider each of these observations to be an
+independent, representative sample of all wines.
+
+The variables are as follows
+
+- `country`: the country that the wine is from (France, Italy, US)
+- `points`: the number of points WineEnthusiast rated the wine on a scale of 1-100. 
+- `price`: cost for a bottle (USD)
+- `variety`: type of grapes used to make the wine
+- `type`: red or white wine
+- `title`: title of the wine review
+- `description`: reviewer's description of the wine
+
+Cloning your repository, which is available at 
+the class GitHub repository. Load the data into your RStudio environment, and
+don't forget to configure GitHub beforehand. Write all R code according to the 
+style guidelines discussed in class. 
+
+
+To following resource provides code needed to make useful symbols. You may use
+the code to typeset the characters of interest in the *narrative* of your
+document:
+
+- $\mu$: `$\mu$`
+- $\alpha$: `$\alpha$`
+- $\ge$: `$\ge$`
+- $\le$: `$\le$`
+- $\neq$: `$\neq$`
+- $H_0$: `$H_0$`
+- $H_a$: `$H_a$`
+
+
+
+# Exercises
+
+**Overall hint:** When performing a hypothesis test, you must provide the 
+significance level of your test, the null and alternative hypotheses, the 
+p-value, your decision, and an interpretation of the p-value in context of the 
+original research question. 
+
+You may load in the data with the following code, where `____` should be
+replaced by a meaningful name of your choosing:
+
+```{r eval=FALSE}
+library(tidyverse)
+library(infer)
+____ <- read_csv("data/wines.csv")
+```
+
+**At the start of each exercise that requires simulation, set a random seed equal to the exercise number in the R chunk.**
+
+### Part 1
+
+1. For this exercise alone, consider wines from the US and Italy only. Evaluate the hypothesis
+that the `country` where the wine is produced is independent of its `type` (red or white).
+Use a significance level of  $\alpha = 0.05$. Visualize your null distribution.
+
+```{marginfigure}
+```
+
+### Part 2
+
+Let's say I'm doing to a nice dinner party, and I'm told to bring a bottle of wine.  I want to bring an acceptable bottle, but I don't like these friends enough to spend more 
+than $20 on a bottle of wine. So I have to be strategic. I've been told that a cheap white is usually better than a cheap red, but that an expensive red is always better than an expensive white. Maybe I should buy a wine based on its points-to-price ratio. 
+
+2. Wrangle your data frame to create a new variable `ratio`, calculated as a wine's points divided by its price.
+
+```{marginfigure}
+```
+
+3. Wines with higher values for this ratio might indicate that the wine is a good deal. Comprehensively evaluate the hypothesis at the $\alpha = 0.05$ level that among wines that are at most $20 per bottle, 
+white wines have a higher average point-to-price ratio compared to red wines. 
+
+```{marginfigure}
+```
+
+4. How would your decision and conclusion change if we used $\alpha = 0.10$ instead?
+
+
+```{marginfigure}
+**Hint**: refer back to the lectures about probability and the definition of Type I error
+to answer this question! 
+```
+
+5. Suppose you perform 10 independent hypothesis tests at the $\alpha = 0.05$
+level, and further suppose that in reality, the null hypothesis is TRUE for all
+10 tests. What is the probability that you make at least one Type I error?
+
+```{marginfigure}
+```
+
+6. Let's say you just really hate white wine and are trying to demonstrate to others that it's associated with lower ratings in terms of points. Describe the potential ethical ramifications of performing all of these tests and reporting only the significant results from the tests that support your narrative. 
+Consider your answer from Exercise 5 in crafting this narrative.
+
+```{marginfigure}
+```
+
+### Part 3
+
+
+From Exercise 2, you may have noticed that the observed `points` values lie between 80 and 100, even though the points are awarded on the 1-100 scale. 
+This is because WineEnthusiast only provides reviews for wines that are at least 
+considered "Good". They using the following scale for classification of quality:
+
+  - 80-84 = Good
+  - 85-89 = Very good
+  - 90-94 = Outstanding
+  - 95-100 = Classic
+  
+7. Create a new variable for the quality of each wine based on its points.
+
+```{marginfigure}
+```
+
+8. Is there evidence to suggest that the quality of a wine and the `country` where its produced
+are associated?
+Comprehensively evaluate this hypothesis.
+
+```{marginfigure}
+```
+
+# Submission
+
+Knit to PDF to create a PDF document. Knit and commit all remaining changes, 
+and push your work to GitHub. Make sure all files are updated on your GitHub 
+repo.
+
+Please upload your PDF document to Canvas.
+
+

@@ -10,9 +10,8 @@
 
 
 
-<meta name="date" content="2022-10-31" />
 
-<title>AppEx 12: Hypothesis Testing</title>
+<title>AppEx 13: Wine</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -367,94 +366,85 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">AppEx 12: Hypothesis Testing</h1>
-<h3 class="subtitle">Part 2</h3>
-<h4 class="date">10/31/2022</h4>
+<h1 class="title toc-ignore">AppEx 13: Wine</h1>
 
 </div>
 
 
-<div id="resource-for-full-examples-in-infer" class="section level2">
-<h2>Resource for full examples in infer</h2>
-<p><a href="https://infer.netlify.app/articles/observed_stat_examples.html" class="uri">https://infer.netlify.app/articles/observed_stat_examples.html</a></p>
+<div id="what-makes-a-good-wine" class="section level1">
+<h1>What makes a good wine?</h1>
+<p>The goal of this application is to continue practicing two-sample
+statistical inference using both simulation-based approaches. Use the
+lecture notes, readings, and application exercises to help you complete
+homework.</p>
 </div>
-<div id="clone-a-repo-start-a-new-project" class="section level2">
-<h2>Clone a repo + start a new project</h2>
-<p>Clone the <strong>appex-12</strong> repo on <a href="https://github.com/math118-fall2022">GitHub</a> and start a new
-project in RStudio.</p>
-<p>We will live-code together, and then you must complete the remainder
-of this Application Exercise on your own!</p>
+<div id="the-data" class="section level1">
+<h1>The Data</h1>
+<p>Today’s dataset has been adapted from a large data set of wine
+reviews from <a href="https://www.kaggle.com/zynicide/wine-reviews">Kaggle</a>. Reviews
+were scraped from WineEnthusiast, which contain information about both
+the wine itself as well as the reviewer’s description of that wine.
+Here, I provide a subset of the data. You may consider each of these
+observations to be an independent, representative sample of all
+wines.</p>
+<p>The variables are as follows</p>
+<ul>
+<li><code>country</code>: the country that the wine is from (France,
+Italy, US)</li>
+<li><code>points</code>: the number of points WineEnthusiast rated the
+wine on a scale of 1-100.</li>
+<li><code>price</code>: cost for a bottle (USD)</li>
+<li><code>variety</code>: type of grapes used to make the wine</li>
+<li><code>type</code>: red or white wine</li>
+<li><code>title</code>: title of the wine review</li>
+<li><code>description</code>: reviewer’s description of the wine</li>
+</ul>
+<div id="clone-a-repo-start-a-new-project" class="section level3">
+<h3>Clone a repo + start a new project</h3>
+<ul>
+<li>Clone the <strong>appex-13-diff-means</strong> repo and start a new
+project in RStudio.</li>
+</ul>
 </div>
-<div id="data" class="section level2">
-<h2>Data</h2>
-<p>We will continue working with the Asheville Airbnb data.</p>
+<div id="load-data-and-packages" class="section level2">
+<h2>Load data and packages</h2>
 <pre class="r"><code>library(tidyverse)
-library(infer)</code></pre>
-<pre class="r"><code>asheville &lt;- read_csv(&quot;data/asheville.csv&quot;)</code></pre>
+library(infer)
+___ &lt;- read_csv(&quot;data/wines.csv&quot;)</code></pre>
 </div>
-<div id="live-code-together" class="section level2">
-<h2>LIVE CODE TOGETHER!</h2>
-<div id="exercise-1" class="section level3">
-<h3>Exercise 1</h3>
-<p>Suppose you are interested in whether at least half of the Airbnb
-listings in Asheville are more than $50 per guest per night. What would
-be your null and alternative hypotheses? There are two options!</p>
-<div id="option-1" class="section level4">
-<h4>Option 1</h4>
+<div id="exercises" class="section level2">
+<h2>Exercises</h2>
+<p>Suppose you are interested in how the type of wine (red or white)
+impacts its price. Comprehensively evaluate the hypothesis that the
+average price of red wines is different from the average price of white
+wines in these three countries. Use <span class="math inline">\(\alpha =
+0.05\)</span> as the significance level.</p>
+<div id="exercise-1-state-your-hypotheses" class="section level3">
+<h3>Exercise 1: State your hypotheses</h3>
 </div>
-<div id="option-2" class="section level4">
-<h4>Option 2</h4>
+<div id="exercise-2-obtain-your-null-distribution" class="section level3">
+<h3>Exercise 2: Obtain your null distribution</h3>
+<p>Because we will be simulating randomly, we should first set a seed.
+Set the seed equal to the exercise number.</p>
+<pre class="r"><code># set seed here</code></pre>
+<pre class="r"><code># obtain null distribution</code></pre>
 </div>
+<div id="exercise-3-visualize" class="section level3">
+<h3>Exercise 3: Visualize</h3>
+<p>Display a visualization of your simulated null distribution, and
+describe the values that would cause you to reject your null hypothesis.
+Does the observed sample statistic lie in this rejection region?</p>
 </div>
-<div id="exercise-2" class="section level3">
-<h3>Exercise 2</h3>
-<p>Simulate the null distribution to test your hypotheses. You can use
-1000 reps for the in-class exercise.</p>
-<div id="option-1-1" class="section level4">
-<h4>Option 1</h4>
-<pre class="r"><code># don&#39;t forget to set a seed! </code></pre>
+<div id="exercise-4-conclude" class="section level3">
+<h3>Exercise 4: Conclude</h3>
+<p>What is your p-value, decision, and conclusion in context of the
+research question?</p>
 </div>
-<div id="option-2-1" class="section level4">
-<h4>Option 2</h4>
-<pre class="r"><code>#create variable to track price</code></pre>
-<pre class="r"><code># don&#39;t forget to set a seed! </code></pre>
+<div id="exercise-5-confidence-interval" class="section level3">
+<h3>Exercise 5: Confidence interval</h3>
+<p>Construct and interpret a 95% two-sided confidence interval for the
+difference you investigated in Exercise 2.</p>
 </div>
-</div>
-<div id="exercise-3" class="section level3">
-<h3>Exercise 3</h3>
-<p>What was your p-value? What decision do you make with respect to your
-hypotheses, and what conclusion do you make in the context of the
-research problem?</p>
-<div id="option-1-2" class="section level4">
-<h4>Option 1</h4>
-<pre class="r"><code>#calculate observed statistic
-
-
-# obtain p-value</code></pre>
-</div>
-<div id="option-2-2" class="section level4">
-<h4>Option 2</h4>
-<pre class="r"><code>#calculate observed statistic
-
-
-# obtain p-value</code></pre>
-</div>
-</div>
-</div>
-<div id="your-turn" class="section level2">
-<h2>YOUR TURN!</h2>
-<div id="exercise-4" class="section level3">
-<h3>Exercise 4</h3>
-<p>Suppose you are interested in whether the proportion of listings with
-a price per guest per night greater than $50 is 0.5. How would your null
-and alternative hypotheses change in this case? Carry out the
-appropriate hypothesis test (Option 1 and/or Option 2 above), and report
-your p-value, decision, and conclusion in context of the research
-problem. <strong>Use a seed of 1234 to conduct this hypothesis
-test.</strong></p>
-<p><span class="math inline">\(H_0\)</span>:</p>
-<p><span class="math inline">\(H_a\)</span>:</p>
-<pre class="r"><code># your code here!</code></pre>
 </div>
 </div>
 
