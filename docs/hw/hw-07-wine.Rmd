@@ -17,7 +17,6 @@ options(
   show.signif.stars = FALSE,     # for regression output
   digits = 2
   )
-knitr::opts_chunk$set(eval = FALSE)
 ```
 
 
@@ -130,29 +129,6 @@ Consider your answer from Exercise 5 in crafting this narrative.
 ```{marginfigure}
 ```
 
-### Part 3
-
-
-From Exercise 2, you may have noticed that the observed `points` values lie between 80 and 100, even though the points are awarded on the 1-100 scale. 
-This is because WineEnthusiast only provides reviews for wines that are at least 
-considered "Good". They using the following scale for classification of quality:
-
-  - 80-84 = Good
-  - 85-89 = Very good
-  - 90-94 = Outstanding
-  - 95-100 = Classic
-  
-7. Create a new variable for the quality of each wine based on its points.
-
-```{marginfigure}
-```
-
-8. Is there evidence to suggest that the quality of a wine and the `country` where its produced
-are associated?
-Comprehensively evaluate this hypothesis.
-
-```{marginfigure}
-```
 
 # Submission
 

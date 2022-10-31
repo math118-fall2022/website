@@ -1,6 +1,6 @@
 ---
 title: "AppEx 13: Wine"
-date: ""
+author: ""
 output: 
   html_document:
     theme: readable
@@ -8,8 +8,7 @@ output:
 
 # What makes a good wine?
 
-The goal of this application is to continue practicing two-sample statistical inference using
-both simulation-based approaches. Use the lecture notes, readings, 
+The goal of this application is to continue practicing two-sample statistical inference using simulation-based approaches. Use the lecture notes, readings, 
 and application exercises to help you complete homework.
 
 # The Data
@@ -38,10 +37,10 @@ The variables are as follows
 
 ## Load data and packages 
 
-```{r load-packages-data, eval = FALSE}
+```{r load-packages-data, eval = F, warning = F, message = F}
 library(tidyverse)
 library(infer)
-___ <- read_csv("data/wines.csv")
+_______ <- read_csv("data/wines.csv")
 ```
 
 ## Exercises

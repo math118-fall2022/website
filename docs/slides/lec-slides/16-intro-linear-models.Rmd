@@ -1,12 +1,11 @@
 ---
 title: "Introducing linear models"
 author: "Becky Tang"
-date: "06.28.2021"
+date: "11/9/2022"
 output:
   xaringan::moon_reader:
     mathjax: "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML"
-    css: "sta199-slides.css"
-    logo: img/sta199-sticker-icon.png
+    css: "math118-slides.css"
     lib_dir: libs/font-awesome
     nature:
       highlightStyle: github
