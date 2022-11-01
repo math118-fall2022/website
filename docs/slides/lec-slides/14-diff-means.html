@@ -4,7 +4,6 @@
     <title>Two-sample inference</title>
     <meta charset="utf-8" />
     <meta name="author" content="Becky Tang" />
-    <meta name="date" content="2022-10-31" />
     <script src="libs/font-awesome/header-attrs/header-attrs.js"></script>
     <link href="libs/font-awesome/font-awesome/css/all.css" rel="stylesheet" />
     <link href="libs/font-awesome/font-awesome/css/v4-shims.css" rel="stylesheet" />
@@ -24,7 +23,7 @@ class: center, middle, inverse, title-slide
 ### Becky Tang
 ]
 .date[
-### 10/31/2022
+### 11/2/2022
 ]
 
 ---
@@ -171,9 +170,15 @@ parkinsons %&gt;%
 
 - Perhaps we want to learn about the true difference in mean voice jitter between the two groups. Can achieve this via:
 
-  - Confidence interval
+  - Bootstrap confidence interval
   
   - Hypothesis testing
+
+---
+
+class: center, middle
+
+## Confidence interval
 
 ---
 
@@ -198,8 +203,13 @@ boot_diffs &lt;- parkinsons %&gt;%
 
 --
 
-- We want to look at the relationship between `jitter` and `status`, not just `jitter` alone!
+  - We want to look at the relationship between `jitter` and `status`, not just `jitter` alone!
 
+--
+
+.question[Why `specify(jitter ~ status)` and not `specify(status ~ jitter)`?]
+
+  - We want to see how `jitter` varies by `status`, not the other way around!
 
 ---
 ## Bootstrap estimation
@@ -221,6 +231,10 @@ boot_diffs &lt;- parkinsons %&gt;%
 
 .question[What does this `order` argument mean? Why do we need it?]
 
+--
+
+  - We are taking a difference, so order matters!
+  
 ---
 
 ## Bootstrap estimation
@@ -252,6 +266,13 @@ Let's construct the 95% bootstrap confidence interval for the **difference in me
 .question[
 Is there evidence that there is a difference in mean voice jitter between PD patients and healthy patients?
 ]
+
+---
+
+
+class: center, middle
+
+## Hypothesis testing
 
 ---
 
@@ -403,7 +424,7 @@ This is our null distribution for the Parkinson's data obtained via permuting:
 
 ---
 
-## Hypothesis testing
+## Obtain statistic (option 1)
 
 Obtain our .vocab[statistic], the *observed* difference in means (option 1):
  
@@ -416,7 +437,7 @@ mean_healthy &lt;- parkinsons %&gt;%
 mean_pd &lt;- parkinsons %&gt;%
   filter(status == "PD") %&gt;%
   summarise(mean_jitter = mean(jitter)) %&gt;% 
-  pull()
+  pull() 
 obs_diff &lt;- mean_healthy - mean_pd
 obs_diff
 ```
@@ -425,10 +446,9 @@ obs_diff
 ## [1] -0.00312321
 ```
 
-
 ---
 
-## Hypothesis testing
+## Obtain statistic (option 2)
 
 Obtain our .vocab[statistic], the *observed* difference in means (option 2):
 

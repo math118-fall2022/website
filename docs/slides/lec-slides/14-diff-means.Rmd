@@ -2,7 +2,7 @@
 title: "Two-sample inference"
 subtitle: "Difference in means"
 author: "Becky Tang"
-date: "10/31/2022"
+date: "11/2/2022"
 output:
   xaringan::moon_reader:
     mathjax: "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML"
@@ -186,9 +186,15 @@ parkinsons %>%
 
 - Perhaps we want to learn about the true difference in mean voice jitter between the two groups. Can achieve this via:
 
-  - Confidence interval
+  - Bootstrap confidence interval
   
   - Hypothesis testing
+
+---
+
+class: center, middle
+
+## Confidence interval
 
 ---
 
@@ -212,8 +218,13 @@ boot_diffs <- parkinsons %>%
 
 --
 
-- We want to look at the relationship between `jitter` and `status`, not just `jitter` alone!
+  - We want to look at the relationship between `jitter` and `status`, not just `jitter` alone!
 
+--
+
+.question[Why `specify(jitter ~ status)` and not `specify(status ~ jitter)`?]
+
+  - We want to see how `jitter` varies by `status`, not the other way around!
 
 ---
 ## Bootstrap estimation
@@ -234,6 +245,10 @@ boot_diffs <- parkinsons %>%
 
 .question[What does this `order` argument mean? Why do we need it?]
 
+--
+
+  - We are taking a difference, so order matters!
+  
 ---
 
 ## Bootstrap estimation
@@ -270,6 +285,13 @@ ci
 .question[
 Is there evidence that there is a difference in mean voice jitter between PD patients and healthy patients?
 ]
+
+---
+
+
+class: center, middle
+
+## Hypothesis testing
 
 ---
 
@@ -416,7 +438,7 @@ ggplot(null_dist, aes(x = stat)) +
 
 ---
 
-## Hypothesis testing
+## Obtain statistic (option 1)
 
 Obtain our .vocab[statistic], the *observed* difference in means (option 1):
  
@@ -433,10 +455,9 @@ obs_diff <- mean_healthy - mean_pd
 obs_diff
 ```
 
-
 ---
 
-## Hypothesis testing
+## Obtain statistic (option 2)
 
 Obtain our .vocab[statistic], the *observed* difference in means (option 2):
 

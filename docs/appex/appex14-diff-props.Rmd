@@ -1,0 +1,42 @@
+---
+title: "AppEx 14: Nobel laureates (again)"
+output: html_document
+---
+
+### Introduction
+
+Recall HW 03, where we examined Nobel laureates in the sciences. We explored the Buzzfeed claim that  "most living Nobel laureates were based in the US when they won their prizes, but of those US-based Nobel laureates, many were born in other countries...". We created the following variables (I am re-naming them here for clarity):
+
+   - `country_base`: the country where the laureate was based when they won (`"USA"` or `"Other"`)
+   - `born_country_us`: the country where the laureate was born  (`"USA"` or `"Other"`)
+
+and filtered for science Nobel laureates and other conditions. The following code chunk does all of this for us, but you first need to load the packages and read in the appropriate data. Don't forget to remove the `eval = FALSE` before knitting:
+
+```{r packages-data, message = F, eval = FALSE}
+# load your packages here
+
+# load your data here
+
+# data wrangle (don't modify this code!)
+nobel_living_science <- nobel %>%
+  filter(!is.na(country), gender != "org", is.na(died_date),
+         category %in% c("Physics", "Medicine", "Chemistry", "Economics")) %>%
+  mutate(country_base = if_else(country == "USA", "USA", "Other"),
+         born_country_us = if_else(born_country == "USA", "USA", "Other"))
+```
+
+
+### Exercises
+
+Let's examine a slightly different question than Buzzfeed: using hypothesis testing, examine if where a Nobel laureate is based (US vs non-US) when they win is influenced by their birth country (US vs non-US).
+
+#### Exercise 1: State your hypotheses. 
+
+
+#### Exercise 2: Set a significance level
+
+
+#### Exercise 3: Calculate your observed statistic
+
+
+#### Exercise 4: Test your hypotheses and make your conclusion. 
