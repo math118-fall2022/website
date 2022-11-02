@@ -159,7 +159,7 @@ Disease (PD).
 
 Is there a difference in average voice jitter between patients with Parkinson's disease (PD) and those who don't have Parkinson's disease (control group)? 
 
-The `parkinsons.csv` we looked at in lab contains repeated voice recordings from a number of patients,
+The `parkinsons.csv` data (which you will use in homework) contains repeated voice recordings from a number of patients,
 some with PD and some serving as non-PD controls (Erdogdu B et al.). For now,
 **assume that all samples were taken independently from each other** (this is
 not actually the case, but we'll make this assumption).

@@ -57,8 +57,8 @@ document:
 
 - $\mu$: `$\mu$`
 - $\alpha$: `$\alpha$`
-- $\ge$: `$\ge$`
-- $\le$: `$\le$`
+- $\ge$: `$\geq$`
+- $\le$: `$\leq$`
 - $\neq$: `$\neq$`
 - $H_0$: `$H_0$`
 - $H_a$: `$H_a$`
@@ -78,10 +78,12 @@ replaced by a meaningful name of your choosing:
 ```{r eval=FALSE}
 library(tidyverse)
 library(infer)
-____ <- read_csv("data/wines.csv")
+____ <- read.csv("data/wines.csv")
 ```
 
 **At the start of each exercise that requires simulation, set a random seed equal to the exercise number in the R chunk.**
+
+**Make sure that your code is reproducible.**
 
 ### Part 1
 
@@ -103,7 +105,7 @@ than $20 on a bottle of wine. So I have to be strategic. I've been told that a c
 ```
 
 3. Wines with higher values for this ratio might indicate that the wine is a good deal. Comprehensively evaluate the hypothesis at the $\alpha = 0.05$ level that among wines that are at most $20 per bottle, 
-white wines have a higher average point-to-price ratio compared to red wines. 
+white wines have a higher average point-to-price ratio compared to red wines. You **do not** need to visualize the null distribution.
 
 ```{marginfigure}
 ```
