@@ -102,7 +102,7 @@ problem?
 
 ### Exercise 4
 
-Suppose you are interested in whether the proportion of listings with a price per guest per night less than $50 is 0.5. How would your null and 
+Suppose you are interested in whether at most half of listings have a price per guest per night less than $50. How would your null and 
 alternative hypotheses change in this case? Carry out the appropriate
 hypothesis test (Option 1 and/or Option 2 above), and report your p-value, decision, and conclusion in context of the research problem.  **Use a seed of 1234 to conduct this hypothesis test.**
 
