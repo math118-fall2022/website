@@ -1,15 +1,10 @@
 ---
-title: "AE 17: Car prices"
-date: "06.28.2021"
+title: "AppEx 15: Car prices"
+date: "11/14/2022"
 output: 
   html_document:
     theme: readable
 ---
-## Announcements 
-
-Exam 2 is moved to Friday, July 9, and there is lab this Friday instead.
-
-**Reminder**: project proposals are due on Friday, July 9 as well. Look to the Project website for more information. A Github repository for your project will soon be made.
 
 ## Exercises
 
