@@ -51,7 +51,7 @@ layout: true
 We saw how to compare two sample *means* against each other.
 
 .question[
-What if we wanted to compare two sample *proportions* against each othery?
+What if we wanted to compare two sample *proportions* against each other?
 ]
 
 ---
@@ -97,8 +97,8 @@ glimpse(mb_yawn)
 ```
 ## Rows: 50
 ## Columns: 2
-## $ group   &lt;chr&gt; "treatment", "treatment", "treatment", "treatment", "control",…
-## $ outcome &lt;chr&gt; "no yawn", "yawn", "yawn", "no yawn", "no yawn", "yawn", "no y…
+## $ group   &lt;chr&gt; "treatment", "control", "treatment", "treatment", "control", "…
+## $ outcome &lt;chr&gt; "no yawn", "no yawn", "no yawn", "yawn", "no yawn", "no yawn",…
 ```
 
 ```r
@@ -171,7 +171,7 @@ Based on the proportions we calculated, do you think yawning is really contagiou
 
 ## Hypotheses
 
-`\(H_0\)`: yawning (outcome) and seeimg someone yawn (treatment vs. control) are independent:
+`\(H_0\)`: yawning (outcome) and seeing someone yawn (treatment vs. control) are independent:
 
 `$$p_{treat} = p_{control}$$`
 
@@ -186,51 +186,38 @@ Note, these are equivalent to `\(H_0: p_{treat} - p_{control} = 0\)` and `\(H_a:
 
 ---
 
-## Permuting the treatment assignments
+## Observed data
 
-We know from our observed data that 14 people yawned and 36 people didn't yawn.
+From our observed data, we see that 4/16 of the control people yawned, whereas 10/34 of the treatment group yawned
 
-We also know that there were 16 people in the control group (didn't see someone yawn) and 34 people in the treatment group (saw someone yawn), resulting in an *observed* test statistic of 0.0441.
-
-
-```r
-p_hat_diff &lt;- mb_yawn %&gt;%
-  count(group, outcome) %&gt;%
-  group_by(group) %&gt;%
-  mutate(p_hat = n / sum(n)) %&gt;%
-  filter(outcome == "yawn") %&gt;%
-  pull(p_hat) %&gt;%
-* diff()
-p_hat_diff
-```
 
 ```
-## [1] 0.04411765
+##            outcome
+## group       no yawn yawn
+##   control        12    4
+##   treatment      24   10
 ```
 
-.question[What does `diff()` do?]
+
 
 ---
 
+## Observed test statistic 
+
+The *observed* difference in proportion of yawners is 0.0441.
+
 
 ```r
-mb_yawn %&gt;%
-  count(group, outcome) %&gt;%
-  group_by(group) %&gt;%
-  mutate(p_hat = n / sum(n), 2) %&gt;%
-  filter(outcome == "yawn") 
-```
-
-```
-## # A tibble: 2 × 5
-## # Groups:   group [2]
-##   group     outcome     n p_hat   `2`
-##   &lt;chr&gt;     &lt;chr&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1 control   yawn        4 0.25      2
-## 2 treatment yawn       10 0.294     2
-```
-
-```r
+## OPTION 1
+prop_yawn_treat &lt;- mb_yawn %&gt;%
+  filter(group == "treatment") %&gt;%
+  summarise(prop = mean(outcome == "yawn")) %&gt;%
+  pull()
+prop_yawn_control &lt;- mb_yawn %&gt;%
+  filter(group == "control") %&gt;%
+  summarise(prop = mean(outcome == "yawn")) %&gt;%
+  pull()
+p_hat_diff  &lt;- prop_yawn_treat - prop_yawn_control
 p_hat_diff
 ```
 
@@ -240,39 +227,98 @@ p_hat_diff
 
 ---
 
-##  Permuting the treatment assignments
+## Observed test statistic 
 
-While keeping the responses (yawn vs. no yawn) fixed at what we observed, we will *permute* or shuffle the treatment assignments of the observations and recalculate the difference in proportions.
+The *observed* difference in proportion of yawners is 0.0441.
 
-That is, we will recalculate the difference in proportions as if some of the yawners and some of the non-yawners perhaps might have been in a different treatment group.
+
+```r
+## OPTION 2
+p_hat_diff &lt;- mb_yawn  %&gt;%
+  specify(outcome ~ group, success = "yawn") %&gt;%
+  calculate(stat = "diff in props", order = c("treatment", "control"))
+
+p_hat_diff
+```
+
+```
+## Response: outcome (factor)
+## Explanatory: group (factor)
+## # A tibble: 1 × 1
+##     stat
+##    &lt;dbl&gt;
+## 1 0.0441
+```
 
 --
 
-Why do we do this?
+.question[How to simulate a null distribution?]
 
 ---
 
 ## The null hypothesis
 
-Recall that under `\(H_0\)`, there is no association between seeing someone yawn (treatment vs control) and the act of yawning (outcome).
+- Recall that under `\(H_0\)`, there is no association between seeing someone yawn (treatment vs control) and the act of yawning (outcome). This means that:
 
-If there truly is no association between treatment and control, then shuffling whether someone was assigned to watch somebody yawn or not yawn shouldn't matter -- we would expect similar proportions of people who yawn in each group.
+  - Those 14 people who yawned were going to yawn *no matter which group they were assigned to*
+  
+  - Those 36 people who did not yawn were not going to yawn *no matter which group they were assigned to*
+
+---
+
+
+##  Permuting the treatment assignments
+
+- While keeping the responses (yawn vs. no yawn) fixed at what we observed, we will *permute* or shuffle the treatment assignments of the observations and recalculate the difference in proportions.
+
+
+- This recalculates the difference in proportions as if some of the yawners and some of the non-yawners perhaps might have been in a different treatment group.
 
 --
 
-Because we are in the hypothesis testing framework, we generate our null distribution assuming `\(H_0\)` true. How can we obtain that null distribution?
+.question[Why do we do this?]
+
+--
+
+- If there truly is no association between treatment and control, then shuffling whether someone was assigned to watch somebody yawn or not yawn shouldn't matter -- we would expect similar proportions of people who yawn in each group.
+
+
 
 ---
 
 ## Repeated permutations
 
-We will do this treatment-shuffling again and again, calculate the difference in proportion for each simulation, and use this as an approximation to the null distribution.
+- We will do this treatment-shuffling again and again, calculate the difference in proportions for each simulation, and use this as an approximation to the null distribution.
 
-This distribution approximates all the possible differences in proportion we could have seen if 
+- This distribution approximates all the possible differences in proportion we could have seen if 
 `\(H_0\)` were in fact true. 
 
-This is similar in spirit to bootstrap estimation, but here we **sample without replacement**; we merely permute/shuffle the treatment labels of each of our outcomes.
 
+---
+
+## Simulate!
+
+
+```
+##            outcome
+## group       no yawn yawn
+##   control        12    4
+##   treatment      24   10
+```
+
+- Take 14 red cards, let these be those who did "yawn"
+
+- Take 36 black cards, let these be those who did "not yawn"
+
+--
+
+- Shuffle these cards
+
+--
+
+- Deal 16 at random into the simulated "control" group, and the remaining 34 into the simulated "treatment" group
+
+- Calculate the proportion of yawners in each group, and take the difference (treatment - control)
 
 ---
 
@@ -281,17 +327,15 @@ This is similar in spirit to bootstrap estimation, but here we **sample without 
 
 ```r
 null_dist &lt;- mb_yawn %&gt;%
-* specify(response = outcome, explanatory = group, success = "yawn") %&gt;%
+* specify(outcome ~ group, success = "yawn") %&gt;%
   hypothesize(null = "independence") %&gt;%
   generate(1000, type = "permute") %&gt;%
   calculate(stat = "diff in props", order = c("treatment", "control"))
 ```
 
-Because we are interested in the whether or not someone yawned, `response = outcome`.
+- Because we are interested in the whether or not someone yawned within each group, we `specify(outcome ~ group)`, not the other way around 
 
-We are comparing the proportions between two levels of the variable `group`, so `explanatory = group`.
-
-Since the response variable is categorical, specify which level should be success
+- Since the response variable is categorical (i.e. we are interested in a proportion), need to `specify` which level of the response `outcome` should be considered a success
 
 ---
 
@@ -338,9 +382,9 @@ null_dist &lt;- mb_yawn %&gt;%
 * calculate(stat = "diff in props", order = c("treatment", "control"))
 ```
 
-Calculate the sample statistic of interest (difference in proportions). 
+- Calculate the sample statistic of interest (difference in proportions). 
 
-Because the explanatory variable `group` is categorical, we need to tell R the
+- Because the explanatory variable `group` is categorical, we need to tell R the
 order in which to take the different in proportions for the calculation: `\((\hat{p}_{treat} - \hat{p}_{control})\)`.
 
 ---
@@ -355,7 +399,7 @@ What would you expect the center of the null distribution to be?
 visualize(null_dist) 
 ```
 
-&lt;img src="15-two-samp-independence_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="15-two-samp-independence_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -372,7 +416,7 @@ null_dist %&gt;%
 ## # A tibble: 1 × 1
 ##   p_val
 ##   &lt;dbl&gt;
-## 1 0.532
+## 1     0
 ```
 
 
