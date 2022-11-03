@@ -110,9 +110,8 @@ document:
 
 ## Part 1: Data Manipulation 
 
-1.  While the data provided spans from 2000-2015, we will be focusing on a single year of data. Filter the data to only retain observations from 2015. Additionally, create the following new variables:
+1.  While the data provided spans from 2000-2015, we will be focusing on a single year of data. Filter the data to only retain observations from 2015. Additionally, create the following new variable:
 
-- `pop1000`: the population per 1000 people. 
 - `BMI_cat`: the category that each BMI falls into, where BMI < 18.5 is "underweight", 
 18.5 $\leq$ BMI $<$ 25 is "normal", 25 $\leq$ BMI $<$ 30 is "overweight", and BMI $\geq 30$ is "obese".
 
@@ -191,7 +190,7 @@ The syntax is `fct_relevel(<name of variable>, <"baseline level">)`
 
 11. Create a new variable called `BMI_relevel` where `"underweight"` is the baseline level. You have some starter code here. 
 
-```{r ex12, eval = F}
+```{r ex11, eval = F}
 life_expect <- life_expect %>%
   mutate(_____ = fct_relevel(, ))
 
@@ -199,8 +198,8 @@ life_expect <- life_expect %>%
 
 12. Fit a new linear model called `m_bmi_relevel` to predict average
     `life_expectancy` based on `bmi_relevel` of the country. This is the new (releveled) variable 
-    you created in Exercise 12. Based on the regression output, write the linear 
-    model and interpret the slopes and intercept in context of the data. 
+    you created in Exercise 11. Based on the regression output, write the linear 
+    model and interpret the intercept and one slope of your choice in  the context of the data. 
     
 # Submission
 
