@@ -71,6 +71,21 @@ library(kableExtra)
 
 ---
 
+## Housekeeping
+
+- HW 06 released due next Tuesday
+
+- E-mail me about project partners by tomorrow 11:59pm
+
+- Third job candidate is giving talk next Wednesday from 12:30-1:30pm in 75 Shannon Street Room 224
+  
+  - Candidate: Taylor Okonek
+  
+  - Talk title: "Child Mortality Estimation in a Low- and Middle-Income Country Context"
+
+
+---
+
 
 ## Recap
 
@@ -166,18 +181,20 @@ mb_yawn %>%
 
 ## Hypotheses
 
-$H_0$: yawning (outcome) and seeing someone yawn (treatment vs. control) are independent:
+- $H_0$: yawning (outcome) and seeing someone yawn (treatment vs. control) are independent:
 
 $$p_{treat} = p_{control}$$
 
-$H_{a}$: yawning and seeing someone yawn are not independent (in fact, we will specify that the proportion of yawners is greater in the treatment group than in the control group:
+- $H_{a}$: yawning and seeing someone yawn are not independent (in fact, we will specify that the proportion of yawners is greater in the treatment group than in the control group:
 
 $$p_{treat} > p_{control}$$
 
 where $p_{treat}$ is the true proportion of yawners among those who saw someone else yawn, and similarly for 
 $p_{control}$.
 
-Note, these are equivalent to $H_0: p_{treat} - p_{control} = 0$ and $H_a: p_{treat} - p_{control} > 0$.
+--
+
+- Note, these are equivalent to $H_0: p_{treat} - p_{control} = 0$ and $H_a: p_{treat} - p_{control} > 0$.
 
 ---
 
