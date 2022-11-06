@@ -518,13 +518,15 @@ class: center, middle
 ## Predict base salary from years
 
 .question[
-On average, how much does a teacher in this district make if they have worked for 15 years?
+On average, how much does a teacher in this district make if they have worked for 15 years?]
+
+- Recall our fitted model:
+
 `$$\widehat{baseSalary} = 43668.1 + 803.1\times years$$`
-]
 
 --
 
-Let's just plug in 15 for `\(years\)`:
+- Let's just plug in 15 for `\(years\)`:
 
 
 ```r
@@ -535,9 +537,9 @@ Let's just plug in 15 for `\(years\)`:
 ## [1] 55714.6
 ```
 
-"On average, we expect paintings that a teacher who has been employed for 15 years to have a base salary of $55714.60."
+  - "On average, we expect that a teacher who has been employed for 15 years to have a base salary of $55714.60."
 
-**Warning:** We "expect" this to happen, but there will be some variability.
+  - **Warning:** We "expect" this to happen, but there will be some variability.
 
 ---
 
@@ -594,7 +596,7 @@ class: middle, center
 
 ---
 
-## Categorical predictor with 2 levels
+### Categorical predictor with 2 levels
 
 Height &amp; landscape features
 
@@ -620,7 +622,7 @@ tidy(mod_degree)
 
 ---
 
-## (cont.)
+### Categorical predictor with 2 levels (cont.)
 
 `$$\widehat{baseSalary} = 56610 \color{orange}{- 352}\times degreeBA$$`
 

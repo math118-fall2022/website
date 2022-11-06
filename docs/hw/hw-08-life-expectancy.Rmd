@@ -45,9 +45,9 @@ library(broom)
 
 # The data
 
-In this lab you will upload the data yourself!
+In this homework you will upload the data yourself!
 
-- Go to Canvas $\Rightarrow$ Resources and click on the file called `life_expectancy.csv`. This should 
+- Go to Canvas $\Rightarrow$ Files and click on the file called `life_expectancy.csv`. This should 
 automatically download the data file. Locate this file on your local computer, usually found in your `Downloads` folder.
 
 - Create a `data/` folder in your RStudio project folder corresponding to this homework.

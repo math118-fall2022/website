@@ -45,9 +45,7 @@ The variables are as follows
 - `title`: title of the wine review
 - `description`: reviewer's description of the wine
 
-Cloning your repository, which is available at 
-the class GitHub repository. Load the data into your RStudio environment, and
-don't forget to configure GitHub beforehand. Write all R code according to the 
+Write all R code according to the 
 style guidelines discussed in class. 
 
 
@@ -57,11 +55,12 @@ document:
 
 - $\mu$: `$\mu$`
 - $\alpha$: `$\alpha$`
-- $\ge$: `$\geq$`
-- $\le$: `$\leq$`
+- $>$: `$>$`
+- $<$: `$<$`
 - $\neq$: `$\neq$`
-- $H_0$: `$H_0$`
-- $H_a$: `$H_a$`
+- $H_0$: `$H_{0}$`
+- $H_a$: `$H_{a}$`
+- $p_{group}$: `$p_{group}$`
 
 
 
@@ -72,8 +71,32 @@ significance level of your test, the null and alternative hypotheses, the
 p-value, your decision, and an interpretation of the p-value in context of the 
 original research question. 
 
-You may load in the data with the following code, where `____` should be
-replaced by a meaningful name of your choosing:
+**At the start of each exercise that requires simulation, set a random seed equal to the exercise number in the R chunk.**
+
+**Make sure that your code is reproducible.**
+
+## Part 0
+
+The data are not pre-provided for you this week! Instead, you will add it to your GitHub `hw-07-wine` project yourself!
+
+- Go to Canvas $\Rightarrow$ Files and download the file called `wines.csv`. Locate this file on your local computer, usually found in your `Downloads` folder.
+
+```{r data-folder, fig.margin = TRUE, echo = FALSE, eval=TRUE, fig.width=5}
+knitr::include_graphics("img/instructions/create_folder.png")
+```
+
+- From your `Math 118` folder you created for this course, find the `hw-07-wine` project folder corresponding to this homework. Now create a new `data/` folder *within* this folder.
+
+
+- Within your new `data/` folder, upload the `wines.csv` file.  
+
+```{r data-upload, fig.margin = F, echo = FALSE, eval=TRUE, fig.width=3}
+knitr::include_graphics("img/instructions/add_data.png")
+```
+
+You may now load in the data with the following code as per usual, where `____` should be
+replaced by a meaningful name of your choosing. Then remove `eval = FALSE` before you knit!
+
 
 ```{r eval=FALSE}
 library(tidyverse)
@@ -81,11 +104,9 @@ library(infer)
 ____ <- read.csv("data/wines.csv")
 ```
 
-**At the start of each exercise that requires simulation, set a random seed equal to the exercise number in the R chunk.**
 
-**Make sure that your code is reproducible.**
 
-### Part 1
+## Part 1
 
 1. For this exercise alone, consider wines from the US and Italy only. Evaluate the hypothesis
 that the `country` where the wine is produced is independent of its `type` (red or white).
@@ -94,7 +115,7 @@ Use a significance level of  $\alpha = 0.05$. Visualize your null distribution.
 ```{marginfigure}
 ```
 
-### Part 2
+## Part 2
 
 Let's say I'm doing to a nice dinner party, and I'm told to bring a bottle of wine.  I want to bring an acceptable bottle, but I don't like these friends enough to spend more 
 than $20 on a bottle of wine. So I have to be strategic. I've been told that a cheap white is usually better than a cheap red, but that an expensive red is always better than an expensive white. Maybe I should buy a wine based on its points-to-price ratio. 

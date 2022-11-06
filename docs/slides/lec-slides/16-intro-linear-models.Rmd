@@ -275,7 +275,7 @@ ggplot(data = teacher, aes(x = years, y = base)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE, 
               col = "blue", lty = 1, lwd = 1) + 
-  geom_point(aes(x = x, y = y_true), col = "red", shape = 1, size = 4)
+  geom_point(aes(x = x, y = y_true), col = "pink", shape = 1, size = 4)
 ```
 
 ---
@@ -286,7 +286,7 @@ ggplot(data = teacher, aes(x = years, y = base)) +
 
 - Predicted salary when years = 13: 54108.45 
 
-```{r warning = FALSE, fig.height=2.25, fig.width=5 ,echo = FALSE}
+```{r warning = FALSE, fig.height=2, fig.width=5 ,echo = FALSE}
 lab <- paste0(y_true, " - ", round(y_pred,2), " = ", y_true - round(y_pred,2))
 ggplot(data = teacher, aes(x = years, y = base)) +
   geom_point() +
@@ -321,7 +321,7 @@ ggplot(data = teacher, aes(x = years, y = base)) +
 
 - Predicted salary when years = 34: 70973.64 
 
-```{r warning = FALSE, fig.height=2.25, fig.width=5 ,echo = FALSE}
+```{r warning = FALSE, fig.height=2, fig.width=5 ,echo = FALSE}
 ggplot(data = teacher, aes(x = years, y = base)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE, 
@@ -340,7 +340,7 @@ ggplot(data = teacher, aes(x = years, y = base)) +
 How, if at all, does the relationship between `years` teaching and `base` salary of a teacher vary by whether they have a BA or MA?
 ]
 
-```{r warning = FALSE, echo = F, fig.height=2}
+```{r warning = FALSE, echo = F, fig.height=1.8}
 ggplot(data = teacher, aes(x = years, y = base, 
                       color = factor(degree))) +
   geom_point(alpha = 0.4) +
@@ -356,7 +356,7 @@ ggplot(data = teacher, aes(x = years, y = base,
 How, if at all, does the relationship between `years` teaching and `base` salary of a teacher vary by whether they have a BA or MA?
 ]
 
-```{r warning = FALSE, echo = F, fig.height=2}
+```{r warning = FALSE, echo = F, fig.height=1.8}
 ggplot(data = teacher, aes(x = years, y = base, 
                       color = factor(degree))) +
   geom_point(alpha = 0.4) +
@@ -589,21 +589,23 @@ class: center, middle
 ## Predict base salary from years
 
 .question[
-On average, how much does a teacher in this district make if they have worked for 15 years?
+On average, how much does a teacher in this district make if they have worked for 15 years?]
+
+- Recall our fitted model:
+
 $$\widehat{baseSalary} = 43668.1 + 803.1\times years$$
-]
 
 --
 
-Let's just plug in 15 for $years$:
+- Let's just plug in 15 for $years$:
 
 ```{r}
 43668.1  + 803.1 * 15
 ```
 
-"On average, we expect paintings that a teacher who has been employed for 15 years to have a base salary of $55714.60."
+  - "On average, we expect that a teacher who has been employed for 15 years to have a base salary of $55714.60."
 
-**Warning:** We "expect" this to happen, but there will be some variability.
+  - **Warning:** We "expect" this to happen, but there will be some variability.
 
 ---
 
@@ -662,7 +664,7 @@ teacher %>%
 
 ---
 
-## Categorical predictor with 2 levels
+### Categorical predictor with 2 levels
 
 Height & landscape features
 
@@ -679,7 +681,7 @@ $$\widehat{baseSalary} = 56610 - 352\times degreeBA$$
 
 ---
 
-## (cont.)
+### Categorical predictor with 2 levels (cont.)
 
 $$\widehat{baseSalary} = 56610 \color{orange}{- 352}\times degreeBA$$
 
