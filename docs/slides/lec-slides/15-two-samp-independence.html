@@ -112,8 +112,8 @@ glimpse(mb_yawn)
 ```
 ## Rows: 50
 ## Columns: 2
-## $ group   &lt;chr&gt; "control", "treatment", "control", "treatment", "treatment", "…
-## $ outcome &lt;chr&gt; "yawn", "no yawn", "no yawn", "no yawn", "yawn", "no yawn", "n…
+## $ group   &lt;chr&gt; "treatment", "control", "treatment", "control", "treatment", "…
+## $ outcome &lt;chr&gt; "yawn", "no yawn", "no yawn", "no yawn", "no yawn", "no yawn",…
 ```
 
 ```r
@@ -357,7 +357,7 @@ null_dist &lt;- mb_yawn %&gt;%
 
 ```r
 null_dist &lt;- mb_yawn %&gt;%
-  specify(response = outcome, explanatory = group, success = "yawn") %&gt;%  
+  specify(outcome ~ group, success = "yawn") %&gt;%  
 * hypothesize(null = "independence") %&gt;%
   generate(1000, type = "permute") %&gt;% 
   calculate(stat = "diff in props", order = c("treatment", "control"))
@@ -373,7 +373,7 @@ Null hypothesis: the outcome and treatment are independent.
 
 ```r
 null_dist &lt;- mb_yawn %&gt;%
-  specify(response = outcome, explanatory = group, success = "yawn") %&gt;%  
+  specify(outcome ~ group, success = "yawn") %&gt;%  
   hypothesize(null = "independence") %&gt;% 
 * generate(1000, type = "permute") %&gt;%
   calculate(stat = "diff in props", order = c("treatment", "control"))
@@ -389,7 +389,7 @@ Generate simulated results via permutation
 ```r
 set.seed(100)
 null_dist &lt;- mb_yawn %&gt;%
-  specify(response = outcome, explanatory = group, success = "yawn") %&gt;%  
+  specify(outcome ~ group, success = "yawn") %&gt;%  
   hypothesize(null = "independence") %&gt;% 
   generate(1000, type = "permute") %&gt;% 
 * calculate(stat = "diff in props", order = c("treatment", "control"))

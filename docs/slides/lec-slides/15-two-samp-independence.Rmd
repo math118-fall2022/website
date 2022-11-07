@@ -332,7 +332,7 @@ null_dist <- mb_yawn %>%
 
 ```{r eval = F}
 null_dist <- mb_yawn %>%
-  specify(response = outcome, explanatory = group, success = "yawn") %>%  
+  specify(outcome ~ group, success = "yawn") %>%  
   hypothesize(null = "independence") %>% #<<
   generate(1000, type = "permute") %>% 
   calculate(stat = "diff in props", order = c("treatment", "control"))
@@ -347,7 +347,7 @@ Null hypothesis: the outcome and treatment are independent.
 
 ```{r eval = F}
 null_dist <- mb_yawn %>%
-  specify(response = outcome, explanatory = group, success = "yawn") %>%  
+  specify(outcome ~ group, success = "yawn") %>%  
   hypothesize(null = "independence") %>% 
   generate(1000, type = "permute") %>% #<<
   calculate(stat = "diff in props", order = c("treatment", "control"))
@@ -362,7 +362,7 @@ Generate simulated results via permutation
 ```{r}
 set.seed(100)
 null_dist <- mb_yawn %>%
-  specify(response = outcome, explanatory = group, success = "yawn") %>%  
+  specify(outcome ~ group, success = "yawn") %>%  
   hypothesize(null = "independence") %>% 
   generate(1000, type = "permute") %>% 
   calculate(stat = "diff in props", order = c("treatment", "control"))#<<
