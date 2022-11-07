@@ -546,10 +546,10 @@ to make use of it.</span></span></p>
 </div>
 <div id="the-data" class="section level1">
 <h1>The data</h1>
-<p>In this lab you will upload the data yourself!</p>
+<p>In this homework you will upload the data yourself!</p>
 <ul>
 <li><p>Go to Canvas <span class="math inline">\(\Rightarrow\)</span>
-Resources and click on the file called <code>life_expectancy.csv</code>.
+Files and click on the file called <code>life_expectancy.csv</code>.
 This should automatically download the data file. Locate this file on
 your local computer, usually found in your <code>Downloads</code>
 folder.</p></li>
@@ -703,25 +703,30 @@ You may use the code to typeset the characters of interest in the
 </div>
 <div id="exercises" class="section level1">
 <h1>Exercises</h1>
+<p>Make sure to follow the tidy coding practices discussed throughout
+the semester.</p>
 <div id="part-1-data-manipulation" class="section level2">
 <h2>Part 1: Data Manipulation</h2>
 <ol style="list-style-type: decimal">
 <li>While the data provided spans from 2000-2015, we will be focusing on
 a single year of data. Filter the data to only retain observations from
-2015. Additionally, create the following new variable:</li>
+2015. Additionally, create a new variable called <code>BMI_cat</code>
+according to the following:</li>
 </ol>
 <ul>
-<li><code>BMI_cat</code>: the category that each BMI falls into, where
-BMI &lt; 18.5 is “underweight”, 18.5 <span class="math inline">\(\leq\)</span> BMI <span class="math inline">\(&lt;\)</span> 25 is “normal”, 25 <span class="math inline">\(\leq\)</span> BMI <span class="math inline">\(&lt;\)</span> 30 is “overweight”, and BMI <span class="math inline">\(\geq 30\)</span> is “obese”.</li>
+<li><code>BMI_cat = &quot;underweight&quot;</code> when <code>BMI</code> <span class="math inline">\(&lt; 18.5\)</span></li>
+<li><code>BMI_cat = &quot;normal&quot;</code> when <code>BMI</code> <span class="math inline">\(\geq 18.5\)</span> and <span class="math inline">\(&lt; 25\)</span></li>
+<li><code>BMI_cat = &quot;overweight&quot;</code> when <code>BMI</code> <span class="math inline">\(\geq 25\)</span> and <span class="math inline">\(&lt; 30\)</span></li>
+<li><code>BMI_cat = &quot;obese&quot;</code> when <code>BMI</code> <span class="math inline">\(\geq 30\)</span></li>
 </ul>
 </div>
 <div id="part-2-exploratory-data-analysis" class="section level2">
 <h2>Part 2: Exploratory Data Analysis</h2>
 <ol start="2" style="list-style-type: decimal">
-<li>Visualize the distribution of <code>life_expectancy</code>. Is the
-distribution skewed? What does that tell you about the average life
-expectancy across countries? Is this what you expected to see? Why, or
-why not? Include any summary statistics and visualizations you use in
+<li>Visualize and describe the distribution of
+<code>life_expectancy</code>.What does that tell you about the average
+life expectancy across countries? Is this what you expected to see? Why,
+or why not? Include any summary statistics and visualizations you use in
 your response.</li>
 </ol>
 <p><label for="tufte-mn-2" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-2" class="margin-toggle"><span class="marginnote"></span></p>
@@ -740,8 +745,8 @@ form <span class="math inline"><span class="math inline">\(\hat{y} = b_0
 <li>Let’s see if the apparent trend in the plot is something more than
 natural variation. Fit a linear model called <code>m_school</code> to
 predict average <code>life expectancy</code> by average number of years
-of schooling (<code>schooling</code>). Based on the regression output,
-write the linear model.</li>
+of schooling (<code>schooling</code>), and display the output. Based on
+the regression output, write the linear model.</li>
 </ol>
 <p><label for="tufte-mn-5" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-5" class="margin-toggle"><span class="marginnote"></span></p>
 <ol start="5" style="list-style-type: decimal">
@@ -766,9 +771,9 @@ context.</li>
 <ol start="8" style="list-style-type: decimal">
 <li>Fit a new linear model called <code>m_status</code> to predict the
 <code>life expectancy</code> of<br />
-a country based on its <code>status</code>. Based on the regression
-output, write the linear model and interpret the slope and intercept in
-context of the data.</li>
+a country based on its <code>status</code>, and display the output.
+Based on the regression output, write the linear model and interpret the
+slope and intercept in context of the data.</li>
 </ol>
 <p><label for="tufte-mn-9" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-9" class="margin-toggle"><span class="marginnote"></span></p>
 <ol start="9" style="list-style-type: decimal">
@@ -779,8 +784,9 @@ countries? What is it for developing countries?</li>
 <ol start="10" style="list-style-type: decimal">
 <li>Fit a new linear model called <code>m_bmi</code> to predict average
 <code>life_expectancy</code> based on the <code>BMI_cat</code> of the
-country. Based on the regression output, write the linear model and
-interpret the slopes and intercept in context of the data.</li>
+country, and display the output. Based on the regression output, write
+the linear model and interpret the intercept and one slope of your
+choice in context of the data.</li>
 </ol>
 <p><label for="tufte-mn-11" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-11" class="margin-toggle"><span class="marginnote"><span style="display: block;">The function
 <code>fct_relevel()</code> allows you to change the order of levels of a
@@ -797,9 +803,9 @@ code here.</li>
 <li>Fit a new linear model called <code>m_bmi_relevel</code> to predict
 average <code>life_expectancy</code> based on <code>bmi_relevel</code>
 of the country. This is the new (releveled) variable you created in
-Exercise 11. Based on the regression output, write the linear model and
-interpret the intercept and one slope of your choice in the context of
-the data.</li>
+Exercise 11. Display the output. Based on the regression output, write
+the linear model and interpret the intercept and one slope of your
+choice in the context of the data.</li>
 </ol>
 </div>
 </div>

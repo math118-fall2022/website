@@ -73,11 +73,11 @@ library(kableExtra)
 
 ## Housekeeping
 
-- HW 06 released due next Tuesday
+- HW 06 due tomorrow at 11:59pm
 
-- E-mail me about project partners by tomorrow 11:59pm
+- We will begin project work this Wednesday, so *please* come to class
 
-- Third job candidate is giving talk next Wednesday from 12:30-1:30pm in 75 Shannon Street Room 224
+- Third job candidate is giving talk this Wednesday from 12:30-1:30pm in 75 Shannon Street Room 224
   
   - Candidate: Taylor Okonek
   

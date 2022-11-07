@@ -108,17 +108,21 @@ document:
 
 # Exercises
 
+Make sure to follow the tidy coding practices discussed throughout the semester.
+
 ## Part 1: Data Manipulation 
 
-1.  While the data provided spans from 2000-2015, we will be focusing on a single year of data. Filter the data to only retain observations from 2015. Additionally, create the following new variable:
+1.  While the data provided spans from 2000-2015, we will be focusing on a single year of data. Filter the data to only retain observations from 2015. Additionally, create a new variable called `BMI_cat` according to the following:
 
-- `BMI_cat`: the category that each BMI falls into, where BMI < 18.5 is "underweight", 
-18.5 $\leq$ BMI $<$ 25 is "normal", 25 $\leq$ BMI $<$ 30 is "overweight", and BMI $\geq 30$ is "obese".
+  - `BMI_cat = "underweight"`  when `BMI` $< 18.5$
+  - `BMI_cat = "normal"`  when `BMI` $\geq 18.5$ and $< 25$ 
+  - `BMI_cat = "overweight"`  when `BMI` $\geq 25$ and $< 30$
+  - `BMI_cat = "obese"`  when `BMI` $\geq 30$
 
 
 ## Part 2: Exploratory Data Analysis
 
-2.  Visualize the distribution of `life_expectancy`. Is the distribution skewed? What does 
+2.  Visualize and describe the distribution of `life_expectancy`.What does 
     that tell you about the average life expectancy across countries? Is this what you expected to 
     see? Why, or why not? Include any summary statistics and visualizations
     you use in your response.
@@ -139,7 +143,7 @@ Linear model is in the form $\hat{y} = b_0 + b_1 x$.
 
 4.  Let's see if the apparent trend in the plot is something more than
     natural variation. Fit a linear model called `m_school` to predict average
-    `life expectancy` by average number of years of schooling (`schooling`). Based on the 
+    `life expectancy` by average number of years of schooling (`schooling`), and display the output. Based on the 
     regression output, write the linear model.
 
 ```{marginfigure}
@@ -166,7 +170,7 @@ Linear model is in the form $\hat{y} = b_0 + b_1 x$.
 ## Part 4: Linear regression with a categorical predictor
 
 8.  Fit a new linear model called `m_status` to predict the  `life expectancy` of  
-a country based on its `status`. Based on the regression output, write the linear 
+a country based on its `status`, and display the output. Based on the regression output, write the linear 
     model and interpret the slope and intercept in context of the data.
 
 ```{marginfigure}
@@ -179,8 +183,8 @@ a country based on its `status`. Based on the regression output, write the linea
 ```
 
 10. Fit a new linear model called `m_bmi` to predict average `life_expectancy` 
-    based on the `BMI_cat` of the country. Based on the regression output, write the linear 
-    model and interpret the slopes and intercept in context of the data.
+    based on the `BMI_cat` of the country, and display the output. Based on the regression output, write the linear 
+    model and interpret the intercept and one slope of your choice in context of the data.
     
 
 ```{marginfigure}
@@ -198,7 +202,7 @@ life_expect <- life_expect %>%
 
 12. Fit a new linear model called `m_bmi_relevel` to predict average
     `life_expectancy` based on `bmi_relevel` of the country. This is the new (releveled) variable 
-    you created in Exercise 11. Based on the regression output, write the linear 
+    you created in Exercise 11. Display the output. Based on the regression output, write the linear 
     model and interpret the intercept and one slope of your choice in  the context of the data. 
     
 # Submission
