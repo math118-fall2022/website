@@ -112,8 +112,8 @@ glimpse(mb_yawn)
 ```
 ## Rows: 50
 ## Columns: 2
-## $ group   &lt;chr&gt; "treatment", "control", "treatment", "treatment", "control", "…
-## $ outcome &lt;chr&gt; "yawn", "no yawn", "no yawn", "yawn", "no yawn", "yawn", "yawn…
+## $ group   &lt;chr&gt; "control", "treatment", "control", "treatment", "treatment", "…
+## $ outcome &lt;chr&gt; "yawn", "no yawn", "no yawn", "no yawn", "yawn", "no yawn", "n…
 ```
 
 ```r
@@ -253,18 +253,14 @@ The *observed* difference in proportion of yawners is 0.0441.
 ## OPTION 2
 p_hat_diff &lt;- mb_yawn  %&gt;%
   specify(outcome ~ group, success = "yawn") %&gt;%
-  calculate(stat = "diff in props", order = c("treatment", "control"))
+  calculate(stat = "diff in props", order = c("treatment", "control")) %&gt;%
+  pull()
 
 p_hat_diff
 ```
 
 ```
-## Response: outcome (factor)
-## Explanatory: group (factor)
-## # A tibble: 1 × 1
-##     stat
-##    &lt;dbl&gt;
-## 1 0.0441
+## [1] 0.04411765
 ```
 
 --
@@ -433,7 +429,7 @@ null_dist %&gt;%
 ## # A tibble: 1 × 1
 ##   p_val
 ##   &lt;dbl&gt;
-## 1     1
+## 1 0.505
 ```
 
 

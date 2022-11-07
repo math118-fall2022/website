@@ -238,7 +238,8 @@ The *observed* difference in proportion of yawners is 0.0441.
 ## OPTION 2
 p_hat_diff <- mb_yawn  %>%
   specify(outcome ~ group, success = "yawn") %>%
-  calculate(stat = "diff in props", order = c("treatment", "control"))
+  calculate(stat = "diff in props", order = c("treatment", "control")) %>%
+  pull()
 
 p_hat_diff
 ```
