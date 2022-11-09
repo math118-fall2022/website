@@ -4,6 +4,7 @@
     <title>Introducing linear models</title>
     <meta charset="utf-8" />
     <meta name="author" content="Becky Tang" />
+    <meta name="date" content="2022-11-11" />
     <script src="libs/font-awesome/header-attrs/header-attrs.js"></script>
     <link href="libs/font-awesome/font-awesome/css/all.css" rel="stylesheet" />
     <link href="libs/font-awesome/font-awesome/css/v4-shims.css" rel="stylesheet" />
@@ -20,7 +21,7 @@ class: center, middle, inverse, title-slide
 ### Becky Tang
 ]
 .date[
-### 11/9/2022
+### 11/11/2022
 ]
 
 ---
@@ -223,9 +224,9 @@ ggplot(data = teacher, aes(x = years, y = base)) +
 
 ## Vocabulary
 
-- .vocab[Response variable]: Variable whose behavior or variation you are trying to understand, on the y-axis. Also called the **dependent variable**.
+- .vocab[Response variable]: Variable whose behavior or variation you are trying to understand, on the y-axis. Also called the **dependent variable**, and referred to as `\(y\)`. For linear 
 
-- .vocab[Explanatory variables]: Other variables that you want to use to explain the variation in the response, on the x-axis. Also called **independent variables**, **predictors**, or **features**.
+- .vocab[Explanatory variables]: Other variables that you want to use to explain the variation in the response, on the x-axis. Also called **independent variables**, **predictors**, or **features**. Each explanatory variable is referred to using an `\(x\)`.
 
 --
 
@@ -239,10 +240,89 @@ ggplot(data = teacher, aes(x = years, y = base)) +
 
 ---
 
+## Data
+
+.pull-left[
+
+```r
+teacher %&gt;%
+  dplyr::select(base, years) %&gt;%
+  slice(1:5)
+```
+
+```
+## # A tibble: 5 × 2
+##    base years
+##   &lt;int&gt; &lt;dbl&gt;
+## 1 45388     5
+## 2 60649    15
+## 3 60649    16
+## 4 54466    10
+## 5 65360    26
+```
+]
+
+.pull-right[
+
+```r
+teacher %&gt;%
+  dplyr::select(base, years) %&gt;%
+  rename("y" = 1, "x" = 2) %&gt;%
+  slice(1:5)
+```
+
+```
+## # A tibble: 5 × 2
+##       y     x
+##   &lt;int&gt; &lt;dbl&gt;
+## 1 45388     5
+## 2 60649    15
+## 3 60649    16
+## 4 54466    10
+## 5 65360    26
+```
+]
+
+
+---
+
+## The linear model with a single predictor
+
+- .vocab[Linear regression] is the statistical method for fitting a line to data where the relationship between predictor `\(x\)` and quantitative response `\(y\)` can be modeled by a straight line with some error `\(\epsilon\)`:
+
+`$$y  = \beta_{0} + \beta_{1}x + \epsilon$$`
+  - For this class, we will not worry about the `\(\epsilon\)` too much. But we should remember there is always a little bit of error!
+  
+  - When we ignore `\(\epsilon\)`, we replace `\(y\)` with `\(\hat{y}\)`
+  
+---
+
+## The linear model with a single predictor (cont.)
+
+- Thus, we have the following model:
+
+`$$\hat{y} = \beta_0 + \beta_1~x$$`
+
+where `\(\beta_1\)` is often called the .vocab[coefficient] or  .vocab[slope] for the explanatory variable `\(x\)`
+
+--
+
+- Unfortunately, we can't get these values
+
+--
+
+- So we use sample statistics to estimate them:
+
+`$$\hat{y} = b_0 + b_1~x$$`
+
+---
+
+
+
 ## Vocabulary
 
-- .vocab[Residuals]: Shows how far each case is from its predicted value
-   - **Residual = Observed value - Predicted value**
+- .vocab[Residuals]: Shows how far each case `\(i\)`  is from its predicted value
+   - **Residual = Observed value - Predicted value = `\(y_{i} - \hat{y}_{i}\)`**
    - Tells how far above/below the model function each case is
 
 ---
@@ -251,13 +331,13 @@ ggplot(data = teacher, aes(x = years, y = base)) +
 What does a positive residual mean? Which salaries on the plot have positive residuals, those below or above the line?
 ]
 
-&lt;img src="16-intro-linear-models_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="16-intro-linear-models_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
 ## Residuals
 
-&lt;img src="16-intro-linear-models_files/figure-html/unnamed-chunk-9-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="16-intro-linear-models_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -267,13 +347,13 @@ What does a positive residual mean? Which salaries on the plot have positive res
 
 - Predicted salary when years = 13: 54108.45 
 
-&lt;img src="16-intro-linear-models_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="16-intro-linear-models_files/figure-html/unnamed-chunk-12-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
 ## Residuals
    
-&lt;img src="16-intro-linear-models_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="16-intro-linear-models_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -282,26 +362,6 @@ What does a positive residual mean? Which salaries on the plot have positive res
 - True salary when years = 34: 65360
 
 - Predicted salary when years = 34: 70973.64 
-
-&lt;img src="16-intro-linear-models_files/figure-html/unnamed-chunk-12-1.png" style="display: block; margin: auto;" /&gt;
-
----
-
-## Degree
-
-.question[
-How, if at all, does the relationship between `years` teaching and `base` salary of a teacher vary by whether they have a BA or MA?
-]
-
-&lt;img src="16-intro-linear-models_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" /&gt;
-
----
-
-## Degree
-
-.question[
-How, if at all, does the relationship between `years` teaching and `base` salary of a teacher vary by whether they have a BA or MA?
-]
 
 &lt;img src="16-intro-linear-models_files/figure-html/unnamed-chunk-14-1.png" style="display: block; margin: auto;" /&gt;
 
@@ -395,6 +455,52 @@ library(broom)
 
 ---
 
+
+## Interpeting the slope
+
+- Recall the linear regression model:
+
+`$$\hat{\color{purple}{y}} = \beta_{0} + \beta_{1}x$$`
+--
+
+- Let's increase `\(x\)` by 1, i.e. plug in `\((x+1)\)` into the equation:
+
+$$
+`\begin{align*}
+\beta_{0} + \beta_{1}(x+1) &amp;= \beta_{0} + \beta_{1}x + \beta_{1}\\
+&amp;= (\beta_{0} + \beta_{1}x) + \beta_{1}\\
+&amp;= \hat{\color{purple}{y}}  + \beta_{1}
+\end{align*}`
+$$
+--
+
+- .question[What is the interpretation of the slope?]
+
+
+---
+
+## Interpeting the intercept
+
+- Recall the linear regression model:
+
+
+`$$\hat{\color{purple}{y}}  = \beta_{0} + \beta_{1}x$$`
+
+--
+
+- Let's set `\(x=0\)`:
+
+`$$\hat{\color{purple}{y}}  = \beta_{0} + \beta_{1}\times 0 = \beta_{0}$$`
+
+
+--
+
+- .question[What is the interpretation of the intercept?]
+
+
+---
+
+
 ## Years and base salary
 
 .midi[
@@ -434,31 +540,10 @@ on average.
 
 ---
 
-## The linear model with a single predictor
-
-- We're interested in the `\(\beta_0\)` (population parameter for the intercept)
-and the `\(\beta_1\)` (population parameter for the slope) in the 
-following model:
-
-$$ \hat{y} = \beta_0 + \beta_1~x $$
-
-`\(\beta_1\)` is often called the .vocab[coefficient] for the predictor variable `\(x\)`
-
---
-
-- Unfortunately, we can't get these values
-
---
-
-- So we use sample statistics to estimate them:
-
-$$ \hat{y} = b_0 + b_1~x $$
-
----
 
 ## Least squares regression
 
-The regression line minimizes the sum of squared residuals.
+Why these coefficients? i.e. Why this particular line? The regression line minimizes the sum of squared residuals.
 
 --
 
@@ -519,6 +604,8 @@ class: center, middle
 
 .question[
 On average, how much does a teacher in this district make if they have worked for 15 years?]
+
+--
 
 - Recall our fitted model:
 
@@ -598,7 +685,7 @@ class: middle, center
 
 ### Categorical predictor with 2 levels
 
-Height &amp; landscape features
+`base` salary regressed on `degree`
 
 
 ```r
@@ -619,23 +706,74 @@ tidy(mod_degree)
 &lt;br&gt;
 
 `$$\widehat{baseSalary} = 56610 - 352\times degreeBA$$`
+.question[What is happening here?]
+
+---
+
+### Indicator variables
+
+- Under the hood, `R` has actually converted the categorical variable `degree` into an .vocab[indicator] variable called `\(degreeBA\)`
+
+
+`$$degreeBA = \begin{cases}
+1 &amp; \text{ if teacher has a BA} \\
+0 &amp;  \text{ if teacher does not have a BA (i.e. has MA)}
+\end{cases}$$`
+
+--
+
+- More generally, indicator variables are .vocab[binary] variables that take the value 1 when a condition is true, and 0 otherwise
 
 ---
 
 ### Categorical predictor with 2 levels (cont.)
 
-`$$\widehat{baseSalary} = 56610 \color{orange}{- 352}\times degreeBA$$`
+- The .vocab[baseline] level or category is the level of the variable when all indicators are 0
+
+--
+
+`$$\widehat{baseSalary} = 56610 - 352\times degreeBA$$`
 
 
-- .vocab[Slope:] Teachers with a BA are expected, on average,
-to have a base salary `\(\color{orange}{352}\)` dollars *less* than teachers with an MA
-    - Compares baseline level (`degreeMA`) to other level
-    (`degreeBA`).
+- .question[What is the baseline level in our model?]
 
-- .vocab[Intercept:] Teachers with an MA are expected, on 
-average, to have a base salary of 56610 dollars
+--
+
+- Whenever there is a categorical variable in the model, we *always* interpret the coefficients with respect to the baseline!
 
 ---
+
+### Categorical predictor with 2 levels (cont.)
+
+`$$\widehat{baseSalary} = \color{blue}{56610} \color{orange}{- 352}\times degreeBA$$`
+
+- Intercept `\(\beta_{0}\)`: Teachers with an MA are expected, on 
+average, to have a base salary of `\(\color{blue}{56610}\)` dollars
+
+  - Plug in 0 for `degreeBA` and interpret accordingly
+  
+--
+
+- `\(\beta_{1}\)`: Teachers with a BA are expected, on average,
+to have a base salary `\(\color{orange}{352}\)` dollars *less* than teachers with an MA
+
+  - Notice that we explicitly compare to baseline!
+
+
+
+
+
+---
+
+## Regression lines by `degree`
+
+`$$\widehat{baseSalary} =  \color{blue}{56610} \color{orange}{- 352}\times degreeBA$$`
+
+
+&lt;img src="16-intro-linear-models_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
 
 
 
@@ -793,9 +931,9 @@ What makes a data frame tidy?
 
 ## Tidy regression output
 
-Achieved with functions from the broom package:
+Achieved with functions from the `broom` package:
 
-- .vocab[`tidy`]: Constructs a data frame that summarizes the model's statistical findings. We've talked about coefficient estimates and standard errors, but it also displays *test statistics and p-values* (more on these in a few weeks!).
+- .vocab[`tidy`]: Constructs a data frame that summarizes the model's statistical findings. We've talked about coefficient estimates and standard errors, but it also displays *test statistics and p-values*
 
 - .vocab[`augment`]: Adds columns to the original data that was modeled. This includes predictions and residuals.
 

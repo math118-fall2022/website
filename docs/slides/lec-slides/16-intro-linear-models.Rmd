@@ -1,7 +1,7 @@
 ---
 title: "Introducing linear models"
 author: "Becky Tang"
-date: "11/9/2022"
+date: "11/11/2022"
 output:
   xaringan::moon_reader:
     mathjax: "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML"
@@ -228,9 +228,9 @@ ggplot(data = teacher, aes(x = years, y = base)) +
 
 ## Vocabulary
 
-- .vocab[Response variable]: Variable whose behavior or variation you are trying to understand, on the y-axis. Also called the **dependent variable**.
+- .vocab[Response variable]: Variable whose behavior or variation you are trying to understand, on the y-axis. Also called the **dependent variable**, and referred to as $y$. For linear 
 
-- .vocab[Explanatory variables]: Other variables that you want to use to explain the variation in the response, on the x-axis. Also called **independent variables**, **predictors**, or **features**.
+- .vocab[Explanatory variables]: Other variables that you want to use to explain the variation in the response, on the x-axis. Also called **independent variables**, **predictors**, or **features**. Each explanatory variable is referred to using an $x$.
 
 --
 
@@ -244,10 +244,66 @@ ggplot(data = teacher, aes(x = years, y = base)) +
 
 ---
 
+## Data
+
+.pull-left[
+```{r}
+teacher %>%
+  dplyr::select(base, years) %>%
+  slice(1:5)
+
+```
+]
+
+.pull-right[
+```{r}
+teacher %>%
+  dplyr::select(base, years) %>%
+  rename("y" = 1, "x" = 2) %>%
+  slice(1:5)
+```
+]
+
+
+---
+
+## The linear model with a single predictor
+
+- .vocab[Linear regression] is the statistical method for fitting a line to data where the relationship between predictor $x$ and quantitative response $y$ can be modeled by a straight line with some error $\epsilon$:
+
+$$y  = \beta_{0} + \beta_{1}x + \epsilon$$
+  - For this class, we will not worry about the $\epsilon$ too much. But we should remember there is always a little bit of error!
+  
+  - When we ignore $\epsilon$, we replace $y$ with $\hat{y}$
+  
+---
+
+## The linear model with a single predictor (cont.)
+
+- Thus, we have the following model:
+
+$$\hat{y} = \beta_0 + \beta_1~x$$
+
+where $\beta_1$ is often called the .vocab[coefficient] or  .vocab[slope] for the explanatory variable $x$
+
+--
+
+- Unfortunately, we can't get these values
+
+--
+
+- So we use sample statistics to estimate them:
+
+$$\hat{y} = b_0 + b_1~x$$
+
+---
+
+
+
 ## Vocabulary
 
-- .vocab[Residuals]: Shows how far each case is from its predicted value
-   - **Residual = Observed value - Predicted value**
+- .vocab[Residuals]: Shows how far each case $i$  is from its predicted value
+   - **Residual = Observed value - Predicted value = $y_{i} - \hat{y}_{i}$**
    - Tells how far above/below the model function each case is
 
 ---
@@ -275,7 +331,7 @@ ggplot(data = teacher, aes(x = years, y = base)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE, 
               col = "blue", lty = 1, lwd = 1) + 
-  geom_point(aes(x = x, y = y_true), col = "pink", shape = 1, size = 4)
+  geom_point(aes(x = x, y = y_true), col = "orange", shape = 1, size = 4)
 ```
 
 ---
@@ -292,10 +348,10 @@ ggplot(data = teacher, aes(x = years, y = base)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE, 
               col = "blue", lty = 1, lwd = 1) + 
-  geom_point(aes(x = x, y = y_true), col = "pink", shape = 1, size = 4) + 
-  geom_segment(aes(x = x, y = y_true, xend = x, yend = y_pred), col = "pink") + 
+  geom_point(aes(x = x, y = y_true), col = "orange", shape = 1, size = 4) + 
+  geom_segment(aes(x = x, y = y_true, xend = x, yend = y_pred), col = "orange") + 
     geom_point(aes(x = x, y = y_pred), col = "blue", shape = 1, size = 2) + 
-  annotate("text", x  = x + 7, y = y_pred - 5000, label =lab, color = "pink", size = 4)
+  annotate("text", x  = x + 7, y = y_pred - 5000, label =lab, color = "orange", size = 4)
 ```
 
 ---
@@ -310,7 +366,7 @@ ggplot(data = teacher, aes(x = years, y = base)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE, 
               col = "blue", lty = 1, lwd = 1) + 
-  geom_point(aes(x = x, y = y_true), col = "pink", shape = 1, size = 4)
+  geom_point(aes(x = x, y = y_true), col = "orange", shape = 1, size = 4)
 ```
 
 ---
@@ -326,42 +382,10 @@ ggplot(data = teacher, aes(x = years, y = base)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE, 
               col = "blue", lty = 1, lwd = 1) + 
-  geom_point(aes(x = x, y = y_true), col = "pink", shape = 1, size = 4) + 
-  geom_segment(aes(x = x, y = y_true, xend = x, yend = y_pred), col = "pink") + 
+  geom_point(aes(x = x, y = y_true), col = "orange", shape = 1, size = 4) + 
+  geom_segment(aes(x = x, y = y_true, xend = x, yend = y_pred), col = "orange") + 
     geom_point(aes(x = x, y = y_pred), col = "blue", shape = 1, size = 2) + 
-  annotate("text", x  = x, y = y_true - 5000, label = "120 -  71.55 = 48.45", color = "pink", size = 4)
-```
-
----
-
-## Degree
-
-.question[
-How, if at all, does the relationship between `years` teaching and `base` salary of a teacher vary by whether they have a BA or MA?
-]
-
-```{r warning = FALSE, echo = F, fig.height=1.8}
-ggplot(data = teacher, aes(x = years, y = base, 
-                      color = factor(degree))) +
-  geom_point(alpha = 0.4) +
-  # geom_smooth(method = "lm", se = FALSE) +
-  labs(color = "Degree")
-```
-
----
-
-## Degree
-
-.question[
-How, if at all, does the relationship between `years` teaching and `base` salary of a teacher vary by whether they have a BA or MA?
-]
-
-```{r warning = FALSE, echo = F, fig.height=1.8}
-ggplot(data = teacher, aes(x = years, y = base, 
-                      color = factor(degree))) +
-  geom_point(alpha = 0.4) +
-  geom_smooth(method = "lm", se = FALSE) +
-  labs(color = "Degree")
+  annotate("text", x  = x, y = y_true - 7000, label = "65360 -  70973.64  = -5613.64", color = "orange", size = 4)
 ```
 
 ---
@@ -452,6 +476,52 @@ library(broom)
 
 ---
 
+
+## Interpeting the slope
+
+- Recall the linear regression model:
+
+$$\hat{\color{purple}{y}} = \beta_{0} + \beta_{1}x$$
+--
+
+- Let's increase $x$ by 1, i.e. plug in $(x+1)$ into the equation:
+
+$$
+\begin{align*}
+\beta_{0} + \beta_{1}(x+1) &= \beta_{0} + \beta_{1}x + \beta_{1}\\
+&= (\beta_{0} + \beta_{1}x) + \beta_{1}\\
+&= \hat{\color{purple}{y}}  + \beta_{1}
+\end{align*}
+$$
+--
+
+- .question[What is the interpretation of the slope?]
+
+
+---
+
+## Interpeting the intercept
+
+- Recall the linear regression model:
+
+
+$$\hat{\color{purple}{y}}  = \beta_{0} + \beta_{1}x$$
+
+--
+
+- Let's set $x=0$:
+
+$$\hat{\color{purple}{y}}  = \beta_{0} + \beta_{1}\times 0 = \beta_{0}$$
+
+
+--
+
+- .question[What is the interpretation of the intercept?]
+
+
+---
+
+
 ## Years and base salary
 
 .midi[
@@ -482,31 +552,10 @@ on average.
 
 ---
 
-## The linear model with a single predictor
-
-- We're interested in the $\beta_0$ (population parameter for the intercept)
-and the $\beta_1$ (population parameter for the slope) in the 
-following model:
-
-$$ \hat{y} = \beta_0 + \beta_1~x $$
-
-$\beta_1$ is often called the .vocab[coefficient] for the predictor variable $x$
-
---
-
-- Unfortunately, we can't get these values
-
---
-
-- So we use sample statistics to estimate them:
-
-$$ \hat{y} = b_0 + b_1~x $$
-
----
 
 ## Least squares regression
 
-The regression line minimizes the sum of squared residuals.
+Why these coefficients? i.e. Why this particular line? The regression line minimizes the sum of squared residuals.
 
 --
 
@@ -591,6 +640,8 @@ class: center, middle
 .question[
 On average, how much does a teacher in this district make if they have worked for 15 years?]
 
+--
+
 - Recall our fitted model:
 
 $$\widehat{baseSalary} = 43668.1 + 803.1\times years$$
@@ -666,7 +717,7 @@ teacher %>%
 
 ### Categorical predictor with 2 levels
 
-Height & landscape features
+`base` salary regressed on `degree`
 
 ```{r}
 mod_degree <- lm(base ~ degree, data = teacher)
@@ -678,23 +729,86 @@ tidy(mod_degree)
 <br>
 
 $$\widehat{baseSalary} = 56610 - 352\times degreeBA$$
+.question[What is happening here?]
+
+---
+
+### Indicator variables
+
+- Under the hood, `R` has actually converted the categorical variable `degree` into an .vocab[indicator] variable called $degreeBA$
+
+
+$$degreeBA = \begin{cases}
+1 & \text{ if teacher has a BA} \\
+0 &  \text{ if teacher does not have a BA (i.e. has MA)}
+\end{cases}$$
+
+--
+
+- More generally, indicator variables are .vocab[binary] variables that take the value 1 when a condition is true, and 0 otherwise
 
 ---
 
 ### Categorical predictor with 2 levels (cont.)
 
-$$\widehat{baseSalary} = 56610 \color{orange}{- 352}\times degreeBA$$
+- The .vocab[baseline] level or category is the level of the variable when all indicators are 0
+
+--
+
+$$\widehat{baseSalary} = 56610 - 352\times degreeBA$$
 
 
-- .vocab[Slope:] Teachers with a BA are expected, on average,
-to have a base salary $\color{orange}{352}$ dollars *less* than teachers with an MA
-    - Compares baseline level (`degreeMA`) to other level
-    (`degreeBA`).
+- .question[What is the baseline level in our model?]
 
-- .vocab[Intercept:] Teachers with an MA are expected, on 
-average, to have a base salary of 56610 dollars
+--
+
+- Whenever there is a categorical variable in the model, we *always* interpret the coefficients with respect to the baseline!
 
 ---
+
+### Categorical predictor with 2 levels (cont.)
+
+$$\widehat{baseSalary} = \color{blue}{56610} \color{orange}{- 352}\times degreeBA$$
+
+- Intercept $\beta_{0}$: Teachers with an MA are expected, on 
+average, to have a base salary of $\color{blue}{56610}$ dollars
+
+  - Plug in 0 for `degreeBA` and interpret accordingly
+  
+--
+
+- $\beta_{1}$: Teachers with a BA are expected, on average,
+to have a base salary $\color{orange}{352}$ dollars *less* than teachers with an MA
+
+  - Notice that we explicitly compare to baseline!
+
+
+
+
+
+---
+
+## Regression lines by `degree`
+
+$$\widehat{baseSalary} =  \color{blue}{56610} \color{orange}{- 352}\times degreeBA$$
+
+
+```{r warning = FALSE, echo = F, fig.height=2.2}
+ggplot(data = teacher%>%
+  filter(base >= 50000 & base <= 60000), aes(x = years, y = base))+
+    geom_point(alpha = 0.4) +
+    geom_hline(yintercept = (mod_degree %>%tidy() %>% pull(estimate))[1],
+               col = "blue") +
+  geom_hline(yintercept = mod_degree %>%tidy() %>% pull(estimate) %>% sum(),
+               col = "orange")+
+   scale_y_continuous(limits=c(50000,60000)) +
+  ggtitle("Regression lines by degree type",
+          subtitle = "y-axis zoomed in for clarity")
+  
+```
+
+---
+
 
 
 
@@ -806,9 +920,9 @@ What makes a data frame tidy?
 
 ## Tidy regression output
 
-Achieved with functions from the broom package:
+Achieved with functions from the `broom` package:
 
-- .vocab[`tidy`]: Constructs a data frame that summarizes the model's statistical findings. We've talked about coefficient estimates and standard errors, but it also displays *test statistics and p-values* (more on these in a few weeks!).
+- .vocab[`tidy`]: Constructs a data frame that summarizes the model's statistical findings. We've talked about coefficient estimates and standard errors, but it also displays *test statistics and p-values*
 
 - .vocab[`augment`]: Adds columns to the original data that was modeled. This includes predictions and residuals.
 
