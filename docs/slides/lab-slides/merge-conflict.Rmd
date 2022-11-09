@@ -40,12 +40,18 @@ library(tidyverse)
 library(rvest)
 ```
 
+## Housekeeping
+
+- HW 07 assigned today, due next Tuesday 11/15 at 11:59pm
+
+---
+
 ## Agenda
 
 1. What are merge conflicts?
 2. Practice dealing with merge conflicts
 3. Project proposal details
-5. Work!
+5=4. Work!
 
 
 ---

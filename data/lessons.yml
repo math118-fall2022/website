@@ -150,6 +150,7 @@ lessons:
    slides: "lab-slides/merge-conflict.html"
    appex: "merge-conflict-instructions.html"
  - title: "HW 07 assigned"
+   hw: "hw-07-wine.html"
  - title: "Stats candidate job talk (12:30-1:30pm)"
    #appex: "appex17-cars.html"
  - date: "Friday, Nov. 11"
