@@ -1,12 +1,12 @@
 ---
 title: "AppEx 15: Car prices"
-date: "11/14/2022"
+date: "11/11/2022"
 output: 
   html_document:
     theme: readable
 ---
 
-## Exercises
+## LIVE-CODING 
 
 ```{r load-packages, include = FALSE}
 library(tidyverse)
@@ -22,7 +22,7 @@ cars.com in 2017^[The data is from the `Stat2Data` R package.].
 - `mileage`: Previous miles driven (in thousands of miles)
 
 ```{r load-data, message = FALSE}
-car_prices <- read_csv("data/car_prices.csv")
+car_prices <- read.csv("data/car_prices.csv")
 ```
 
 ## Price and Mileage

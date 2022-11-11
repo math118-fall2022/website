@@ -1,6 +1,6 @@
 ---
 title: "AppEx 16: Paris paintings"
-date: "06.30.2021"
+date: "11/30/2022"
 output: 
   html_document:
     theme: readable
@@ -19,31 +19,43 @@ library(broom)
 ```
 
 ```{r load-data, message = FALSE}
-paintings <- read_csv("data/paris_paintings.csv", 
-                            na = c("n/a", "", "NA"))
+paintings <- read.csv("data/paris_paintings.csv", 
+                            na = c("n/a", "", "NA")) %>%
+  dplyr::select(Height_in, Width_in, landsALL) %>%
+  na.omit()
 ```
 
-We will be looking at the Paris Paintings data set in today's application exercise. We'll primarily focus on the variables: 
+We will be looking at data about Paris Paintings in today's application exercise.
+These data were collected by Hilary Coe Cronheim and Sandra van Ginhoven (Duke Art, Art History & Visual Studies PhD students) as part of the Data Expeditions project sponsored by [iiD](https://bigdata.duke.edu/). These data consist of the physical and artistic features of paintings featured in printed catalogues of 28 auction sales in Paris, 1764-1780. In total, these students analyzed 3,393 paintings, their prices, and descriptive details from sales catalogues over 60 variables
+
+We'll primarily focus on the variables: 
 
 - `Height_in`: Height (in inches)
 - `Width_in`: Width (in inches)
-- `landsAll`: If any type of landscape is mentioned (either lands_sc, lands_figs, or lands_ment)
-
-
+- `landsALL`: If any type of landscape is mentioned (either lands_sc, lands_figs, or lands_ment)
 
 ### Exercise 1
 
-Create a scatterplot to visualize the relationship between Height and Width. Color the points based on the whether the painting has any landscape elements. *Note: Be sure to make `landsAll` a factor, so R treats it as categorical variable.*
+Right now, `landsALL` is coded as a numeric variable in the dataset. Modify the dataset to make `landsALL` a factor so R treats it as categorical variable.
+
 
 ### Exercise 2
 
-Based on your scatterplot, does the relationship between Height and Width differ between paintings with landscape elements and those without? Briefly explain.  
+Create a scatterplot to visualize the relationship between width and height. Color the points based on the whether the painting has any landscape elements. 
+
+
 
 ### Exercise 3
 
-Fit a main effects model using width and whether the painting has landscape elements to predict the height. 
+Based on your scatterplot, does the relationship between Height and Width differ between paintings with landscape elements and those without? Briefly explain.  
 
 ### Exercise 4
+
+Fit a model using width and whether the painting has landscape elements to predict the height. Present the model in a tidy format.
+
+
+
+### Exercise 5
 
 Using your model from the previous exercise, 
 
@@ -51,7 +63,7 @@ Using your model from the previous exercise,
 - Interpret the coefficient (slope) of `Width_in`. 
 - Interpret the coefficient (slope) of `landsAll`.
 
-### Exercise 5
+### Exercise 6
 
 Write the equation of the model for 
 
@@ -59,28 +71,13 @@ Write the equation of the model for
 - paintings with landscape elements. 
 
 How do the slopes compare between the two models? How do the intercepts compare? 
-
-### Exericse 6
-
-Now let's consider an interaction term. Fit a linear model using width, whether the painting has landscape elements, and the interaction between the two variables to predict the height. 
 
 ### Exercise 7
 
-Write the equation of the model for 
+Now let's see how well the model fits the data. Use the `glance` function to calculate $R^2$ for you model.
 
-- paintings with no landscape elements. 
-- paintings with landscape elements. 
 
-How do the slopes compare between the two models? How do the intercepts compare? 
 
 ### Exercise 8
 
-Now let's see how well each model fits the data. Use the `glance` function to calculate $R^2$ and Adj. $R^2$ for the model fit in Ex. 3 and the one fit in Ex. 6. 
-
-### Exercise 9
-
-Based on your answer to the previous exercise, which model is a better fit for the data? Briefly explain.
-
-### Exercise 10
-
-Interpret the $R^2$ for the model chosen in the previous exercise.
+Interpret the $R^2$.
