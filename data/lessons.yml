@@ -159,6 +159,8 @@ lessons:
  - date: "Week 09"
  - date: "Monday, Nov. 14"
    title: "Linear models (cont.)"
+   appex: "appex15-cars.html"
+   slides: "lec-slides/16-intro-linear-models.html"
  - date: "Tuesday, Nov. 15"
    title: "HW 07 due at 11:59pm"
  - date: "Wednesday, Nov. 16"
