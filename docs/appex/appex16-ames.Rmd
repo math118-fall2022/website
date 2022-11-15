@@ -1,0 +1,38 @@
+---
+title: "AppEx 16: Ames housing prices"
+output: html_document
+date: "11/16/2022"
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(openintro)
+data("ames")
+```
+
+## Introduction and Data
+
+The `ames` data set contains information about homes sold in Ames, Iowa from 2006 to 2010. We will focus today on two variables:
+
+  - `price`: sale price in USD
+  - `area`: Above grade (ground) living area square feet
+  
+We will fit a linear regression model, assess the conditions using diagnostic plots, and examine how well our model fits the data
+
+## Exercise 1
+
+Fit a linear model to predict the `price` of a home in Ames using its `area`.
+
+## Exercise 2
+
+`augment()` your model to obtain the fitted and residual values, and store this augmented model into a new variable.
+
+## Exercise 3
+
+Using appropriate diagnostic plots, determine if the conditions of linearity and normality are met. 
+
+## Exercise 4
+
+Obtain the $R^2$ of your model. Interpret it!
+
+

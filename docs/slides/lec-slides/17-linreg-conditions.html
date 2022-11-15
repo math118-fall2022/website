@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Multiple linear regression</title>
+    <title>Linear regression</title>
     <meta charset="utf-8" />
     <meta name="author" content="Becky Tang" />
+    <meta name="date" content="2022-11-16" />
     <script src="libs/font-awesome/header-attrs/header-attrs.js"></script>
     <link href="libs/font-awesome/font-awesome/css/all.css" rel="stylesheet" />
     <link href="libs/font-awesome/font-awesome/css/v4-shims.css" rel="stylesheet" />
@@ -14,27 +15,23 @@
 class: center, middle, inverse, title-slide
 
 .title[
-# Multiple linear regression
+# Linear regression
+]
+.subtitle[
+## Conditions + Fit
 ]
 .author[
 ### Becky Tang
 ]
 .date[
-### 06.30.2021
+### 11/16/2022
 ]
 
 ---
 
 
 
-&lt;!-- layout: true --&gt;
-
-&lt;!-- &lt;div class="my-footer"&gt; --&gt;
-&lt;!-- &lt;span&gt; --&gt;
-&lt;!-- &lt;a href="http://datasciencebox.org" target="_blank"&gt;datasciencebox.org&lt;/a&gt; --&gt;
-&lt;!-- &lt;/span&gt; --&gt;
-&lt;!-- &lt;/div&gt;  --&gt;
-
+layout: true
 
 
 
@@ -42,290 +39,215 @@ class: center, middle, inverse, title-slide
 
 ---
 
-class: center, middle
+## Data: Old Faithful
 
-## Review
+- We have data about the Old Faithful geyser in Yellowstone National Park
 
----
-
-
-## Vocabulary
-
-
-- .vocab[Response variable]: Variable whose behavior or variation you are trying 
-to understand. 
-
-
-- .vocab[Explanatory variables]: Other variables that you want to use to explain
-the variation in the response.
-
-
-
-- .vocab[Residuals]: Shows how far each case is from its predicted value
-   - **Residual = Observed value - Predicted value**
-
----
-
-## The linear model with a single predictor
-
-- We're interested in the `\(\beta_0\)` (population parameter for the intercept)
-and the `\(\beta_1\)` (population parameter for the slope) in the 
-following model:
-
-$$ \hat{y} = \beta_0 + \beta_1~x $$
-
---
-
-- Unfortunately, we can't get these values
-
-- So we use sample statistics to estimate them:
-
-$$ \hat{y} = b_0 + b_1~x $$
-
-
----
-
-## Data and Packages
+  - `eruptions`: Eruption time (in mins)
+  - `waiting`: Waiting time to next eruption (in mins)
 
 
 ```r
-library(tidyverse)
-library(broom)
+faithful %&gt;%
+  slice(1:3)
 ```
 
-
 ```
-## Rows: 60
-## Columns: 4
-## $ mileage &lt;dbl&gt; 21500, 43000, 19900, 36000, 44000, 49800, 1300, 670, 13400, 97…
-## $ price   &lt;dbl&gt; 69400, 56900, 49900, 47400, 42900, 36900, 83000, 72900, 69900,…
-## $ age     &lt;dbl&gt; 3, 3, 2, 4, 4, 6, 0, 0, 2, 0, 2, 2, 4, 3, 10, 11, 4, 4, 10, 3,…
-## $ type    &lt;chr&gt; "Porsche", "Porsche", "Porsche", "Porsche", "Porsche", "Porsch…
+##   eruptions waiting
+## 1     3.600      79
+## 2     1.800      54
+## 3     3.333      74
 ```
-
-The data set contains prices for Porsche and Jaguar cars for sale
-on cars.com.
-
-.vocab[`type`]: car make (Jaguar or Porsche)
-
-.vocab[`price`]: price in USD
-
-.vocab[`age`]: age of the car in years
-
-.vocab[`mileage`]: previous miles driven
-
 
 ---
 
-## Single numerical predictor 
+## EDA
+
+.question[How would you describe the relationship between eruption time and waiting time for Old Faithful?]
+
+&lt;img src="17-linreg-conditions_files/figure-html/unnamed-chunk-2-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Linear regression model
 
 
 ```r
-mod_pr_age &lt;- lm(price ~ age, data = sports_car_prices)
-tidy(mod_pr_age)
+mod_faithful &lt;- lm(waiting ~ eruptions, data = faithful)
+tidy(mod_faithful)
 ```
 
 ```
 ## # A tibble: 2 × 5
-##   term        estimate std.error statistic  p.value
-##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-## 1 (Intercept)   53246.     3322.     16.0  5.70e-23
-## 2 age           -2149.      466.     -4.62 2.22e- 5
+##   term        estimate std.error statistic   p.value
+##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+## 1 (Intercept)     33.5     1.15       29.0 7.14e- 85
+## 2 eruptions       10.7     0.315      34.1 8.13e-100
 ```
 
-`$$\widehat{price} = 53246- 2149 ~age_{years}$$`
+.question[How would you interrupt the intercept and slope?]
 
 ---
 
-## Single categorical predictor (2 levels)
+## Tidy regression output
+
+Achieved with functions from the `broom` package:
+
+- .vocab[`tidy`]: Constructs a data frame that summarizes the model's statistical findings. We've talked about coefficient estimates and standard errors, but it also displays *test statistics and p-values*
+
+- .vocab[`augment`]: Adds columns to the original data that was modeled. This includes predictions and residuals.
+
+- .vocab[`glance`]: Constructs a concise one-row summary of the model, computed once for the entire model. 
+
+---
+
+## Tidy your model's statistical findings
+
 
 
 ```r
-mod_pr_type &lt;- lm(price ~ type, data = sports_car_prices)
-tidy(mod_pr_type)
+tidy(mod_faithful) %&gt;%
+  select(term, estimate) %&gt;%
+  mutate(estimate = round(estimate, 3))
 ```
 
 ```
-## # A tibble: 2 × 5
-##   term        estimate std.error statistic  p.value
-##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-## 1 (Intercept)   31957.     2954.     10.8  1.56e-15
-## 2 typePorsche   18580      4178.      4.45 4.00e- 5
-```
-
-`$$\widehat{price} = 31956.67	 +18580 ~typePorsche$$`
-
----
-
-## Single categorical predictor (2 levels)
-
-`$$\widehat{price} = 31956.67	 + 18580 ~typePorsche$$`
-
-What is the the average price of a Porsche?
-
---
-
-For Porsches, `\(typePorsche = 1\)`. So the average price of Porsches is 
-`$$\widehat{price} = 31956.67	 + 18580 \times 1 =  50536.67$$`
-
-
----
-
-
-class: center, middle
-
-## The linear model with multiple predictors
-
-
----
-
-## The linear model with multiple predictors
-
-- Population model:
-
-`$$\hat{y} = \beta_0 + \beta_1~x_1 + \beta_2~x_2 + \cdots + \beta_p~x_p$$`
-
-where `\(p\)` is the number of explanatory variables.
-
---
-
-- Sample model that we use to estimate the population model:
-  
-`$$\hat{y} = b_0 + b_1~x_1 + b_2~x_2 + \cdots + b_p~x_p$$`
-
-
----
-
-## Price and age
-
-&lt;img src="17-mlr-intro_files/figure-html/unnamed-chunk-5-1.png" style="display: block; margin: auto;" /&gt;
-
-
----
-
-
-## Price vs. age and make
-
-.question[
-Can we model simultaneously model the relationships between the age and make of a used car and its price?
-]
-
-&lt;img src="17-mlr-intro_files/figure-html/unnamed-chunk-6-1.png" style="display: block; margin: auto;" /&gt;
-
----
-
-### Modeling with multiple predictors
-
-.question[What is the linear regression model for `price` that uses both `age` and `type` of the car as predictors?]
-
-`$$\widehat{price} = \beta_{0} + \beta_{1}~ age + \beta_{2}~type$$`
---
-
-- Our estimated linear regression model:
-
-
-```r
-m_main &lt;- lm(price ~ age + type, data = sports_car_prices)
-m_main %&gt;%
-  tidy() %&gt;%
-  select(term, estimate)
-```
-
-```
-## # A tibble: 3 × 2
+## # A tibble: 2 × 2
 ##   term        estimate
 ##   &lt;chr&gt;          &lt;dbl&gt;
-## 1 (Intercept)   44310.
-## 2 age           -2487.
-## 3 typePorsche   21648.
+## 1 (Intercept)     33.5
+## 2 eruptions       10.7
 ```
+ 
+---
 
---
+class: center, middle
+
+## Model diagnostics
+
+---
+
+## Conditions
+
+- **Linearity**: The relationship between response and predictor(s) is linear
+
+- Independence: The residuals are independent
+
+- **Normality**: The residuals are nearly normally distributed
+
+- Equal Variance: The residuals have constant variance
+
+
+.alert[We will just focus on linearity and normality in this class.]
+
+---
+
+## Conditions
+
+- .vocab[L]**inearity**: The relationship between response and predictor(s) is linear
+
+- .vocab[I]ndependence: The residuals are independent
+
+- .vocab[N]**ormality**: The residuals are nearly normally distributed
+
+- .vocab[E]qual Variance: The residuals have constant variance
+
+
+---
+
+## Examples 
+
+&lt;img src="img/19/violated_conds.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+Top row: scatterplot of `\(x\)` vs `\(y\)`
+
+Bottom row: residual plot 
+
+---
+
+## `augment` data with model results
+
+- `.fitted`: Predicted value of the response variable `\((\hat{y})\)`
+- `.resid`: Residuals `\((y - \hat{y})\)`
 
 .midi[
-$$ \widehat{price} = 44310 - 2487~age + 21648~typePorsche $$
-]
 
----
-
-### Different lines for each level
-
-.alert[
-$$ \widehat{price} = 44310 - 2487~age + 21648~typePorsche $$
-]
-
-
-- What is the linear model for Porsches? Plug in 1 for `typePorsche`:
-
-`$$\begin{align}\widehat{price}_{porsche} &amp;= 44310 - 2487~age + 21648 \times 1 \\
-&amp;= 65958 - 2487~age\\\end{align}$$`
-
---
-
-- What is the linear model for Jaguars? Plug in 0 for `typePorsche`:
-
-
-`$$\begin{align}\widehat{price}_{jaguar} &amp;= 44310 - 2487~age + 21648 \times 0\\
-&amp;= 44310 - 2487~age\\\end{align}$$`
-
----
-
-### Different lines for each level (cont.)
-
-.alert[
-**Jaguar**
-
-`$$\begin{align}\widehat{price}_{jaguar} = 44310 - 2487~age\\\end{align}$$`
-
-**Porsche**
-
-`$$\begin{align}\widehat{price}_{porsche} = 65958 - 2487~age\\\end{align}$$`
-]
-
-- Rate of change in price as the age of the car increases does not depend on 
-make of car (.vocab[same coefficient for age!])
-
-- Porsches are consistently more expensive than Jaguars (.vocab[different intercepts])
-
----
-
-### Different lines for each level (cont.)
-
-&lt;img src="17-mlr-intro_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
-
----
-
-## Interpretation
-
-
-```
-## # A tibble: 3 × 2
-##   term        estimate
-##   &lt;chr&gt;          &lt;dbl&gt;
-## 1 (Intercept)   44310.
-## 2 age           -2487.
-## 3 typePorsche   21648.
+```r
+*mod_faithful_aug &lt;- augment(mod_faithful)
+mod_faithful_aug %&gt;%
+  slice(1:3)
 ```
 
-
-
-.alert[
-$$ \widehat{price} = 44310 - 2487~age + 21648~typePorsche $$
+```
+## # A tibble: 3 × 8
+##   waiting eruptions .fitted .resid    .hat .sigma  .cooksd .std.resid
+##     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
+## 1      79      3.6     72.1   6.90 0.00371   5.91 0.00254       1.17 
+## 2      54      1.8     52.8   1.21 0.0117    5.92 0.000253      0.206
+## 3      74      3.33    69.2   4.76 0.00374   5.92 0.00122       0.807
+```
 ]
 
 --
 
-- **All else held constant**, for each additional year of a car's age, the price of the car is predicted to *decrease*, on average, by $2,487.
+We will use the fitted values (`.fitted`) and residuals (`.resid`) to check the conditions by 
+constructing .vocab[diagnostic plots].
 
---
+---
 
-- **All else held constant**, Porsches are predicted, on average, to have a 
-price that is $21,648 greater than Jaguars.
+### Residuals vs fitted plot
 
---
+Use to check .vocab[**L**inearity] and .vocab[**E**qual variance.]
 
-- Jaguars that are new (`age` = 0) are predicted, on average, to have a price of $44,309.
+.midi[
 
+```r
+ggplot(mod_faithful_aug, mapping = aes(x = .fitted, y = .resid)) +
+  geom_point() + geom_hline(yintercept = 0, lwd = 2, col = "red", lty = 2) +
+  labs(x = "Predicted waiting time (min.)", y = "Residuals") 
+```
+
+&lt;img src="17-linreg-conditions_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+### Residuals vs fitted plot
+
+.alert[
+This is a good example! We don't see any patterns in the residuals.
+]
+
+.midi[
+&lt;img src="17-linreg-conditions_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
+
+### Histogram of residuals
+
+Use to check .vocab[**N**ormality]
+
+.midi[
+
+```r
+ggplot(mod_faithful_aug, mapping = aes(x = .resid)) +
+  geom_histogram(bins = 15) + labs(x = "Residuals")
+```
+
+&lt;img src="17-linreg-conditions_files/figure-html/unnamed-chunk-9-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+### Histogram of residuals
+
+.alert[
+This is a good example! We want to see symmetric, bell-shaped curve here.
+]
+
+&lt;img src="17-linreg-conditions_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -362,30 +284,51 @@ The `\(R^2\)` of our model is:
 
 
 ```r
-glance(m_main)
+glance(mod_faithful)
 ```
 
 ```
 ## # A tibble: 1 × 12
-##   r.squared adj.r.squ…¹  sigma stati…²  p.value    df logLik   AIC   BIC devia…³
-##       &lt;dbl&gt;       &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-## 1     0.607       0.593 11848.    44.0 2.73e-12     2  -646. 1301. 1309.  8.00e9
+##   r.squared adj.r.squ…¹ sigma stati…²   p.value    df logLik   AIC   BIC devia…³
+##       &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+## 1     0.811       0.811  5.91   1162. 8.13e-100     1  -868. 1743. 1754.   9443.
 ## # … with 2 more variables: df.residual &lt;int&gt;, nobs &lt;int&gt;, and abbreviated
 ## #   variable names ¹​adj.r.squared, ²​statistic, ³​deviance
 ```
 
 ```r
-glance(m_main) %&gt;%
+glance(mod_faithful) %&gt;%
   pull(r.squared)
 ```
 
 ```
-## [1] 0.6071375
+## [1] 0.8114608
 ```
 
 --
 
-- Interpretation: about 60.7% of the variability in `price` of used cars can be explained by `age` and `type`
+- Interpretation: about 81.1% of the variability in Old Faithful's `waiting` times  can be explained by the previous `eruption` time.
+
+
+---
+
+class: center, middle
+
+
+## Your turn! 
+
+---
+
+### Ames housing prices
+
+- This data set contains information about homes sold in Ames, Iowa from 2006 to 2010
+
+- We will focus today on two variables:
+
+  - `price`: sale price in USD
+  
+  - `area`: Above grade (ground) living area square feet
+  
 
 
     </textarea>

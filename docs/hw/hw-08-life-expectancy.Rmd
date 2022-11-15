@@ -1,6 +1,6 @@
 ---
 title: "HW 08 - Life Expectancy"
-date: "due Tue, July 6 at 11:59p"
+subtitle: "due Sunday, 11/27 at 11:59pm "
 output: 
   tufte::tufte_html:
     tufte_variant: "envisioned"
@@ -112,13 +112,7 @@ Make sure to follow the tidy coding practices discussed throughout the semester.
 
 ## Part 1: Data Manipulation 
 
-1.  While the data provided spans from 2000-2015, we will be focusing on a single year of data. Filter the data to only retain observations from 2015. Additionally, create a new variable called `BMI_cat` according to the following:
-
-  - `BMI_cat = "underweight"`  when `BMI` $< 18.5$
-  - `BMI_cat = "normal"`  when `BMI` $\geq 18.5$ and $< 25$ 
-  - `BMI_cat = "overweight"`  when `BMI` $\geq 25$ and $< 30$
-  - `BMI_cat = "obese"`  when `BMI` $\geq 30$
-
+1.  While the data provided spans from 2000-2015, we will be focusing on a single year of data. Filter the data to only retain observations from 2015 that have non-`NA` values for `schooling`. 
 
 ## Part 2: Exploratory Data Analysis
 
@@ -149,18 +143,13 @@ Linear model is in the form $\hat{y} = b_0 + b_1 x$.
 ```{marginfigure}
 ```
 
-5.  Replot your visualization from Exercise 3, and add the regression line to this plot
-    in orange color. Turn off the shading for the uncertainty of the line.
+
+5.  Interpret the slope of the linear model in context of the data.
 
 ```{marginfigure}
 ```
 
-6.  Interpret the slope of the linear model in context of the data.
-
-```{marginfigure}
-```
-
-7.  Interpret the intercept of the linear model in context of the data. Comment on whether 
+6.  Interpret the intercept of the linear model in context of the data. Comment on whether 
     or not the intercept makes sense in this context.
 
 ```{marginfigure}
@@ -169,41 +158,29 @@ Linear model is in the form $\hat{y} = b_0 + b_1 x$.
 
 ## Part 4: Linear regression with a categorical predictor
 
-8.  Fit a new linear model called `m_status` to predict the  `life expectancy` of  
-a country based on its `status`, and display the output. Based on the regression output, write the linear 
-    model and interpret the slope and intercept in context of the data.
+7.  Fit a new linear model called `m_status` to predict the  `life expectancy` of
+a country based on its `status`, and display the output. Based on the regression output, write the linear model. 
 
 ```{marginfigure}
 ```
 
-9. What is the equation of the line corresponding to developed countries? What is it for 
-    developing countries?
+
+8. Interpret the slope and intercept from `m_status` in the context of the data.
   
 ```{marginfigure}
 ```
 
-10. Fit a new linear model called `m_bmi` to predict average `life_expectancy` 
-    based on the `BMI_cat` of the country, and display the output. Based on the regression output, write the linear 
-    model and interpret the intercept and one slope of your choice in context of the data.
-    
+## Part 5: Model diagnostics and evaluation
+
+9. Store an augmented version of your `m_school` model. Using this new augmented data frame, create diagnostic plots to determine if the conditions of linearity and normality are met. For each condition, briefly explain why or why not based off the appropriate diagnostic plot. 
 
 ```{marginfigure}
-The function `fct_relevel()` allows you to change the order of levels of a categorical variable. 
-The syntax is `fct_relevel(<name of variable>, <"baseline level">)`
 ```
 
-11. Create a new variable called `BMI_relevel` where `"underweight"` is the baseline level. You have some starter code here. 
+10. Using appropriate functions, obtain and interpret the $R^2$ of your `m_school` model.
 
-```{r ex11, eval = F}
-life_expect <- life_expect %>%
-  mutate(_____ = fct_relevel(, ))
-
+```{marginfigure}
 ```
-
-12. Fit a new linear model called `m_bmi_relevel` to predict average
-    `life_expectancy` based on `bmi_relevel` of the country. This is the new (releveled) variable 
-    you created in Exercise 11. Display the output. Based on the regression output, write the linear 
-    model and interpret the intercept and one slope of your choice in  the context of the data. 
     
 # Submission
 

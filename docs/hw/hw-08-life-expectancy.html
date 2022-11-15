@@ -504,7 +504,7 @@ font-size: 10pt;
 
 
 <h1 class="title toc-ignore">HW 08 - Life Expectancy</h1>
-<h4 class="date">due Tue, July 6 at 11:59p</h4>
+<h3 class="subtitle">due Sunday, 11/27 at 11:59pm</h3>
 
 
 
@@ -710,15 +710,9 @@ the semester.</p>
 <ol style="list-style-type: decimal">
 <li>While the data provided spans from 2000-2015, we will be focusing on
 a single year of data. Filter the data to only retain observations from
-2015. Additionally, create a new variable called <code>BMI_cat</code>
-according to the following:</li>
+2015 that have non-<code>NA</code> values for
+<code>schooling</code>.</li>
 </ol>
-<ul>
-<li><code>BMI_cat = &quot;underweight&quot;</code> when <code>BMI</code> <span class="math inline">\(&lt; 18.5\)</span></li>
-<li><code>BMI_cat = &quot;normal&quot;</code> when <code>BMI</code> <span class="math inline">\(\geq 18.5\)</span> and <span class="math inline">\(&lt; 25\)</span></li>
-<li><code>BMI_cat = &quot;overweight&quot;</code> when <code>BMI</code> <span class="math inline">\(\geq 25\)</span> and <span class="math inline">\(&lt; 30\)</span></li>
-<li><code>BMI_cat = &quot;obese&quot;</code> when <code>BMI</code> <span class="math inline">\(\geq 30\)</span></li>
-</ul>
 </div>
 <div id="part-2-exploratory-data-analysis" class="section level2">
 <h2>Part 2: Exploratory Data Analysis</h2>
@@ -750,63 +744,46 @@ the regression output, write the linear model.</li>
 </ol>
 <p><label for="tufte-mn-5" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-5" class="margin-toggle"><span class="marginnote"></span></p>
 <ol start="5" style="list-style-type: decimal">
-<li>Replot your visualization from Exercise 3, and add the regression
-line to this plot in orange color. Turn off the shading for the
-uncertainty of the line.</li>
+<li>Interpret the slope of the linear model in context of the data.</li>
 </ol>
 <p><label for="tufte-mn-6" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-6" class="margin-toggle"><span class="marginnote"></span></p>
 <ol start="6" style="list-style-type: decimal">
-<li>Interpret the slope of the linear model in context of the data.</li>
-</ol>
-<p><label for="tufte-mn-7" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-7" class="margin-toggle"><span class="marginnote"></span></p>
-<ol start="7" style="list-style-type: decimal">
 <li>Interpret the intercept of the linear model in context of the data.
 Comment on whether or not the intercept makes sense in this
 context.</li>
 </ol>
-<p><label for="tufte-mn-8" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-8" class="margin-toggle"><span class="marginnote"></span></p>
+<p><label for="tufte-mn-7" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-7" class="margin-toggle"><span class="marginnote"></span></p>
 </div>
 <div id="part-4-linear-regression-with-a-categorical-predictor" class="section level2">
 <h2>Part 4: Linear regression with a categorical predictor</h2>
-<ol start="8" style="list-style-type: decimal">
+<ol start="7" style="list-style-type: decimal">
 <li>Fit a new linear model called <code>m_status</code> to predict the
-<code>life expectancy</code> of<br />
-a country based on its <code>status</code>, and display the output.
-Based on the regression output, write the linear model and interpret the
-slope and intercept in context of the data.</li>
+<code>life expectancy</code> of a country based on its
+<code>status</code>, and display the output. Based on the regression
+output, write the linear model.</li>
+</ol>
+<p><label for="tufte-mn-8" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-8" class="margin-toggle"><span class="marginnote"></span></p>
+<ol start="8" style="list-style-type: decimal">
+<li>Interpret the slope and intercept from <code>m_status</code> in the
+context of the data.</li>
 </ol>
 <p><label for="tufte-mn-9" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-9" class="margin-toggle"><span class="marginnote"></span></p>
+</div>
+<div id="part-5-model-diagnostics-and-evaluation" class="section level2">
+<h2>Part 5: Model diagnostics and evaluation</h2>
 <ol start="9" style="list-style-type: decimal">
-<li>What is the equation of the line corresponding to developed
-countries? What is it for developing countries?</li>
+<li>Store an augmented version of your <code>m_school</code> model.
+Using this new augmented data frame, create diagnostic plots to
+determine if the conditions of linearity and normality are met. For each
+condition, briefly explain why or why not based off the appropriate
+diagnostic plot.</li>
 </ol>
 <p><label for="tufte-mn-10" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-10" class="margin-toggle"><span class="marginnote"></span></p>
 <ol start="10" style="list-style-type: decimal">
-<li>Fit a new linear model called <code>m_bmi</code> to predict average
-<code>life_expectancy</code> based on the <code>BMI_cat</code> of the
-country, and display the output. Based on the regression output, write
-the linear model and interpret the intercept and one slope of your
-choice in context of the data.</li>
+<li>Using appropriate functions, obtain and interpret the <span class="math inline">\(R^2\)</span> of your <code>m_school</code>
+model.</li>
 </ol>
-<p><label for="tufte-mn-11" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-11" class="margin-toggle"><span class="marginnote"><span style="display: block;">The function
-<code>fct_relevel()</code> allows you to change the order of levels of a
-categorical variable. The syntax is <code>fct_relevel(&lt;name of
-variable&gt;, &lt;“baseline level”&gt;)</code></span></span></p>
-<ol start="11" style="list-style-type: decimal">
-<li>Create a new variable called <code>BMI_relevel</code> where
-<code>&quot;underweight&quot;</code> is the baseline level. You have some starter
-code here.</li>
-</ol>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>life_expect <span class="ot">&lt;-</span> life_expect <span class="sc">%&gt;%</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">_____ =</span> <span class="fu">fct_relevel</span>(, ))</span></code></pre></div>
-<ol start="12" style="list-style-type: decimal">
-<li>Fit a new linear model called <code>m_bmi_relevel</code> to predict
-average <code>life_expectancy</code> based on <code>bmi_relevel</code>
-of the country. This is the new (releveled) variable you created in
-Exercise 11. Display the output. Based on the regression output, write
-the linear model and interpret the intercept and one slope of your
-choice in the context of the data.</li>
-</ol>
+<p><label for="tufte-mn-11" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-11" class="margin-toggle"><span class="marginnote"></span></p>
 </div>
 </div>
 <div id="submission" class="section level1">

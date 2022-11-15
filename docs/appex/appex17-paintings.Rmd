@@ -1,5 +1,5 @@
 ---
-title: "AppEx 16: Paris paintings"
+title: "AppEx 17: Paris paintings"
 date: "11/30/2022"
 output: 
   html_document:

@@ -10,8 +10,9 @@
 
 
 
+<meta name="date" content="2022-11-16" />
 
-<title>AppEx 17: Parkinsons (again)</title>
+<title>AppEx 16: Ames housing prices</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -348,35 +349,43 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">AppEx 17: Parkinsons (again)</h1>
+<h1 class="title toc-ignore">AppEx 16: Ames housing prices</h1>
+<h4 class="date">11/16/2022</h4>
 
 </div>
 
 
-<p>In this application exercise, we will once again using the
-<code>parkinsons</code> data you are so familiar with. We will build a
-model for a person’s <code>hnr</code>.</p>
-<div id="exercise-1" class="section level3">
-<h3>Exercise 1</h3>
-<p>Fit a linear regression model to predict <code>hnr</code> given the
-person’s voice jitter, shimmer, and whether or not they have
-parkinsons.</p>
+<div id="introduction-and-data" class="section level2">
+<h2>Introduction and Data</h2>
+<p>The <code>ames</code> data set contains information about homes sold
+in Ames, Iowa from 2006 to 2010. We will focus today on two
+variables:</p>
+<ul>
+<li><code>price</code>: sale price in USD</li>
+<li><code>area</code>: Above grade (ground) living area square feet</li>
+</ul>
+<p>We will fit a linear regression model, assess the conditions using
+diagnostic plots, and examine how well our model fits the data</p>
 </div>
-<div id="exercise-2" class="section level3">
-<h3>Exercise 2</h3>
-<p>Store an augmented version of your model so you have both the fitted
-value and residual for each observation.</p>
+<div id="exercise-1" class="section level2">
+<h2>Exercise 1</h2>
+<p>Fit a linear model to predict the <code>price</code> of a home in
+Ames using its <code>area</code>.</p>
 </div>
-<div id="exercise-3" class="section level3">
-<h3>Exercise 3</h3>
-<p>Using the appropriate diagnostic plots, determine which of the four
-linear regression model conditions appear to be violated, and which
-appear to be met. Make sure to reference the correct plot for each
-condition.</p>
+<div id="exercise-2" class="section level2">
+<h2>Exercise 2</h2>
+<p><code>augment()</code> your model to obtain the fitted and residual
+values, and store this augmented model into a new variable.</p>
 </div>
-<div id="exercise-4" class="section level3">
-<h3>Exercise 4</h3>
-<p>Is there multicollinearity in the predictors?</p>
+<div id="exercise-3" class="section level2">
+<h2>Exercise 3</h2>
+<p>Using appropriate diagnostic plots, determine if the conditions of
+linearity and normality are met.</p>
+</div>
+<div id="exercise-4" class="section level2">
+<h2>Exercise 4</h2>
+<p>Obtain the <span class="math inline">\(R^2\)</span> of your model.
+Interpret it!</p>
 </div>
 
 
