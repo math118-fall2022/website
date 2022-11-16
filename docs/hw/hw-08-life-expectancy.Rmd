@@ -30,42 +30,20 @@ The data were modified from this [Kaggle](https://www.kaggle.com/kumarajarshi/li
 
 
 
-# Packages
-
-In this lab we will work with the `tidyverse` and `broom` packages.
+# Data and Packages
 
 ```{marginfigure}
 The broom package is installed with the tidyverse, but we need to load it separately in order to make use of it.
 ```
 
-```{r eval = F}
-library(tidyverse) 
-library(broom)
-```
+In this lab we will work with the `tidyverse` and `broom` packages. You will need to load them in yourself!
 
-# The data
+In this homework you will once again upload the data on your own! The `life_expectancy.csv` data can be found on Canvas $\Rightarrow$ Files and click on the file called `life_expectancy.csv`. Follow the instructions from HW 07 to upload the `life_expectancy.csv` data into RStudio.
 
-In this homework you will upload the data yourself!
+Then, you can load the data as usual using the following. Be sure to remove the `eval = FALSE` before knitting!
 
-- Go to Canvas $\Rightarrow$ Files and click on the file called `life_expectancy.csv`. This should 
-automatically download the data file. Locate this file on your local computer, usually found in your `Downloads` folder.
-
-- Create a `data/` folder in your RStudio project folder corresponding to this homework.
-
-```{r data-folder, fig.margin = TRUE, echo = FALSE, eval=TRUE, fig.width=3}
-knitr::include_graphics("img/08-life-expectancy/create_folder.png")
-```
-
-- Navigate to the `data/` folder and upload the `life_expectancy.csv` file.
-
-```{r data-upload, fig.margin = TRUE, echo = FALSE, eval=TRUE, fig.width=3}
-knitr::include_graphics("img/08-life-expectancy/data-upload.png")
-```
-
-Then, you can load the data as usual using the following.
-
-```{r data, eval=F}
-life_expect <- read_csv("data/life_expectancy.csv")
+```{r data, eval= FALSE}
+life_expect <- read.csv("data/life_expectancy.csv")
 ```
 
 ## Codebook
@@ -186,7 +164,7 @@ a country based on its `status`, and display the output. Based on the regression
 
 **Before you wrap up the assignment, make sure all documents are updated on your GitHub repo. we will be checking these to make sure you have been practicing how to commit and push changes.**
 
-Once your work is finalized in your GitHub repo, submit the final PDF it to Canvas.
+Once your work is finalized in your GitHub repo, submit the final PDF to Canvas.
 
 
     

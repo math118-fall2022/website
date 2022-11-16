@@ -4,7 +4,7 @@ output: html_document
 date: "11/16/2022"
 ---
 
-```{r setup, include=FALSE}
+```{r setup, message=FALSE}
 library(tidyverse)
 library(openintro)
 data("ames")
@@ -12,7 +12,7 @@ data("ames")
 
 ## Introduction and Data
 
-The `ames` data set contains information about homes sold in Ames, Iowa from 2006 to 2010. We will focus today on two variables:
+The `ames` data set contains information about homes sold in Ames, Iowa from 2006 to 2010. The data is provided as part of the `openintro` package. We will focus today on two variables:
 
   - `price`: sale price in USD
   - `area`: Above grade (ground) living area square feet
