@@ -163,13 +163,13 @@ class: center, middle
 
 ## Examples 
 
-```{r, echo=FALSE, out.width = "50%", fig.align="center"}
+```{r, echo=FALSE, out.width = "70%", fig.align="center"}
 knitr::include_graphics("img/19/violated_conds.png")
 ```
 
-Top row: scatterplot of $x$ vs $y$
+- Top row: scatterplot of $x$ vs $y$
 
-Bottom row: residual plot 
+- Bottom row: residual plot 
 
 ---
 
@@ -279,7 +279,7 @@ What does "explained variability in the response variable" mean?
 
 ## Obtaining $R^2$ in R
 
-The $R^2$ of our model is:
+We can use the `glance()` function to obtain the $R^2$ of our model:
 
 ```{r}
 glance(mod_faithful)
