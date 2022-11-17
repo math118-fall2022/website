@@ -7,6 +7,7 @@ date: "11/16/2022"
 ```{r setup, message=FALSE}
 library(tidyverse)
 library(openintro)
+library(broom)
 data("ames")
 ```
 
