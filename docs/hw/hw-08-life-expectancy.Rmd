@@ -1,6 +1,6 @@
 ---
 title: "HW 08 - Life Expectancy"
-subtitle: "due Sunday, 11/27 at 11:59pm "
+subtitle: "due Wednesday, 11/30 at 11:59pm "
 output: 
   tufte::tufte_html:
     tufte_variant: "envisioned"
