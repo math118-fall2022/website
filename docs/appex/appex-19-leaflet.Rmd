@@ -1,0 +1,102 @@
+---
+title: "AppEx 19: Chipotle (cont.)"
+date: "12/3/2022"
+output: 
+  html_document: 
+    theme: readable
+editor_options: 
+  chunk_output_type: console
+---
+
+## Packages and Data
+
+The packages you will need for this AppEx are listed below. You may need to install some of them. If so, install the appropriate packages in the Console!
+
+```{r packages, message = FALSE, warning = FALSE}
+library(tidyverse)
+library(sf) 
+library(spData) 
+library(leaflet)
+```
+
+Today's data set comes from the [Kaggle](https://www.kaggle.com/datasets/jeffreybraun/chipotle-locations?resource=download), and contains the locations of each Chipotle location in the US as of 07/27/2020. Someone scraped this data from Chipotle.
+
+The variables are 
+
+- `state`: county name
+- `location`: number of registered voters
+- `address`: number of individuals who have voted
+- `latitude`: number of mail ballots returned and accepted
+- `longitude`: number of mail ballots rejected
+
+We will also use the `us_states` `sf` object from the `spData` library to map the contiguous US.
+
+```{r}
+chipotle <- read.csv("data/chipotle_stores.csv")
+data("us_states")
+```
+
+## Exercises
+
+
+### Exercise 1
+
+Create an interactive visualization using `leaflet()` to display the Chipotle locations. Specifically, use the `add_markers()` function with appropriate arguments for `lng` and `lat`. You should use three functions in total!
+
+```{r ex1}
+
+```
+
+### Exercise 2
+
+Now let's try to create some summary data at the level of location. Group the `chipotle` data by both `state`  and `location`, then use the `summarise()` function to obtain the average `longitude` and `latitude` of each `location`, as well as the total number of stores at each `location`. Don't forget to use `ungroup()` at the end! 
+
+Store this into a data frame called `chipotle_locations`. The first five observations should appear as follows:
+
+```{r echo = F}
+chipotle_locations <- chipotle %>% 
+  group_by(state, location) %>%
+  summarise(longitude = mean(longitude), latitude = mean(latitude),
+            count = n()) %>%
+  ungroup() 
+
+chipotle_locations %>% 
+  slice(1:5)
+```
+
+### Exercise 3
+
+Now let's visualize the count of Chipotles at each `location` using `leaflet()`. Add circle markers using the function `addCircleMarkers()`, and make sure you have the following features for your markers:
+
+  - The radius of the circles should be a function of the number Chipotles
+  - The name of the `location` should appear when you click on the marker
+
+
+### Exercise 4
+
+Lastly, let's add a marker for the location of the Chipotle headquarters. The following code creates a custom marker in using an image of a burrito found online! I wanted to use the Chipotle logo, but I'm not sure if it's illegal to us it...
+
+```{r icon}
+burritoIcon <- makeIcon(
+  iconUrl = "https://www.pngmart.com/files/5/Burrito-Transparent-PNG.png",
+  iconWidth = 30, iconHeight = 30,
+  iconAnchorX = 0, iconAnchorY = 0
+)
+```
+
+Go online and find the longitude-latitude coordinates of the Chipotle headquarters. Add them into the following data frame:
+
+```{r chipotle_hq, eval = F}
+chipotle_hq <- data.frame(longitude = ____, latitude = ____)
+```
+
+Lastly, copy your code from Exercise 3 and paste it into the following code chunk. You will see another `addMarkers()` function that adds the `chipotle_hq` data to your leaflet visualization. Within this function, customize the marker as follows:
+
+  - Set the longitude and latitude appropriately
+  - The phrase "Chipotle HQ" should appear when you click on the marker
+  - Set the optional `icon` argument of `addMarkers()` to the `burritoIcon`
+
+```{r eval = F}
+# paste code here %>%
+  addMarkers(data = chipotle_hq, _________)
+```

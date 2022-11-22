@@ -1,0 +1,182 @@
+---
+title: "Spatial data & visualization"
+subtitle: "Part 2: Leaflet"
+author: "Becky Tang"
+date: "12/5/2022"
+output:
+  xaringan::moon_reader:
+    mathjax: "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML"
+    css: "math118-slides.css"
+    lib_dir: libs/font-awesome
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      slideNumberFormat: "%current%" 
+      ratio: "16:9"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+# R options
+options(
+  htmltools.dir.version = FALSE, # for blogdown
+  show.signif.stars = FALSE,     # for regression output
+  warm = 1
+  )
+# Set dpi and height for images
+knitr::opts_chunk$set(fig.height = 2, fig.width = 5, 
+                     dpi = 200, 
+                      warning = FALSE, 
+                      message = FALSE, 
+                      fig.align = "center") 
+# ggplot2 color palette with gray
+color_palette <- list(gray = "#999999", 
+                      salmon = "#E69F00", 
+                      lightblue = "#56B4E9", 
+                      green = "#009E73", 
+                      yellow = "#F0E442", 
+                      darkblue = "#0072B2", 
+                      red = "#D55E00", 
+                      purple = "#CC79A7")
+htmltools::tagList(rmarkdown::html_dependency_font_awesome())
+# For magick
+dev.off <- function(){
+  invisible(grDevices::dev.off())
+}
+# For ggplot2
+ggplot2::theme_set(ggplot2::theme_bw())
+```
+
+```{r packages, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(patchwork)
+library(sf)
+library(spData)
+```
+
+---
+
+class: middle, center
+
+## Leaflet
+
+---
+
+## Leaflet
+
+- Leaflet is a popular open-source JavaScript library for *interactive* maps
+
+- We can access it via the `leaflet` package:
+
+```{r}
+library(leaflet)
+```
+
+---
+
+## How to us Leaflet
+
+We can create a Leaflet map with the following steps:
+
+  1. Create a map *widget* by calling `leaflet()`
+  
+  2. Add layers (i.e. features) by using layer functions (e.g. `addPolygons`)
+  
+  3. Print the map widget to display it!
+  
+--
+
+In the following, note that we use `%>%` rather than `+` because we are *not* creating plots with `ggplot`!
+
+---
+
+## Example: Using OpenStreetMaps
+
+```{r}
+leaflet() #<<
+```
+
+---
+
+## Example: Using OpenStreetMaps
+
+```{r}
+leaflet() %>% 
+  addTiles() # Add default OpenStreetMap map tiles #<<
+```
+
+---
+
+## Example: Using OpenStreetMaps
+
+```{r}
+leaflet() %>% 
+  addTiles() %>%  # Add default OpenStreetMap map tiles 
+  addMarkers(lng=-73.175, lat=44.010, popup="Warner Hall") #<<
+```
+
+
+---
+
+## Airport data
+
+- Recall in last class we created `airports_count` data frame, which held the number of flights that flew to each airport from NYC
+
+
+```{r echo = F}
+library(nycflights13)
+data(airports)
+data(flights)
+dest_count <- flights %>%
+  count(dest, name = "count") 
+airports_count <- airports %>%  
+  inner_join(dest_count, by=c("faa" = "dest"))
+rm(flights)
+```
+
+```{r}
+airports_count %>%
+  slice(1:5)
+```
+
+---
+
+## Leaflet for airport data
+
+```{r}
+leaflet(airports_count) %>% 
+  addTiles() %>%  
+  addMarkers(lng = ~lon, lat = ~lat, popup = ~faa)  #<<
+``` 
+
+---
+
+## Leaflet for airport data
+
+```{r}
+leaflet(airports_count) %>% 
+  addTiles() %>%  
+  addCircleMarkers(lng=~lon, lat=~lat, popup=~faa, 
+                   radius = ~count/1000, #<<
+                   stroke = FALSE, fillOpacity = 0.5)
+```
+
+---
+
+## Leaflet for airport data
+
+```{r}
+leaflet(airports_count) %>% 
+  addTiles() %>%  
+  addCircleMarkers(lng=~lon, lat=~lat, popup=~faa, 
+                   radius = ~count/1000, stroke = FALSE, fillOpacity = 0.5) %>%
+  setView(-100, 40, zoom = 4) #<<
+```
+
+---
+
+class: center, middle
+
+# YOUR TURN!

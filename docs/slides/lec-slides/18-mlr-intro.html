@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Multiple linear regression</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Becky Tang" />
+    <meta name="date" content="2022-11-30" />
+    <script src="libs/font-awesome/header-attrs/header-attrs.js"></script>
+    <link href="libs/font-awesome/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <link rel="stylesheet" href="math118-slides.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Multiple linear regression
+]
+.author[
+### Becky Tang
+]
+.date[
+### 11/30/2022
+]
+
+---
+
+
+
+&lt;!-- layout: true --&gt;
+
+&lt;!-- &lt;div class="my-footer"&gt; --&gt;
+&lt;!-- &lt;span&gt; --&gt;
+&lt;!-- &lt;a href="http://datasciencebox.org" target="_blank"&gt;datasciencebox.org&lt;/a&gt; --&gt;
+&lt;!-- &lt;/span&gt; --&gt;
+&lt;!-- &lt;/div&gt;  --&gt;
+
+
+
+
+
+
+---
+
+class: center, middle
+
+## Review
+
+---
+
+
+## Vocabulary
+
+
+- .vocab[Response variable]: Variable whose behavior or variation you are trying 
+to understand. 
+
+
+- .vocab[Explanatory variables]: Other variables that you want to use to explain
+the variation in the response.
+
+
+
+- .vocab[Residuals]: Shows how far each case is from its predicted value
+   - **Residual = Observed value - Predicted value**
+
+---
+
+## The linear model with a single predictor
+
+- We're interested in the `\(\beta_0\)` (population parameter for the intercept)
+and the `\(\beta_1\)` (population parameter for the slope) in the 
+following model:
+
+$$ \hat{y} = \beta_0 + \beta_1~x $$
+
+--
+
+- Unfortunately, we can't get these values
+
+- So we use sample statistics to estimate them:
+
+$$ \hat{y} = b_0 + b_1~x $$
+
+
+---
+
+## Data and Packages
+
+
+```r
+library(tidyverse)
+library(broom)
+```
+
+
+```
+## Rows: 60
+## Columns: 4
+## $ mileage &lt;dbl&gt; 21500, 43000, 19900, 36000, 44000, 49800, 1300, 670, 13400, 97…
+## $ price   &lt;dbl&gt; 69400, 56900, 49900, 47400, 42900, 36900, 83000, 72900, 69900,…
+## $ age     &lt;dbl&gt; 3, 3, 2, 4, 4, 6, 0, 0, 2, 0, 2, 2, 4, 3, 10, 11, 4, 4, 10, 3,…
+## $ type    &lt;chr&gt; "Porsche", "Porsche", "Porsche", "Porsche", "Porsche", "Porsch…
+```
+
+The data set contains prices for Porsche and Jaguar cars for sale
+on cars.com.
+
+.vocab[`type`]: car make (Jaguar or Porsche)
+
+.vocab[`price`]: price in USD
+
+.vocab[`age`]: age of the car in years
+
+.vocab[`mileage`]: previous miles driven
+
+
+---
+
+## Single numerical predictor 
+
+
+```r
+mod_pr_age &lt;- lm(price ~ age, data = sports_car_prices)
+tidy(mod_pr_age)
+```
+
+```
+## # A tibble: 2 × 5
+##   term        estimate std.error statistic  p.value
+##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+## 1 (Intercept)   53246.     3322.     16.0  5.70e-23
+## 2 age           -2149.      466.     -4.62 2.22e- 5
+```
+
+`$$\widehat{price} = 53246- 2149 ~age_{years}$$`
+
+---
+
+## Single categorical predictor (2 levels)
+
+
+```r
+mod_pr_type &lt;- lm(price ~ type, data = sports_car_prices)
+tidy(mod_pr_type)
+```
+
+```
+## # A tibble: 2 × 5
+##   term        estimate std.error statistic  p.value
+##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+## 1 (Intercept)   31957.     2954.     10.8  1.56e-15
+## 2 typePorsche   18580      4178.      4.45 4.00e- 5
+```
+
+`$$\widehat{price} = 31956.67	 +18580 ~typePorsche$$`
+
+---
+
+## Single categorical predictor (2 levels)
+
+`$$\widehat{price} = 31956.67	 + 18580 ~typePorsche$$`
+
+What is the the average price of a Porsche?
+
+--
+
+For Porsches, `\(typePorsche = 1\)`. So the average price of Porsches is 
+`$$\widehat{price} = 31956.67	 + 18580 \times 1 =  50536.67$$`
+
+
+---
+
+
+class: center, middle
+
+## The linear model with multiple predictors
+
+
+---
+
+## The linear model with multiple predictors
+
+- Population model:
+
+`$$\hat{y} = \beta_0 + \beta_1~x_1 + \beta_2~x_2 + \cdots + \beta_p~x_p$$`
+
+where `\(p\)` is the number of explanatory variables.
+
+--
+
+- Sample model that we use to estimate the population model:
+  
+`$$\hat{y} = b_0 + b_1~x_1 + b_2~x_2 + \cdots + b_p~x_p$$`
+
+
+---
+
+## Price and age
+
+&lt;img src="18-mlr-intro_files/figure-html/unnamed-chunk-5-1.png" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+
+## Price vs. age and make
+
+.question[
+Can we model simultaneously model the relationships between the age and make of a used car and its price?
+]
+
+&lt;img src="18-mlr-intro_files/figure-html/unnamed-chunk-6-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+### Modeling with multiple predictors
+
+.question[What is the linear regression model for `price` that uses both `age` and `type` of the car as predictors?]
+
+`$$\widehat{price} = \beta_{0} + \beta_{1}~ age + \beta_{2}~type$$`
+--
+
+- Our estimated linear regression model:
+
+
+```r
+m_main &lt;- lm(price ~ age + type, data = sports_car_prices)
+m_main %&gt;%
+  tidy() %&gt;%
+  select(term, estimate)
+```
+
+```
+## # A tibble: 3 × 2
+##   term        estimate
+##   &lt;chr&gt;          &lt;dbl&gt;
+## 1 (Intercept)   44310.
+## 2 age           -2487.
+## 3 typePorsche   21648.
+```
+
+--
+
+.midi[
+$$ \widehat{price} = 44310 - 2487~age + 21648~typePorsche $$
+]
+
+---
+
+### Different lines for each level
+
+.alert[
+$$ \widehat{price} = 44310 - 2487~age + 21648~typePorsche $$
+]
+
+
+- What is the linear model for Porsches? Plug in 1 for `typePorsche`:
+
+`$$\begin{align}\widehat{price}_{porsche} &amp;= 44310 - 2487~age + 21648 \times 1 \\
+&amp;= 65958 - 2487~age\\\end{align}$$`
+
+--
+
+- What is the linear model for Jaguars? Plug in 0 for `typePorsche`:
+
+
+`$$\begin{align}\widehat{price}_{jaguar} &amp;= 44310 - 2487~age + 21648 \times 0\\
+&amp;= 44310 - 2487~age\\\end{align}$$`
+
+---
+
+### Different lines for each level (cont.)
+
+.alert[
+**Jaguar**
+
+`$$\begin{align}\widehat{price}_{jaguar} = 44310 - 2487~age\\\end{align}$$`
+
+**Porsche**
+
+`$$\begin{align}\widehat{price}_{porsche} = 65958 - 2487~age\\\end{align}$$`
+]
+
+- Rate of change in price as the age of the car increases does not depend on 
+make of car (.vocab[same coefficient for age!])
+
+- Porsches are consistently more expensive than Jaguars (.vocab[different intercepts])
+
+---
+
+### Different lines for each level (cont.)
+
+&lt;img src="18-mlr-intro_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Interpretation
+
+
+```
+## # A tibble: 3 × 2
+##   term        estimate
+##   &lt;chr&gt;          &lt;dbl&gt;
+## 1 (Intercept)   44310.
+## 2 age           -2487.
+## 3 typePorsche   21648.
+```
+
+
+
+.alert[
+$$ \widehat{price} = 44310 - 2487~age + 21648~typePorsche $$
+]
+
+--
+
+- **All else held constant**, for each additional year of a car's age, the price of the car is predicted to *decrease*, on average, by $2,487.
+
+--
+
+- **All else held constant**, Porsches are predicted, on average, to have a 
+price that is $21,648 greater than Jaguars.
+
+--
+
+- Jaguars that are new (`age` = 0) are predicted, on average, to have a price of $44,309.
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"slideNumberFormat": "%current%",
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

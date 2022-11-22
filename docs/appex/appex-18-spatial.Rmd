@@ -1,0 +1,93 @@
+---
+title: "AppEx 19: Chipotle"
+date: "12/2/2022"
+output: 
+  html_document: 
+    theme: readable
+editor_options: 
+  chunk_output_type: console
+---
+
+## Packages and Data
+
+The packages you will need for this AppEx are listed below. You may need to install some of them. If so, install the appropriate packages in the Console!
+
+```{r packages, message = FALSE, warning = FALSE}
+library(tidyverse)
+library(sf) 
+library(spData) 
+library(RColorBrewer)
+```
+
+Today's data set comes from the [Kaggle](https://www.kaggle.com/datasets/jeffreybraun/chipotle-locations?resource=download), and contains the locations of each Chipotle location in the US as of 07/27/2020. Someone scraped this data from Chipotle.
+
+The variables are 
+
+- `state`: county name
+- `location`: number of registered voters
+- `address`: number of individuals who have voted
+- `latitude`: number of mail ballots returned and accepted
+- `longitude`: number of mail ballots rejected
+
+We will also use the `us_states` `sf` object from the `spData` library to map the contiguous US.
+
+```{r}
+chipotle <- read.csv("data/chipotle_stores.csv")
+data("us_states")
+```
+
+## Exercises
+
+### Exercise 1: warm-up
+
+Let's map the US! Replace the underscores with the `sf` object stored as `us_states`. Then add the appropriate `geom_xx()` layer. Make it such that each state is outlined in a color of your choice!
+
+```{r eval = F}
+ggplot(_____) +
+  ## add geom layer here +
+  labs(x = "Longitude", y = "Latitude")
+```
+
+
+
+### Exercise 2: layer
+
+Now let's use the `chipotle` data to create a visualize the locations of each store. Copy and paste your code from Exercise 1 and then replace the underscores appropriately. 
+
+```{r eval = F}
+# code from Exercise 1 +
+  geom_point(data = ____, aes(x = ___, y = ____), size = 0.1)
+```
+
+### Exercise 3: wrangle
+
+Create a new data frame `chipotle_counts` that contains the count of the number of Chipotle locations for each `state`. 
+
+Then, create a new data frame called `chipotle_state` by using an appropriate join between `us_states` and `chipotle_counts`. 
+
+```{r ex3}
+# wrangle!
+```
+
+### Exercise 4: fill
+
+Time to visualize! Using `chipotle` state, visualize the map of the US where each state is filled in by its number of Chipotle locations. Here, you will see if you chose the appropriate join function. If something doesn't look right, go back to Exercise 3 and choose a different join!
+
+```{r ex4}
+# map!
+```
+
+### Exercise 5: customize
+
+Copy and paste the plotting code in Exercise 4 below. Using the `brewer.pal()` function from the library `RColorBrewer` (you may need to install it), choose a different color palette. You must pass in two arguments:
+
+- `n`: the number of different colors in the palette (3-maximum).
+
+- `name`: the name of the palette. Select one of (in quotes): BrBG, PiYG, PRGn, PuOr, RdBu, RdGy, RdYlBu, RdYlGn, Spectral.
+
+  - For these palettes, the maximum possible `n` is 11.
+
+```{r eval = F}
+# paste your code from Ex. 4 here +
+  scale_fill_gradientn(colors = brewer.pal(n = __, name = "___"))
+```
