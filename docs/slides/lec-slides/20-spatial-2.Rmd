@@ -177,6 +177,19 @@ leaflet(airports_count) %>%
 
 ---
 
+## Change base map
+
+```{r}
+leaflet(airports_count) %>% 
+  addProviderTiles(providers$Stamen.Watercolor) %>%  #<<
+  addCircleMarkers(lng=~lon, lat=~lat, popup=~faa, 
+                   radius = ~count/1000, stroke = FALSE, fillOpacity = 0.5) %>%
+  setView(-100, 40, zoom = 4) 
+```
+
+
+---
+
 class: center, middle
 
 # YOUR TURN!

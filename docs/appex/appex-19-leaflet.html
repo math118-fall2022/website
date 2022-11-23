@@ -401,6 +401,9 @@ display the Chipotle locations. Specifically, use the
 <code>add_markers()</code> function with appropriate arguments for
 <code>lng</code> and <code>lat</code>. You should use three functions in
 total!</p>
+<p><strong>Optional</strong>: add the argument
+<code>clusterOptions = markerClusterOptions()</code> into your last
+function call. What does this do?</p>
 </div>
 <div id="exercise-2" class="section level3">
 <h3>Exercise 2</h3>
@@ -451,11 +454,10 @@ I’m not sure if it’s illegal to us it…</p>
 <p>Go online and find the longitude-latitude coordinates of the Chipotle
 headquarters. Add them into the following data frame:</p>
 <pre class="r"><code>chipotle_hq &lt;- data.frame(longitude = ____, latitude = ____)</code></pre>
-<p>Lastly, copy your code from Exercise 3 and paste it into the
-following code chunk. You will see another <code>addMarkers()</code>
-function that adds the <code>chipotle_hq</code> data to your leaflet
-visualization. Within this function, customize the marker as
-follows:</p>
+<p>Copy your code from Exercise 3 and paste it into the following code
+chunk. You will see another <code>addMarkers()</code> function that adds
+the <code>chipotle_hq</code> data to your leaflet visualization. Within
+this function, customize the marker as follows:</p>
 <ul>
 <li>Set the longitude and latitude appropriately</li>
 <li>The phrase “Chipotle HQ” should appear when you click on the
@@ -465,6 +467,15 @@ marker</li>
 </ul>
 <pre class="r"><code># paste code here %&gt;%
   addMarkers(data = chipotle_hq, _________)</code></pre>
+</div>
+<div id="optional-change-base-map" class="section level3">
+<h3>Optional: change base map</h3>
+<p>Here, you try changing the base map above from the default provided
+by <code>addTiles</code>. Replace the <code>addTiles()</code> function
+with <code>addProviderTiles(providers$____)</code>, where the underlines
+should be one of the options provided at <a href="http://leaflet-extras.github.io/leaflet-providers/preview/index.html" class="uri">http://leaflet-extras.github.io/leaflet-providers/preview/index.html</a>.
+For example,
+<code>addProviderTiles(providers$OpenStreetMap.HOT)</code>.</p>
 </div>
 </div>
 
