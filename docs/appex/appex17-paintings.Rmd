@@ -6,12 +6,7 @@ output:
     theme: readable
 ---
 
-## Announcements
-
-Your project Github repositories have been created. Reminder that your project proposal is due next Friday, July 9 at 11:59pm. Use the file `project-proposal.Rmd` to write your proposal.
-
-
-## Exercises 
+## Data and Introduction
 
 ```{r load-packages, include = FALSE}
 library(tidyverse)
@@ -26,7 +21,7 @@ paintings <- read.csv("data/paris_paintings.csv",
 ```
 
 We will be looking at data about Paris Paintings in today's application exercise.
-These data were collected by Hilary Coe Cronheim and Sandra van Ginhoven (Duke Art, Art History & Visual Studies PhD students) as part of the Data Expeditions project sponsored by [iiD](https://bigdata.duke.edu/). These data consist of the physical and artistic features of paintings featured in printed catalogues of 28 auction sales in Paris, 1764-1780. In total, these students analyzed 3,393 paintings, their prices, and descriptive details from sales catalogues over 60 variables
+These data were collected by Hilary Coe Cronheim and Sandra van Ginhoven (previous PhD students at Duke University Art, Art History & Visual Studies) as part of the Data Expeditions project sponsored by [iiD](https://bigdata.duke.edu/). These data consist of the physical and artistic features of paintings featured in printed catalogues of 28 auction sales in Paris, 1764-1780. In total, these students analyzed 3,393 paintings, their prices, and descriptive details from sales catalogues over 60 variables
 
 We'll primarily focus on the variables: 
 
@@ -34,9 +29,15 @@ We'll primarily focus on the variables:
 - `Width_in`: Width (in inches)
 - `landsALL`: If any type of landscape is mentioned (either lands_sc, lands_figs, or lands_ment)
 
+## Exercises
+
+### Exercise 0
+
+Go onto GitHub and edit the `README.md` file to complete the data dictionary (Becky will show you how to do this). 
+
 ### Exercise 1
 
-Right now, `landsALL` is coded as a numeric variable in the dataset. Modify the dataset to make `landsALL` a factor so R treats it as categorical variable.
+First, **pull your changes**! Right now, `landsALL` is coded as a numeric variable in the dataset. Modify the dataset to make `landsALL` a factor so R treats it as a categorical or factor variable.
 
 
 ### Exercise 2
@@ -48,6 +49,7 @@ Create a scatterplot to visualize the relationship between width and height. Col
 ### Exercise 3
 
 Based on your scatterplot, does the relationship between Height and Width differ between paintings with landscape elements and those without? Briefly explain.  
+
 
 ### Exercise 4
 
@@ -74,10 +76,4 @@ How do the slopes compare between the two models? How do the intercepts compare?
 
 ### Exercise 7
 
-Now let's see how well the model fits the data. Use the `glance` function to calculate $R^2$ for you model.
-
-
-
-### Exercise 8
-
-Interpret the $R^2$.
+Now let's see how well the model fits the data. Obtain the $R^2$ for your model and interpret it!
