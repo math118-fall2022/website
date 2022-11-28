@@ -182,7 +182,7 @@ lessons:
  - date: "Wednesday, Nov. 30"
    title: "Multiple linear regression (MLR)"
    #slides: "lec-slides/18-mlr-intro.html"
-   #appex: "appex17-paintings.html"
+   appex: "appex17-paintings.html"
  - title: "HW 08 due at 11:59pm"
  - date: "Friday, Dec. 2"
    title: "Spatial data visualization: Part 1"

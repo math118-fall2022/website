@@ -1,0 +1,95 @@
+---
+title: "Spatial visualization: notes and live code"
+output: html_document
+date: "12/2/2022"
+editor_options: 
+  chunk_output_type: console
+---
+
+You may need to install some of these packages. If so, install the necessary packages in the Console!
+
+```{r setup, message = F, warning = F}
+library(tidyverse)
+library(sf) # for spatial mapping
+library(RColorBrewer) # for fun colors
+```
+
+## LECTURE NOTES
+
+### Simple visualization
+
+```{r fig.height = 2, eval = F}
+nc <- st_read("data/nc_votes.shp", quiet = TRUE)
+
+ggplot(___) + 
+  ______ + 
+  labs(title = "North Carolina counties")
+```
+
+### Choropleth map
+
+```{r fig.height = 2, eval = F}
+ggplot(nc) +
+  geom_sf(aes(fill = ____)) + 
+  labs(title = "Higher population counties have more votes cast",
+       fill = "Total votes cast") 
+```
+
+### Customize colors
+
+```{r fig.height = 2, eval = F}
+ggplot(nc) +
+  geom_sf(aes(fill = ____)) +
+  scale_fill_gradient(low = "____", high = "____")
+```
+
+
+### More informative map?
+
+```{r fig.height = 2, eval = F}
+ggplot(nc) +
+  geom_sf(aes(fill = ____)) +
+  scale_fill_gradient(low = "____", high = "____") +
+  labs(fill = "Votes cast per registered voter", 
+       title = "Early vote turnout varies by county") 
+#+ theme(legend.position = "____", legend.direction = "____")
+```
+
+
+## LIVE CODE
+
+Recall `nycflights13` library which had all kinds information about all the flights out of NYC airports in 2013. In particular, the `flights` data frame contains the data for all flights that departed NYC, and `airports` contains useful metadata about the airports.
+
+```{r message = F, warning = F}
+library(spData) # for one of the datasets we will use
+data("us_states")
+library(nycflights13)
+data(airports)
+data(flights)
+```
+
+## Mapping states
+
+```{r fig.height = 2}
+## code here
+```
+
+## Mapping airports
+
+```{r fig.height = 2}
+## code here
+```
+
+## Wrangle
+
+What if we wanted each point to represent the number of flights that flew to those airports from NYC? 
+
+```{r}
+## code here
+```
+
+## Mapping airport counts
+
+```{r fig.height = 2}
+## code here
+```
