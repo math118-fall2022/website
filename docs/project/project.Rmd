@@ -6,15 +6,24 @@ output:
      toc_float: true
      fig_caption: false
 ---
-Partner choices (selected or random) due **Saturday, November 5 at 11:59pm**
 
-Proposals due **Friday, November 18 at 11:59pm**
+# Important dates and links
 
-Draft component due **Friday, December 2 at 11:59pm**
+### Dates
 
-Report, slides, and repository due **Thursday, December 8 at 11:59pm**
+- Partner choices (selected or random) due **Saturday, November 5 at 11:59pm**
 
-Presentations will occur on **Friday, December 9 and Monday, December 12 during class**
+- Proposals due **Friday, November 18 at 11:59pm**
+
+- Draft component due **Friday, December 2 at 11:59pm**
+
+- Report, slides, and repository due **Thursday, December 8 at 11:59pm**
+
+- Presentations will occur on **Friday, December 9 and Monday, December 12 during class**
+
+### Links
+
+Sign up for 15-minute meetings via Calendly here. If you need more time, book consecutive meetings: https://calendly.com/beckytang/project-meeting
 
 # Introduction
 
