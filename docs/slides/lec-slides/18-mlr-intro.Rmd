@@ -66,6 +66,14 @@ library(patchwork)
 
 ---
 
+## Houskeeping
+
+- HW 08 due tonight at 11:59pm!
+
+- Sign up for meetings regarding your project via the Calendly link found on the project description!
+
+---
+
 class: center, middle
 
 ## Review
