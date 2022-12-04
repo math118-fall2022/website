@@ -1,6 +1,6 @@
 ---
 title: "AppEx 19: Chipotle"
-date: "12/2/2022"
+date: "12/5/2022"
 output: 
   html_document: 
     theme: readable
@@ -52,7 +52,7 @@ ggplot(_____) +
 
 ### Exercise 2: layer
 
-Now let's use the `chipotle` data to create a visualize the locations of each store. Copy and paste your code from Exercise 1 and then replace the underscores appropriately. 
+Now let's use the `chipotle` data to create a visualization the locations of each store. Copy and paste your code from Exercise 1 and then replace the underscores appropriately. 
 
 ```{r eval = F}
 # code from Exercise 1 +
@@ -79,7 +79,7 @@ Time to visualize! Using `chipotle` state, visualize the map of the US where eac
 
 ### Exercise 5: customize
 
-Copy and paste the plotting code in Exercise 4 below. Using the `brewer.pal()` function from the library `RColorBrewer` (you may need to install it), choose a different color palette. You must pass in two arguments:
+Copy and paste the plotting code in Exercise 4 below. Using the `brewer.pal()` function from the library `RColorBrewer`, choose a different color palette. You must pass in two arguments:
 
 - `n`: the number of different colors in the palette (3-maximum).
 

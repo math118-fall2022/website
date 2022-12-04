@@ -1,7 +1,7 @@
 ---
 title: "Data science ethics"
 author: "Becky Tang"
-date: "10/12/2022"
+date: "12/1/2022"
 output:
   xaringan::moon_reader:
     mathjax: "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML"
@@ -68,7 +68,9 @@ library(tidyverse)
 
  - Algorithmic bias
 
- - Privacy
+ - Privacy?
+ 
+ - Simpson's paradox
 
 ---
 
@@ -104,51 +106,6 @@ Is this visualization telling the complete story? What's missing?
 
 .footnote[Credit: [Statistics How To](https://www.statisticshowto.com/probability-and-statistics/descriptive-statistics/misleading-graphs/)]
 
----
-
-.question[
-...smoking cigarettes can help you live longer?
-]
-
-```{r echo=FALSE, out.width = "50%"}
-  knitr::include_graphics("img/09/cigarettes1.png")
-```
-
-.footnote[ [How Charts Lie: Getting Smarter About Visual Information](https://wwnorton.com/books/9781324001560) ]
-
----
-
-> Missing information
-
-
-```{r echo=FALSE, out.width = "50%"}
-  knitr::include_graphics("img/09/cigarettes2.png")
-```
-
-.footnote[ [How Charts Lie: Getting Smarter About Visual Information](https://wwnorton.com/books/9781324001560) ]
-
----
-
-
-> Simpson's paradox
-
-
-```{r echo=FALSE, out.width = "50%"}
-knitr::include_graphics("img/09/cigarettes3.png")
-```
-
-.footnote[ [How Charts Lie: Getting Smarter About Visual Information](https://wwnorton.com/books/9781324001560) ]
-
----
-
-> Individual level
-
-
-```{r echo=FALSE, out.width = "70%", fig.align='center'}
-knitr::include_graphics("img/09/cigarettes4.png")
-```
-
-.footnote[ [How Charts Lie: Getting Smarter About Visual Information](https://wwnorton.com/books/9781324001560) ]
 
 ---
 
@@ -216,7 +173,7 @@ Obermeyer, Z., Powers, B., Vogeli, C., & Mullainathan, S. (2019). [Dissecting ra
 
 ## Bias in health care risk algorithm
 
-```{r out.width = "50%"}
+```{r out.width = "45%"}
 knitr::include_graphics("img/09/illness_expenditure.png")
 ```
 
@@ -224,19 +181,19 @@ knitr::include_graphics("img/09/illness_expenditure.png")
 
 ---
 
-## Bias in health care risk algorithm
+### Bias in health care risk algorithm
 
-.pull-left[
-```{r out.width = "70%"}
+```{r out.width = "45%"}
 knitr::include_graphics("img/09/risk_expenditure.png")
 ```
-]
 
-.pull-right[
-```{r out.width = "70%"}
+---
+
+### Bias in health care risk algorithm
+
+```{r out.width = "45%"}
 knitr::include_graphics("img/09/risk_illness.png")
 ```
-]
 
 
 
@@ -321,6 +278,7 @@ class: middle, center
 
 - Crop the images as if you were uploading them to social media
 
+
 ---
 
 
@@ -364,19 +322,12 @@ by Glad You Asked
 
 ---
 
-## Activity
-
-- Read about how this actually played out and Twitter’s response when presented with evidence of bias in their cropping algorithm.
-
-  - Do you think Twitter’s response was appropriate?
-  
-  - What are the risks and potential harms of systems, such as social media platforms like Twitter, becoming too dependent on machine learning?
-
----
-
 ## Twitter's response
 
-- Conducted a study using photos of celebrities from Wikidata
+- ["Algorithmic bug bounties"](https://www.theguardian.com/technology/2021/aug/10/twitters-image-cropping-algorithm-prefers-younger-slimmer-faces-with-lighter-skin-analysis)
+
+- Conducted an internal study using photos of celebrities from Wikidata
+
 
 --
 
@@ -429,6 +380,326 @@ knitr::include_graphics("img/09/facebook-cambridge-analytica-explained.jpg")
 <br>
 
 [How Cambridge Analytica turned Facebook 'likes' into a lucrative political tool](https://www.theguardian.com/technology/2018/mar/17/facebook-cambridge-analytica-kogan-data-algorithm)
+
+---
+
+class: middle, center
+
+## Simpson's paradox
+
+---
+
+## Simpson's paradox
+
+- Not considering an important variable when studying a relationship can result in <font class="vocab">Simpson's paradox</font>, a phenomenon in which the omission of one explanatory variable can affect the measure of association between another explanatory variable and a response variable. 
+
+
+- In other words, the inclusion of a third variable in the analysis can change the apparent relationship between the other two variables. 
+
+---
+
+## Simpson's paradox
+
+```{r simpsons_plot, echo=FALSE, message=FALSE,fig.align="center", fig.height=2, fig.width=3}
+df <- tribble(
+  ~x1, ~y, ~x2,
+  2,   4,  0,
+  3,   3,  0,
+  4,   2,  0,
+  5,   1,  0,
+  6,   11, 1,
+  7,   10, 1,
+  8,   9,  1,
+  9,   8,  1
+)
+ggplot() +
+  geom_point(data = df, aes(x1, y)) +
+  geom_smooth(data = df, aes(x1, y), method = lm, se = FALSE, 
+              color = "black", linetype = "dashed")
+```
+
+---
+
+## Simpson's paradox 
+
+```{r simpsons_plot2, echo=FALSE, message=FALSE,fig.align="center", fig.height=2, fig.width=3}
+ggplot() +
+  geom_point(data = df, aes(x1, y, color = factor(x2))) +
+  geom_smooth(data = df, aes(x1, y, color = factor(x2)), method = lm) +
+  geom_smooth(data = df, aes(x1, y), method = lm, se = FALSE, 
+              color = "black", linetype = "dashed") +
+  labs(color = "x2")
+```
+
+---
+
+## Berkeley Admissions
+
+UC Berkeley admission figures for Fall of 1973:
+
+| | Admit | Deny | Total |
+|----|----|-----|-----|
+|Men | 3738 |  4704 | 8442|
+|Women| 1494 | 2827 | 4321 |
+|Total| 5232 | 7531 | 12763|
+
+<br>
+
+.question[
+- What is probability of admission?
+]
+
+--
+
+.question[
+$P(\text{admission}) = \dfrac{\text{# admitted}}{\text{# applied}} = \dfrac{5232}{12763} \approx 0.41$
+]
+
+---
+
+
+## Practicing with probabilities
+
+| | Admit | Deny | Total |
+|----|----|-----|-----|
+|Men | 3738 |  4704 | 8442|
+|Women| 1494 | 2827 | 4321 |
+|Total| 5232 | 7531 | 12763|
+
+.question[
+- $\small{P(\text{admit among men}) =}$ ?
+- $\small{P(\text{admit among women})=}$ ? 
+]
+
+--
+
+.question[
+- $P(\text{admit among men}) = \dfrac{3738}{8442} \approx 0.44$ 
+- $P(\text{admit among women}) = \dfrac{1494}{4321} \approx 0.35$ 
+]
+
+---
+
+## Berkeley Admissions
+
+- Study of gender bias
+
+  - Men who applied were more likely than women to be admitted (44% vs 35%)
+  
+  - The difference was so large that it was unlikely to be due to chance!
+  
+--
+
+- However, the data given omitted information about the departments that the people were applying to
+
+  - We will look at the six largest departments: A, B, C, D, E, F
+
+---
+
+## Glimpse of data in tidy form
+
+```{r admissions_data, echo = F}
+department <- c(rep("A", 933), rep("B", 585), rep("C", 918), rep("D", 792), rep("E", 584), rep("F", 714))
+apply <- c(rep("Male: Admit", 511), rep("Male: Deny", 314 ), rep("Female: Admit", 89), rep("Female: Deny", 19),
+           rep("Male: Admit", 353), rep("Male: Deny", 207 ), rep("Female: Admit", 17), rep("Female: Deny", 8),
+           rep("Male: Admit", 120), rep("Male: Deny", 205 ), rep("Female: Admit", 202), rep("Female: Deny", 391),
+           rep("Male: Admit", 138), rep("Male: Deny", 279 ), rep("Female: Admit", 131), rep("Female: Deny", 244),
+           rep("Male: Admit", 54), rep("Male: Deny", 137 ), rep("Female: Admit", 94), rep("Female: Deny", 299),
+           rep("Male: Admit", 22), rep("Male: Deny", 351 ), rep("Female: Admit", 24), rep("Female: Deny", 317))
+
+admissions <- data.frame(department = factor(department), apply = apply) %>% 
+  mutate(gender = if_else(str_detect(apply, "Female"), "female", "male"), 
+         decision = if_else(str_detect(apply, "Admit"), "admit", "deny")) %>%
+  mutate(decision = factor(decision, levels = c("deny", "admit"))) %>%
+  dplyr::select(-apply) 
+```
+
+```{r glimpse_berkley}
+glimpse(admissions)
+```
+
+.footnote[
+[https://en.wikipedia.org/wiki/Simpson%27s_paradox](https://en.wikipedia.org/wiki/Simpson%27s_paradox)
+]
+
+---
+
+## Overall distribution of acceptance by gender
+
+.question[
+  What type of visualization would be appropriate for representing this data?
+]
+
+```{r berkley_prop}
+admissions %>%
+  count(gender, decision) %>%
+  group_by(gender) %>%
+  mutate(prop_admit = n / sum(n))
+```
+
+---
+
+## Overall distribution of acceptance
+
+```{r berkley_hist, echo = F, fig.width=8, fig.height=4}
+ggplot(admissions, mapping = aes(x = gender, fill = decision))+
+  geom_bar(position = "fill") +
+  labs(y = "", title = "Admission decisions by gender")+
+  theme(text = element_text(size = 20))
+```
+
+---
+
+
+## Closer look
+
+Let's look at data from the six largest departments, labeled A-F:
+
+| Department | Female: Admit | Female: Total | Male: Admit | Male: Total
+|------------|---------|-----|-------|------|
+| A       | 89      | 108  | 511   | 825|
+| B   | 17     | 25  | 353   | 560 |
+| C   | 202      | 593  | 120    | 227 |
+| D |  131     | 375  | 138    | 417 |
+| E   | 94       | 393   | 54    | 191|
+| F      | 24     | 341 | 22   | 373
+
+
+
+
+---
+
+### UC Berkeley admissions: within a given department
+
+.question[
+  Within each department, what is the probability of admittance for each gender? 
+]
+
+| Department | Female: Admit | Female: Total | Male: Admit | Male: Total|
+|------------|---------|-----|-------|------|
+| A       | 89      | 108  | 511   | 825|
+| B   | 17     | 25  | 353   | 560 |
+| C   | 202      | 593  | 120    | 227 |
+| D |  131     | 375  | 138    | 417 |
+| E   | 94       | 393   | 54    | 191|
+| F      | 24     | 341 | 22   | 373|
+
+---
+
+
+
+## Distribution of acceptance by department
+
+
+```{r berkley_prop_group, echo = T}
+admissions %>%
+  count(department, gender, decision) %>%
+  group_by(department, gender) %>%
+  mutate(prop_admit = n / sum(n)) 
+```
+
+---
+
+
+
+## Distribution of acceptance by department
+
+```{r berkley_hist_facet,fig.height=4.5, fig.width=9, echo = F}
+ggplot(admissions, mapping = aes(x = gender, fill = decision))+
+  geom_bar(position = "fill") +
+  facet_wrap(~department) +
+  labs(y = "", title = "Admission decisions by gender and department")
+```
+
+---
+
+## UC Berkeley admissions: closer look
+
+| Department | Female: Total | Female: Acceptance | Male: Total | Male: Acceptance |
+|------------|---------|-----|-------|------|
+| A       | 108      |  0.82 | 825 | 0.62 |
+| B   | 25     |  0.68  | 560   | 0.63 |
+| C   | 593     | 0.34  | 227    | 0.37 |
+| D |  375    | 0.35  | 417    | 0.33 |
+| E   | 393      | 0.24   | 191    | 0.28 |
+| F      | 341     | 0.07 | 373   | 0.06 |
+
+--
+
+
+- Rank departments by total number of male applicants
+
+
+- Rank departments by total number of female applicants
+
+--
+
+.question[Are the departments uniform in their admission rates?] 
+
+--
+
+  - Notice how **A** and **B** have highest acceptance! What does this mean?
+
+---
+
+## UC Berkeley admissions: plot
+
+```{r bickel_plot, echo=FALSE, out.width=400, fig.align="center"}
+knitr::include_graphics("img/08/bickel.png")
+```
+
+<br>
+
+.footnote[
+  [https://homepage.stat.uiowa.edu/~mbognar/1030/Bickel-Berkeley.pdf](https://homepage.stat.uiowa.edu/~mbognar/1030/Bickel-Berkeley.pdf)
+]
+
+
+---
+
+.question[
+...smoking cigarettes can help you live longer?
+]
+
+```{r echo=FALSE, out.width = "50%"}
+  knitr::include_graphics("img/09/cigarettes1.png")
+```
+
+.footnote[ [How Charts Lie: Getting Smarter About Visual Information](https://wwnorton.com/books/9781324001560) ]
+
+---
+
+> Missing information
+
+
+```{r echo=FALSE, out.width = "50%"}
+  knitr::include_graphics("img/09/cigarettes2.png")
+```
+
+.footnote[ [How Charts Lie: Getting Smarter About Visual Information](https://wwnorton.com/books/9781324001560) ]
+
+---
+
+
+> Simpson's paradox
+
+
+```{r echo=FALSE, out.width = "50%"}
+knitr::include_graphics("img/09/cigarettes3.png")
+```
+
+.footnote[ [How Charts Lie: Getting Smarter About Visual Information](https://wwnorton.com/books/9781324001560) ]
+
+---
+
+> Individual level
+
+
+```{r echo=FALSE, out.width = "70%", fig.align='center'}
+knitr::include_graphics("img/09/cigarettes4.png")
+```
+
+.footnote[ [How Charts Lie: Getting Smarter About Visual Information](https://wwnorton.com/books/9781324001560) ]
 
 ---
 
